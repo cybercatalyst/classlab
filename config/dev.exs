@@ -36,8 +36,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :classlab, Classlab.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("LOGNAME"),
+  password: "",
   database: "classlab_dev",
   hostname: "localhost",
   pool_size: 10
