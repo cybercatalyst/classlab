@@ -37,7 +37,9 @@ defmodule Classlab.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix, "~> 1.2.0"},
-      {:postgrex, ">= 0.0.0"}
+      {:postgrex, ">= 0.0.0"},
+      {:credo, "~> 0.4.5", only: [:dev, :test]},
+      {:inch_ex, "~> 0.5", only: :docs}
     ]
   end
 

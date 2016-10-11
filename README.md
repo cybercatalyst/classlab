@@ -1,4 +1,4 @@
-# Classlab
+# Classlab [![Inline docs](http://inch-ci.org/github/classlab/classlab.svg)](http://inch-ci.org/github/classlab/classlab)
 
 To start your Phoenix app:
 
