@@ -31,15 +31,16 @@ defmodule Classlab.Mixfile do
     [
       {:bamboo, "~> 0.7"},
       {:cowboy, "~> 1.0"},
+      {:credo, "~> 0.4.5", only: [:dev, :test]},
+      {:dialyxir, "~> 0.3.5", only: :dev},
       {:gettext, "~> 0.11"},
+      {:inch_ex, "~> 0.5", only: :docs},
       {:phoenix_ecto, "~> 3.0"},
       {:phoenix_html, "~> 2.6"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix, "~> 1.2.0"},
-      {:postgrex, ">= 0.0.0"},
-      {:credo, "~> 0.4.5", only: [:dev, :test]},
-      {:inch_ex, "~> 0.5", only: :docs}
+      {:postgrex, ">= 0.0.0"}
     ]
   end
 
