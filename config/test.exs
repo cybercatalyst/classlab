@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :classlab, Classlab.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("LOGNAME"),
+  password: "",
   database: "classlab_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
