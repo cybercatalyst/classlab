@@ -1,9 +1,17 @@
 # Classlab [![Build Status](https://travis-ci.org/classlab/classlab.svg?branch=master)](https://travis-ci.org/classlab/classlab) [![Inline docs](http://inch-ci.org/github/classlab/classlab.svg)](http://inch-ci.org/github/classlab/classlab)
 
+
+## Installation
+
+**Requirements**
+
+* PostgreSQL
+
+
 To start your Phoenix app:
 
   * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
+  * Set up the project the first time `mix setup`
   * Install Node.js dependencies with `npm install`
   * Start Phoenix endpoint with `mix phoenix.server`
 
