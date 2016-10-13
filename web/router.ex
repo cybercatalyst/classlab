@@ -18,6 +18,7 @@ defmodule Classlab.Router do
 
     get "/", PageController, :index
     resources "/events", EventController
+    resources "/memberships", MembershipController
   end
 
   # Other scopes may use custom stacks.
