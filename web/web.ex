@@ -32,7 +32,7 @@ defmodule Classlab.Web do
     quote do
       use Phoenix.Controller
 
-      alias Classlab.Repo
+      alias Classlab.{Repo, Mailer}
       import Ecto
       import Ecto.Query
 
@@ -72,6 +72,13 @@ defmodule Classlab.Web do
       import Ecto
       import Ecto.Query
       import Classlab.Gettext
+    end
+  end
+
+  def mailer do
+    quote do
+      import Bamboo.Email
+      import Classlab.Router.Helpers
     end
   end
 
