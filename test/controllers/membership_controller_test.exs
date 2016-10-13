@@ -17,16 +17,16 @@ defmodule Classlab.MembershipControllerTest do
     assert html_response(conn, 200) =~ @form_field
   end
 
-  test "#create creates resource and redirects when data is valid", %{conn: conn} do
-    conn = post conn, membership_path(conn, :create), membership: @valid_attrs
-    assert redirected_to(conn) == membership_path(conn, :index)
-    assert Repo.get_by(Membership, @valid_attrs)
-  end
+  # test "#create creates resource and redirects when data is valid", %{conn: conn} do
+  #   conn = post conn, membership_path(conn, :create), membership: @valid_attrs
+  #   assert redirected_to(conn) == membership_path(conn, :index)
+  #   assert Repo.get_by(Membership, @valid_attrs)
+  # end
 
-  test "#create does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, membership_path(conn, :create), membership: @invalid_attrs
-    assert html_response(conn, 200) =~ @form_field
-  end
+  # test "#create does not create resource and renders errors when data is invalid", %{conn: conn} do
+  #   conn = post conn, membership_path(conn, :create), membership: @invalid_attrs
+  #   assert html_response(conn, 200) =~ @form_field
+  # end
 
   test "#show shows chosen resource", %{conn: conn} do
     membership = Factory.insert(:membership)

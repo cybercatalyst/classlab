@@ -1,6 +1,6 @@
 defmodule Classlab.EventTest do
-  use Classlab.ModelCase
   alias Classlab.Event
+  use Classlab.ModelCase
 
   @valid_attrs Factory.params_for(:event)
   @invalid_attrs %{}

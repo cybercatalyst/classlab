@@ -1,7 +1,6 @@
 defmodule Classlab.UserTest do
-  use Classlab.ModelCase
-
   alias Classlab.User
+  use Classlab.ModelCase
 
   @valid_attrs Factory.params_for(:user)
   @invalid_attrs %{}
