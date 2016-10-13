@@ -50,7 +50,7 @@ defmodule Classlab.EventControllerTest do
   test "#update updates chosen resource and redirects when data is valid", %{conn: conn} do
     event = Factory.insert(:event)
     conn = put conn, event_path(conn, :update, event), event: @valid_attrs
-    assert redirected_to(conn) == event_path(conn, :show, event)
+    assert redirected_to(conn) == event_path(conn, :show, @valid_attrs.slug)
     assert Repo.get_by(Event, @valid_attrs)
   end
 
