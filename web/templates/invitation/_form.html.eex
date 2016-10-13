@@ -5,14 +5,15 @@
     </div>
   <% end %>
 
-  <%= input f, :event_id %>
   <%= input f, :email %>
-  <%= input f, :first_name %>
-  <%= input f, :last_name %>
+
+  <div class="row">
+    <div class="col-md-6"><%= input f, :first_name %></div>
+    <div class="col-md-6"><%= input f, :last_name %></div>
+  </div>
 
   <div class="btn-toolbar">
     <%= submit "Submit", class: "btn btn-primary" %>
-
     <%= link "Back", to: event_invitation_path(@conn, :index, @event), class: "btn btn-secondary" %>
   </div>
 <% end %>

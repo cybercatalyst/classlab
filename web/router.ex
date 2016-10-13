@@ -27,7 +27,7 @@ defmodule Classlab.Router do
     delete "/logout", SessionController, :delete
 
     resources "/events", EventController do
-      resources "/invitations", InvitationController
+      resources "/invitations", InvitationController, except: [:edit, :update]
     end
     resources "/memberships", MembershipController
   end

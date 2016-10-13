@@ -1,26 +1,24 @@
 <table class="table">
   <tr>
     <th>Public</th>
-    <th>Slug</th>
     <th>Name</th>
-    <th>Description</th>
     <th>Starts at</th>
     <th>Ends at</th>
-    <th>Timezone</th>
-
+    <th>City</th>
+    <th>Invitations</th>
     <th></th>
   </tr>
   <%= for event <- @events do %>
     <tr>
       <td><%= event.public %></td>
-      <td><%= event.slug %></td>
-      <td><%= link event.name, to: event_path(@conn, :show, event) %></td>
-      <td><%= event.description %></td>
-      <td><%= event.starts_at %></td>
-      <td><%= event.ends_at %></td>
-      <td><%= event.timezone %></td>
-      <td><%= event.location.name %></td>
-
+      <td>
+        <%= link event.name, to: event_path(@conn, :show, event) %><br>
+        <small class="text-muted"><%= event.description %></small>
+      </td>
+      <td><%= l(event.starts_at) %></td>
+      <td><%= l(event.ends_at) %></td>
+      <td><%= event.location.city %></td>
+      <td><%= link length(event.invitations), to: event_invitation_path(@conn, :index, event) %></td>
       <td>
         <%= link "Edit", to: event_path(@conn, :edit, event), class: "btn btn-default btn-sm" %>
         <%= link "Delete", to: event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>

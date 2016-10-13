@@ -33,6 +33,5 @@
 </ul>
 
 <div class="btn-toolbar">
-  <%= link "Edit", to: event_invitation_path(@conn, :edit, @event, @invitation), class: "btn btn-primary" %>
   <%= link "Back", to: event_invitation_path(@conn, :index, @event), class: "btn btn-secondary" %>
 </div>
