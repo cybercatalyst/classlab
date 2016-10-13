@@ -9,8 +9,14 @@ defmodule Classlab.Event do
     field :starts_at, Ecto.DateTime
     field :ends_at, Ecto.DateTime
     field :timezone, :string
-
     timestamps()
+
+    # has_one :location, Classlab.Location
+    # has_many :feedbacks, Classlab.Feedback
+    # has_many :invitations, Classlab.Invitation
+    # has_many :materials, Classlab.Material
+    # has_many :memberships, Classlab.Membership
+    # has_many :tasks, Classlab.Task
   end
 
   @doc """
