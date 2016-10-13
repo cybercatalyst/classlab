@@ -24,6 +24,7 @@ defmodule Classlab.Membership do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
+    |> validate_required(~w(user_id event_id role)a)
   end
 
   # Model Functions

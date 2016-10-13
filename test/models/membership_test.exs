@@ -6,7 +6,7 @@ defmodule Classlab.MembershipTest do
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    changeset = Membership.changeset(%Membership{}, @valid_attrs)
+    changeset = Membership.changeset(%Membership{event_id: 1, user_id: 1}, @valid_attrs)
     assert changeset.errors == []
   end
 

@@ -11,7 +11,8 @@ defmodule Classlab.Factory do
       invitation_token_active: false,
       starts_at: Calendar.DateTime.subtract(Calendar.DateTime.now_utc(), 3600),
       ends_at: Calendar.DateTime.add(Calendar.DateTime.now_utc(), 3600),
-      timezone: "Berlin/Europe"
+      timezone: "Berlin/Europe",
+      location: build(:location)
     }
   end
 
@@ -21,17 +22,17 @@ defmodule Classlab.Factory do
       last_name: "Doe",
       email: sequence(:email, &"john-#{&1}@example.com"),
       access_token: sequence(:access_token, &"access-token-#{&1}"),
-      access_token_expired_at: Calendar.DateTime.add(Calendar.DateTime.now_utc(), 3600),
+      access_token_expired_at: Calendar.DateTime.add(Calendar.DateTime.now_utc(), 60 * 15),
       superadmin: false
     }
   end
 
   def location_factory do
     %Classlab.Location{
-      name: "Meet and Greet with Sascha and Marting",
-      address_line_1: "Koppstadtplatz 24",
+      name: "Meet and Greet with Sascha and Martin",
+      address_line_1: "Kopstadtplatz 24/25",
       city: "Essen",
-      zipcode: "12345",
+      zipcode: "45127",
       country: "Germany"
     }
   end
