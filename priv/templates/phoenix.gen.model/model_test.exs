@@ -7,11 +7,11 @@ defmodule <%= module %>Test do
 
   test "changeset with valid attributes" do
     changeset = <%= alias %>.changeset(%<%= alias %>{}, @valid_attrs)
-    assert changeset.valid?
+    assert changeset.errors == []
   end
 
   test "changeset with invalid attributes" do
     changeset = <%= alias %>.changeset(%<%= alias %>{}, @invalid_attrs)
-    refute changeset.valid?
+    refute changeset.errors == []
   end
 end

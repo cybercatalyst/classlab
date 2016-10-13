@@ -7,11 +7,11 @@ defmodule Classlab.MembershipTest do
 
   test "changeset with valid attributes" do
     changeset = Membership.changeset(%Membership{}, @valid_attrs)
-    assert changeset.valid?
+    assert changeset.errors == []
   end
 
   test "changeset with invalid attributes" do
     changeset = Membership.changeset(%Membership{}, @invalid_attrs)
-    refute changeset.valid?
+    refute changeset.errors == []
   end
 end

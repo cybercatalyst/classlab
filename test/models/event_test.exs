@@ -7,11 +7,11 @@ defmodule Classlab.EventTest do
 
   test "changeset with valid attributes" do
     changeset = Event.changeset(%Event{}, @valid_attrs)
-    assert changeset.valid?
+    assert changeset.errors == []
   end
 
   test "changeset with invalid attributes" do
     changeset = Event.changeset(%Event{}, @invalid_attrs)
-    refute changeset.valid?
+    refute changeset.errors == []
   end
 end

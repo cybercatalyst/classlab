@@ -8,11 +8,11 @@ defmodule Classlab.UserTest do
 
   test "changeset with valid attributes" do
     changeset = User.changeset(%User{}, @valid_attrs)
-    assert changeset.valid?
+    assert changeset.errors == []
   end
 
   test "changeset with invalid attributes" do
     changeset = User.changeset(%User{}, @invalid_attrs)
-    refute changeset.valid?
+    refute changeset.errors == []
   end
 end
