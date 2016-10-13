@@ -35,6 +35,7 @@ defmodule Classlab.Mixfile do
       {:dialyxir, "~> 0.3.5", only: :dev},
       {:gettext, "~> 0.11"},
       {:inch_ex, "~> 0.5", only: :docs},
+      {:mix_test_watch, "~> 0.2", only: :dev},
       {:phoenix_ecto, "~> 3.0"},
       {:phoenix_html, "~> 2.6"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
