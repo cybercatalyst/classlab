@@ -21,7 +21,7 @@ defmodule Classlab.ConnCase do
       use Phoenix.ConnTest
 
       alias Classlab.Repo
-      alias ClassLab.Factory
+      alias Classlab.Factory
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
