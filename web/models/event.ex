@@ -15,7 +15,6 @@ defmodule Classlab.Event do
     field :starts_at, Ecto.DateTime
     field :ends_at, Ecto.DateTime
     field :timezone, :string
-
     timestamps()
 
     # has_one :location, Classlab.Location
@@ -29,10 +28,13 @@ defmodule Classlab.Event do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
+  @fields [:public, :slug, :name, :description, :invitation_token, :invitation_token_active,
+           :starts_at, :ends_at, :timezone]
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:public, :slug, :name, :description, :invitation_token, :invitation_token_active, :starts_at, :ends_at, :timezone])
-    |> validate_required([:public, :slug, :name, :description, :invitation_token, :invitation_token_active, :starts_at, :ends_at, :timezone])
+    |> cast(params, @fields)
+    |> validate_required([:public, :slug, :name, :description, :invitation_token,
+         :invitation_token_active, :starts_at, :ends_at, :timezone])
     |> unique_constraint(:slug)
     |> unique_constraint(:invitation_token)
   end

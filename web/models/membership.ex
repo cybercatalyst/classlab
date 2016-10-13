@@ -1,4 +1,9 @@
 defmodule Classlab.Membership do
+  @moduledoc """
+  A membership connects users with events.
+  The role determines access rights.
+  Possible roles: owner, trainer, attendee
+  """
   use Classlab.Web, :model
 
   # Fields
@@ -8,7 +13,6 @@ defmodule Classlab.Membership do
     field :seat_position_y, :integer
     belongs_to :user, Classlab.User
     belongs_to :event, Classlab.Event
-
     timestamps()
   end
 

@@ -1,4 +1,8 @@
 defmodule Classlab.Location do
+  @moduledoc """
+  A location always belongts to one event. Maybe later we
+  could reuse events.
+  """
   use Classlab.Web, :model
 
   # Fields
@@ -10,7 +14,6 @@ defmodule Classlab.Location do
     field :city, :string
     field :country, :string
     field :external_url, :string
-
     timestamps()
   end
 
