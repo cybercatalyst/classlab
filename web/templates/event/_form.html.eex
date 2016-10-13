@@ -2,6 +2,7 @@
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
+      <%= inspect @changeset.errors %>
     </div>
   <% end %>
 
@@ -15,6 +16,7 @@
       <%= input f, :starts_at %>
       <%= input f, :ends_at %>
       <%= input f, :timezone %>
+      <%= input f, :invitation_token %>
     </div>
     <div class="col-md-6">
       <h4>Location settings</h4>

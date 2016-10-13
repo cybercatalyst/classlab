@@ -24,7 +24,7 @@ defmodule Classlab.Location do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> validate_required(~w(name address_line_1 address_line_2 zipcode city country)a)
+    |> validate_required(~w(name address_line_1 zipcode city country)a)
   end
 
   # Model Functions

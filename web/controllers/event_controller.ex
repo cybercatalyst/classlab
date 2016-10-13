@@ -34,6 +34,7 @@ defmodule Classlab.EventController do
     event =
       Event
       |> Repo.get!(id)
+      |> Repo.preload(:location)
 
     render(conn, "show.html", event: event)
   end

@@ -33,6 +33,7 @@ defmodule Classlab.Event do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
+    |> cast_assoc(:location, required: true)
     |> validate_required([:public, :slug, :name, :description, :invitation_token,
          :invitation_token_active, :starts_at, :ends_at, :timezone])
     |> unique_constraint(:slug)
