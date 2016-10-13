@@ -5,6 +5,7 @@ defmodule Classlab.Event do
   """
   use Classlab.Web, :model
 
+  # Fields
   @derive {Phoenix.Param, key: :slug}
   schema "events" do
     field :public, :boolean, default: false
@@ -26,9 +27,7 @@ defmodule Classlab.Event do
     # has_many :tasks, Classlab.Task
   end
 
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
+  # Changesets & Validations
   @fields [:public, :slug, :name, :description, :invitation_token, :invitation_token_active,
            :starts_at, :ends_at, :timezone]
   def changeset(struct, params \\ %{}) do
