@@ -1,6 +1,6 @@
 defmodule <%= module %>ControllerTest do
-  use <%= base %>.ConnCase
   alias <%= module %>
+  use <%= base %>.ConnCase
 
   @valid_attrs Factory.params_for(:<%= singular %>) |> Map.take(~w[<%= attrs |> Keyword.keys |> Enum.join(" ") %>]a)
   @invalid_attrs %{<%= attrs |> Enum.at(0) |> elem(0) %>: ""}

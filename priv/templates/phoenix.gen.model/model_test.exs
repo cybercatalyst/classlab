@@ -1,6 +1,6 @@
 defmodule <%= module %>Test do
-  use <%= base %>.ModelCase
   alias <%= module %>
+  use <%= base %>.ModelCase
 
   @valid_attrs <%= inspect params %>
   @invalid_attrs %{}

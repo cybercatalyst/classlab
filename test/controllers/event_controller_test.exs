@@ -1,6 +1,6 @@
 defmodule Classlab.EventControllerTest do
-  use Classlab.ConnCase
   alias Classlab.Event
+  use Classlab.ConnCase
 
   @valid_attrs Factory.params_for(:event) |> Map.take(~w[public slug name description starts_at ends_at timezone]a)
   @invalid_attrs %{public: ""}
