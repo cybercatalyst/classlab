@@ -17,6 +17,7 @@ defmodule Classlab.ModelCase do
   using do
     quote do
       alias Classlab.Repo
+      alias Classlab.Factory
 
       import Ecto
       import Ecto.Changeset

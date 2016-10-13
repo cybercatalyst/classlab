@@ -30,6 +30,8 @@ defmodule Classlab.Mixfile do
   defp deps do
     [
       {:bamboo, "~> 0.7"},
+      {:calecto, "~> 0.16.0"},
+      {:calendar, "~> 0.16.0"},
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.4.5", only: [:dev, :test]},
       {:dialyxir, "~> 0.3.5", only: :dev},

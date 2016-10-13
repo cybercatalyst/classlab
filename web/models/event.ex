@@ -12,8 +12,8 @@ defmodule Classlab.Event do
     field :description, :string
     field :invitation_token, :string
     field :invitation_token_active, :boolean, default: false
-    field :starts_at, Ecto.DateTime
-    field :ends_at, Ecto.DateTime
+    field :starts_at, Calecto.DateTimeUTC
+    field :ends_at, Calecto.DateTimeUTC
     field :timezone, :string
     timestamps()
 
