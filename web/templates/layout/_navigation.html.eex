@@ -6,4 +6,11 @@
       <%= link "Events", to: event_path(@conn, :index), class: "nav-link" %>
     <% end %>
   </ul>
+
+  <ul class="nav navbar-nav pull-xs-right">
+    <%= content_tag :li, class: "nav-item" do %>
+      <%= link "Login", to: session_path(@conn, :new), class: "btn btn-outline-success" %>
+    <% end %>
+  </ul>
+
 </nav>
