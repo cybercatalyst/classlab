@@ -14,7 +14,6 @@ config :classlab, Classlab.Endpoint,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
                     cd: Path.expand("../", __DIR__)]]
 
-
 # Watch static and templates for browser reloading.
 config :classlab, Classlab.Endpoint,
   live_reload: [
@@ -41,3 +40,6 @@ config :classlab, Classlab.Repo,
   database: "classlab_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :classlab, Classlab.Mailer,
+  adapter: Bamboo.LocalAdapter

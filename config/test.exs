@@ -17,3 +17,6 @@ config :classlab, Classlab.Repo,
   database: "classlab_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :classlab, Classlab.Mailer,
+  adapter: Bamboo.TestAdapter
