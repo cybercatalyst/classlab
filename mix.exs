@@ -55,6 +55,7 @@ defmodule Classlab.Mixfile do
       "setup": ["ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "credo": ["credo --strict"],
       "s": ["phoenix.server"],
       "test": ["ecto.create --quiet", "ecto.migrate", "test"]
     ]

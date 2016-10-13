@@ -1,4 +1,8 @@
 defmodule Classlab.User do
+  @moduledoc """
+  User model. A user can't access events directly but only by membership.
+  The membership determines the role: owner, trainer, attendee.
+  """
   use Classlab.Web, :model
 
   schema "users" do

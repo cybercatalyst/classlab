@@ -1,4 +1,8 @@
 defmodule Classlab.Event do
+  @moduledoc """
+  Event model. An event is connected with an user by a membership.
+  Location information is a separate model.
+  """
   use Classlab.Web, :model
 
   schema "events" do
