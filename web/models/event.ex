@@ -10,9 +10,12 @@ defmodule Classlab.Event do
     field :slug, :string
     field :name, :string
     field :description, :string
+    field :invitation_token, :string
+    field :invitation_token_active, :boolean, default: false
     field :starts_at, Ecto.DateTime
     field :ends_at, Ecto.DateTime
     field :timezone, :string
+
     timestamps()
 
     # has_one :location, Classlab.Location
@@ -28,8 +31,9 @@ defmodule Classlab.Event do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:public, :slug, :name, :description, :starts_at, :ends_at, :timezone])
-    |> validate_required([:public, :slug, :name, :description, :starts_at, :ends_at, :timezone])
+    |> cast(params, [:public, :slug, :name, :description, :invitation_token, :invitation_token_active, :starts_at, :ends_at, :timezone])
+    |> validate_required([:public, :slug, :name, :description, :invitation_token, :invitation_token_active, :starts_at, :ends_at, :timezone])
     |> unique_constraint(:slug)
+    |> unique_constraint(:invitation_token)
   end
 end
