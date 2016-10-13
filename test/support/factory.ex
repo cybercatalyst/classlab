@@ -1,4 +1,5 @@
 defmodule Classlab.Factory do
+  alias Calecto.DateTimeUTC
   use ExMachina.Ecto, repo: Classlab.Repo
 
   def event_factory do
@@ -9,8 +10,8 @@ defmodule Classlab.Factory do
       description: "My awesome event!",
       invitation_token: sequence(:invitation_token, &"inivitation-token-#{&1}"),
       invitation_token_active: false,
-      starts_at: Calendar.DateTime.subtract(Calendar.DateTime.now_utc(), 3600),
-      ends_at: Calendar.DateTime.add(Calendar.DateTime.now_utc(), 3600),
+      starts_at: DateTimeUTC.cast!("2001-07-29T01:02:03"),
+      ends_at: DateTimeUTC.cast!("2001-07-29T01:02:03"),
       timezone: "Berlin/Europe",
       location: build(:location)
     }
@@ -22,7 +23,7 @@ defmodule Classlab.Factory do
       last_name: "Doe",
       email: sequence(:email, &"john-#{&1}@example.com"),
       access_token: sequence(:access_token, &"access-token-#{&1}"),
-      access_token_expired_at: Calendar.DateTime.add(Calendar.DateTime.now_utc(), 60 * 15),
+      access_token_expired_at: DateTimeUTC.cast!("2001-07-29T01:02:03"),
       superadmin: false
     }
   end

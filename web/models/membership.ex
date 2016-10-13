@@ -9,8 +9,8 @@ defmodule Classlab.Membership do
   # Fields
   schema "memberships" do
     field :role, :integer
-    field :seat_position_x, :integer
-    field :seat_position_y, :integer
+    field :seat_position_x, :integer, default: 0
+    field :seat_position_y, :integer, default: 0
     timestamps()
 
     belongs_to :user, Classlab.User
@@ -24,7 +24,7 @@ defmodule Classlab.Membership do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> validate_required(~w(user_id event_id role)a)
+    |> validate_required(~w(user_id event_id role seat_position_x seat_position_y)a)
   end
 
   # Model Functions
