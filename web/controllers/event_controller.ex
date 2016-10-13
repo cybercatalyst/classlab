@@ -8,6 +8,7 @@ defmodule Classlab.EventController do
     events =
       Event
       |> Repo.all()
+      |> Repo.preload(:location)
 
     render(conn, "index.html", events: events)
   end
@@ -43,6 +44,7 @@ defmodule Classlab.EventController do
     event =
       Event
       |> Repo.get!(id)
+      |> Repo.preload(:location)
 
     changeset = Event.changeset(event)
     render(conn, "edit.html", event: event, changeset: changeset)
@@ -52,6 +54,7 @@ defmodule Classlab.EventController do
     event =
       Event
       |> Repo.get!(id)
+      |> Repo.preload(:location)
 
     changeset = Event.changeset(event, event_params)
 

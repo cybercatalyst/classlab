@@ -19,7 +19,8 @@
       <td><%= event.starts_at %></td>
       <td><%= event.ends_at %></td>
       <td><%= event.timezone %></td>
-  
+      <td><%= event.location.name %></td>
+
       <td>
         <%= link "Show", to: event_path(@conn, :show, event), class: "btn btn-default btn-sm" %>
         <%= link "Edit", to: event_path(@conn, :edit, event), class: "btn btn-default btn-sm" %>
