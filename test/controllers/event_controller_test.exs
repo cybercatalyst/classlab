@@ -4,12 +4,12 @@ defmodule Classlab.EventControllerTest do
 
   @valid_attrs Factory.params_for(:event) |> Map.take(~w[public slug name description starts_at ends_at timezone]a)
   @invalid_attrs %{public: ""}
-  @form_field "event_public"
+  @form_field "event_name"
 
   test "#index lists all entries on index", %{conn: conn} do
     event = Factory.insert(:event)
     conn = get conn, event_path(conn, :index)
-    assert html_response(conn, 200) =~ event.public
+    assert html_response(conn, 200) =~ event.name
   end
 
   test "#new renders form for new resources", %{conn: conn} do
@@ -31,7 +31,7 @@ defmodule Classlab.EventControllerTest do
   test "#show shows chosen resource", %{conn: conn} do
     event = Factory.insert(:event)
     conn = get conn, event_path(conn, :show, event)
-    assert html_response(conn, 200) =~ event.public
+    assert html_response(conn, 200) =~ event.name
   end
 
   test "#show renders page not found when id is nonexistent", %{conn: conn} do

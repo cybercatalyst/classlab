@@ -4,12 +4,12 @@ defmodule Classlab.MembershipControllerTest do
 
   @valid_attrs Factory.params_for(:membership) |> Map.take(~w[user_id event_id role seat_position_x seat_position_y]a)
   @invalid_attrs %{user_id: ""}
-  @form_field "membership_user_id"
+  @form_field "membership_role"
 
   test "#index lists all entries on index", %{conn: conn} do
     membership = Factory.insert(:membership)
     conn = get conn, membership_path(conn, :index)
-    assert html_response(conn, 200) =~ membership.user_id
+    assert html_response(conn, 200) =~ "Role"
   end
 
   test "#new renders form for new resources", %{conn: conn} do
