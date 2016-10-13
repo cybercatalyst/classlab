@@ -6,8 +6,8 @@ defmodule Classlab.Repo.Migrations.CreateMembership do
       add :role, :integer, null: false
       add :seat_position_x, :integer, null: false, default: 0
       add :seat_position_y, :integer, null: false, default: 0
-      add :user_id, references(:users, on_delete: :nothing), null: false
-      add :event_id, references(:events, on_delete: :nothing), null: false
+      add :user_id, references(:users, on_delete: :delete_all), null: false
+      add :event_id, references(:events, on_delete: :delete_all), null: false
       timestamps()
     end
     create index(:memberships, [:user_id])

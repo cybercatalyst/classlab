@@ -17,11 +17,11 @@ defmodule Classlab.Event do
     field :timezone, :string
     timestamps()
 
-    # has_one :location, Classlab.Location
+    belongs_to :location, Classlab.Location
+    has_many :memberships, Classlab.Membership, on_delete: :delete_all
     # has_many :feedbacks, Classlab.Feedback
     # has_many :invitations, Classlab.Invitation
     # has_many :materials, Classlab.Material
-    # has_many :memberships, Classlab.Membership
     # has_many :tasks, Classlab.Task
   end
 

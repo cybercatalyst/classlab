@@ -5,13 +5,38 @@
     </div>
   <% end %>
 
-  <%= input f, :public %>
-  <%= input f, :slug %>
-  <%= input f, :name %>
-  <%= input f, :description, using: :textarea %>
-  <%= input f, :starts_at %>
-  <%= input f, :ends_at %>
-  <%= input f, :timezone %>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Event settings</h4>
+      <%= input f, :public %>
+      <%= input f, :slug %>
+      <%= input f, :name %>
+      <%= input f, :description, using: :textarea %>
+      <%= input f, :starts_at %>
+      <%= input f, :ends_at %>
+      <%= input f, :timezone %>
+    </div>
+    <div class="col-md-6">
+      <h4>Location settings</h4>
+      <%= inputs_for f, :location, fn fl -> %>
+        <%= input fl, :name %>
+        <div class="row">
+          <div class="col-md-6"><%= input fl, :address_line_1 %></div>
+          <div class="col-md-6"><%= input fl, :address_line_2 %></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><%= input fl, :zipcode %></div>
+          <div class="col-md-8"><%= input fl, :city %></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6"><%= input fl, :country %></div>
+          <div class="col-md-6"><%= input fl, :external_url %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>

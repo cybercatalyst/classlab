@@ -13,8 +13,9 @@ defmodule Classlab.User do
     field :access_token, :string
     field :access_token_expired_at, Ecto.DateTime
     field :superadmin, :boolean
-
     timestamps()
+
+    has_many :memberships, Classlab.Membership, on_delete: :delete_all
   end
 
   @doc """

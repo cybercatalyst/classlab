@@ -11,9 +11,10 @@ defmodule Classlab.Membership do
     field :role, :integer
     field :seat_position_x, :integer
     field :seat_position_y, :integer
+    timestamps()
+
     belongs_to :user, Classlab.User
     belongs_to :event, Classlab.Event
-    timestamps()
   end
 
   # Composable Queries
