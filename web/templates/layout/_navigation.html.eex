@@ -1,0 +1,9 @@
+<nav class="navbar navbar-light bg-faded">
+  <%= link "Classlab", to: page_path(@conn, :index), class: "navbar-brand" %>
+
+  <ul class="nav navbar-nav ">
+    <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["events"], do: " active")}" do %>
+      <%= link "Events", to: event_path(@conn, :index), class: "nav-link" %>
+    <% end %>
+  </ul>
+</nav>
