@@ -17,14 +17,11 @@ defmodule Classlab.Factory do
     }
   end
 
-  def user_factory do
-    %Classlab.User{
-      first_name: "John",
-      last_name: "Doe",
+  def invitation_factory do
+    %Classlab.Invitation{
       email: sequence(:email, &"john-#{&1}@example.com"),
-      access_token: sequence(:access_token, &"access-token-#{&1}"),
-      access_token_expired_at: DateTimeUTC.cast!("2001-07-29T01:02:03"),
-      superadmin: false
+      invitation_token: "17e8cfb9-4f55-4946-9fe7-a740fea2d08a",
+      event: build(:event)
     }
   end
 
@@ -43,6 +40,17 @@ defmodule Classlab.Factory do
       user: build(:user),
       event: build(:event),
       role: 1
+    }
+  end
+
+  def user_factory do
+    %Classlab.User{
+      first_name: "John",
+      last_name: "Doe",
+      email: sequence(:email, &"john-#{&1}@example.com"),
+      access_token: sequence(:access_token, &"access-token-#{&1}"),
+      access_token_expired_at: DateTimeUTC.cast!("2001-07-29T01:02:03"),
+      superadmin: false
     }
   end
 end

@@ -2,54 +2,51 @@ defmodule Classlab.InvitationControllerTest do
   alias Classlab.Invitation
   use Classlab.ConnCase
 
-  @valid_attrs Factory.params_for(:invitation) |> Map.take(~w[event_id email first_name last_name invitation_token completed_at]a)
-  @invalid_attrs %{event_id: ""}
-  @form_field "invitation_event_id"
+  @valid_attrs Factory.params_for(:invitation) |> Map.take(~w[email]a)
+  @invalid_attrs %{email: ""}
+  @form_field "invitation_email"
 
   test "#index lists all entries on index", %{conn: conn} do
     invitation = Factory.insert(:invitation)
-    conn = get conn, invitation_path(conn, :index)
-    assert html_response(conn, 200) =~ invitation.event_id
+    conn = get conn, event_invitation_path(conn, :index, invitation.event)
+    assert html_response(conn, 200) =~ invitation.email
   end
 
   test "#new renders form for new resources", %{conn: conn} do
-    conn = get conn, invitation_path(conn, :new)
+    event = Factory.insert(:event)
+    conn = get conn, event_invitation_path(conn, :new, event)
     assert html_response(conn, 200) =~ @form_field
   end
 
   test "#create creates resource and redirects when data is valid", %{conn: conn} do
-    conn = post conn, invitation_path(conn, :create), invitation: @valid_attrs
-    assert redirected_to(conn) == invitation_path(conn, :index)
+    event = Factory.insert(:event)
+    conn = post conn, event_invitation_path(conn, :create, event), invitation: @valid_attrs
+    assert redirected_to(conn) == event_invitation_path(conn, :index, event)
     assert Repo.get_by(Invitation, @valid_attrs)
   end
 
   test "#create does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, invitation_path(conn, :create), invitation: @invalid_attrs
+    event = Factory.insert(:event)
+    conn = post conn, event_invitation_path(conn, :create, event), invitation: @invalid_attrs
     assert html_response(conn, 200) =~ @form_field
   end
 
   test "#show shows chosen resource", %{conn: conn} do
     invitation = Factory.insert(:invitation)
-    conn = get conn, invitation_path(conn, :show, invitation)
-    assert html_response(conn, 200) =~ invitation.event_id
+    conn = get conn, event_invitation_path(conn, :show, invitation.event, invitation)
+    assert html_response(conn, 200) =~ invitation.email
   end
 
   test "#show renders page not found when id is nonexistent", %{conn: conn} do
     assert_error_sent 404, fn ->
-      get conn, invitation_path(conn, :show, -1)
+      get conn, event_invitation_path(conn, :show, -1, -1)
     end
-  end
-
-  test "#edit renders form for editing chosen resource", %{conn: conn} do
-    invitation = Factory.insert(:invitation)
-    conn = get conn, invitation_path(conn, :edit, invitation)
-    assert html_response(conn, 200) =~ @form_field
   end
 
   test "#delete deletes chosen resource", %{conn: conn} do
     invitation = Factory.insert(:invitation)
-    conn = delete conn, invitation_path(conn, :delete, invitation)
-    assert redirected_to(conn) == invitation_path(conn, :index)
+    conn = delete conn, event_invitation_path(conn, :delete, invitation.event, invitation)
+    assert redirected_to(conn) == event_invitation_path(conn, :index, invitation.event)
     refute Repo.get(Invitation, invitation.id)
   end
 end
