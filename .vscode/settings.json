@@ -1,0 +1,22 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "_build": true,
+    ".mix_tasks": true,
+    ".vscode": true,
+    "node_modules": true,
+    "deps": true
+  },
+  "search.exclude": {
+    "priv/static": true,
+    "priv/templates": true,
+    "priv/repo/structure.sql": true,
+    "node_modules": true,
+    "deps": true
+  },
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+  "files.trimTrailingWhitespace": true
+}
