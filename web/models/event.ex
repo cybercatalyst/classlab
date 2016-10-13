@@ -34,9 +34,15 @@ defmodule Classlab.Event do
     struct
     |> cast(params, @fields)
     |> cast_assoc(:location, required: true)
+    |> generate_invitation_token()
     |> validate_required([:public, :slug, :name, :description, :invitation_token,
          :invitation_token_active, :starts_at, :ends_at, :timezone])
     |> unique_constraint(:slug)
     |> unique_constraint(:invitation_token)
+  end
+
+  defp generate_invitation_token(struct, length \\ 6) do
+    token = length |> :crypto.strong_rand_bytes |> Base.url_encode64 |> binary_part(0, length)
+    put_change(struct, :invitation_token, token)
   end
 end

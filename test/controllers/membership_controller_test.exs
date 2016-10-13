@@ -2,12 +2,12 @@ defmodule Classlab.MembershipControllerTest do
   alias Classlab.Membership
   use Classlab.ConnCase
 
-  @valid_attrs Factory.params_for(:membership) |> Map.take(~w[user_id event_id role seat_position_x seat_position_y]a)
-  @invalid_attrs %{user_id: ""}
+  @valid_attrs Factory.params_for(:membership) |> Map.take(~w[role seat_position_x seat_position_y]a)
+  @invalid_attrs %{role: nil}
   @form_field "membership_role"
 
   test "#index lists all entries on index", %{conn: conn} do
-    membership = Factory.insert(:membership)
+    Factory.insert(:membership)
     conn = get conn, membership_path(conn, :index)
     assert html_response(conn, 200) =~ "Role"
   end
@@ -31,7 +31,7 @@ defmodule Classlab.MembershipControllerTest do
   test "#show shows chosen resource", %{conn: conn} do
     membership = Factory.insert(:membership)
     conn = get conn, membership_path(conn, :show, membership)
-    assert html_response(conn, 200) =~ membership.user_id
+    assert html_response(conn, 200) =~ "Role"
   end
 
   test "#show renders page not found when id is nonexistent", %{conn: conn} do

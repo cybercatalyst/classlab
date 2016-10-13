@@ -3,6 +3,7 @@ defmodule Classlab.EventControllerTest do
   use Classlab.ConnCase
 
   @valid_attrs Factory.params_for(:event) |> Map.take(~w[public slug name description starts_at ends_at timezone]a)
+
   @invalid_attrs %{public: ""}
   @form_field "event_name"
 
@@ -18,7 +19,7 @@ defmodule Classlab.EventControllerTest do
   end
 
   test "#create creates resource and redirects when data is valid", %{conn: conn} do
-    conn = post conn, event_path(conn, :create), event: @valid_attrs
+    conn = post conn, event_path(conn, :create), event: Map.put(@valid_attrs, :location, Factory.params_for(:location))
     assert redirected_to(conn) == event_path(conn, :index)
     assert Repo.get_by(Event, @valid_attrs)
   end
