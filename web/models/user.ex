@@ -23,5 +23,7 @@ defmodule Classlab.User do
     struct
     |> cast(params, @fields)
     |> validate_required([:first_name, :last_name, :email, :access_token, :access_token_expired_at])
+    |> unique_constraint(:email)
+    |> unique_constraint(:access_token)
   end
 end

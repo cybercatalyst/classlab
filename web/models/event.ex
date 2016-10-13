@@ -30,5 +30,6 @@ defmodule Classlab.Event do
     struct
     |> cast(params, [:public, :slug, :name, :description, :starts_at, :ends_at, :timezone])
     |> validate_required([:public, :slug, :name, :description, :starts_at, :ends_at, :timezone])
+    |> unique_constraint(:slug)
   end
 end

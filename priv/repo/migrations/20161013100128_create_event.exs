@@ -13,5 +13,7 @@ defmodule Classlab.Repo.Migrations.CreateEvent do
 
       timestamps()
     end
+
+    create unique_index(:events, [:slug])
   end
 end
