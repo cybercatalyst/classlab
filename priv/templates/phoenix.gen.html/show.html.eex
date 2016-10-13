@@ -1,0 +1,13 @@
+<ul>
+<%= for {k, _} <- attrs do %>
+  <li>
+    <strong><%= Phoenix.Naming.humanize(Atom.to_string(k)) %>:</strong>
+    <%= "<%=" %> @<%= singular %>.<%= k %> <%= "%\>" %>
+  </li>
+<% end %>
+</ul>
+
+<div class="btn-toolbar">
+  <%= "<%=" %> link "Edit", to: <%= singular %>_path(@conn, :edit, @<%= singular %>), class: "btn btn-primary" <%= "%\>" %>
+  <%= "<%=" %> link "Back", to: <%= singular %>_path(@conn, :index), class: "btn btn-secondary" <%= "%\>" %>
+</div>

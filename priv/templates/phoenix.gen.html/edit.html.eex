@@ -1,0 +1,2 @@
+<%= "<%=" %> render "form.html", conn: @conn, changeset: @changeset,
+                        action: <%= singular %>_path(@conn, :update, @<%= singular %>) <%= "%\>" %>

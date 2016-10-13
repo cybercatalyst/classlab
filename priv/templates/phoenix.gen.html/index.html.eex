@@ -1,0 +1,22 @@
+<table class="table">
+  <tr>
+<%= for {k, _} <- attrs do %>    <th><%= Phoenix.Naming.humanize(Atom.to_string(k)) %></th>
+<% end %>
+    <th></th>
+  </tr>
+  <%= "<%=" %> for <%= singular %> <- @<%= plural %> do <%= "%\>" %>
+    <tr>
+  <%= for {k, _} <- attrs do %>    <td><%= "<%=" %> <%= singular %>.<%= k %> <%= "%\>" %></td>
+  <% end %>
+      <td>
+        <%= "<%=" %> link "Show", to: <%= singular %>_path(@conn, :show, <%= singular %>), class: "btn btn-default btn-sm" <%= "%\>" %>
+        <%= "<%=" %> link "Edit", to: <%= singular %>_path(@conn, :edit, <%= singular %>), class: "btn btn-default btn-sm" <%= "%\>" %>
+        <%= "<%=" %> link "Delete", to: <%= singular %>_path(@conn, :delete, <%= singular %>), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" <%= "%\>" %>
+      </td>
+    </tr>
+  <%% end %>
+</table>
+
+<div class="btn-toolbar">
+  <%= "<%=" %> link "New <%= template_singular %>", to: <%= singular %>_path(@conn, :new), class: "btn btn-success" %>
+</div>
