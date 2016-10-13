@@ -2,7 +2,7 @@ defmodule Classlab.MembershipTest do
   alias Classlab.Membership
   use Classlab.ModelCase
 
-  @valid_attrs %{role: 42, seat_position_x: 42, seat_position_y: 42}
+  @valid_attrs Factory.params_for(:membership)
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

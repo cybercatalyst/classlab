@@ -3,7 +3,7 @@ defmodule Classlab.UserTest do
 
   alias Classlab.User
 
-  @valid_attrs %{access_token: "some content", access_token_expired_at: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, email: "some content", first_name: "some content", last_name: "some content"}
+  @valid_attrs Factory.params_for(:user)
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

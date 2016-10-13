@@ -2,7 +2,7 @@ defmodule Classlab.LocationTest do
   alias Classlab.Location
   use Classlab.ModelCase
 
-  @valid_attrs %{address_line_1: "some content", address_line_2: "some content", city: "some content", country: "some content", external_url: "some content", name: "some content", zipcode: "some content"}
+  @valid_attrs Factory.params_for(:location)
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
