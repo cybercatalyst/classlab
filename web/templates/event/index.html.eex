@@ -1,21 +1,16 @@
-<h2>Listing events</h2>
-
 <table class="table">
-  <thead>
-    <tr>
-      <th>Public</th>
-      <th>Slug</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Starts at</th>
-      <th>Ends at</th>
-      <th>Timezone</th>
+  <tr>
+    <th>Public</th>
+    <th>Slug</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Starts at</th>
+    <th>Ends at</th>
+    <th>Timezone</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for event <- @events do %>
+    <th></th>
+  </tr>
+  <%= for event <- @events do %>
     <tr>
       <td><%= event.public %></td>
       <td><%= event.slug %></td>
@@ -24,15 +19,16 @@
       <td><%= event.starts_at %></td>
       <td><%= event.ends_at %></td>
       <td><%= event.timezone %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: event_path(@conn, :show, event), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: event_path(@conn, :edit, event), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+  
+      <td>
+        <%= link "Show", to: event_path(@conn, :show, event), class: "btn btn-default btn-sm" %>
+        <%= link "Edit", to: event_path(@conn, :edit, event), class: "btn btn-default btn-sm" %>
+        <%= link "Delete", to: event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
       </td>
     </tr>
-<% end %>
-  </tbody>
+  <% end %>
 </table>
 
-<%= link "New event", to: event_path(@conn, :new) %>
+<div class="btn-toolbar">
+  <%= link "New event", to: event_path(@conn, :new), class: "btn btn-success" %>
+</div>

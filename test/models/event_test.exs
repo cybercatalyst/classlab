@@ -1,6 +1,5 @@
 defmodule Classlab.EventTest do
   use Classlab.ModelCase
-
   alias Classlab.Event
 
   @valid_attrs %{description: "some content", ends_at: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, name: "some content", public: true, slug: "some content", starts_at: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, timezone: "some content"}

@@ -1,64 +1,66 @@
 defmodule Classlab.EventControllerTest do
   use Classlab.ConnCase
-
   alias Classlab.Event
-  @valid_attrs %{description: "some content", ends_at: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, name: "some content", public: true, slug: "some content", starts_at: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, timezone: "some content"}
-  @invalid_attrs %{}
 
-  test "lists all entries on index", %{conn: conn} do
+  @valid_attrs Factory.params_for(:event) |> Map.take(~w[public slug name description starts_at ends_at timezone]a)
+  @invalid_attrs %{public: ""}
+  @form_field "event_public"
+
+  test "#index lists all entries on index", %{conn: conn} do
+    event = Factory.insert(:event)
     conn = get conn, event_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing events"
+    assert html_response(conn, 200) =~ event.public
   end
 
-  test "renders form for new resources", %{conn: conn} do
+  test "#new renders form for new resources", %{conn: conn} do
     conn = get conn, event_path(conn, :new)
-    assert html_response(conn, 200) =~ "New event"
+    assert html_response(conn, 200) =~ @form_field
   end
 
-  test "creates resource and redirects when data is valid", %{conn: conn} do
+  test "#create creates resource and redirects when data is valid", %{conn: conn} do
     conn = post conn, event_path(conn, :create), event: @valid_attrs
     assert redirected_to(conn) == event_path(conn, :index)
     assert Repo.get_by(Event, @valid_attrs)
   end
 
-  test "does not create resource and renders errors when data is invalid", %{conn: conn} do
+  test "#create does not create resource and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, event_path(conn, :create), event: @invalid_attrs
-    assert html_response(conn, 200) =~ "New event"
+    assert html_response(conn, 200) =~ @form_field
   end
 
-  test "shows chosen resource", %{conn: conn} do
-    event = Repo.insert! %Event{}
+  test "#show shows chosen resource", %{conn: conn} do
+    event = Factory.insert(:event)
     conn = get conn, event_path(conn, :show, event)
-    assert html_response(conn, 200) =~ "Show event"
+    assert html_response(conn, 200) =~ event.public
   end
 
-  test "renders page not found when id is nonexistent", %{conn: conn} do
+  test "#show renders page not found when id is nonexistent", %{conn: conn} do
     assert_error_sent 404, fn ->
       get conn, event_path(conn, :show, -1)
     end
   end
 
-  test "renders form for editing chosen resource", %{conn: conn} do
-    event = Repo.insert! %Event{}
+  test "#edit renders form for editing chosen resource", %{conn: conn} do
+    event = Factory.insert(:event)
     conn = get conn, event_path(conn, :edit, event)
-    assert html_response(conn, 200) =~ "Edit event"
+    assert html_response(conn, 200) =~ @form_field
   end
 
-  test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    event = Repo.insert! %Event{}
+  test "#update updates chosen resource and redirects when data is valid", %{conn: conn} do
+    event = Factory.insert(:event)
     conn = put conn, event_path(conn, :update, event), event: @valid_attrs
     assert redirected_to(conn) == event_path(conn, :show, event)
     assert Repo.get_by(Event, @valid_attrs)
   end
 
-  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    event = Repo.insert! %Event{}
+  test "#update does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
+    event = Factory.insert(:event)
     conn = put conn, event_path(conn, :update, event), event: @invalid_attrs
-    assert html_response(conn, 200) =~ "Edit event"
+    assert html_response(conn, 200) =~ @form_field
   end
 
-  test "deletes chosen resource", %{conn: conn} do
-    event = Repo.insert! %Event{}
+  test "#delete deletes chosen resource", %{conn: conn} do
+    event = Factory.insert(:event)
     conn = delete conn, event_path(conn, :delete, event)
     assert redirected_to(conn) == event_path(conn, :index)
     refute Repo.get(Event, event.id)

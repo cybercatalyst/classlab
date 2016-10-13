@@ -1,10 +1,14 @@
 defmodule Classlab.EventController do
+  alias Classlab.Event
   use Classlab.Web, :controller
 
-  alias Classlab.Event
+  plug :scrub_params, "event" when action in [:create, :update]
 
   def index(conn, _params) do
-    events = Repo.all(Event)
+    events =
+      Event
+      |> Repo.all()
+
     render(conn, "index.html", events: events)
   end
 
@@ -27,18 +31,27 @@ defmodule Classlab.EventController do
   end
 
   def show(conn, %{"id" => id}) do
-    event = Repo.get!(Event, id)
+    event =
+      Event
+      |> Repo.get!(id)
+
     render(conn, "show.html", event: event)
   end
 
   def edit(conn, %{"id" => id}) do
-    event = Repo.get!(Event, id)
+    event =
+      Event
+      |> Repo.get!(id)
+
     changeset = Event.changeset(event)
     render(conn, "edit.html", event: event, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "event" => event_params}) do
-    event = Repo.get!(Event, id)
+    event =
+      Event
+      |> Repo.get!(id)
+
     changeset = Event.changeset(event, event_params)
 
     case Repo.update(changeset) do
@@ -52,10 +65,10 @@ defmodule Classlab.EventController do
   end
 
   def delete(conn, %{"id" => id}) do
-    event = Repo.get!(Event, id)
+    event =
+      Event
+      |> Repo.get!(id)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
     Repo.delete!(event)
 
     conn

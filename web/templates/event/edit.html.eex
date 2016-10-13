@@ -1,6 +1,2 @@
-<h2>Edit event</h2>
-
-<%= render "_form.html", changeset: @changeset,
+<%= render "_form.html", conn: @conn, changeset: @changeset,
                         action: event_path(@conn, :update, @event) %>
-
-<%= link "Back", to: event_path(@conn, :index) %>
