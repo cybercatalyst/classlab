@@ -1,0 +1,43 @@
+<h2>Show event</h2>
+
+<ul>
+
+  <li>
+    <strong>Public:</strong>
+    <%= @event.public %>
+  </li>
+
+  <li>
+    <strong>Slug:</strong>
+    <%= @event.slug %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @event.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @event.description %>
+  </li>
+
+  <li>
+    <strong>Starts at:</strong>
+    <%= @event.starts_at %>
+  </li>
+
+  <li>
+    <strong>Ends at:</strong>
+    <%= @event.ends_at %>
+  </li>
+
+  <li>
+    <strong>Timezone:</strong>
+    <%= @event.timezone %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: event_path(@conn, :edit, @event) %>
+<%= link "Back", to: event_path(@conn, :index) %>
