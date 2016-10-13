@@ -11,6 +11,7 @@ defmodule Classlab.User do
     field :email, :string
     field :access_token, :string
     field :access_token_expired_at, Ecto.DateTime
+    field :superadmin, :boolean
 
     timestamps()
   end

@@ -6,8 +6,9 @@ defmodule Classlab.Repo.Migrations.CreateUser do
       add :first_name, :string
       add :last_name, :string
       add :email, :string, null: false
-      add :access_token, :string
-      add :access_token_expired_at, :datetime
+      add :access_token, null: false, :string
+      add :access_token_expired_at, null: false, :datetime
+      add :superadmin, :boolean, default: false, null: false
       timestamps()
     end
 
