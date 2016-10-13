@@ -14,7 +14,7 @@
     <tr>
       <td><%= event.public %></td>
       <td><%= event.slug %></td>
-      <td><%= event.name %></td>
+      <td><%= link event.name, to: event_path(@conn, :show, event) %></td>
       <td><%= event.description %></td>
       <td><%= event.starts_at %></td>
       <td><%= event.ends_at %></td>
@@ -22,7 +22,6 @@
       <td><%= event.location.name %></td>
 
       <td>
-        <%= link "Show", to: event_path(@conn, :show, event), class: "btn btn-default btn-sm" %>
         <%= link "Edit", to: event_path(@conn, :edit, event), class: "btn btn-default btn-sm" %>
         <%= link "Delete", to: event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
       </td>

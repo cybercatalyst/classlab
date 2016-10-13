@@ -5,6 +5,7 @@ defmodule Classlab.Event do
   """
   use Classlab.Web, :model
 
+  @derive {Phoenix.Param, key: :slug}
   schema "events" do
     field :public, :boolean, default: false
     field :slug, :string

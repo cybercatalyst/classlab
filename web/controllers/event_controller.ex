@@ -34,7 +34,7 @@ defmodule Classlab.EventController do
   def show(conn, %{"id" => id}) do
     event =
       Event
-      |> Repo.get!(id)
+      |> Repo.get_by!(slug: id)
       |> Repo.preload(:location)
 
     render(conn, "show.html", event: event)
@@ -43,7 +43,7 @@ defmodule Classlab.EventController do
   def edit(conn, %{"id" => id}) do
     event =
       Event
-      |> Repo.get!(id)
+      |> Repo.get_by!(slug: id)
       |> Repo.preload(:location)
 
     changeset = Event.changeset(event)
@@ -53,7 +53,7 @@ defmodule Classlab.EventController do
   def update(conn, %{"id" => id, "event" => event_params}) do
     event =
       Event
-      |> Repo.get!(id)
+      |> Repo.get_by!(slug: id)
       |> Repo.preload(:location)
 
     changeset = Event.changeset(event, event_params)
@@ -71,7 +71,7 @@ defmodule Classlab.EventController do
   def delete(conn, %{"id" => id}) do
     event =
       Event
-      |> Repo.get!(id)
+      |> Repo.get_by!(slug: id)
 
     Repo.delete!(event)
 

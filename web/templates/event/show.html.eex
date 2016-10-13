@@ -36,6 +36,10 @@
   </li>
 
 </ul>
+<p>
+  <strong>Invitation token:</strong>
+  <%= @event.invitation_token %>
+</p>
 
 <%= inspect @event.location %>
 
