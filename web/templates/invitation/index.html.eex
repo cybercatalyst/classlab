@@ -1,0 +1,32 @@
+<table class="table">
+  <tr>
+    <th>Event</th>
+    <th>Email</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Invitation token</th>
+    <th>Completed at</th>
+
+    <th></th>
+  </tr>
+  <%= for invitation <- @invitations do %>
+    <tr>
+      <td><%= invitation.event_id %></td>
+      <td><%= invitation.email %></td>
+      <td><%= invitation.first_name %></td>
+      <td><%= invitation.last_name %></td>
+      <td><%= invitation.invitation_token %></td>
+      <td><%= invitation.completed_at %></td>
+
+      <td>
+        <%= link "Show", to: event_invitation_path(@conn, :show, @event, invitation), class: "btn btn-default btn-sm" %>
+        <%= link "Edit", to: event_invitation_path(@conn, :edit, @event, invitation), class: "btn btn-default btn-sm" %>
+        <%= link "Delete", to: event_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="btn-toolbar">
+  <%= link "New invitation", to: event_invitation_path(@conn, :new, @event), class: "btn btn-success" %>
+</div>

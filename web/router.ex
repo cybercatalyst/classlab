@@ -26,7 +26,9 @@ defmodule Classlab.Router do
     post "/login", SessionController, :create
     delete "/logout", SessionController, :delete
 
-    resources "/events", EventController
+    resources "/events", EventController do
+      resources "/invitations", InvitationController
+    end
     resources "/memberships", MembershipController
   end
 end

@@ -21,8 +21,8 @@ defmodule Classlab.Event do
 
     belongs_to :location, Classlab.Location
     has_many :memberships, Classlab.Membership, on_delete: :delete_all
+    has_many :invitations, Classlab.Invitation, on_delete: :delete_all
     # has_many :feedbacks, Classlab.Feedback
-    # has_many :invitations, Classlab.Invitation
     # has_many :materials, Classlab.Material
     # has_many :tasks, Classlab.Task
   end
