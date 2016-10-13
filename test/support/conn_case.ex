@@ -20,6 +20,7 @@ defmodule Classlab.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
+      alias ClassLab.Factory
       alias Classlab.Repo
       import Ecto
       import Ecto.Changeset
