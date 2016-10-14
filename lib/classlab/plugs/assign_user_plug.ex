@@ -10,6 +10,7 @@ defmodule Classlab.AssignUserPlug do
 
   def init(opts), do: opts
 
+  def call(%Plug.Conn{assigns: %{current_user: %User{}}} = conn, _opts), do: conn
   def call(conn, _opts) do
     jwt = get_session(conn, :user_id_jwt)
 
