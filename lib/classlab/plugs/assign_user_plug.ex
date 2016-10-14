@@ -1,6 +1,6 @@
 defmodule Classlab.AssignUserPlug do
   @moduledoc false
-  alias Classlab.{JWT, Repo, User}
+  alias Classlab.{JWT.UserIdToken, Repo, User}
   import Plug.Conn
 
   def init(opts), do: opts
@@ -8,7 +8,7 @@ defmodule Classlab.AssignUserPlug do
   def call(conn, _opts) do
     user_id_jwt = get_session(conn, :user_id_jwt)
 
-    case JWT.UserIdToken.decode(user_id_jwt) do
+    case UserIdToken.decode(user_id_jwt) do
       %{"user_id" => user_id} ->
         assign_current_user(conn, user_id)
       _ ->
