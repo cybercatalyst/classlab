@@ -8,7 +8,7 @@ defmodule Classlab.EventController do
     events =
       Event
       |> Repo.all()
-      |> Repo.preload([:location, :invitations])
+      |> Repo.preload([:location, :invitations, :materials])
 
     render(conn, "index.html", events: events)
   end

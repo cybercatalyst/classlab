@@ -2,10 +2,10 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs pull-xs-left">
       <li class="nav-item">
-        <%= link "Overview", to: event_path(@conn, :show, @event), class: "nav-link active" %>
+        <%= link "Overview", to: event_path(@conn, :show, @event), class: "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link "Invitations", to: event_invitation_path(@conn, :index, @event), class: "nav-link" %>
+        <%= link "Invitations", to: event_invitation_path(@conn, :index, @event), class: "nav-link active" %>
       </li>
     </ul>
   </div>
