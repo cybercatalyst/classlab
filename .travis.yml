@@ -8,6 +8,10 @@ otp_release:
   - 18.1
   - 18.2
   - 19.0
+services:
+  - postgresql
+addons:
+  postgresql: "9.4"
 script: mix test
 after_script:
   - mix deps.get --only test
