@@ -19,6 +19,9 @@ config :classlab, Classlab.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+# JWT secret for signing session token
+config :classlab, :jwt_secret, "ac0ccc48-91f4-11e6-8259-27a44adbb1fe"
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

@@ -25,6 +25,9 @@ config :classlab, Classlab.Endpoint,
     ]
   ]
 
+# JWT secret for signing session token
+config :classlab, :jwt_secret, "9a42772e-91f4-11e6-8ecd-8f42e8056b9f"
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

@@ -39,6 +39,7 @@ defmodule Classlab.Mixfile do
       {:ex_machina, "~> 1.0", only: :test},
       {:gettext, "~> 0.11"},
       {:inch_ex, "~> 0.5", only: :docs},
+      {:joken, "~> 1.3.1"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:phoenix_ecto, "~> 3.0"},
       {:phoenix_html, "~> 2.6"},
