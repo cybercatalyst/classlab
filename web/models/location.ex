@@ -15,6 +15,8 @@ defmodule Classlab.Location do
     field :country, :string
     field :external_url, :string
     timestamps()
+
+    has_one :event, Classlab.Event
   end
 
   # Composable Queries
