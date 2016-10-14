@@ -3,7 +3,7 @@ defmodule Classlab.User do
   User model. A user can't access events directly but only by membership.
   The membership determines the role: owner, trainer, attendee.
   """
-  alias Ecto.{UUID, Query}
+  alias Ecto.UUID
   alias Calendar.DateTime
   use Classlab.Web, :model
 
