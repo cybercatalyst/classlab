@@ -13,7 +13,7 @@ defmodule Classlab.AssignUserPlug do
   def call(conn, _opts) do
     jwt = get_session(conn, :user_id_jwt)
 
-    case get_user_by_jwt_token(jwt) do
+    case get_user_by_jwt(jwt) do
       %User{} = user ->
         assign(conn, :current_user, user)
       nil ->
@@ -28,11 +28,11 @@ defmodule Classlab.AssignUserPlug do
   end
 
   # Private methods
-  defp get_user_by_jwt_token(jwt) when is_binary(jwt) do
+  defp get_user_by_jwt(jwt) when is_binary(jwt) do
     case UserIdToken.decode(jwt) do
       %{"user_id" => user_id} -> Repo.get(User, user_id)
       _ -> nil
     end
   end
-  defp get_user_by_jwt_token(_), do: nil
+  defp get_user_by_jwt(_), do: nil
 end
