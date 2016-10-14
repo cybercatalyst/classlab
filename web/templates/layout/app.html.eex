@@ -26,7 +26,9 @@
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
-
+      <code>
+      <%= inspect current_user(@conn) %>
+      </code>
     </div> <!-- /container -->
   </body>
 </html>

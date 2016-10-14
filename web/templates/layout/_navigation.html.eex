@@ -12,7 +12,11 @@
 
   <ul class="nav navbar-nav pull-xs-right">
     <%= content_tag :li, class: "nav-item" do %>
-      <%= link "Login", to: session_path(@conn, :new), class: "btn btn-outline-success" %>
+      <%= if current_user(@conn) do %>
+        <%= link "Logout", to: session_path(@conn, :delete), method: :delete, class: "btn btn-outline-danger" %>
+      <% else %>
+        <%= link "Login", to: session_path(@conn, :new), class: "btn btn-outline-success" %>
+      <% end %>
     <% end %>
   </ul>
 </nav>
