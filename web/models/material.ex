@@ -20,6 +20,7 @@ defmodule Classlab.Material do
     struct
     |> cast(params, @fields)
     |> cast_embed(:contents)
+    |> validate_required(~w(visible name type)a)
   end
 
   # Model Functions
