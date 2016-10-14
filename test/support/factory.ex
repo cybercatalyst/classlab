@@ -50,6 +50,12 @@ defmodule Classlab.Factory do
     }
   end
 
+  def session_factory do
+    %Classlab.Session{
+      email: sequence(:email, &"john-#{&1}@example.com")
+    }
+  end
+
   def user_factory do
     %Classlab.User{
       first_name: "John",

@@ -8,9 +8,7 @@ defmodule Classlab.SessionController do
   end
 
   def create(conn, %{"session" => session_params}) do
-    _changeset = Session.changeset(%Session{}, session_params)
-
-    user_email = String.downcase(session_params["email"])
+    user_email = unified_email(session_params["email"])
     user_struct =
       case Repo.get_by(User, email: user_email) do
         nil ->  User.registration_changeset(%User{email: user_email}, session_params)
@@ -36,4 +34,7 @@ defmodule Classlab.SessionController do
     |> put_flash(:error, "Logged out.")
     |> redirect(to: page_path(conn, :index))
   end
+
+  defp unified_email(nil), do: ""
+  defp unified_email(email) when is_binary(email), do: String.downcase(email)
 end

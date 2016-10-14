@@ -19,9 +19,11 @@ defmodule Classlab.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+      use Bamboo.Test
 
       alias Classlab.Repo
       alias Classlab.Factory
+
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
