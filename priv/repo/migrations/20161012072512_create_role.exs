@@ -7,5 +7,6 @@ defmodule Classlab.Repo.Migrations.CreateRole do
       add :description, :string
       timestamps()
     end
+    create unique_index(:roles, [:name])
   end
 end

@@ -19,6 +19,7 @@ defmodule Classlab.Role do
     struct
     |> cast(params, @fields)
     |> validate_required(~w(name)a)
+    |> unique_constraint(:name)
   end
 
   # Model Functions
