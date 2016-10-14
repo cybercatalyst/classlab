@@ -51,7 +51,7 @@ defmodule Classlab.SessionController do
 
   def delete(conn, _params) do
     conn
-    |> delete_session(:user_id_jwt)
+    |> Session.logout()
     |> put_flash(:error, "Logged out.")
     |> redirect(to: page_path(conn, :index))
   end

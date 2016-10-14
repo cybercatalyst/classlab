@@ -17,4 +17,12 @@ defmodule Classlab.Session do
     |> cast(params, @fields)
     |> validate_required([:email])
   end
+
+  def login(conn, user) do
+    Plug.Conn.assign(conn, :current_user, user)
+  end
+
+  def logout(conn) do
+    Plug.Conn.delete_session(:user_id_jwt)
+  end
 end
