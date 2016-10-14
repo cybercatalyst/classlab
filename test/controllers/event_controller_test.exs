@@ -7,6 +7,11 @@ defmodule Classlab.EventControllerTest do
   @invalid_attrs %{public: ""}
   @form_field "event_name"
 
+  setup %{conn: conn} do
+    user = Factory.insert(:user)
+    {:ok, conn: Session.login(conn, user)}
+  end
+
   test "#index lists all entries on index", %{conn: conn} do
     event = Factory.insert(:event)
     conn = get conn, event_path(conn, :index)

@@ -24,12 +24,14 @@ defmodule Classlab.ConnCase do
 
       alias Classlab.Repo
       alias Classlab.Factory
+      alias Classlab.Session
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
       import Classlab.Router.Helpers
+      import Classlab.AssignUserPlug, only: [current_user: 1]
 
       # The default endpoint for testing
       @endpoint Classlab.Endpoint
