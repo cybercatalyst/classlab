@@ -12,6 +12,7 @@ defmodule Classlab.Invitation do
     timestamps()
 
     belongs_to :event, Classlab.Event
+    belongs_to :role, Classlab.Role
   end
 
   # Composable Queries

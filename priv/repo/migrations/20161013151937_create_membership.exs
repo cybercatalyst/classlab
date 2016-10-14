@@ -3,11 +3,11 @@ defmodule Classlab.Repo.Migrations.CreateMembership do
 
   def change do
     create table(:memberships) do
-      add :role, :integer, null: false
-      add :seat_position_x, :integer, null: false, default: 0
-      add :seat_position_y, :integer, null: false, default: 0
       add :user_id, references(:users, on_delete: :delete_all), null: false
       add :event_id, references(:events, on_delete: :delete_all), null: false
+      add :role_id, references(:roles, on_delete: :nilify_all), null: false
+      add :seat_position_x, :integer, null: false, default: 0
+      add :seat_position_y, :integer, null: false, default: 0
       timestamps()
     end
     create index(:memberships, [:user_id])

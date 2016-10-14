@@ -21,6 +21,7 @@ defmodule Classlab.Factory do
     %Classlab.Invitation{
       email: sequence(:email, &"john-#{&1}@example.com"),
       invitation_token: "17e8cfb9-4f55-4946-9fe7-a740fea2d08a",
+      role: build(:role),
       event: build(:event)
     }
   end
@@ -39,7 +40,13 @@ defmodule Classlab.Factory do
     %Classlab.Membership{
       user: build(:user),
       event: build(:event),
-      role: 1
+      role: build(:role),
+    }
+  end
+
+  def role_factory do
+    %Classlab.Role{
+      name: "Attendee"
     }
   end
 

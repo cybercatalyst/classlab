@@ -8,19 +8,19 @@ defmodule Classlab.Membership do
 
   # Fields
   schema "memberships" do
-    field :role, :integer
     field :seat_position_x, :integer, default: 0
     field :seat_position_y, :integer, default: 0
     timestamps()
 
-    belongs_to :user, Classlab.User
     belongs_to :event, Classlab.Event
+    belongs_to :role, Classlab.Role
+    belongs_to :user, Classlab.User
   end
 
   # Composable Queries
 
   # Changesets & Validations
-  @fields ~w(role seat_position_x seat_position_y)
+  @fields ~w(role_id seat_position_x seat_position_y)
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)

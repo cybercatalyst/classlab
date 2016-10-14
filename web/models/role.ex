@@ -5,8 +5,10 @@ defmodule Classlab.Role do
   schema "roles" do
     field :name, :string
     field :description, :string
-
     timestamps()
+
+    has_many :invitations, Classlab.Invitation, on_delete: :nilify_all
+    has_many :memberships, Classlab.Membership, on_delete: :nilify_all
   end
 
   # Composable Queries

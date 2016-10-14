@@ -7,7 +7,7 @@
 
   <%= input f, :user_id %>
   <%= input f, :event_id %>
-  <%= input f, :role %>
+  <%= input f, :role_id %>
   <%= input f, :seat_position_x %>
   <%= input f, :seat_position_y %>
 
