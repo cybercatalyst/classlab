@@ -1,5 +1,5 @@
 defmodule Classlab.EventController do
-  alias Classlab.Event
+  alias Classlab.{Event, Membership}
   use Classlab.Web, :controller
 
   plug :scrub_params, "event" when action in [:create, :update]
@@ -19,7 +19,7 @@ defmodule Classlab.EventController do
   end
 
   def create(conn, %{"event" => event_params}) do
-    changeset = Event.changeset(%Event{}, event_params)
+    changeset = Event.changeset(%Event{memberships: [%Membership{user: current_user(conn), role_id: 1}]}, event_params)
 
     case Repo.insert(changeset) do
       {:ok, _event} ->
@@ -35,7 +35,7 @@ defmodule Classlab.EventController do
     event =
       Event
       |> Repo.get_by!(slug: id)
-      |> Repo.preload(:location)
+      |> Repo.preload([:location, :memberships])
 
     render(conn, "show.html", event: event)
   end

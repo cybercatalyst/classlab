@@ -44,6 +44,10 @@
       <%= @event.location.country %><br>
       <%= @event.location.external_url %>
     </p>
+
+    <p>
+      <%= inspect @event.memberships %>
+    </p>
   </div>
 </div>
 

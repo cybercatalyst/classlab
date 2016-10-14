@@ -8,6 +8,7 @@ defmodule Classlab.MembershipController do
     memberships =
       Membership
       |> Repo.all()
+      |> Repo.preload([:user, :role, :event])
 
     render(conn, "index.html", memberships: memberships)
   end
