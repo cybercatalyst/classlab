@@ -45,4 +45,5 @@ config :classlab, Classlab.Repo,
   pool_size: 10
 
 config :classlab, Classlab.Mailer,
-  adapter: Bamboo.LocalPopupAdapter
+  adapter: Bamboo.LocalPopupAdapter,
+  at: "http://localhost:4000/sent_emails"

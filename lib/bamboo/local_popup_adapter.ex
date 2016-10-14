@@ -19,11 +19,15 @@ defmodule Bamboo.LocalPopupAdapter do
   @behaviour Bamboo.Adapter
 
   @doc "Adds email to Bamboo.SentEmail and open the email locally"
-  def deliver(email, _config) do
+  def deliver(email, config) do
     email = SentEmail.push(email)
     email_id = email.private.local_adapter_id
-    System.cmd("open", ["http://localhost:4000/sent_emails/#{email_id}"])
+    open_browser("#{config.at}/#{email_id}")
   end
 
   def handle_config(config), do: config
+
+  defp open_browser(url) do
+    System.cmd("open", [url])
+  end
 end

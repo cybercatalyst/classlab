@@ -8,5 +8,6 @@ defmodule Classlab.UserMailerTest do
 
     assert email.to == user.email
     assert email.text_body =~ session_path(Endpoint, :show, user.access_token)
+    assert email.html_body =~ session_path(Endpoint, :show, user.access_token)
   end
 end
