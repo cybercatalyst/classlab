@@ -4,7 +4,7 @@ defmodule Classlab.AssignUserPlug do
 
   If the jwt is invalid or not present then the user will be nil.
   """
-  alias Classlab.{JWT.UserIdToken, Repo, User}
+  alias Classlab.{JWT.UserIdToken, Session, Repo, User}
   use Phoenix.Controller
   import Plug.Conn
 
@@ -14,12 +14,8 @@ defmodule Classlab.AssignUserPlug do
     jwt = get_session(conn, :user_id_jwt)
 
     case get_user_by_jwt(jwt) do
-      %User{} = user ->
-        assign(conn, :current_user, user)
-      nil ->
-        conn
-        |> delete_session(:user_id_jwt)
-        |> assign(:current_user, nil)
+      %User{} = user -> Session.login(conn, user)
+      nil -> Session.logout(conn)
     end
   end
 

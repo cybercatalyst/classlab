@@ -3,6 +3,7 @@ defmodule Classlab.Session do
   The session model encapsulates session handling. It can take an email address
   and an optional token.
   """
+  alias Classlab.User
   use Classlab.Web, :model
 
   # Fields
@@ -18,11 +19,13 @@ defmodule Classlab.Session do
     |> validate_required([:email])
   end
 
-  def login(conn, user) do
+  def login(conn, %User{} = user) do
     Plug.Conn.assign(conn, :current_user, user)
   end
 
   def logout(conn) do
-    Plug.Conn.delete_session(:user_id_jwt)
+    conn
+    |> Plug.Conn.delete_session(:user_id_jwt)
+    |> Plug.Conn.assign(:current_user, nil)
   end
 end
