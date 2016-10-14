@@ -1,4 +1,5 @@
 defmodule Classlab.Invitation do
+  alias Ecto
   use Classlab.Web, :model
 
   # Fields
@@ -27,7 +28,7 @@ defmodule Classlab.Invitation do
 
   # Model Functions
   defp generate_invitation_token(struct) do
-    token = Ecto.UUID.generate()
+    token = UUID.generate()
     put_change(struct, :invitation_token, token)
   end
 end

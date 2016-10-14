@@ -3,6 +3,7 @@ defmodule Classlab.User do
   User model. A user can't access events directly but only by membership.
   The membership determines the role: owner, trainer, attendee.
   """
+  alias Classlab.Repo
   use Classlab.Web, :model
 
   # Fields
@@ -39,7 +40,7 @@ defmodule Classlab.User do
   defp generate_access_token(struct, length \\ 30) do
     token = length |> :crypto.strong_rand_bytes |> Base.url_encode64 |> binary_part(0, length)
 
-    case Classlab.Repo.get_by(__MODULE__, access_token: token) do
+    case Repo.get_by(__MODULE__, access_token: token) do
       nil ->
         put_change(struct, :access_token, token)
       _ ->
