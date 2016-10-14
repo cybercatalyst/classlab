@@ -24,18 +24,17 @@ defmodule Classlab.Web do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-
     end
   end
 
   def controller do
     quote do
+      alias Classlab.{Repo, Mailer}
       use Phoenix.Controller
 
-      alias Classlab.{Repo, Mailer}
       import Ecto
       import Ecto.Query
-
+      import Classlab.AssignUserPlug, only: [current_user: 1]
       import Classlab.Router.Helpers
       import Classlab.Gettext
     end
@@ -44,13 +43,11 @@ defmodule Classlab.Web do
   def view do
     quote do
       use Phoenix.View, root: "web/templates"
+      use Phoenix.HTML
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
-
-      # Use all HTML functionality (forms, tags, etc)
-      use Phoenix.HTML
-
+      import Classlab.AssignUserPlug, only: [current_user: 1]
       import Classlab.Router.Helpers
       import Classlab.ErrorHelpers
       import Classlab.LocaleHelpers
@@ -67,9 +64,9 @@ defmodule Classlab.Web do
 
   def channel do
     quote do
+      alias Classlab.Repo
       use Phoenix.Channel
 
-      alias Classlab.Repo
       import Ecto
       import Ecto.Query
       import Classlab.Gettext
