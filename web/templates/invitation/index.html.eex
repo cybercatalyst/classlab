@@ -7,39 +7,42 @@
       <li class="nav-item">
         <%= link "Invitations", to: event_invitation_path(@conn, :index, @event), class: "nav-link active" %>
       </li>
+      <li class="nav-item">
+        <%= link "Materials", to: event_material_path(@conn, :index, @event), class: "nav-link" %>
+      </li>
     </ul>
   </div>
   <div class="card-block">
 
-<table class="table">
-  <tr>
-    <th>Email</th>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Invitation token</th>
-    <th>Completed at</th>
+    <table class="table">
+      <tr>
+        <th>Email</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Invitation token</th>
+        <th>Completed at</th>
 
-    <th></th>
-  </tr>
-  <%= for invitation <- @invitations do %>
-    <tr>
-      <td><%= invitation.email %></td>
-      <td><%= invitation.first_name %></td>
-      <td><%= invitation.last_name %></td>
-      <td><%= invitation.invitation_token %></td>
-      <td><%= invitation.completed_at %></td>
+        <th></th>
+      </tr>
+      <%= for invitation <- @invitations do %>
+        <tr>
+          <td><%= invitation.email %></td>
+          <td><%= invitation.first_name %></td>
+          <td><%= invitation.last_name %></td>
+          <td><%= invitation.invitation_token %></td>
+          <td><%= invitation.completed_at %></td>
 
-      <td>
-        <%= link "Revoke", to: event_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+          <td>
+            <%= link "Revoke", to: event_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
 
-<div class="btn-toolbar">
-  <%= link "New invitation", to: event_invitation_path(@conn, :new, @event), class: "btn btn-success" %>
-  <%= link "Back", to: event_path(@conn, :show, @event), class: "btn btn-secondary" %>
-</div>
+    <div class="btn-toolbar">
+      <%= link "New invitation", to: event_invitation_path(@conn, :new, @event), class: "btn btn-success" %>
+      <%= link "Back", to: event_path(@conn, :show, @event), class: "btn btn-secondary" %>
+    </div>
 
-</div>
+  </div>
 </div>

@@ -7,6 +7,9 @@
       <li class="nav-item">
         <%= link "Invitations", to: event_invitation_path(@conn, :index, @event), class: "nav-link" %>
       </li>
+      <li class="nav-item">
+        <%= link "Materials", to: event_material_path(@conn, :index, @event), class: "nav-link" %>
+      </li>
     </ul>
   </div>
   <div class="card-block">
