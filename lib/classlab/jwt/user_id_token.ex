@@ -12,6 +12,7 @@ defmodule Classlab.JWT.UserIdToken do
     |> Joken.get_compact()
   end
 
+  def decode(nil) do nil end
   def decode(token) when is_binary(token) do
     result =
       token
