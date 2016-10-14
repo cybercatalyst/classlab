@@ -5,6 +5,9 @@
     <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["events"], do: " active")}" do %>
       <%= link "Events", to: event_path(@conn, :index), class: "nav-link" %>
     <% end %>
+    <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["memberships"], do: " active")}" do %>
+      <%= link "Memberships", to: membership_path(@conn, :index), class: "nav-link" %>
+    <% end %>
   </ul>
 
   <ul class="nav navbar-nav pull-xs-right">
@@ -12,5 +15,4 @@
       <%= link "Login", to: session_path(@conn, :new), class: "btn btn-outline-success" %>
     <% end %>
   </ul>
-
 </nav>
