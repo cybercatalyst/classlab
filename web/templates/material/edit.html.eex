@@ -1,0 +1,2 @@
+<%= render "_form.html", conn: @conn, changeset: @changeset,
+                        action: material_path(@conn, :update, @material) %>

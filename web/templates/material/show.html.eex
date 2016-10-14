@@ -1,0 +1,33 @@
+<ul>
+
+  <li>
+    <strong>Event:</strong>
+    <%= @material.event_id %>
+  </li>
+
+  <li>
+    <strong>Visible:</strong>
+    <%= @material.visible %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @material.name %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @material.type %>
+  </li>
+
+  <li>
+    <strong>Contents:</strong>
+    <%= @material.contents %>
+  </li>
+
+</ul>
+
+<div class="btn-toolbar">
+  <%= link "Edit", to: material_path(@conn, :edit, @material), class: "btn btn-primary" %>
+  <%= link "Back", to: material_path(@conn, :index), class: "btn btn-secondary" %>
+</div>

@@ -26,6 +26,8 @@ defmodule Classlab.Router do
     post "/login", SessionController, :create
     delete "/logout", SessionController, :delete
 
+    resources "/materials", MaterialController
+
     resources "/events", EventController do
       resources "/invitations", InvitationController, except: [:edit, :update]
     end
