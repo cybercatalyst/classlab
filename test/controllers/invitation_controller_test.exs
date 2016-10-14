@@ -2,7 +2,7 @@ defmodule Classlab.InvitationControllerTest do
   alias Classlab.Invitation
   use Classlab.ConnCase
 
-  @valid_attrs Factory.params_for(:invitation) |> Map.take(~w[email]a)
+  @valid_attrs Factory.params_for(:invitation) |> Map.take(~w[email role_id]a)
   @invalid_attrs %{email: ""}
   @form_field "invitation_email"
 

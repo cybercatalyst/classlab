@@ -18,12 +18,12 @@ defmodule Classlab.Invitation do
   # Composable Queries
 
   # Changesets & Validations
-  @fields ~w(email first_name last_name)
+  @fields ~w(email first_name last_name role_id)
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
     |> generate_invitation_token
-    |> validate_required([:email, :invitation_token])
+    |> validate_required([:email, :invitation_token, :role_id])
     |> unique_constraint(:invitation_token)
   end
 
