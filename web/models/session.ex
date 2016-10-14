@@ -3,6 +3,7 @@ defmodule Classlab.Session do
   The session model encapsulates session handling. It can take an email address
   and an optional token.
   """
+  alias Plug.Conn
   alias Classlab.{User, JWT.UserIdToken}
   use Classlab.Web, :model
 
@@ -19,15 +20,15 @@ defmodule Classlab.Session do
     |> validate_required([:email])
   end
 
-  def login(conn, %User{} = user) do
+  def login(%Conn{} = conn, %User{} = user) do
     conn
-    |> Plug.Conn.assign(:current_user, user)
-    |> Plug.Conn.put_session(:user_id_jwt, UserIdToken.encode(%UserIdToken{user_id: user.id}))
+    |> Conn.assign(:current_user, user)
+    |> Conn.put_session(:user_id_jwt, UserIdToken.encode(%UserIdToken{user_id: user.id}))
   end
 
-  def logout(conn) do
+  def logout(%Conn{} = conn) do
     conn
-    |> Plug.Conn.delete_session(:user_id_jwt)
-    |> Plug.Conn.assign(:current_user, nil)
+    |> Conn.delete_session(:user_id_jwt)
+    |> Conn.assign(:current_user, nil)
   end
 end
