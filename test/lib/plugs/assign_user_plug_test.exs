@@ -1,13 +1,10 @@
 defmodule Classlab.AssignUserPlugTest do
-  use Classlab.ConnCase
-
   alias Classlab.AssignUserPlug
 
-  test "#", %{conn: conn} do
-    conn =
-      conn
-      |> AssignUserPlug.call(%{})
+  use Classlab.ConnCase
 
+  test "#", %{conn: conn} do
+    conn = AssignUserPlug.call(conn, %{})
     refute conn.assigns[:current_user]
   end
 end

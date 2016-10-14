@@ -12,6 +12,7 @@ defmodule Classlab.ConnCase do
   inside a transaction which is reset at the beginning
   of the test unless the test case is marked as async.
   """
+  alias Plug.ProcessStore
 
   use ExUnit.CaseTemplate
 
@@ -42,6 +43,12 @@ defmodule Classlab.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Classlab.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    opts = Plug.Session.init(store: ProcessStore, key: "foobar")
+    conn =
+      Phoenix.ConnTest.build_conn()
+      |> Plug.Session.call(opts)
+      |> Plug.Conn.fetch_session()
+
+    {:ok, conn: conn}
   end
 end
