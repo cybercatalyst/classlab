@@ -1,17 +1,20 @@
 defmodule Classlab.SessionController do
-  alias Classlab.{Session, UserMailer, User}
+  alias Classlab.{Repo, Session, UserMailer, User}
+  alias Classlab.JWT.UserIdToken
   use Classlab.Web, :controller
 
   def show(conn, %{"id" => access_token}) when is_binary(access_token) do
     res =
       User
       |> User.with_valid_access_token()
-      |> Repo.find_by(access_token: access_token)
+      |> Repo.get_by(access_token: access_token)
 
     case res do
       %User{} = user ->
-        IO.inspect "HAPPY BIRTHDAY ��"
-        text conn, "123"
+        conn
+        |> put_session(:user_id_jwt, UserIdToken.encode(user.id))
+        |> put_flash(:info, "Logged in successfully.")
+        |> page_path(conn, :index)
       nil ->
         conn
         |> put_flash(:error, "You link is not valid or expired. Please request a new link.")

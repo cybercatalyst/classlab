@@ -46,10 +46,11 @@ defmodule Classlab.User do
   end
 
   defp generate_access_token(%Ecto.Changeset{} = changeset) do
-    access_token_max_age = Application.get_env(:classlab, __MODULE__)["access_token_max_age"]
+    access_token_max_age = Application.get_env(:classlab, __MODULE__)[:access_token_max_age]
+    access_token_expired_at = Calendar.DateTime.add!(Calendar.DateTime.now_utc, access_token_max_age)
 
     changeset
     |> put_change(:access_token, UUID.generate())
-    |> put_change(:access_token_expired_at, Calendar.DateTime.add!(Calendar.DateTime.now_utc, access_token_max_age))
+    |> put_change(:access_token_expired_at, access_token_expired_at)
   end
 end

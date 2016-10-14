@@ -12,7 +12,7 @@ defmodule Classlab.SessionControllerTest do
   end
 
   describe "#show" do
-    test "VALID TOKEN +++++++++ change me +++++++++++", %{conn: conn} do
+    test "VALID TOKEN redirects to index page with session", %{conn: conn} do
       access_token_expired_at = Calendar.DateTime.add!(Calendar.DateTime.now_utc, 60 * 15)
       user = Factory.insert(:user, access_token_expired_at: access_token_expired_at)
       conn = get conn, session_path(conn, :show, user.access_token)
