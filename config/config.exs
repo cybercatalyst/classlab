@@ -9,6 +9,9 @@ use Mix.Config
 config :classlab,
   ecto_repos: [Classlab.Repo]
 
+config :classlab, Classlab.User,
+  access_token_max_age: 60 * 15
+
 # Configures the endpoint
 config :classlab, Classlab.Endpoint,
   url: [host: "localhost"],

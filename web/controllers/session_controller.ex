@@ -2,6 +2,23 @@ defmodule Classlab.SessionController do
   alias Classlab.{Session, UserMailer, User}
   use Classlab.Web, :controller
 
+  def show(conn, %{"id" => access_token}) when is_binary(access_token) do
+    res =
+      User
+      |> User.with_valid_access_token()
+      |> Repo.find_by(access_token: access_token)
+
+    case res do
+      %User{} = user ->
+        IO.inspect "HAPPY BIRTHDAY ��"
+        text conn, "123"
+      nil ->
+        conn
+        |> put_flash(:error, "You link is not valid or expired. Please request a new link.")
+        |> redirect(to: session_path(conn, :new))
+    end
+  end
+
   def new(conn, _params) do
     changeset = Session.changeset(%Session{})
     render(conn, "new.html", changeset: changeset)
