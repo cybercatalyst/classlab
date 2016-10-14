@@ -1,5 +1,5 @@
 defmodule Classlab.Invitation do
-  alias Ecto
+  alias Ecto.UUID
   use Classlab.Web, :model
 
   # Fields

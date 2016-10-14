@@ -1,5 +1,5 @@
 defmodule Classlab.LocaleHelpers do
-  alias Calendar
+  alias Calendar.Strftime
 
   def l(%Date{} = date, [format: format]) do
     Strftime.strftime!(date, format, :de)
