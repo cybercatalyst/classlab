@@ -9,6 +9,8 @@ defmodule Classlab.Mixfile do
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: ["coveralls": :test],
      aliases: aliases(),
      deps: deps()]
   end
@@ -36,6 +38,7 @@ defmodule Classlab.Mixfile do
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.4.5", only: [:dev, :test]},
       {:dialyxir, "~> 0.3.5", only: :dev},
+      {:excoveralls, "~> 0.5", only: :test},
       {:ex_doc, "~> 0.13", only: :dev},
       {:ex_machina, "~> 1.0", only: :test},
       {:gettext, "~> 0.11"},
