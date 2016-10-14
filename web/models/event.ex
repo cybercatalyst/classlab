@@ -24,7 +24,6 @@ defmodule Classlab.Event do
     has_many :invitations, Classlab.Invitation, on_delete: :delete_all
     # has_many :feedbacks, Classlab.Feedback
     # has_many :materials, Classlab.Material
-    # has_many :tasks, Classlab.Task
   end
 
   # Changesets & Validations
