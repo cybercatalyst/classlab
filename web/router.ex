@@ -27,10 +27,10 @@ defmodule Classlab.Router do
     post "/login", SessionController, :create
     delete "/logout", SessionController, :delete
 
-    resources "/materials", MaterialController
 
     resources "/events", EventController do
       resources "/invitations", InvitationController, except: [:edit, :update]
+      resources "/materials", MaterialController
     end
     resources "/memberships", MembershipController, expect: [:show, :edit, :update]
   end

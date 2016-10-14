@@ -6,9 +6,7 @@ defmodule Classlab.Material do
     field :visible, :boolean, default: false
     field :name, :string
     field :type, :integer
-    # field :contents, :map
     timestamps()
-
 
     belongs_to :event, Classlab.Event
     embeds_one :contents, Classlab.MaterialTask

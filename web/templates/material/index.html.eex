@@ -1,6 +1,5 @@
 <table class="table">
   <tr>
-    <th>Event</th>
     <th>Visible</th>
     <th>Name</th>
     <th>Type</th>
@@ -10,21 +9,19 @@
   </tr>
   <%= for material <- @materials do %>
     <tr>
-      <td><%= material.event_id %></td>
       <td><%= material.visible %></td>
       <td><%= material.name %></td>
       <td><%= material.type %></td>
-      <td><%= material.contents %></td>
-  
+
       <td>
-        <%= link "Show", to: material_path(@conn, :show, material), class: "btn btn-default btn-sm" %>
-        <%= link "Edit", to: material_path(@conn, :edit, material), class: "btn btn-default btn-sm" %>
-        <%= link "Delete", to: material_path(@conn, :delete, material), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+        <%= link "Show", to: event_material_path(@conn, :show, @event, material), class: "btn btn-default btn-sm" %>
+        <%= link "Edit", to: event_material_path(@conn, :edit, @event, material), class: "btn btn-default btn-sm" %>
+        <%= link "Delete", to: event_material_path(@conn, :delete, @event, material), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
       </td>
     </tr>
   <% end %>
 </table>
 
 <div class="btn-toolbar">
-  <%= link "New material", to: material_path(@conn, :new), class: "btn btn-success" %>
+  <%= link "New material", to: event_material_path(@conn, :new, @event), class: "btn btn-success" %>
 </div>

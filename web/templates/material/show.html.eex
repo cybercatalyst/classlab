@@ -28,6 +28,6 @@
 </ul>
 
 <div class="btn-toolbar">
-  <%= link "Edit", to: material_path(@conn, :edit, @material), class: "btn btn-primary" %>
-  <%= link "Back", to: material_path(@conn, :index), class: "btn btn-secondary" %>
+  <%= link "Edit", to: event_material_path(@conn, :edit, @event, @material), class: "btn btn-primary" %>
+  <%= link "Back", to: event_material_path(@conn, :index, @event), class: "btn btn-secondary" %>
 </div>
