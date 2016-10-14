@@ -12,9 +12,9 @@ defmodule Classlab.SessionController do
     case res do
       %User{} = user ->
         conn
-        |> put_session(:user_id_jwt, UserIdToken.encode(user.id))
+        |> put_session(:user_id_jwt, UserIdToken.encode(%UserIdToken{user_id: user.id}))
         |> put_flash(:info, "Logged in successfully.")
-        |> page_path(conn, :index)
+        |> redirect(to: page_path(conn, :index))
       nil ->
         conn
         |> put_flash(:error, "You link is not valid or expired. Please request a new link.")

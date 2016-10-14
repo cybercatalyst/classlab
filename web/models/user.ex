@@ -3,13 +3,14 @@ defmodule Classlab.User do
   User model. A user can't access events directly but only by membership.
   The membership determines the role: owner, trainer, attendee.
   """
-  alias Ecto.UUID
+  alias Ecto.{UUID, Query}
+  alias Calendar.DateTime
   use Classlab.Web, :model
 
   # Composable Queries
   def with_valid_access_token(query) do
-    query
-    |> Ecto.Query.where([u], u.access_token_expired_at >= ^Calendar.DateTime.now_utc)
+    from u in query,
+      where: u.access_token_expired_at >= ^DateTime.now_utc
   end
 
   # Fields
@@ -47,7 +48,7 @@ defmodule Classlab.User do
 
   defp generate_access_token(%Ecto.Changeset{} = changeset) do
     access_token_max_age = Application.get_env(:classlab, __MODULE__)[:access_token_max_age]
-    access_token_expired_at = Calendar.DateTime.add!(Calendar.DateTime.now_utc, access_token_max_age)
+    access_token_expired_at = DateTime.add!(DateTime.now_utc, access_token_max_age)
 
     changeset
     |> put_change(:access_token, UUID.generate())
