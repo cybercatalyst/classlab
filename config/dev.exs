@@ -45,4 +45,4 @@ config :classlab, Classlab.Repo,
   pool_size: 10
 
 config :classlab, Classlab.Mailer,
-  adapter: Bamboo.LocalAdapter
+  adapter: Bamboo.LocalPopupAdapter
