@@ -20,7 +20,10 @@ defmodule Classlab.SessionController do
 
     case Repo.insert_or_update(user_struct) do
       {:ok, user} ->
-        UserMailer.token_email(user) |> Mailer.deliver_now
+        user
+        |> UserMailer.token_email()
+        |> Mailer.deliver_now()
+
         conn
         |> put_flash(:info, "We sent you a link to create an account. Please check your inbox.")
         |> redirect(to: page_path(conn, :index))
