@@ -24,7 +24,7 @@ defmodule Classlab.Membership do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> validate_required(~w(role seat_position_x seat_position_y)a)
+    |> validate_required(~w(role_id seat_position_x seat_position_y)a)
   end
 
   # Model Functions

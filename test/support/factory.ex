@@ -46,7 +46,7 @@ defmodule Classlab.Factory do
 
   def role_factory do
     %Classlab.Role{
-      name: "Attendee"
+      name: sequence(:name, &"Role #{&1}"),
     }
   end
 

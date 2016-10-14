@@ -3,8 +3,6 @@
     <th>User</th>
     <th>Event</th>
     <th>Role</th>
-    <th>Seat position x</th>
-    <th>Seat position y</th>
 
     <th></th>
   </tr>
@@ -12,10 +10,8 @@
     <tr>
       <td><%= membership.user_id %></td>
       <td><%= membership.event_id %></td>
-      <td><%= membership.role %></td>
-      <td><%= membership.seat_position_x %></td>
-      <td><%= membership.seat_position_y %></td>
-  
+      <td><%= membership.role_id %></td>
+
       <td>
         <%= link "Show", to: membership_path(@conn, :show, membership), class: "btn btn-default btn-sm" %>
         <%= link "Edit", to: membership_path(@conn, :edit, membership), class: "btn btn-default btn-sm" %>

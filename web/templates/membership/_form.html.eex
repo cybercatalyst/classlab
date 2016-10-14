@@ -2,14 +2,13 @@
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
+      <%= inspect  @changeset.errors %>
     </div>
   <% end %>
 
   <%= input f, :user_id %>
   <%= input f, :event_id %>
   <%= input f, :role_id %>
-  <%= input f, :seat_position_x %>
-  <%= input f, :seat_position_y %>
 
   <div class="btn-toolbar">
     <%= submit "Submit", class: "btn btn-primary" %>
