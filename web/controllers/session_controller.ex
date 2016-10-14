@@ -13,10 +13,9 @@ defmodule Classlab.SessionController do
     user_email = String.downcase(session_params["email"])
     user_struct =
       case Repo.get_by(User, email: user_email) do
-        nil -> %User{email: user_email}
-        user -> user
+        nil ->  User.registration_changeset(%User{email: user_email}, session_params)
+        user -> User.registration_changeset(user, session_params)
       end
-      |> User.registration_changeset(session_params)
 
     case Repo.insert_or_update(user_struct) do
       {:ok, user} ->
