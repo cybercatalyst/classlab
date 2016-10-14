@@ -5,13 +5,27 @@ defmodule Classlab.UserTest do
   @valid_attrs Factory.params_for(:user)
   @invalid_attrs %{email: ""}
 
-  test "changeset with valid attributes" do
-    changeset = User.changeset(%User{}, @valid_attrs)
-    assert changeset.errors == []
+  describe "#changeset" do
+    test "with valid attributes" do
+      changeset = User.changeset(%User{}, @valid_attrs)
+      assert changeset.errors == []
+    end
+
+    test "with invalid attributes" do
+      changeset = User.changeset(%User{}, @invalid_attrs)
+      refute changeset.errors == []
+    end
   end
 
-  test "changeset with invalid attributes" do
-    changeset = User.changeset(%User{}, @invalid_attrs)
-    refute changeset.errors == []
+  describe "#registration_changeset" do
+    test "with valid attributes" do
+      changeset = User.registration_changeset(%User{}, @valid_attrs)
+      assert changeset.errors == []
+    end
+
+    test "with invalid attributes" do
+      changeset = User.registration_changeset(%User{}, @invalid_attrs)
+      refute changeset.errors == []
+    end
   end
 end
