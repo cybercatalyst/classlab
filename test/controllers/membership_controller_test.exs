@@ -28,37 +28,6 @@ defmodule Classlab.MembershipControllerTest do
   #   assert html_response(conn, 200) =~ @form_field
   # end
 
-  test "#show shows chosen resource", %{conn: conn} do
-    membership = Factory.insert(:membership)
-    conn = get conn, membership_path(conn, :show, membership)
-    assert html_response(conn, 200) =~ "Role"
-  end
-
-  test "#show renders page not found when id is nonexistent", %{conn: conn} do
-    assert_error_sent 404, fn ->
-      get conn, membership_path(conn, :show, -1)
-    end
-  end
-
-  test "#edit renders form for editing chosen resource", %{conn: conn} do
-    membership = Factory.insert(:membership)
-    conn = get conn, membership_path(conn, :edit, membership)
-    assert html_response(conn, 200) =~ @form_field
-  end
-
-  test "#update updates chosen resource and redirects when data is valid", %{conn: conn} do
-    membership = Factory.insert(:membership)
-    conn = put conn, membership_path(conn, :update, membership), membership: @valid_attrs
-    assert redirected_to(conn) == membership_path(conn, :show, membership)
-    assert Repo.get_by(Membership, @valid_attrs)
-  end
-
-  test "#update does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    membership = Factory.insert(:membership)
-    conn = put conn, membership_path(conn, :update, membership), membership: @invalid_attrs
-    assert html_response(conn, 200) =~ @form_field
-  end
-
   test "#delete deletes chosen resource", %{conn: conn} do
     membership = Factory.insert(:membership)
     conn = delete conn, membership_path(conn, :delete, membership)

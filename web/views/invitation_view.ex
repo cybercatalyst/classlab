@@ -11,9 +11,6 @@ defmodule Classlab.InvitationView do
   def page("new.html", _conn), do: %{
     title: "New invitation"
   }
-  def page("edit.html", _conn), do: %{
-    title: "Edit invitation"
-  }
 
   # View functions
 end

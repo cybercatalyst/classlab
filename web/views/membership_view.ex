@@ -5,9 +5,6 @@ defmodule Classlab.MembershipView do
   def page("index.html", _conn), do: %{
     title: "memberships"
   }
-  def page("show.html", conn), do: %{
-    title: "membership #{conn.assigns.membership.user_id}"
-  }
   def page("new.html", _conn), do: %{
     title: "New membership"
   }

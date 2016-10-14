@@ -30,40 +30,6 @@ defmodule Classlab.MembershipController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    membership =
-      Membership
-      |> Repo.get!(id)
-
-    render(conn, "show.html", membership: membership)
-  end
-
-  def edit(conn, %{"id" => id}) do
-    membership =
-      Membership
-      |> Repo.get!(id)
-
-    changeset = Membership.changeset(membership)
-    render(conn, "edit.html", membership: membership, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "membership" => membership_params}) do
-    membership =
-      Membership
-      |> Repo.get!(id)
-
-    changeset = Membership.changeset(membership, membership_params)
-
-    case Repo.update(changeset) do
-      {:ok, membership} ->
-        conn
-        |> put_flash(:info, "Membership updated successfully.")
-        |> redirect(to: membership_path(conn, :show, membership))
-      {:error, changeset} ->
-        render(conn, "edit.html", membership: membership, changeset: changeset)
-    end
-  end
-
   def delete(conn, %{"id" => id}) do
     membership =
       Membership

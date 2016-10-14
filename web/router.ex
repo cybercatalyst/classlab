@@ -29,6 +29,6 @@ defmodule Classlab.Router do
     resources "/events", EventController do
       resources "/invitations", InvitationController, except: [:edit, :update]
     end
-    resources "/memberships", MembershipController
+    resources "/memberships", MembershipController, expect: [:show, :edit, :update]
   end
 end
