@@ -23,6 +23,7 @@ defmodule Classlab.User do
     field :superadmin, :boolean
     timestamps()
 
+    has_many :chat_messages, Classlab.ChatMessage, on_delete: :nilify_all
     has_many :memberships, Classlab.Membership, on_delete: :delete_all
   end
 

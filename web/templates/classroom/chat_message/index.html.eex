@@ -1,0 +1,21 @@
+<table class="table">
+  <tr>
+    <th>Body</th>
+
+    <th></th>
+  </tr>
+  <%= for chat_message <- @chat_messages do %>
+    <tr>
+      <td><%= chat_message.body %></td>
+
+      <td>
+        <%= link "Edit", to: classroom_chat_message_path(@conn, :edit, @event, chat_message), class: "btn btn-default btn-sm" %>
+        <%= link "Delete", to: classroom_chat_message_path(@conn, :delete, @event, chat_message), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="btn-toolbar">
+  <%= link "New chat message", to: classroom_chat_message_path(@conn, :new, @event), class: "btn btn-success" %>
+</div>

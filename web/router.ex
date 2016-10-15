@@ -38,8 +38,9 @@ defmodule Classlab.Router do
     end
   end
 
-  scope "/classroom", Classlab.Classroom, as: :classroom do
+  scope "/classroom/:event_id", Classlab.Classroom, as: :classroom do
     pipe_through :browser # Use the default browser stack
     resources "/", DashboardController, only: [:show], singleton: true
+    resources "/chat_messages", ChatMessageController, except: [:show]
   end
 end

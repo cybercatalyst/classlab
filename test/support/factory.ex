@@ -2,6 +2,14 @@ defmodule Classlab.Factory do
   alias Calecto.DateTimeUTC
   use ExMachina.Ecto, repo: Classlab.Repo
 
+  def chat_message_factory do
+    %Classlab.ChatMessage{
+      body: "A new chat message",
+      event: build(:event),
+      user: build(:user)
+    }
+  end
+
   def event_factory do
     %Classlab.Event{
       public: false,

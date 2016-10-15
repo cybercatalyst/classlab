@@ -20,10 +20,10 @@ defmodule Classlab.Event do
     timestamps()
 
     belongs_to :location, Classlab.Location
+    has_many :chat_messages, Classlab.ChatMessage, on_delete: :delete_all
     has_many :invitations, Classlab.Invitation, on_delete: :delete_all
     has_many :materials, Classlab.Material
     has_many :memberships, Classlab.Membership, on_delete: :delete_all
-    # has_many :feedbacks, Classlab.Feedback
   end
 
   # Changesets & Validations
