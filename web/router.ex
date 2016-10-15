@@ -14,9 +14,6 @@ defmodule Classlab.Router do
     plug Classlab.AssignUserPlug
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
 
   scope "/", Classlab do
     pipe_through :browser # Use the default browser stack
@@ -25,21 +22,36 @@ defmodule Classlab.Router do
     get "/login", SessionController, :new
     post "/login", SessionController, :create
     get "/session/:id", SessionController, :show
+    delete "/logout", SessionController, :delete
+  end
 
-    scope "/account", as: :account do
-      delete "/logout", SessionController, :delete
+  #############################################################################
+  ### Account
+  #############################################################################
+  pipeline :account do
+    plug :put_layout, {Classlab.LayoutView, :account}
+  end
 
-      resources "/events", Account.EventController do
-        resources "/invitations", Account.InvitationController, except: [:edit, :update]
-        resources "/materials", Account.MaterialController
-      end
+  scope "/account", Classlab.Account, as: :account do
+    pipe_through [:browser, :account]
 
-      resources "/memberships", Account.MembershipController, expect: [:show, :edit, :update]
+    resources "/events", EventController do
+      resources "/invitations", InvitationController, except: [:edit, :update]
+      resources "/materials", MaterialController
     end
+
+    resources "/memberships", MembershipController, expect: [:show, :edit, :update]
+  end
+
+  #############################################################################
+  ### Classroom
+  #############################################################################
+  pipeline :classroom do
+    plug :put_layout, {Classlab.LayoutView, :classroom}
   end
 
   scope "/classroom/:event_id", Classlab.Classroom, as: :classroom do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser, :classroom] # Use the default browser stack
     resources "/", DashboardController, only: [:show], singleton: true
     resources "/chat_messages", ChatMessageController, except: [:show]
   end

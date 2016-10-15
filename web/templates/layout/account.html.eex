@@ -14,11 +14,13 @@
   </head>
 
   <body>
-    <div class="container">
-      <%= render "_navigation.html", conn: @conn %>
+    <%= render "_navigation.html", conn: @conn %>
+    <%= render "_account_sidebar.html", conn: @conn %>
+    <div class="container container-main-sidebar-left">
       <br>
       <%= render "_flash_messages.html", conn: @conn %>
       <main role="main">
+        account layout
         <%= render @view_module, @view_template, assigns %>
       </main>
       <code>

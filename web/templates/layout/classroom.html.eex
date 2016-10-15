@@ -14,8 +14,9 @@
   </head>
 
   <body>
-    <div class="container">
-      <%= render "_navigation.html", conn: @conn %>
+    <%= render "_navigation.html", conn: @conn %>
+    <%= render "_classroom_sidebar.html", conn: @conn %>
+    <div class="container container-main-sidebar-left">
       <br>
       <%= render "_flash_messages.html", conn: @conn %>
       <main role="main">
