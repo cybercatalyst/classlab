@@ -1,5 +1,5 @@
 defmodule Classlab.SessionControllerTest do
-  alias Classlab.User
+  alias Classlab.{User, UserMailer}
   use Classlab.ConnCase
 
   @valid_attrs Factory.params_for(:session)
@@ -38,7 +38,7 @@ defmodule Classlab.SessionControllerTest do
 
     user = Repo.one(User)
     assert user
-    assert_delivered_email Classlab.UserMailer.token_email(user)
+    assert_delivered_email UserMailer.token_email(user)
   end
 
   test "#create does not create resource and renders errors when data is invalid", %{conn: conn} do
