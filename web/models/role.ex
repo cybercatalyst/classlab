@@ -1,4 +1,7 @@
 defmodule Classlab.Role do
+  @moduledoc """
+  Role model. A role sets the permissions of a membership in a classroom.
+  """
   use Classlab.Web, :model
 
   # Fields

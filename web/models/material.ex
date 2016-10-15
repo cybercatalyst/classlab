@@ -1,4 +1,8 @@
 defmodule Classlab.Material do
+  @moduledoc """
+  Material model. An material is connected with an event.
+  It contains additional contents for an event, e.g. slides, videos.
+  """
   use Classlab.Web, :model
 
   # Fields

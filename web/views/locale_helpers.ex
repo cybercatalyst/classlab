@@ -1,4 +1,7 @@
 defmodule Classlab.LocaleHelpers do
+  @moduledoc """
+  Locale helpers. Helper functions for date and time formatting in templates.
+  """
   alias Calendar.Strftime
 
   def l(%Date{} = date, [format: format]) do

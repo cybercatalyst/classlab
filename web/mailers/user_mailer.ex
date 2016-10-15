@@ -1,4 +1,7 @@
 defmodule Classlab.UserMailer do
+  @moduledoc """
+  User mailer. Builds up emails connected with user model.
+  """
   alias Classlab.{Endpoint, User}
   use Classlab.Web, :mailer
 

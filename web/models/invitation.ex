@@ -1,4 +1,8 @@
 defmodule Classlab.Invitation do
+  @moduledoc """
+  Invitation model. An invitation is connected with an event.
+  Invite creates membership for an event per token and email.
+  """
   alias Ecto.UUID
   use Classlab.Web, :model
 
