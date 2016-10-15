@@ -1,4 +1,4 @@
-defmodule Classlab.Account.MaterialView do
+defmodule Classlab.Classroom.MaterialView do
   use Classlab.Web, :view
 
   # Page Configuration

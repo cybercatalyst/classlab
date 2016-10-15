@@ -1,4 +1,4 @@
-defmodule Classlab.Account.MembershipView do
+defmodule Classlab.Classroom.MembershipView do
   use Classlab.Web, :view
 
   # Page Configuration

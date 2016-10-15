@@ -20,12 +20,8 @@
       <br>
       <%= render "_flash_messages.html", conn: @conn %>
       <main role="main">
-        account layout
         <%= render @view_module, @view_template, assigns %>
       </main>
-      <code>
-      <%= inspect current_user(@conn) %>
-      </code>
     </div> <!-- /container -->
   </body>
 </html>

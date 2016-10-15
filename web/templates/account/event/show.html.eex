@@ -8,7 +8,7 @@
         <%= link "Invitations", to: account_event_invitation_path(@conn, :index, @event), class: "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link "Materials", to: account_event_material_path(@conn, :index, @event), class: "nav-link" %>
+        <%= link "Materials", to: classroom_material_path(@conn, :index, @event), class: "nav-link" %>
       </li>
     </ul>
   </div>

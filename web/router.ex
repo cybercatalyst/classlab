@@ -37,7 +37,6 @@ defmodule Classlab.Router do
 
     resources "/events", EventController do
       resources "/invitations", InvitationController, except: [:edit, :update]
-      resources "/materials", MaterialController
     end
 
     resources "/memberships", MembershipController, only: [:index, :delete]
@@ -55,5 +54,6 @@ defmodule Classlab.Router do
     resources "/", DashboardController, only: [:show], singleton: true
     resources "/chat_messages", ChatMessageController, except: [:show]
     resources "/memberships", MembershipController, only: [:index, :delete]
+    resources "/materials", MaterialController
   end
 end

@@ -1,7 +1,6 @@
 defmodule Classlab.Classroom.MembershipController do
+  alias Classlab.Event
   use Classlab.Web, :controller
-
-  plug :scrub_params, "membership" when action in [:create, :update]
 
   def index(conn, _params) do
     event = load_event(conn)

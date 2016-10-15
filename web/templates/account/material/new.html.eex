@@ -1,2 +1,0 @@
-<%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
-                        action: account_event_material_path(@conn, :create, @event) %>

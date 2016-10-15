@@ -1,4 +1,4 @@
-defmodule Classlab.Account.MaterialController do
+defmodule Classlab.Classroom.MaterialController do
   alias Classlab.{Material, Event}
   use Classlab.Web, :controller
 
@@ -34,7 +34,7 @@ defmodule Classlab.Account.MaterialController do
       {:ok, _material} ->
         conn
         |> put_flash(:info, "Material created successfully.")
-        |> redirect(to: account_event_material_path(conn, :index, event))
+        |> redirect(to: classroom_material_path(conn, :index, event))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset, event: event)
     end
@@ -74,7 +74,7 @@ defmodule Classlab.Account.MaterialController do
       {:ok, material} ->
         conn
         |> put_flash(:info, "Material updated successfully.")
-        |> redirect(to: account_event_material_path(conn, :show, event, material))
+        |> redirect(to: classroom_material_path(conn, :show, event, material))
       {:error, changeset} ->
         render(conn, "edit.html", material: material, changeset: changeset, event: event)
     end
@@ -91,7 +91,7 @@ defmodule Classlab.Account.MaterialController do
 
     conn
     |> put_flash(:info, "Material deleted successfully.")
-    |> redirect(to: account_event_material_path(conn, :index, event))
+    |> redirect(to: classroom_material_path(conn, :index, event))
   end
 
   # Private methods

@@ -1,3 +1,7 @@
+<p class="font-weight-bold">
+  All your attended events
+</p>
+
 <table class="table">
   <tr>
     <th>Event</th>
@@ -6,7 +10,10 @@
   </tr>
   <%= for membership <- @memberships do %>
     <tr>
-      <td><%= membership.event.name %></td>
+      <td>
+        <%= link membership.event.name, to: classroom_dashboard_path(@conn, :show, membership.event) %><br>
+        <small><%= membership.event.description %></small>
+      </td>
       <td><%= membership.role.name %></td>
       <td>
         <%= link "Delete", to: account_membership_path(@conn, :delete, membership), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>

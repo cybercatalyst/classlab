@@ -2,9 +2,10 @@ defmodule Classlab.Account.MembershipControllerTest do
   alias Classlab.Membership
   use Classlab.ConnCase
 
-  @valid_attrs Factory.params_for(:membership) |> Map.take(~w[role seat_position_x seat_position_y]a)
-  @invalid_attrs %{role: nil}
-  @form_field "membership_role"
+  setup %{conn: conn} do
+    user = Factory.insert(:user)
+    {:ok, conn: Session.login(conn, user)}
+  end
 
   test "#index lists all entries on index", %{conn: conn} do
     Factory.insert(:membership)
@@ -13,7 +14,7 @@ defmodule Classlab.Account.MembershipControllerTest do
   end
 
   test "#delete deletes chosen resource", %{conn: conn} do
-    membership = Factory.insert(:membership)
+    membership = Factory.insert(:membership, user: current_user(conn))
     conn = delete conn, account_membership_path(conn, :delete, membership)
     assert redirected_to(conn) == account_membership_path(conn, :index)
     refute Repo.get(Membership, membership.id)

@@ -1,12 +1,10 @@
 defmodule Classlab.Account.MembershipController do
-  alias Classlab.Membership
   use Classlab.Web, :controller
-
-  plug :scrub_params, "membership" when action in [:create, :update]
 
   def index(conn, _params) do
     memberships =
-      Membership
+      current_user(conn)
+      |> assoc(:memberships)
       |> Repo.all()
       |> Repo.preload([:user, :role, :event])
 
@@ -15,7 +13,8 @@ defmodule Classlab.Account.MembershipController do
 
   def delete(conn, %{"id" => id}) do
     membership =
-      Membership
+      current_user(conn)
+      |> assoc(:memberships)
       |> Repo.get!(id)
 
     Repo.delete!(membership)
