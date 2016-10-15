@@ -3,7 +3,8 @@ defmodule Classlab.Account.MembershipController do
 
   def index(conn, _params) do
     memberships =
-      current_user(conn)
+      conn
+      |> current_user()
       |> assoc(:memberships)
       |> Repo.all()
       |> Repo.preload([:user, :role, :event])
@@ -13,7 +14,8 @@ defmodule Classlab.Account.MembershipController do
 
   def delete(conn, %{"id" => id}) do
     membership =
-      current_user(conn)
+      conn
+      |> current_user()
       |> assoc(:memberships)
       |> Repo.get!(id)
 
