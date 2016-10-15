@@ -1,0 +1,2 @@
+<%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
+                        action: classroom_invitation_path(@conn, :create, @event) %>

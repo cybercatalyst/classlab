@@ -1,10 +1,16 @@
 <div class="container-sidebar-left">
   <ul class="sidebar-nav">
+    <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["account", "dashboard"], do: " active")}" do %>
+      <%= link "Dashboard", to: account_dashboard_path(@conn, :show), class: "nav-link" %>
+    <% end %>
     <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["account", "events"], do: " active")}" do %>
       <%= link "Events", to: account_event_path(@conn, :index), class: "nav-link" %>
     <% end %>
     <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["account", "memberships"], do: " active")}" do %>
       <%= link "My memberships", to: account_membership_path(@conn, :index), class: "nav-link" %>
+    <% end %>
+    <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["account", "invitations"], do: " active")}" do %>
+      <%= link "My invitations", to: account_invitation_path(@conn, :index), class: "nav-link" %>
     <% end %>
   </ul>
 </div>

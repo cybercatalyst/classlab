@@ -21,7 +21,7 @@
         <%= l(event.ends_at) %></td>
       <td><%= event.location.city %></td>
       <td><%= link "Classroom", to: classroom_dashboard_path(@conn, :show, event) %></td>
-      <td><%= link length(event.invitations), to: account_event_invitation_path(@conn, :index, event) %></td>
+      <td><%= link length(event.invitations), to: classroom_invitation_path(@conn, :index, event) %></td>
       <td><%= link length(event.materials), to: classroom_material_path(@conn, :index, event) %></td>
       <td>
         <%= link "Edit", to: account_event_path(@conn, :edit, event), class: "btn btn-default btn-sm" %>

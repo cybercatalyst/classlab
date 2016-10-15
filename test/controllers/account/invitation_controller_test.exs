@@ -6,47 +6,21 @@ defmodule Classlab.Account.InvitationControllerTest do
   @invalid_attrs %{email: ""}
   @form_field "invitation_email"
 
+  setup %{conn: conn} do
+    user = Factory.insert(:user)
+    {:ok, conn: Session.login(conn, user)}
+  end
+
   test "#index lists all entries on index", %{conn: conn} do
-    invitation = Factory.insert(:invitation)
-    conn = get conn, account_event_invitation_path(conn, :index, invitation.event)
+    invitation = Factory.insert(:invitation, email: current_user(conn).email)
+    conn = get conn, account_invitation_path(conn, :index)
     assert html_response(conn, 200) =~ invitation.email
-  end
-
-  test "#new renders form for new resources", %{conn: conn} do
-    event = Factory.insert(:event)
-    conn = get conn, account_event_invitation_path(conn, :new, event)
-    assert html_response(conn, 200) =~ @form_field
-  end
-
-  test "#create creates resource and redirects when data is valid", %{conn: conn} do
-    event = Factory.insert(:event)
-    conn = post conn, account_event_invitation_path(conn, :create, event), invitation: @valid_attrs
-    assert redirected_to(conn) == account_event_invitation_path(conn, :index, event)
-    assert Repo.get_by(Invitation, @valid_attrs)
-  end
-
-  test "#create does not create resource and renders errors when data is invalid", %{conn: conn} do
-    event = Factory.insert(:event)
-    conn = post conn, account_event_invitation_path(conn, :create, event), invitation: @invalid_attrs
-    assert html_response(conn, 200) =~ @form_field
-  end
-
-  test "#show shows chosen resource", %{conn: conn} do
-    invitation = Factory.insert(:invitation)
-    conn = get conn, account_event_invitation_path(conn, :show, invitation.event, invitation)
-    assert html_response(conn, 200) =~ invitation.email
-  end
-
-  test "#show renders page not found when id is nonexistent", %{conn: conn} do
-    assert_error_sent 404, fn ->
-      get conn, account_event_invitation_path(conn, :show, -1, -1)
-    end
   end
 
   test "#delete deletes chosen resource", %{conn: conn} do
-    invitation = Factory.insert(:invitation)
-    conn = delete conn, account_event_invitation_path(conn, :delete, invitation.event, invitation)
-    assert redirected_to(conn) == account_event_invitation_path(conn, :index, invitation.event)
+    invitation = Factory.insert(:invitation, email: current_user(conn).email)
+    conn = delete conn, account_invitation_path(conn, :delete, invitation)
+    assert redirected_to(conn) == account_invitation_path(conn, :index)
     refute Repo.get(Invitation, invitation.id)
   end
 end

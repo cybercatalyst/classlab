@@ -3,6 +3,7 @@ defmodule Classlab.Invitation do
   Invitation model. An invitation is connected with an event.
   Invite creates membership for an event per token and email.
   """
+  alias Classlab.User
   alias Ecto.UUID
   use Classlab.Web, :model
 
@@ -20,6 +21,9 @@ defmodule Classlab.Invitation do
   end
 
   # Composable Queries
+  def from_user(query, %User{email: email}) do
+    from inviation in query, where: inviation.email == ^email
+  end
 
   # Changesets & Validations
   @fields ~w(email first_name last_name role_id)
