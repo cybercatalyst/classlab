@@ -7,6 +7,7 @@ defmodule Classlab.Classroom.DashboardController do
     render(conn, "show.html", event: event)
   end
 
+
   # Private methods
   defp load_event(conn) do
     Repo.get_by!(Event, slug: conn.params["event_id"])
