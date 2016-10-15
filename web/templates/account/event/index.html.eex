@@ -2,9 +2,9 @@
   <tr>
     <th>Public</th>
     <th>Name</th>
-    <th>Starts at</th>
-    <th>Ends at</th>
+    <th>Date</th>
     <th>City</th>
+    <th>Classroom</th>
     <th>Invitations</th>
     <th>Materials</th>
     <th></th>
@@ -16,9 +16,11 @@
         <%= link event.name, to: account_event_path(@conn, :show, event) %><br>
         <small class="text-muted"><%= event.description %></small>
       </td>
-      <td><%= l(event.starts_at) %></td>
-      <td><%= l(event.ends_at) %></td>
+      <td>
+        <%= l(event.starts_at) %> -
+        <%= l(event.ends_at) %></td>
       <td><%= event.location.city %></td>
+      <td><%= link "Classroom", to: classroom_dashboard_path(@conn, :show, event) %></td>
       <td><%= link length(event.invitations), to: account_event_invitation_path(@conn, :index, event) %></td>
       <td><%= link length(event.materials), to: account_event_material_path(@conn, :index, event) %></td>
       <td>
