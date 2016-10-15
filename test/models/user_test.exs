@@ -28,4 +28,16 @@ defmodule Classlab.UserTest do
       refute changeset.errors == []
     end
   end
+
+  describe "#full_name" do
+    test "prints the full name with a valid user" do
+      full_name = User.full_name(%User{first_name: "John", last_name: "Doe"})
+      assert full_name == "John Doe"
+    end
+
+    test "prints an empty string else" do
+      full_name = User.full_name(%User{})
+      assert full_name == ""
+    end
+  end
 end

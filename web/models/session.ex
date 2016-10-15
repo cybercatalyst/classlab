@@ -20,6 +20,7 @@ defmodule Classlab.Session do
     |> validate_required([:email])
   end
 
+  # Model Functions
   def login(%Conn{} = conn, %User{} = user) do
     conn
     |> Conn.assign(:current_user, user)

@@ -27,9 +27,7 @@ defmodule Classlab.User do
     has_many :memberships, Classlab.Membership, on_delete: :delete_all
   end
 
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
+  # Changesets & Validations
   @fields [:first_name, :last_name, :email, :access_token, :access_token_expired_at]
   def changeset(struct, params \\ %{}) do
     struct
@@ -45,6 +43,11 @@ defmodule Classlab.User do
     |> cast(params, @fields)
     |> validate_required([:email])
     |> generate_access_token()
+  end
+
+  # Model Functions
+  def full_name(%__MODULE__{first_name: first_name, last_name: last_name}) do
+    [first_name, last_name] |> Enum.join(" ") |> String.trim()
   end
 
   defp generate_access_token(%Ecto.Changeset{} = changeset) do

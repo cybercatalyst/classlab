@@ -29,7 +29,7 @@ defmodule Classlab.Classroom.InvitationController do
     event = load_event(conn)
     changeset =
       event
-      |> build_assoc(:invitations)
+      |> build_assoc(:invitations, %{role_id: 3})
       |> Invitation.changeset(invitation_params)
 
     case Repo.insert(changeset) do

@@ -27,5 +27,4 @@
 
 <div class="btn-toolbar">
   <%= link "New invitation", to: classroom_invitation_path(@conn, :new, @event), class: "btn btn-success" %>
-  <%#= link "Back", to: account_event_path(@conn, :show, @event), class: "btn btn-secondary" %>
 </div>
