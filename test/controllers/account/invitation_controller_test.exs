@@ -14,7 +14,7 @@ defmodule Classlab.Account.InvitationControllerTest do
   test "#index lists all entries on index", %{conn: conn} do
     invitation = Factory.insert(:invitation, email: current_user(conn).email)
     conn = get conn, account_invitation_path(conn, :index)
-    assert html_response(conn, 200) =~ invitation.email
+    assert html_response(conn, 200) =~ invitation.event.name
   end
 
   test "#delete deletes chosen resource", %{conn: conn} do

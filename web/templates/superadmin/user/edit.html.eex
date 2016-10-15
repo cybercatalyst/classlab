@@ -1,0 +1,6 @@
+<%= render "_form.html", changeset: @changeset, conn: @conn,
+           action: superadmin_user_path(@conn, :update, @user) %>
+
+
+
+<%= link "Delete", to: superadmin_user_path(@conn, :delete, @user), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-xs" %>

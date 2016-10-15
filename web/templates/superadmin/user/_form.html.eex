@@ -5,17 +5,13 @@
     </div>
   <% end %>
 
-  <%= input f, :visible %>
-  <%= input f, :name %>
-  <%= input f, :type %>
-  <%#= input f, :contents %>
+  <%= input f, :email %>
+  <%= input f, :first_name %>
+  <%= input f, :last_name %>
 
-  <%= inputs_for f, :contents, fn fc -> %>
-    <%= input fc, :name %>
-  <% end %>
 
   <div class="btn-toolbar">
     <%= submit "Submit", class: "btn btn-primary" %>
-    <%= link "Back", to: classroom_material_path(@conn, :index, @event), class: "btn btn-secondary" %>
+    <%= link "Back", to: superadmin_user_path(@conn, :index), class: "btn btn-secondary" %>
   </div>
 <% end %>

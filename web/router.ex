@@ -56,4 +56,17 @@ defmodule Classlab.Router do
     resources "/materials", MaterialController
     resources "/memberships", MembershipController, only: [:index, :delete]
   end
+
+  #############################################################################
+  ### Superadmin
+  #############################################################################
+  pipeline :superadmin do
+    plug :put_layout, {Classlab.LayoutView, :superadmin}
+  end
+
+  scope "/superadmin", Classlab.Superadmin, as: :superadmin do
+    pipe_through [:browser, :superadmin] # Use the default browser stack
+    resources "/", DashboardController, only: [:show], singleton: true
+    resources "/users", UserController
+  end
 end

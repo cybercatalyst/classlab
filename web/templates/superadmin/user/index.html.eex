@@ -1,0 +1,18 @@
+<table class="table table-sm table-striped table-hover">
+  <tr>
+    <th>#</th>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Registration</th>
+    <th>Last login</th>
+  </tr>
+  <%= for user <- @users do %>
+    <tr<%= if(user.superadmin, do: " class=table-success") %>>
+      <td><%= user.id %></td>
+      <td><%= link user.email, to: superadmin_user_path(@conn, :edit, user) %></td>
+      <td><%= User.full_name(user) %></td>
+      <td><%= l(user.inserted_at) %></td>
+      <td><%= l(user.updated_at) %></td>
+    </tr>
+  <% end %>
+</table>
