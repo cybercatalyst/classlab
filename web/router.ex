@@ -34,4 +34,9 @@ defmodule Classlab.Router do
     end
     resources "/memberships", MembershipController, expect: [:show, :edit, :update]
   end
+
+  scope "/classroom", Classlab.Classroom, as: :classroom do
+    pipe_through :browser # Use the default browser stack
+    resources "/", DashboardController, only: [:show], singleton: true
+  end
 end
