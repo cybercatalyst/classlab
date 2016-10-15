@@ -13,7 +13,7 @@
       <td><%= invitation.email %></td>
       <td><%= invitation.completed_at %></td>
       <td>
-        <%= link "Cancel", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+        <%= link "Cancel invitation", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
       </td>
     </tr>
   <% end %>

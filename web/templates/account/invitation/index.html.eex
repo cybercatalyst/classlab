@@ -1,26 +1,15 @@
+<h1>My invitations</h1>
 
-  <table class="table">
-    <tr>
-      <th>Email</th>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Invitation token</th>
-      <th>Completed at</th>
-
-      <th></th>
-    </tr>
-    <%= for invitation <- @invitations do %>
-      <tr>
-        <td><%= invitation.email %></td>
-        <td><%= invitation.first_name %></td>
-        <td><%= invitation.last_name %></td>
-        <td><%= invitation.invitation_token %></td>
-        <td><%= invitation.event.name %></td>
-        <td><%= invitation.completed_at %></td>
-
-        <td>
-          <%= link "Revoke", to: account_invitation_path(@conn, :delete, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+<%= for invitation <- @invitations do %>
+  <div class="card">
+    <div class="card-block">
+    <div class="card-title">
+      <h4><%= invitation.event.name %></h4>
+    </div>
+    <div class="btn-toolbar">
+      <%= link "Accept", to: "#", class: "btn btn-success" %>
+      <%= link "Decline", to: account_invitation_path(@conn, :delete, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
+    </div>
+    </div>
+  </div>
+<% end %>

@@ -1,3 +1,8 @@
 @import "bootstrap_variables";
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "sidebar-nav";
+
+// This is a fix for phoenix form helpers
+form.link {
+  display: inline-block;
+}

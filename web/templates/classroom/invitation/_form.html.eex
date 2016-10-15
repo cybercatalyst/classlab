@@ -5,11 +5,10 @@
     </div>
   <% end %>
 
-  <%= input f, :email %>
-
   <div class="row">
-    <div class="col-md-6"><%= input f, :first_name %></div>
-    <div class="col-md-6"><%= input f, :last_name %></div>
+    <div class="col-md-3"><%= input f, :email %></div>
+    <div class="col-md-2"><%= input f, :first_name %></div>
+    <div class="col-md-2"><%= input f, :last_name %></div>
   </div>
 
   <div class="btn-toolbar">
