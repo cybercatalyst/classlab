@@ -1,12 +1,13 @@
-defmodule Classlab.Account.MembershipController do
-  alias Classlab.Membership
+defmodule Classlab.Classroom.MembershipController do
   use Classlab.Web, :controller
 
   plug :scrub_params, "membership" when action in [:create, :update]
 
   def index(conn, _params) do
+    event = load_event(conn)
     memberships =
-      Membership
+      event
+      |> assoc(:memberships)
       |> Repo.all()
       |> Repo.preload([:user, :role, :event])
 
@@ -14,14 +15,21 @@ defmodule Classlab.Account.MembershipController do
   end
 
   def delete(conn, %{"id" => id}) do
+    event = load_event(conn)
     membership =
-      Membership
+      event
+      |> assoc(:memberships)
       |> Repo.get!(id)
 
     Repo.delete!(membership)
 
     conn
     |> put_flash(:info, "Membership deleted successfully.")
-    |> redirect(to: account_membership_path(conn, :index))
+    |> redirect(to: classroom_membership_path(conn, :index, event))
+  end
+
+  # Private methods
+  defp load_event(conn) do
+    Repo.get_by!(Event, slug: conn.params["event_id"])
   end
 end

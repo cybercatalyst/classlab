@@ -40,7 +40,7 @@ defmodule Classlab.Router do
       resources "/materials", MaterialController
     end
 
-    resources "/memberships", MembershipController, expect: [:show, :edit, :update]
+    resources "/memberships", MembershipController, only: [:index, :delete]
   end
 
   #############################################################################
@@ -54,5 +54,6 @@ defmodule Classlab.Router do
     pipe_through [:browser, :classroom] # Use the default browser stack
     resources "/", DashboardController, only: [:show], singleton: true
     resources "/chat_messages", ChatMessageController, except: [:show]
+    resources "/memberships", MembershipController, only: [:index, :delete]
   end
 end

@@ -12,22 +12,6 @@ defmodule Classlab.Account.MembershipControllerTest do
     assert html_response(conn, 200) =~ "Role"
   end
 
-  test "#new renders form for new resources", %{conn: conn} do
-    conn = get conn, account_membership_path(conn, :new)
-    assert html_response(conn, 200) =~ @form_field
-  end
-
-  # test "#create creates resource and redirects when data is valid", %{conn: conn} do
-  #   conn = post conn, account_membership_path(conn, :create), membership: @valid_attrs
-  #   assert redirected_to(conn) == account_membership_path(conn, :index)
-  #   assert Repo.get_by(Membership, @valid_attrs)
-  # end
-
-  # test "#create does not create resource and renders errors when data is invalid", %{conn: conn} do
-  #   conn = post conn, account_membership_path(conn, :create), membership: @invalid_attrs
-  #   assert html_response(conn, 200) =~ @form_field
-  # end
-
   test "#delete deletes chosen resource", %{conn: conn} do
     membership = Factory.insert(:membership)
     conn = delete conn, account_membership_path(conn, :delete, membership)
