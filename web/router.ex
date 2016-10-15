@@ -22,17 +22,20 @@ defmodule Classlab.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/session/:id", SessionController, :show
     get "/login", SessionController, :new
     post "/login", SessionController, :create
-    delete "/logout", SessionController, :delete
+    get "/session/:id", SessionController, :show
 
+    scope "/account", as: :account do
+      delete "/logout", SessionController, :delete
 
-    resources "/events", EventController do
-      resources "/invitations", InvitationController, except: [:edit, :update]
-      resources "/materials", MaterialController
+      resources "/events", Account.EventController do
+        resources "/invitations", Account.InvitationController, except: [:edit, :update]
+        resources "/materials", Account.MaterialController
+      end
+
+      resources "/memberships", Account.MembershipController, expect: [:show, :edit, :update]
     end
-    resources "/memberships", MembershipController, expect: [:show, :edit, :update]
   end
 
   scope "/classroom", Classlab.Classroom, as: :classroom do

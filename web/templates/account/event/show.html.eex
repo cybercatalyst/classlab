@@ -1,0 +1,60 @@
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs pull-xs-left">
+      <li class="nav-item">
+        <%= link "Overview", to: account_event_path(@conn, :show, @event), class: "nav-link active" %>
+      </li>
+      <li class="nav-item">
+        <%= link "Invitations", to: account_event_invitation_path(@conn, :index, @event), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link "Materials", to: account_event_material_path(@conn, :index, @event), class: "nav-link" %>
+      </li>
+    </ul>
+  </div>
+  <div class="card-block">
+    <p>
+      <strong>Public:</strong>
+      <%= @event.public %>
+    </p>
+
+    <p>
+      <strong>Name:</strong>
+      <%= @event.name %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @event.description %>
+    </p>
+
+    <p>
+      <strong>Date</strong>
+      <%= l(@event.starts_at) %> - <%= l(@event.ends_at) %> (<%= @event.timezone %>)
+    </p>
+
+    <p>
+      <strong>Invitation token:</strong>
+      <%= @event.invitation_token %>
+    </p>
+
+    <p>
+      <%= @event.location.name %><br>
+      <%= @event.location.address_line_1 %><br>
+      <%= @event.location.address_line_2 %><br>
+      <%= @event.location.zipcode %><br>
+      <%= @event.location.city %><br>
+      <%= @event.location.country %><br>
+      <%= @event.location.external_url %>
+    </p>
+
+    <p>
+      <%= inspect @event.memberships %>
+    </p>
+  </div>
+</div>
+
+<div class="btn-toolbar">
+  <%= link "Edit", to: account_event_path(@conn, :edit, @event), class: "btn btn-primary" %>
+  <%= link "Back", to: account_event_path(@conn, :index), class: "btn btn-secondary" %>
+</div>

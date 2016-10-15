@@ -1,0 +1,26 @@
+<table class="table">
+  <tr>
+    <th>User</th>
+    <th>Event</th>
+    <th>Role</th>
+
+    <th></th>
+  </tr>
+  <%= for membership <- @memberships do %>
+    <tr>
+      <td><%= membership.user.email %></td>
+      <td><%= membership.event.name %></td>
+      <td><%= membership.role.name %></td>
+
+      <td>
+        <%= link "Show", to: account_membership_path(@conn, :show, membership), class: "btn btn-default btn-sm" %>
+        <%= link "Edit", to: account_membership_path(@conn, :edit, membership), class: "btn btn-default btn-sm" %>
+        <%= link "Delete", to: account_membership_path(@conn, :delete, membership), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="btn-toolbar">
+  <%= link "New membership", to: account_membership_path(@conn, :new), class: "btn btn-success" %>
+</div>

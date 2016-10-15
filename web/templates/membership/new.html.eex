@@ -1,2 +1,0 @@
-<%= render "_form.html", conn: @conn, changeset: @changeset,
-                        action: membership_path(@conn, :create) %>

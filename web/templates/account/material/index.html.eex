@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs pull-xs-left">
+      <li class="nav-item">
+        <%= link "Overview", to: account_event_path(@conn, :show, @event), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link "Invitations", to: account_event_invitation_path(@conn, :index, @event), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link "Materials", to: account_event_material_path(@conn, :index, @event), class: "nav-link active" %>
+      </li>
+    </ul>
+  </div>
+  <div class="card-block">
+
+    <table class="table">
+      <tr>
+        <th>Visible</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Contents</th>
+
+        <th></th>
+      </tr>
+      <%= for material <- @materials do %>
+        <tr>
+          <td><%= material.visible %></td>
+          <td><%= material.name %></td>
+          <td><%= material.type %></td>
+
+          <td>
+            <%= link "Show", to: account_event_material_path(@conn, :show, @event, material), class: "btn btn-default btn-sm" %>
+            <%= link "Edit", to: account_event_material_path(@conn, :edit, @event, material), class: "btn btn-default btn-sm" %>
+            <%= link "Delete", to: account_event_material_path(@conn, :delete, @event, material), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+    <div class="btn-toolbar">
+      <%= link "New material", to: account_event_material_path(@conn, :new, @event), class: "btn btn-success" %>
+    </div>
+  </div>
+</div>

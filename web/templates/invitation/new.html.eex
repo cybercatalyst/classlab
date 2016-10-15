@@ -1,2 +1,0 @@
-<%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
-                        action: event_invitation_path(@conn, :create, @event) %>

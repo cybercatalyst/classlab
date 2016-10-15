@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs pull-xs-left">
+      <li class="nav-item">
+        <%= link "Overview", to: account_event_path(@conn, :show, @event), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link "Invitations", to: account_event_invitation_path(@conn, :index, @event), class: "nav-link active" %>
+      </li>
+      <li class="nav-item">
+        <%= link "Materials", to: account_event_material_path(@conn, :index, @event), class: "nav-link" %>
+      </li>
+    </ul>
+  </div>
+  <div class="card-block">
+
+    <table class="table">
+      <tr>
+        <th>Email</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Invitation token</th>
+        <th>Completed at</th>
+
+        <th></th>
+      </tr>
+      <%= for invitation <- @invitations do %>
+        <tr>
+          <td><%= invitation.email %></td>
+          <td><%= invitation.first_name %></td>
+          <td><%= invitation.last_name %></td>
+          <td><%= invitation.invitation_token %></td>
+          <td><%= invitation.event.name %></td>
+          <td><%= invitation.completed_at %></td>
+
+          <td>
+            <%= link "Revoke", to: account_event_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+    <div class="btn-toolbar">
+      <%= link "New invitation", to: account_event_invitation_path(@conn, :new, @event), class: "btn btn-success" %>
+      <%= link "Back", to: account_event_path(@conn, :show, @event), class: "btn btn-secondary" %>
+    </div>
+
+  </div>
+</div>
