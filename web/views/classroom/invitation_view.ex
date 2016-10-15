@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.InvitationView do
+  alias Classlab.Invitation
   use Classlab.Web, :view
 
   # Page Configuration

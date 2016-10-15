@@ -35,7 +35,7 @@ defmodule Classlab.UserTest do
       assert full_name == "John Doe"
     end
 
-    test "prints an empty string else" do
+    test "prints an empty string otherwise" do
       full_name = User.full_name(%User{})
       assert full_name == ""
     end

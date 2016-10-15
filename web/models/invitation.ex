@@ -33,9 +33,14 @@ defmodule Classlab.Invitation do
     |> generate_invitation_token
     |> validate_required([:email, :invitation_token, :role_id])
     |> unique_constraint(:invitation_token)
+    |> unique_constraint(:email, name: :invitations_email_event_id_index)
   end
 
   # Model Functions
+  def full_name(%__MODULE__{first_name: first_name, last_name: last_name}) do
+    [first_name, last_name] |> Enum.join(" ") |> String.trim()
+  end
+
   defp generate_invitation_token(struct) do
     token = UUID.generate()
     put_change(struct, :invitation_token, token)

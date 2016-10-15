@@ -14,6 +14,7 @@ defmodule Classlab.Repo.Migrations.CreateInvitation do
     end
     create index(:invitations, [:event_id])
     create index(:invitations, [:email])
+    create unique_index(:invitations, [:email, :event_id], name: :invitations_email_event_id_index)
     create unique_index(:invitations, [:invitation_token])
   end
 end

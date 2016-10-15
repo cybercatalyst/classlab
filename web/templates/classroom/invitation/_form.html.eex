@@ -3,7 +3,6 @@
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
-    <%= inspect @changeset.errors %>
   <% end %>
 
   <%= input f, :email %>

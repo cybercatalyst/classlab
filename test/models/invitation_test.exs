@@ -14,4 +14,16 @@ defmodule Classlab.InvitationTest do
     changeset = Invitation.changeset(%Invitation{}, @invalid_attrs)
     refute changeset.errors == []
   end
+
+  describe "#full_name" do
+    test "prints the full name with a valid user" do
+      full_name = Invitation.full_name(%Invitation{first_name: "John", last_name: "Doe"})
+      assert full_name == "John Doe"
+    end
+
+    test "prints an empty string otherwise" do
+      full_name = Invitation.full_name(%Invitation{})
+      assert full_name == ""
+    end
+  end
 end
