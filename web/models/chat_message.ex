@@ -1,4 +1,8 @@
 defmodule Classlab.ChatMessage do
+  @moduledoc """
+  Chat messages are messages in an event. They're not
+  personal messages between users.
+  """
   use Classlab.Web, :model
 
   # Fields
