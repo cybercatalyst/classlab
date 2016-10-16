@@ -1,5 +1,5 @@
 defmodule Classlab.Classroom.InvitationController do
-  alias Classlab.{Event, Invitation}
+  alias Classlab.{Event, Invitation, InvitationMailer}
   use Classlab.Web, :controller
 
   plug :scrub_params, "invitation" when action in [:create, :update]
@@ -33,7 +33,12 @@ defmodule Classlab.Classroom.InvitationController do
       |> Invitation.changeset(invitation_params)
 
     case Repo.insert(changeset) do
-      {:ok, _invitation} ->
+      {:ok, invitation} ->
+        invitation
+        |> Repo.preload(:event)
+        |> InvitationMailer.invitation_email()
+        |> Mailer.deliver_now()
+
         conn
         |> put_flash(:info, "Invitation created successfully.")
         |> redirect(to: classroom_invitation_path(conn, :index, event))
