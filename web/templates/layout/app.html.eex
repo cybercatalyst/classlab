@@ -16,9 +16,9 @@
   <body>
     <div class="container">
       <%= render "_navigation.html", conn: @conn %>
-      <br>
-      <%= render "_flash_messages.html", conn: @conn %>
       <main role="main">
+        <%= render "_flash_messages.html", conn: @conn %>
+
         <%= render @view_module, @view_template, assigns %>
       </main>
     </div> <!-- /container -->
