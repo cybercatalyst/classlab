@@ -7,10 +7,12 @@ defmodule Classlab.Account.MembershipControllerTest do
     {:ok, conn: Session.login(conn, user)}
   end
 
-  test "#index lists all entries on index", %{conn: conn} do
-    Factory.insert(:membership)
-    conn = get conn, account_membership_path(conn, :index)
-    assert html_response(conn, 200) =~ "Role"
+  describe "#index" do
+    test "lists all entries on index", %{conn: conn} do
+      Factory.insert(:membership)
+      conn = get conn, account_membership_path(conn, :index)
+      assert html_response(conn, 200) =~ "Role"
+    end
   end
 
   test "#delete deletes chosen resource", %{conn: conn} do

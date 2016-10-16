@@ -11,16 +11,20 @@ defmodule Classlab.Superadmin.UserControllerTest do
     {:ok, conn: Session.login(conn, user)}
   end
 
-  test "#index lists all entries on index", %{conn: conn} do
-    user = Factory.insert(:user)
-    conn = get conn, superadmin_user_path(conn, :index)
-    assert html_response(conn, 200) =~ user.email
+  describe "#index" do
+    test "lists all entries on index", %{conn: conn} do
+      user = Factory.insert(:user)
+      conn = get conn, superadmin_user_path(conn, :index)
+      assert html_response(conn, 200) =~ user.email
+    end
   end
 
-  test "#edit renders form for editing chosen resource", %{conn: conn} do
-    user = Factory.insert(:user)
-    conn = get conn, superadmin_user_path(conn, :edit, user)
-    assert html_response(conn, 200) =~ @form_field
+  describe "#edit" do
+    test "renders form for editing chosen resource", %{conn: conn} do
+      user = Factory.insert(:user)
+      conn = get conn, superadmin_user_path(conn, :edit, user)
+      assert html_response(conn, 200) =~ @form_field
+    end
   end
 
   test "#update updates chosen resource and redirects when data is valid", %{conn: conn} do

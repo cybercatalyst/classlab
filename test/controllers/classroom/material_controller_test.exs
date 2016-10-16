@@ -6,10 +6,12 @@ defmodule Classlab.Classroom.MaterialControllerTest do
   @invalid_attrs %{name: ""}
   @form_field "material_name"
 
-  test "#index lists all entries on index", %{conn: conn} do
-    material = Factory.insert(:material)
-    conn = get conn, classroom_material_path(conn, :index, material.event)
-    assert html_response(conn, 200) =~ material.name
+  describe "#index" do
+    test "lists all entries on index", %{conn: conn} do
+      material = Factory.insert(:material)
+      conn = get conn, classroom_material_path(conn, :index, material.event)
+      assert html_response(conn, 200) =~ material.name
+    end
   end
 
   test "#new renders form for new resources", %{conn: conn} do

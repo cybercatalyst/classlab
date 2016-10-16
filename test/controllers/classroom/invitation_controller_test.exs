@@ -6,10 +6,12 @@ defmodule Classlab.Classroom.InvitationControllerTest do
   @invalid_attrs %{email: ""}
   @form_field "invitation_email"
 
-  test "#index lists all entries on index", %{conn: conn} do
-    invitation = Factory.insert(:invitation)
-    conn = get conn, classroom_invitation_path(conn, :index, invitation.event)
-    assert html_response(conn, 200) =~ invitation.email
+  describe "#index" do
+    test "lists all entries on index", %{conn: conn} do
+      invitation = Factory.insert(:invitation)
+      conn = get conn, classroom_invitation_path(conn, :index, invitation.event)
+      assert html_response(conn, 200) =~ invitation.email
+    end
   end
 
   test "#new renders form for new resources", %{conn: conn} do

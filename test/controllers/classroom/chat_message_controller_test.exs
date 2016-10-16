@@ -11,16 +11,20 @@ defmodule Classlab.Classroom.ChatMessageControllerTest do
     {:ok, conn: Session.login(conn, user)}
   end
 
-  test "#index lists all entries on index", %{conn: conn} do
-    chat_message = Factory.insert(:chat_message)
-    conn = get conn, classroom_chat_message_path(conn, :index, chat_message.event)
-    assert html_response(conn, 200) =~ chat_message.body
+  describe "#index" do
+    test "lists all entries on index", %{conn: conn} do
+      chat_message = Factory.insert(:chat_message)
+      conn = get conn, classroom_chat_message_path(conn, :index, chat_message.event)
+      assert html_response(conn, 200) =~ chat_message.body
+    end
   end
 
-  test "#new renders form for new resources", %{conn: conn} do
-    event = Factory.insert(:event)
-    conn = get conn, classroom_chat_message_path(conn, :new, event)
-    assert html_response(conn, 200) =~ @form_field
+  describe "#new" do
+    test "#new renders form for new resources", %{conn: conn} do
+      event = Factory.insert(:event)
+      conn = get conn, classroom_chat_message_path(conn, :new, event)
+      assert html_response(conn, 200) =~ @form_field
+    end
   end
 
   test "#create creates resource and redirects when data is valid", %{conn: conn} do

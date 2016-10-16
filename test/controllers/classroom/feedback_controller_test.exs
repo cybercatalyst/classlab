@@ -6,9 +6,11 @@ defmodule Classlab.Classroom.FeedbackControllerTest do
     {:ok, conn: Session.login(conn, user)}
   end
 
-  test "#index lists all entries on index", %{conn: conn} do
-    feedback = Factory.insert(:feedback)
-    conn = get conn, classroom_feedback_path(conn, :index, feedback.event)
-    assert html_response(conn, 200) =~ feedback.content_comment
+  describe "#index" do
+    test "lists all entries on index", %{conn: conn} do
+      feedback = Factory.insert(:feedback)
+      conn = get conn, classroom_feedback_path(conn, :index, feedback.event)
+      assert html_response(conn, 200) =~ feedback.content_comment
+    end
   end
 end

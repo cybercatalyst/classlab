@@ -11,10 +11,12 @@ defmodule Classlab.Account.InvitationControllerTest do
     {:ok, conn: Session.login(conn, user)}
   end
 
-  test "#index lists all entries on index", %{conn: conn} do
-    invitation = Factory.insert(:invitation, email: current_user(conn).email)
-    conn = get conn, account_invitation_path(conn, :index)
-    assert html_response(conn, 200) =~ invitation.event.name
+  describe "#index" do
+    test "lists all entries on index", %{conn: conn} do
+      invitation = Factory.insert(:invitation, email: current_user(conn).email)
+      conn = get conn, account_invitation_path(conn, :index)
+      assert html_response(conn, 200) =~ invitation.event.name
+    end
   end
 
   test "#delete deletes chosen resource", %{conn: conn} do

@@ -11,10 +11,12 @@ defmodule Classlab.Account.FeedbackControllerTest do
     {:ok, conn: Session.login(conn, user)}
   end
 
-  test "#index lists all entries on index", %{conn: conn} do
-    feedback = Factory.insert(:feedback, user: current_user(conn))
-    conn = get conn, account_feedback_path(conn, :index)
-    assert html_response(conn, 200) =~ feedback.content_comment
+  describe "#index" do
+    test "lists all entries on index", %{conn: conn} do
+      feedback = Factory.insert(:feedback, user: current_user(conn))
+      conn = get conn, account_feedback_path(conn, :index)
+      assert html_response(conn, 200) =~ feedback.content_comment
+    end
   end
 
   test "#new renders form for new resources", %{conn: conn} do
