@@ -3,11 +3,11 @@ defmodule Classlab.Repo.Migrations.CreateClassroom.Feedback do
 
   def change do
     create table(:feedbacks) do
-      add :content_rating, :integer, null: false
+      add :content_rating, :integer, null: false, default: 1
       add :content_comment, :text
-      add :trainer_rating, :integer, null: false
+      add :trainer_rating, :integer, null: false, default: 1
       add :trainer_comment, :text
-      add :location_rating, :integer, null: false
+      add :location_rating, :integer, null: false, default: 1
       add :location_comment, :text
       add :testimonial, :text
       add :event_id, references(:events, on_delete: :delete_all), null: false

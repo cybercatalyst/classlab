@@ -17,7 +17,7 @@ defmodule Classlab.InputHelpers do
 
     content_tag :div, wrapper_opts do
       label = label(form, field, humanize(field), label_opts)
-      input = input(type, form, field, input_opts)
+      input = input_field(type, form, field, input_opts)
       error = ErrorHelpers.error_tag(form, field)
       [label, input, error || ""]
     end
@@ -34,11 +34,11 @@ defmodule Classlab.InputHelpers do
   end
 
   # Implement clauses below for custom inputs.
-  # defp input(:datepicker, form, field, input_opts) do
+  # defp input_field(:datepicker, form, field, input_opts) do
   #   raise "not yet implemented"
   # end
 
-  defp input(type, form, field, input_opts) do
+  defp input_field(type, form, field, input_opts) do
     apply(Form, type, [form, field, input_opts])
   end
 end

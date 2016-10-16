@@ -3,11 +3,11 @@ defmodule Classlab.Feedback do
 
   # Fields
   schema "feedbacks" do
-    field :content_rating, :integer
+    field :content_rating, :integer, default: 1
     field :content_comment, :string
-    field :trainer_rating, :integer
+    field :trainer_rating, :integer, default: 1
     field :trainer_comment, :string
-    field :location_rating, :integer
+    field :location_rating, :integer, default: 1
     field :location_comment, :string
     field :testimonial, :string
     timestamps()

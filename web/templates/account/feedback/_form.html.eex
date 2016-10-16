@@ -6,7 +6,6 @@
   <% end %>
 
   <%= input f, :event_id %>
-  <%= input f, :membership_id %>
   <%= input f, :content_rating %>
   <%= input f, :content_comment %>
   <%= input f, :trainer_rating %>
