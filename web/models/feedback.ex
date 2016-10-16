@@ -1,4 +1,7 @@
 defmodule Classlab.Feedback do
+  @moduledoc """
+  Feedback model. Belongs to an event and an user.
+  """
   use Classlab.Web, :model
 
   # Fields
@@ -19,7 +22,8 @@ defmodule Classlab.Feedback do
   # Composable Queries
 
   # Changesets & Validations
-  @fields ~w(event_id content_rating content_comment trainer_rating trainer_comment location_rating location_comment testimonial)
+  @fields ~w(event_id content_rating content_comment trainer_rating trainer_comment
+             location_rating location_comment testimonial)
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)

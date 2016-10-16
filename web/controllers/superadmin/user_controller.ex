@@ -7,7 +7,7 @@ defmodule Classlab.Superadmin.UserController do
   def index(conn, _params) do
     users =
       User
-      |> Ecto.Query.order_by([desc: :superadmin, desc: :inserted_at])
+      |> User.admin_sort()
       |> Repo.all()
 
     render(conn, "index.html", users: users)

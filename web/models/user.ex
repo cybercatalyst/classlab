@@ -7,12 +7,6 @@ defmodule Classlab.User do
   alias Calendar.DateTime
   use Classlab.Web, :model
 
-  # Composable Queries
-  def with_valid_access_token(query) do
-    from u in query,
-      where: u.access_token_expired_at >= ^DateTime.now_utc
-  end
-
   # Fields
   schema "users" do
     field :first_name, :string
@@ -27,6 +21,16 @@ defmodule Classlab.User do
     has_many :chat_messages, Classlab.ChatMessage, on_delete: :nilify_all
     has_many :feedbacks, Classlab.Feedback, on_delete: :nilify_all
     has_many :memberships, Classlab.Membership, on_delete: :delete_all
+  end
+
+  # Composable Queries
+  def with_valid_access_token(query) do
+    from u in query,
+      where: u.access_token_expired_at >= ^DateTime.now_utc
+  end
+
+  def admin_sort(query) do
+    from u in query, order_by: [desc: :superadmin, desc: :inserted_at]
   end
 
   # Changesets & Validations

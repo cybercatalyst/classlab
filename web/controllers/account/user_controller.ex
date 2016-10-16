@@ -24,7 +24,7 @@ defmodule Classlab.Account.UserController do
     changeset = User.changeset(user, user_params)
 
     case Repo.update(changeset) do
-      {:ok, user} ->
+      {:ok, _user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
         |> redirect(to: account_user_path(conn, :show))
