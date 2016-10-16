@@ -2,10 +2,6 @@ defmodule Classlab.Account.InvitationControllerTest do
   alias Classlab.Invitation
   use Classlab.ConnCase
 
-  @valid_attrs Factory.params_for(:invitation) |> Map.take(~w[email role_id]a)
-  @invalid_attrs %{email: ""}
-  @form_field "invitation_email"
-
   setup %{conn: conn} do
     user = Factory.insert(:user)
     {:ok, conn: Session.login(conn, user)}
