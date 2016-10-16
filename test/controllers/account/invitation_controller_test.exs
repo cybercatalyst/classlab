@@ -19,10 +19,12 @@ defmodule Classlab.Account.InvitationControllerTest do
     end
   end
 
-  test "#delete deletes chosen resource", %{conn: conn} do
-    invitation = Factory.insert(:invitation, email: current_user(conn).email)
-    conn = delete conn, account_invitation_path(conn, :delete, invitation)
-    assert redirected_to(conn) == account_invitation_path(conn, :index)
-    refute Repo.get(Invitation, invitation.id)
+  describe "#delete" do
+    test "deletes chosen resource", %{conn: conn} do
+      invitation = Factory.insert(:invitation, email: current_user(conn).email)
+      conn = delete conn, account_invitation_path(conn, :delete, invitation)
+      assert redirected_to(conn) == account_invitation_path(conn, :index)
+      refute Repo.get(Invitation, invitation.id)
+    end
   end
 end

@@ -6,9 +6,11 @@ defmodule Classlab.SessionControllerTest do
   @invalid_attrs %{email: ""}
   @form_field "email"
 
-  test "#new renders form for new resources", %{conn: conn} do
-    conn = get conn, session_path(conn, :new)
-    assert html_response(conn, 200) =~ @form_field
+  describe "#new" do
+    test "renders form for new resources", %{conn: conn} do
+      conn = get conn, session_path(conn, :new)
+      assert html_response(conn, 200) =~ @form_field
+    end
   end
 
   describe "#show" do

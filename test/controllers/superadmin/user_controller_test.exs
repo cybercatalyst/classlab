@@ -27,23 +27,27 @@ defmodule Classlab.Superadmin.UserControllerTest do
     end
   end
 
-  test "#update updates chosen resource and redirects when data is valid", %{conn: conn} do
-    user = Factory.insert(:user)
-    conn = put conn, superadmin_user_path(conn, :update, user), user: @valid_attrs
-    assert redirected_to(conn) == superadmin_user_path(conn, :edit, user)
-    assert Repo.get_by(User, @valid_attrs)
+  describe "#update" do
+    test "updates chosen resource and redirects when data is valid", %{conn: conn} do
+      user = Factory.insert(:user)
+      conn = put conn, superadmin_user_path(conn, :update, user), user: @valid_attrs
+      assert redirected_to(conn) == superadmin_user_path(conn, :edit, user)
+      assert Repo.get_by(User, @valid_attrs)
+    end
+
+    test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
+      user = Factory.insert(:user)
+      conn = put conn, superadmin_user_path(conn, :update, user), user: @invalid_attrs
+      assert html_response(conn, 200) =~ @form_field
+    end
   end
 
-  test "#update does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    user = Factory.insert(:user)
-    conn = put conn, superadmin_user_path(conn, :update, user), user: @invalid_attrs
-    assert html_response(conn, 200) =~ @form_field
-  end
-
-  test "#delete deletes chosen resource", %{conn: conn} do
-    user = Factory.insert(:user)
-    conn = delete conn, superadmin_user_path(conn, :delete, user)
-    assert redirected_to(conn) == superadmin_user_path(conn, :index)
-    refute Repo.get(User, user.id)
+  describe "#delete" do
+    test "deletes chosen resource", %{conn: conn} do
+      user = Factory.insert(:user)
+      conn = delete conn, superadmin_user_path(conn, :delete, user)
+      assert redirected_to(conn) == superadmin_user_path(conn, :index)
+      refute Repo.get(User, user.id)
+    end
   end
 end

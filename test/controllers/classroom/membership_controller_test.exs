@@ -15,10 +15,12 @@ defmodule Classlab.Classroom.MembershipControllerTest do
     end
   end
 
-  test "#delete deletes chosen resource", %{conn: conn} do
-    membership = Factory.insert(:membership, user: current_user(conn))
-    conn = delete conn, classroom_membership_path(conn, :delete, membership.event, membership)
-    assert redirected_to(conn) == classroom_membership_path(conn, :index, membership.event)
-    refute Repo.get(Membership, membership.id)
+  describe "#delete" do
+    test "deletes chosen resource", %{conn: conn} do
+      membership = Factory.insert(:membership, user: current_user(conn))
+      conn = delete conn, classroom_membership_path(conn, :delete, membership.event, membership)
+      assert redirected_to(conn) == classroom_membership_path(conn, :index, membership.event)
+      refute Repo.get(Membership, membership.id)
+    end
   end
 end

@@ -14,29 +14,35 @@ defmodule Classlab.Classroom.InvitationControllerTest do
     end
   end
 
-  test "#new renders form for new resources", %{conn: conn} do
-    event = Factory.insert(:event)
-    conn = get conn, classroom_invitation_path(conn, :new, event)
-    assert html_response(conn, 200) =~ @form_field
+  describe "#new" do
+    test "renders form for new resources", %{conn: conn} do
+      event = Factory.insert(:event)
+      conn = get conn, classroom_invitation_path(conn, :new, event)
+      assert html_response(conn, 200) =~ @form_field
+    end
   end
 
-  test "#create creates resource and redirects when data is valid", %{conn: conn} do
-    event = Factory.insert(:event)
-    conn = post conn, classroom_invitation_path(conn, :create, event), invitation: @valid_attrs
-    assert redirected_to(conn) == classroom_invitation_path(conn, :index, event)
-    assert Repo.get_by(Invitation, @valid_attrs)
+  describe "#create" do
+    test "creates resource and redirects when data is valid", %{conn: conn} do
+      event = Factory.insert(:event)
+      conn = post conn, classroom_invitation_path(conn, :create, event), invitation: @valid_attrs
+      assert redirected_to(conn) == classroom_invitation_path(conn, :index, event)
+      assert Repo.get_by(Invitation, @valid_attrs)
+    end
+
+    test "does not create resource and renders errors when data is invalid", %{conn: conn} do
+      event = Factory.insert(:event)
+      conn = post conn, classroom_invitation_path(conn, :create, event), invitation: @invalid_attrs
+      assert html_response(conn, 200) =~ @form_field
+    end
   end
 
-  test "#create does not create resource and renders errors when data is invalid", %{conn: conn} do
-    event = Factory.insert(:event)
-    conn = post conn, classroom_invitation_path(conn, :create, event), invitation: @invalid_attrs
-    assert html_response(conn, 200) =~ @form_field
-  end
-
-  test "#delete deletes chosen resource", %{conn: conn} do
-    invitation = Factory.insert(:invitation)
-    conn = delete conn, classroom_invitation_path(conn, :delete, invitation.event, invitation)
-    assert redirected_to(conn) == classroom_invitation_path(conn, :index, invitation.event)
-    refute Repo.get(Invitation, invitation.id)
+  describe "#delete" do
+    test "deletes chosen resource", %{conn: conn} do
+      invitation = Factory.insert(:invitation)
+      conn = delete conn, classroom_invitation_path(conn, :delete, invitation.event, invitation)
+      assert redirected_to(conn) == classroom_invitation_path(conn, :index, invitation.event)
+      refute Repo.get(Invitation, invitation.id)
+    end
   end
 end
