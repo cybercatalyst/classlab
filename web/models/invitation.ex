@@ -3,7 +3,7 @@ defmodule Classlab.Invitation do
   Invitation model. An invitation is connected with an event.
   Invite creates membership for an event per token and email.
   """
-  alias Classlab.User
+  alias Classlab.{Event, User}
   alias Ecto.UUID
   use Classlab.Web, :model
 
@@ -25,6 +25,18 @@ defmodule Classlab.Invitation do
     from inviation in query, where: inviation.email == ^email
   end
 
+  def not_completed(query) do
+    from inviation in query, where: is_nil(inviation.completed_at)
+  end
+
+  def completed(query) do
+    from inviation in query, where: not is_nil(inviation.completed_at)
+  end
+
+  def for_event(query, %Event{} = event) do
+    from inviation in query, where: inviation.event_id == ^event.id
+  end
+
   # Changesets & Validations
   @fields ~w(email first_name last_name role_id)
   def changeset(struct, params \\ %{}) do
@@ -34,6 +46,11 @@ defmodule Classlab.Invitation do
     |> validate_required([:email, :invitation_token, :role_id])
     |> unique_constraint(:invitation_token)
     |> unique_constraint(:email, name: :invitations_email_event_id_index)
+  end
+
+  @fields ~w(completed_at)
+  def completion_changeset(struct, params \\ %{}) do
+    cast(struct, params, @fields)
   end
 
   # Model Functions

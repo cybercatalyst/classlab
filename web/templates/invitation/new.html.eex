@@ -1,0 +1,7 @@
+<p>Accept Invitation</p>
+
+<b><%= @invitation.event.name %></b>
+
+<%= form_for @conn, invitation_path(@conn, :create, @invitation.event.slug, @invitation.invitation_token), [as: :complete], fn f -> %>
+  <%= submit "Accept" %>
+<% end %>

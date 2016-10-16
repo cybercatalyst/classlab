@@ -7,6 +7,7 @@ defmodule Classlab.InvitationMailerTest do
     email = InvitationMailer.invitation_email(invitation)
 
     assert email.to == invitation.email
-    assert email.html_body =~ "Todo"
+    assert email.html_body =~ invitation.invitation_token
+    assert email.html_body =~ invitation.event.slug
   end
 end

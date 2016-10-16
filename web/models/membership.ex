@@ -18,13 +18,16 @@ defmodule Classlab.Membership do
   end
 
   # Composable Queries
+  def for_event(query, event) do
+    from membership in query, where: membership.event_id == ^event.id
+  end
 
   # Changesets & Validations
-  @fields ~w(role_id seat_position_x seat_position_y)
+  @fields ~w(role_id event_id seat_position_x seat_position_y)
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> validate_required(~w(role_id seat_position_x seat_position_y)a)
+    |> validate_required(~w(role_id event_id seat_position_x seat_position_y)a)
   end
 
   # Model Functions

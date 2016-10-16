@@ -23,6 +23,9 @@ defmodule Classlab.Router do
     post "/login", SessionController, :create
     get "/session/:id", SessionController, :show
     delete "/logout", SessionController, :delete
+    get "/invitation/:event_slug/:invitation_token", InvitationController, :new
+    post "/invitation/:event_slug/:invitation_token", InvitationController, :create
+    get "/invitation/:event_slug/:invitation_token/complete", InvitationController, :show
   end
 
   #############################################################################
