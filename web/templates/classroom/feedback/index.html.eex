@@ -10,11 +10,11 @@
   </tr>
   <%= for feedback <- @feedbacks do %>
     <tr>
-      <td><%= feedback.content_rating %></td>
+      <td><%= stars(feedback.content_rating) %></td>
       <td><%= feedback.content_comment %></td>
-      <td><%= feedback.trainer_rating %></td>
+      <td><%= stars(feedback.trainer_rating) %></td>
       <td><%= feedback.trainer_comment %></td>
-      <td><%= feedback.location_rating %></td>
+      <td><%= stars(feedback.location_rating) %></td>
       <td><%= feedback.location_comment %></td>
       <td><%= feedback.testimonial %></td>
     </tr>
