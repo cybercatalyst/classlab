@@ -1,5 +1,5 @@
 defmodule Classlab.Classroom.InvitationControllerTest do
-  alias Classlab.Invitation
+  alias Classlab.{Invitation, InvitationMailer}
   use Classlab.ConnCase
 
   @valid_attrs Factory.params_for(:invitation) |> Map.take(~w[email role_id]a)
@@ -27,7 +27,12 @@ defmodule Classlab.Classroom.InvitationControllerTest do
       event = Factory.insert(:event)
       conn = post conn, classroom_invitation_path(conn, :create, event), invitation: @valid_attrs
       assert redirected_to(conn) == classroom_invitation_path(conn, :index, event)
-      assert Repo.get_by(Invitation, @valid_attrs)
+      invitation =
+        Invitation
+        |> Repo.get_by(@valid_attrs)
+        |> Repo.preload(:event)
+      assert invitation
+      assert_delivered_email InvitationMailer.invitation_email(invitation)
     end
 
     test "does not create resource and renders errors when data is invalid", %{conn: conn} do
