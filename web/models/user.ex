@@ -18,6 +18,7 @@ defmodule Classlab.User do
     field :first_name, :string
     field :last_name, :string
     field :email, :string
+    field :contact_url, :string
     field :access_token, :string
     field :access_token_expired_at, Calecto.DateTimeUTC
     field :superadmin, :boolean

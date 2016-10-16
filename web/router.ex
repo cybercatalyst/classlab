@@ -38,8 +38,9 @@ defmodule Classlab.Router do
     resources "/", DashboardController, only: [:show], singleton: true
     resources "/events", EventController
     resources "/feedbacks", FeedbackController
-    resources "/invitations", InvitationController, ony: [:index, :update, :delete]
+    resources "/invitations", InvitationController, only: [:index, :update, :delete]
     resources "/memberships", MembershipController, only: [:index, :delete]
+    resources "/user", UserController, only: [:show, :edit, :update], singleton: true
   end
 
   #############################################################################
