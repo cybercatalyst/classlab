@@ -1,0 +1,22 @@
+<table class="table">
+  <tr>
+    <th>Content rating</th>
+    <th>Content comment</th>
+    <th>Trainer rating</th>
+    <th>Trainer comment</th>
+    <th>Location rating</th>
+    <th>Location comment</th>
+    <th>Testimonial</th>
+  </tr>
+  <%= for feedback <- @feedbacks do %>
+    <tr>
+      <td><%= feedback.content_rating %></td>
+      <td><%= feedback.content_comment %></td>
+      <td><%= feedback.trainer_rating %></td>
+      <td><%= feedback.trainer_comment %></td>
+      <td><%= feedback.location_rating %></td>
+      <td><%= feedback.location_comment %></td>
+      <td><%= feedback.testimonial %></td>
+    </tr>
+  <% end %>
+</table>

@@ -24,6 +24,7 @@ defmodule Classlab.User do
     timestamps()
 
     has_many :chat_messages, Classlab.ChatMessage, on_delete: :nilify_all
+    has_many :feedbacks, Classlab.Feedback, on_delete: :nilify_all
     has_many :memberships, Classlab.Membership, on_delete: :delete_all
   end
 

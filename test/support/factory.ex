@@ -25,6 +25,17 @@ defmodule Classlab.Factory do
     }
   end
 
+  def feedback_factory do
+    %Classlab.Feedback{
+      content_rating: 4,
+      content_comment: "Awesome content",
+      trainer_rating: 5,
+      location_rating: 5,
+      user: build(:user),
+      event: build(:event)
+    }
+  end
+
   def invitation_factory do
     %Classlab.Invitation{
       email: sequence(:email, &"john-#{&1}@example.com"),

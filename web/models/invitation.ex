@@ -21,7 +21,7 @@ defmodule Classlab.Invitation do
   end
 
   # Composable Queries
-  def from_user(query, %User{email: email}) do
+  def filter_by_email(query, %User{email: email}) do
     from inviation in query, where: inviation.email == ^email
   end
 

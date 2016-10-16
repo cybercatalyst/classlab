@@ -15,5 +15,8 @@
     <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["classroom", "invitations"], do: " active")}" do %>
       <%= link "Invitations", to: classroom_invitation_path(@conn, :index, @conn.params["event_id"]), class: "nav-link" %>
     <% end %>
+    <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["classroom", "feedbacks"], do: " active")}" do %>
+      <%= link "Feedbacks", to: classroom_feedback_path(@conn, :index, @conn.params["event_id"]), class: "nav-link" %>
+    <% end %>
   </ul>
 </div>

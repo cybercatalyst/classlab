@@ -1,0 +1,23 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= input f, :event_id %>
+  <%= input f, :membership_id %>
+  <%= input f, :content_rating %>
+  <%= input f, :content_comment %>
+  <%= input f, :trainer_rating %>
+  <%= input f, :trainer_comment %>
+  <%= input f, :location_rating %>
+  <%= input f, :location_comment %>
+  <%= input f, :testimonial %>
+
+  <div class="btn-toolbar">
+    <%= submit "Submit", class: "btn btn-primary" %>
+
+    <%= link "Back", to: account_feedback_path(@conn, :index), class: "btn btn-secondary" %>
+  </div>
+<% end %>

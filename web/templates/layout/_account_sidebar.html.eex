@@ -12,5 +12,8 @@
     <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["account", "invitations"], do: " active")}" do %>
       <%= link "My invitations", to: account_invitation_path(@conn, :index), class: "nav-link" %>
     <% end %>
+    <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["account", "feedbacks"], do: " active")}" do %>
+      <%= link "My feedbacks", to: account_feedback_path(@conn, :index), class: "nav-link" %>
+    <% end %>
   </ul>
 </div>

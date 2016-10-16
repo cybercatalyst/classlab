@@ -37,6 +37,7 @@ defmodule Classlab.Router do
 
     resources "/", DashboardController, only: [:show], singleton: true
     resources "/events", EventController
+    resources "/feedbacks", FeedbackController
     resources "/invitations", InvitationController, ony: [:index, :update, :delete]
     resources "/memberships", MembershipController, only: [:index, :delete]
   end
@@ -52,6 +53,7 @@ defmodule Classlab.Router do
     pipe_through [:browser, :classroom] # Use the default browser stack
     resources "/", DashboardController, only: [:show], singleton: true
     resources "/chat_messages", ChatMessageController, except: [:show]
+    resources "/feedbacks", FeedbackController, only: [:index]
     resources "/invitations", InvitationController, except: [:show, :edit, :update]
     resources "/materials", MaterialController
     resources "/memberships", MembershipController, only: [:index, :delete]

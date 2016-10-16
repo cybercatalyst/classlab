@@ -5,7 +5,7 @@ defmodule Classlab.Account.InvitationController do
   def index(conn, _params) do
     invitations =
       Invitation
-      |> Invitation.from_user(current_user(conn))
+      |> Invitation.filter_by_email(current_user(conn))
       |> Repo.all()
       |> Repo.preload(:event)
 
@@ -15,7 +15,7 @@ defmodule Classlab.Account.InvitationController do
   def delete(conn, %{"id" => id}) do
     invitation =
       Invitation
-      |> Invitation.from_user(current_user(conn))
+      |> Invitation.filter_by_email(current_user(conn))
       |> Repo.get!(id)
 
     Repo.delete!(invitation)

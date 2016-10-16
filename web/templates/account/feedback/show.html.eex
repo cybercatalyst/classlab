@@ -1,0 +1,48 @@
+<ul>
+
+  <li>
+    <strong>Event:</strong>
+    <%= @feedback.event_id %>
+  </li>
+
+  <li>
+    <strong>Content rating:</strong>
+    <%= @feedback.content_rating %>
+  </li>
+
+  <li>
+    <strong>Content comment:</strong>
+    <%= @feedback.content_comment %>
+  </li>
+
+  <li>
+    <strong>Trainer rating:</strong>
+    <%= @feedback.trainer_rating %>
+  </li>
+
+  <li>
+    <strong>Trainer comment:</strong>
+    <%= @feedback.trainer_comment %>
+  </li>
+
+  <li>
+    <strong>Location rating:</strong>
+    <%= @feedback.location_rating %>
+  </li>
+
+  <li>
+    <strong>Location comment:</strong>
+    <%= @feedback.location_comment %>
+  </li>
+
+  <li>
+    <strong>Testimonial:</strong>
+    <%= @feedback.testimonial %>
+  </li>
+
+</ul>
+
+<div class="btn-toolbar">
+  <%= link "Edit", to: account_feedback_path(@conn, :edit, @feedback), class: "btn btn-primary" %>
+  <%= link "Back", to: account_feedback_path(@conn, :index), class: "btn btn-secondary" %>
+</div>

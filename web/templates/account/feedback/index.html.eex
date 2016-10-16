@@ -1,0 +1,36 @@
+<table class="table">
+  <tr>
+    <th>Event</th>
+    <th>Content rating</th>
+    <th>Content comment</th>
+    <th>Trainer rating</th>
+    <th>Trainer comment</th>
+    <th>Location rating</th>
+    <th>Location comment</th>
+    <th>Testimonial</th>
+
+    <th></th>
+  </tr>
+  <%= for feedback <- @feedbacks do %>
+    <tr>
+      <td><%= feedback.event_id %></td>
+      <td><%= feedback.content_rating %></td>
+      <td><%= feedback.content_comment %></td>
+      <td><%= feedback.trainer_rating %></td>
+      <td><%= feedback.trainer_comment %></td>
+      <td><%= feedback.location_rating %></td>
+      <td><%= feedback.location_comment %></td>
+      <td><%= feedback.testimonial %></td>
+
+      <td>
+        <%= link "Show", to: account_feedback_path(@conn, :show, feedback), class: "btn btn-default btn-sm" %>
+        <%= link "Edit", to: account_feedback_path(@conn, :edit, feedback), class: "btn btn-default btn-sm" %>
+        <%= link "Delete", to: account_feedback_path(@conn, :delete, feedback), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="btn-toolbar">
+  <%= link "New feedback", to: account_feedback_path(@conn, :new), class: "btn btn-success" %>
+</div>
