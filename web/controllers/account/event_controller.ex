@@ -5,8 +5,12 @@ defmodule Classlab.Account.EventController do
   plug :scrub_params, "event" when action in [:create, :update]
 
   def index(conn, _params) do
+    user =
+      current_user(conn)
+
     events =
       Event
+      |> Event.for_user(user)
       |> Repo.all()
       |> Repo.preload([:location, :invitations, :materials])
 

@@ -27,6 +27,14 @@ defmodule Classlab.Event do
     has_many :memberships, Classlab.Membership, on_delete: :delete_all
   end
 
+  # Composable Queries
+  def for_user(query, user) do
+    from event in query,
+      left_join: membership in assoc(event, :memberships),
+      where: membership.user_id == ^user.id,
+      select: event
+  end
+
   # Changesets & Validations
   @fields [:public, :slug, :name, :description, :invitation_token, :invitation_token_active,
            :starts_at, :ends_at, :timezone]
