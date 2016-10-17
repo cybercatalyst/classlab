@@ -1,18 +1,62 @@
-<table class="table">
-  <tr>
-    <th>User</th>
-    <th>Role</th>
+New Invitation
+<%= render Classlab.Classroom.InvitationView, "new.html", event: @event, changeset: @invitation_changeset, conn: @conn %>
 
-    <th></th>
-  </tr>
-  <%= for membership <- @memberships do %>
-    <tr>
-      <td><%= membership.user.email %></td>
-      <td><%= membership.role.name %></td>
+<ul class="nav nav-tabs m-t-2" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#memberships" role="tab">Attendee (<%= length(@memberships) %>)</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#open_invitations" role="tab">Open invitations (<%= length(@open_invitations) %>)</a>
+  </li>
+</ul>
 
-      <td>
-        <%= link "Delete", to: classroom_membership_path(@conn, :delete, membership.event, membership), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<div class="tab-content">
+  <div class="tab-pane table-responsive active" id="memberships" role="tabpanel">
+    <table class="table table-hover m-t-2">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Role</th>
+
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for membership <- @memberships do %>
+          <tr>
+            <td><%= membership.user.email %></td>
+            <td><%= membership.role.name %></td>
+
+            <td>
+              <%= link "Delete", to: classroom_membership_path(@conn, :delete, membership.event, membership), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane table-responsive" id="open_invitations" role="tabpanel">
+    <table class="table table-hover m-t-2">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for invitation <- @open_invitations do %>
+          <tr>
+            <td><%= invitation.first_name %> <%= invitation.last_name %></td>
+            <td><%= invitation.email %></td>
+            <td><%= invitation.role.name %></td>
+            <td>
+              <%= link "Cancel invitation", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

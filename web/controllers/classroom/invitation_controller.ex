@@ -41,7 +41,7 @@ defmodule Classlab.Classroom.InvitationController do
 
         conn
         |> put_flash(:info, "Invitation created successfully.")
-        |> redirect(to: classroom_invitation_path(conn, :index, event))
+        |> redirect(to: classroom_membership_path(conn, :index, event))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset, event: event)
     end
@@ -58,7 +58,7 @@ defmodule Classlab.Classroom.InvitationController do
 
     conn
     |> put_flash(:info, "Invitation deleted successfully.")
-    |> redirect(to: classroom_invitation_path(conn, :index, event))
+    |> redirect(to: classroom_membership_path(conn, :index, event))
   end
 
   # Private methods

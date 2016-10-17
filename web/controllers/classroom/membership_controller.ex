@@ -1,5 +1,5 @@
 defmodule Classlab.Classroom.MembershipController do
-  alias Classlab.Event
+  alias Classlab.{Event, Invitation}
   use Classlab.Web, :controller
 
   def index(conn, _params) do
@@ -10,7 +10,34 @@ defmodule Classlab.Classroom.MembershipController do
       |> Repo.all()
       |> Repo.preload([:user, :role, :event])
 
-    render(conn, "index.html", memberships: memberships)
+    completed_invitations =
+      Invitation
+      |> Invitation.for_event(event)
+      |> Invitation.completed()
+      |> Repo.all()
+      |> Repo.preload(:role)
+
+    open_invitations =
+      Invitation
+      |> Invitation.for_event(event)
+      |> Invitation.not_completed()
+      |> Repo.all()
+      |> Repo.preload(:role)
+
+    invitation_changeset =
+      event
+      |> build_assoc(:invitations)
+      |> Invitation.changeset()
+
+    render(
+      conn,
+      "index.html",
+      event: event,
+      invitation_changeset: invitation_changeset,
+      memberships: memberships,
+      completed_invitations: completed_invitations,
+      open_invitations: open_invitations
+    )
   end
 
   def delete(conn, %{"id" => id}) do

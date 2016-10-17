@@ -26,7 +26,7 @@ defmodule Classlab.Classroom.InvitationControllerTest do
     test "creates resource and redirects when data is valid", %{conn: conn} do
       event = Factory.insert(:event)
       conn = post conn, classroom_invitation_path(conn, :create, event), invitation: @valid_attrs
-      assert redirected_to(conn) == classroom_invitation_path(conn, :index, event)
+      assert redirected_to(conn) == classroom_membership_path(conn, :index, event)
       invitation =
         Invitation
         |> Repo.get_by(@valid_attrs)
@@ -46,7 +46,7 @@ defmodule Classlab.Classroom.InvitationControllerTest do
     test "deletes chosen resource", %{conn: conn} do
       invitation = Factory.insert(:invitation)
       conn = delete conn, classroom_invitation_path(conn, :delete, invitation.event, invitation)
-      assert redirected_to(conn) == classroom_invitation_path(conn, :index, invitation.event)
+      assert redirected_to(conn) == classroom_membership_path(conn, :index, invitation.event)
       refute Repo.get(Invitation, invitation.id)
     end
   end
