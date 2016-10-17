@@ -12,6 +12,8 @@ services:
   - postgresql
 addons:
   postgresql: "9.4"
+before_script:
+  - psql -c 'create database classlab_test;' -U postgres
 script: mix ecto.reset && mix test
 after_script:
   - mix deps.get --only test
