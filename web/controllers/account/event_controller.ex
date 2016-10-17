@@ -10,7 +10,7 @@ defmodule Classlab.Account.EventController do
 
     events =
       Event
-      |> Event.as_owner(user)
+      |> Event.as_role(user, 1)
       |> Repo.all()
       |> Repo.preload([:location, :invitations, :materials])
 
@@ -50,7 +50,7 @@ defmodule Classlab.Account.EventController do
 
     event =
       Event
-      |> Event.as_owner(user)
+      |> Event.as_role(user, 1)
       |> Repo.get_by!(slug: id)
       |> Repo.preload(:location)
 
@@ -64,7 +64,7 @@ defmodule Classlab.Account.EventController do
 
     event =
       Event
-      |> Event.as_owner(user)
+      |> Event.as_role(user, 1)
       |> Repo.get_by!(slug: id)
       |> Repo.preload(:location)
 
@@ -86,7 +86,7 @@ defmodule Classlab.Account.EventController do
 
     event =
       Event
-      |> Event.as_owner(user)
+      |> Event.as_role(user, 1)
       |> Repo.get_by!(slug: id)
 
     Repo.delete!(event)

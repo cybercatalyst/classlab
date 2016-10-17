@@ -3,6 +3,7 @@ defmodule Classlab.Event do
   Event model. An event is connected with an user by a membership.
   Location information is a separate model.
   """
+  alias Classlab.User
   use Classlab.Web, :model
 
   # Fields
@@ -28,10 +29,10 @@ defmodule Classlab.Event do
   end
 
   # Composable Queries
-  def as_owner(query, user) do
+  def as_role(query, %User{id: user_id}, role_id) do
     from event in query,
       left_join: membership in assoc(event, :memberships),
-      where: membership.user_id == ^user.id and membership.role_id == 1,
+      where: membership.user_id == ^user_id and membership.role_id == ^role_id,
       select: event
   end
 
