@@ -1,4 +1,3 @@
-New Invitation
 <%= render Classlab.Classroom.InvitationView, "new.html", event: @event, changeset: @invitation_changeset, conn: @conn %>
 
 <ul class="nav nav-tabs m-t-2" role="tablist">
