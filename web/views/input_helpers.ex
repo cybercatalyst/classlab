@@ -22,17 +22,25 @@ defmodule Classlab.InputHelpers do
   end
 
   # Private methods
-  defp state_class(form, field) do
+  defp state_class_wrapper(form, field) do
     cond do
       !form.source.action -> "" # The form was not yet submitted
-      form.errors[field] -> "has-error"
+      form.errors[field] -> "has-danger"
       true -> "has-success"
+    end
+  end
+
+  defp state_class_input(form, field) do
+    cond do
+      !form.source.action -> "" # The form was not yet submitted
+      form.errors[field] -> "form-control-danger"
+      true -> ""
     end
   end
 
   defp wrapper_html(form, field, opts, do: block) do
     wrapper_opts =
-      [class: "form-group #{state_class(form, field)}"] ++ (opts[:wrapper_attrs] || [])
+      [class: "form-group #{state_class_wrapper(form, field)}"] ++ (opts[:wrapper_attrs] || [])
 
     content_tag :div, wrapper_opts do
       block
@@ -45,7 +53,7 @@ defmodule Classlab.InputHelpers do
   end
 
   defp input_html(type, form, field, opts) do
-    input_opts =  [class: "form-control"] ++ clean_opts(opts)
+    input_opts =  [class: "form-control #{state_class_input(form, field)}"] ++ clean_opts(opts)
     apply(Form, type, [form, field, input_opts])
   end
 
