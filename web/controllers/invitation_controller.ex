@@ -13,10 +13,7 @@ defmodule Classlab.InvitationController do
       |> Repo.get_by(invitation_token: invitation_token)
 
     case res do
-      %Invitation{} = invitation ->
-        conn
-        |> put_flash(:info, "Invitation completed.")
-        |> render("show.html", invitation: invitation)
+      %Invitation{} = invitation -> render(conn, "show.html", invitation: invitation)
       nil -> handle_error(conn, "Invalid invitation.")
     end
   end

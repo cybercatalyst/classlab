@@ -60,7 +60,7 @@ defmodule Classlab.InvitationControllerTest do
     test "show info about completed invitation", %{conn: conn} do
       invitation = Factory.insert(:invitation, completed_at: Calendar.DateTime.now_utc())
       conn = get conn, invitation_path(conn, :show, invitation.event, invitation.invitation_token)
-      assert html_response(conn, 200) =~ "Hallo"
+      assert html_response(conn, 200) =~ invitation.event.name
     end
   end
 end
