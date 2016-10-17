@@ -1,10 +1,17 @@
 defmodule Classlab.Classroom.DashboardController do
-  alias Classlab.Event
+  alias Classlab.{Event, Feedback}
   use Classlab.Web, :controller
 
   def show(conn, _params) do
     event = load_event(conn)
-    render(conn, "show.html", event: event)
+
+    feedback_averages =
+      event
+      |> assoc(:feedbacks)
+      |> Feedback.averages()
+      |> Repo.one()
+
+    render(conn, "show.html", event: event, feedback_averages: feedback_averages)
   end
 
 

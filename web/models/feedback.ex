@@ -20,6 +20,13 @@ defmodule Classlab.Feedback do
   end
 
   # Composable Queries
+  def averages(query) do
+    from feedback in query, select: %{
+      trainer_rating: avg(feedback.trainer_rating),
+      content_rating: avg(feedback.content_rating),
+      location_rating: avg(feedback.location_rating)
+    }
+  end
 
   # Changesets & Validations
   @fields ~w(event_id content_rating content_comment trainer_rating trainer_comment
