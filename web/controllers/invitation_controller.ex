@@ -19,10 +19,7 @@ defmodule Classlab.InvitationController do
         conn
         |> put_flash(:info, "Invitation completed.")
         |> render("show.html", invitation: invitation)
-      nil ->
-        conn
-        |> put_flash(:error, "Invalid invitation.")
-        |> redirect(to: page_path(conn, :index))
+      nil -> handle_error(conn, "Invalid invitation.")
     end
   end
 
@@ -40,12 +37,8 @@ defmodule Classlab.InvitationController do
       %Invitation{} = invitation ->
         invitation = Repo.preload(invitation, :event)
 
-        conn
-        |> render("new.html", invitation: invitation)
-      nil ->
-        conn
-        |> put_flash(:error, "Invalid invitation.")
-        |> redirect(to: page_path(conn, :index))
+        render(conn, "new.html", invitation: invitation)
+      nil -> handle_error(conn, "Invalid invitation.")
     end
   end
 
@@ -63,10 +56,8 @@ defmodule Classlab.InvitationController do
     case invitation_res do
       %Invitation{} = invitation ->
         user = create_user(invitation)
-        if has_membership?(event, invitation, user) do
-          conn
-          |> put_flash(:error, "Already accepted the invitation.")
-          |> redirect(to: page_path(conn, :index))
+        if invitation_has_membership?(invitation, user) do
+          handle_error(conn, "Already accepted the invitation.")
         else
           membership = create_membership(invitation, user)
           invitation_changeset = Invitation.completion_changeset(invitation, %{
@@ -76,16 +67,19 @@ defmodule Classlab.InvitationController do
 
           redirect(conn, to: invitation_path(conn, :show, invitation.event.slug, invitation.invitation_token))
         end
-      nil ->
-        conn
-        |> put_flash(:error, "Invalid invitation.")
-        |> redirect(to: page_path(conn, :index))
+      nil -> handle_error(conn, "Invalid invitation.")
     end
   end
 
   # Private methods
   defp load_event(conn) do
     Repo.get_by!(Event, slug: conn.params["event_slug"])
+  end
+
+  defp handle_error(conn, flash_message) do
+    conn
+    |> put_flash(:error, flash_message)
+    |> redirect(to: page_path(conn, :index))
   end
 
   defp create_user(%Invitation{} = invitation) do
@@ -103,10 +97,10 @@ defmodule Classlab.InvitationController do
     end
   end
 
-  defp has_membership?(event, invitation, user) do
+  defp invitation_has_membership?(invitation, user) do
     membership_res =
       Membership
-      |> Membership.for_event(event)
+      |> Membership.for_event(invitation.event)
       |> Query.where(user_id: ^user.id)
       |> Query.where(role_id: ^invitation.role_id)
       |> Repo.one()
