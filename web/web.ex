@@ -50,7 +50,7 @@ defmodule Classlab.Web do
       import Classlab.AssignUserPlug, only: [current_user: 1]
       import Classlab.Router.Helpers
       import Classlab.ErrorHelpers
-      import Classlab.LocaleHelpers
+      import Classlab.CalendarHelpers
       import Classlab.InputHelpers
       import Classlab.Gettext
     end

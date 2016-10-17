@@ -38,7 +38,7 @@ defmodule Classlab.Router do
   scope "/account", Classlab.Account, as: :account do
     pipe_through [:browser, :account]
     resources "/", DashboardController, only: [:show], singleton: true
-    resources "/events", EventController
+    resources "/events", EventController, only: [:index, :new, :create]
     resources "/feedbacks", FeedbackController
     resources "/invitations", InvitationController, only: [:index, :update, :delete]
     resources "/memberships", MembershipController, only: [:index, :delete]
@@ -60,6 +60,7 @@ defmodule Classlab.Router do
     resources "/invitations", InvitationController, except: [:show, :edit, :update]
     resources "/materials", MaterialController
     resources "/memberships", MembershipController, only: [:index, :delete]
+    resources "/event", EventController, only: [:edit, :update, :delete], singleton: true
   end
 
   #############################################################################

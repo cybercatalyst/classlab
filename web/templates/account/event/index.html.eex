@@ -12,8 +12,9 @@
         <small class="text-muted text-truncate"><%= event.description %></small>
       </td>
       <td>
-        <%= l(event.starts_at) %> -
-        <%= l(event.ends_at) %></td>
+        <%= l(Calendar.DateTime.to_date(event.starts_at)) %> -
+        <%= l(Calendar.DateTime.to_date(event.ends_at)) %>
+      </td>
     </tr>
   <% end %>
 </table>

@@ -1,4 +1,4 @@
-defmodule Classlab.LocaleHelpers do
+defmodule Classlab.CalendarHelpers do
   @moduledoc """
   Locale helpers. Helper functions for date and time formatting in templates.
   """
