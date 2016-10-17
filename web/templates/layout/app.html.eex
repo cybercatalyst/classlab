@@ -1,26 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<%= render "_head.html", conn: @conn %>
+<body>
+  <div class="container">
+    <%= render "app_navigation.html", conn: @conn %>
+    <main role="main">
+      <%= render "_flash_messages.html", conn: @conn %>
 
-    <title>classlab.org</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-  </head>
-
-  <body>
-    <div class="container">
-      <%= render "app_navigation.html", conn: @conn %>
-      <main role="main">
-        <%= render "_flash_messages.html", conn: @conn %>
-
-        <%= render @view_module, @view_template, assigns %>
-      </main>
-    </div> <!-- /container -->
-  </body>
+      <%= render @view_module, @view_template, assigns %>
+    </main>
+  </div> <!-- /container -->
+</body>
 </html>

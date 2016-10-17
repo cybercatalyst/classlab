@@ -2,13 +2,6 @@ defmodule Classlab.Account.UserController do
   alias Classlab.User
   use Classlab.Web, :controller
 
-  def show(conn, _params) do
-    user =
-      current_user(conn)
-
-    render(conn, "show.html", user: user)
-  end
-
   def edit(conn, _params) do
     user =
       current_user(conn)

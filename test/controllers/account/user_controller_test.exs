@@ -11,13 +11,6 @@ defmodule Classlab.Account.UserControllerTest do
     {:ok, conn: Session.login(conn, user)}
   end
 
-  describe "#show" do
-    test "shows chosen resource", %{conn: conn} do
-      conn = get conn, account_user_path(conn, :show)
-      assert html_response(conn, 200) =~ current_user(conn).email
-    end
-  end
-
   describe "#edit" do
     test "renders form for editing chosen resource", %{conn: conn} do
       conn = get conn, account_user_path(conn, :edit)

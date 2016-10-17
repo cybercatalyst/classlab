@@ -32,6 +32,7 @@ $sidebar-padding-y: $navbar-padding-y !default;
     color: #8a8a8a;
     display: block;
     text-decoration: none;
+    text-transform: uppercase;
 
     &:hover {
       background: rgba(255, 255, 255, 0.1);
