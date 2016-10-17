@@ -13,11 +13,18 @@ defmodule Classlab.Account.EventControllerTest do
   end
 
   describe "#index" do
-    test "lists all entries on index for current user", %{conn: conn} do
+    test "lists all entries on index for current user as owner", %{conn: conn} do
       event = Factory.insert(:event)
       Factory.insert(:membership, user: current_user(conn), event: event, role_id: 1)
       conn = get conn, account_event_path(conn, :index)
       assert html_response(conn, 200) =~ event.name
+    end
+
+    test "lists all entries on index for current user as owner2", %{conn: conn} do
+      event = Factory.insert(:event)
+      Factory.insert(:membership, user: current_user(conn), event: event, role_id: 3)
+      conn = get conn, account_event_path(conn, :index)
+      refute html_response(conn, 200) =~ event.name
     end
   end
 
@@ -44,6 +51,7 @@ defmodule Classlab.Account.EventControllerTest do
   describe "#show" do
     test "shows chosen resource", %{conn: conn} do
       event = Factory.insert(:event)
+      Factory.insert(:membership, user: current_user(conn), event: event, role_id: 1)
       conn = get conn, account_event_path(conn, :show, event)
       assert html_response(conn, 200) =~ event.name
     end
@@ -59,6 +67,7 @@ defmodule Classlab.Account.EventControllerTest do
   describe "#edit" do
     test "renders form for editing chosen resource", %{conn: conn} do
       event = Factory.insert(:event)
+      Factory.insert(:membership, user: current_user(conn), event: event, role_id: 1)
       conn = get conn, account_event_path(conn, :edit, event)
       assert html_response(conn, 200) =~ @form_field
     end
@@ -67,6 +76,7 @@ defmodule Classlab.Account.EventControllerTest do
   describe "#update" do
     test "updates chosen resource and redirects when data is valid", %{conn: conn} do
       event = Factory.insert(:event)
+      Factory.insert(:membership, user: current_user(conn), event: event, role_id: 1)
       conn = put conn, account_event_path(conn, :update, event), event: @valid_attrs
       assert redirected_to(conn) == account_event_path(conn, :show, @valid_attrs.slug)
       assert Repo.get_by(Event, @valid_attrs)
@@ -74,6 +84,7 @@ defmodule Classlab.Account.EventControllerTest do
 
     test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
       event = Factory.insert(:event)
+      Factory.insert(:membership, user: current_user(conn), event: event, role_id: 1)
       conn = put conn, account_event_path(conn, :update, event), event: @invalid_attrs
       assert html_response(conn, 200) =~ @form_field
     end
@@ -82,6 +93,7 @@ defmodule Classlab.Account.EventControllerTest do
   describe "#delete" do
     test "deletes chosen resource", %{conn: conn} do
       event = Factory.insert(:event)
+      Factory.insert(:membership, user: current_user(conn), event: event, role_id: 1)
       conn = delete conn, account_event_path(conn, :delete, event)
       assert redirected_to(conn) == account_event_path(conn, :index)
       refute Repo.get(Event, event.id)

@@ -28,10 +28,10 @@ defmodule Classlab.Event do
   end
 
   # Composable Queries
-  def for_user(query, user) do
+  def as_owner(query, user) do
     from event in query,
       left_join: membership in assoc(event, :memberships),
-      where: membership.user_id == ^user.id,
+      where: membership.user_id == ^user.id and membership.role_id == 1,
       select: event
   end
 

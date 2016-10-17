@@ -10,7 +10,7 @@ defmodule Classlab.Account.EventController do
 
     events =
       Event
-      |> Event.for_user(user)
+      |> Event.as_owner(user)
       |> Repo.all()
       |> Repo.preload([:location, :invitations, :materials])
 
@@ -45,8 +45,12 @@ defmodule Classlab.Account.EventController do
   end
 
   def edit(conn, %{"id" => id}) do
+    user =
+      current_user(conn)
+
     event =
       Event
+      |> Event.as_owner(user)
       |> Repo.get_by!(slug: id)
       |> Repo.preload(:location)
 
@@ -55,8 +59,12 @@ defmodule Classlab.Account.EventController do
   end
 
   def update(conn, %{"id" => id, "event" => event_params}) do
+    user =
+      current_user(conn)
+
     event =
       Event
+      |> Event.as_owner(user)
       |> Repo.get_by!(slug: id)
       |> Repo.preload(:location)
 
@@ -73,8 +81,12 @@ defmodule Classlab.Account.EventController do
   end
 
   def delete(conn, %{"id" => id}) do
+    user =
+      current_user(conn)
+
     event =
       Event
+      |> Event.as_owner(user)
       |> Repo.get_by!(slug: id)
 
     Repo.delete!(event)
