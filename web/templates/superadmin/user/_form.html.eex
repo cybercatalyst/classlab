@@ -9,6 +9,7 @@
   <%= input f, :first_name %>
   <%= input f, :last_name %>
   <%= input f, :contact_url %>
+  <%= input f, :superadmin %>
 
 
   <div class="btn-toolbar">

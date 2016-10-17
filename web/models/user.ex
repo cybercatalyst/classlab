@@ -34,7 +34,7 @@ defmodule Classlab.User do
   end
 
   # Changesets & Validations
-  @fields [:first_name, :last_name, :email, :access_token, :access_token_expired_at]
+  @fields [:first_name, :last_name, :email, :contact_url, :access_token, :access_token_expired_at]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
@@ -49,6 +49,14 @@ defmodule Classlab.User do
     |> cast(params, @fields)
     |> validate_required([:email])
     |> generate_access_token()
+  end
+
+  @fields [:first_name, :last_name, :email, :contact_url, :superadmin]
+  def superadmin_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, @fields)
+    |> validate_required([:first_name, :last_name, :email])
+    |> unique_constraint(:email)
   end
 
   # Model Functions

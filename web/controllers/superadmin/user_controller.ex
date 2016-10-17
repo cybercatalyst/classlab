@@ -18,7 +18,7 @@ defmodule Classlab.Superadmin.UserController do
       User
       |> Repo.get!(id)
 
-    changeset = User.changeset(user)
+    changeset = User.superadmin_changeset(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
@@ -27,7 +27,7 @@ defmodule Classlab.Superadmin.UserController do
       User
       |> Repo.get!(id)
 
-    changeset = User.changeset(user, user_params)
+    changeset = User.superadmin_changeset(user, user_params)
 
     case Repo.update(changeset) do
       {:ok, user} ->

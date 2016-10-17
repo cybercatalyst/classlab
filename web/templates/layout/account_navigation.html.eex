@@ -3,6 +3,12 @@
 
   <ul class="nav navbar-nav pull-xs-right">
     <%= if current_user(@conn) do %>
+      <%= if current_user(@conn).superadmin do %>
+        <%= content_tag :li, class: "nav-item" do %>
+          <%= link "Superadmin", to: account_dashboard_path(@conn, :show), class: "btn btn-danger" %>
+        <% end %>
+      <% end %>
+
       <%= content_tag :li, class: "nav-item" do %>
         <%= link "Logout", to: session_path(@conn, :delete), method: :delete, class: "btn btn-danger" %>
       <% end %>
