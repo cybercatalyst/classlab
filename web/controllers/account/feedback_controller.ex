@@ -1,17 +1,22 @@
 defmodule Classlab.Account.FeedbackController do
-  alias Classlab.Feedback
+  alias Classlab.{Event, Feedback}
   use Classlab.Web, :controller
 
   plug :scrub_params, "feedback" when action in [:create, :update]
 
   def index(conn, _params) do
+    open_feedback_events =
+      Event
+      |> Event.not_feedbacked_by_user(current_user(conn))
+      |> Repo.all()
+
     feedbacks =
       conn
       |> current_user()
       |> assoc(:feedbacks)
       |> Repo.all()
 
-    render(conn, "index.html", feedbacks: feedbacks)
+    render(conn, "index.html", open_feedback_events: open_feedback_events, feedbacks: feedbacks)
   end
 
   def new(conn, _params) do

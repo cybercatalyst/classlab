@@ -36,6 +36,14 @@ defmodule Classlab.Event do
       select: event
   end
 
+
+  def not_feedbacked_by_user(query, %User{id: user_id}) do
+    from event in query,
+      left_join: membership in assoc(event, :memberships),
+      left_join: feedback in assoc(event, :feedbacks),
+      where:  membership.user_id == ^user_id and membership.role_id == 3 and is_nil(feedback.user_id)
+  end
+
   # Changesets & Validations
   @fields [:public, :slug, :name, :description, :invitation_token, :invitation_token_active,
            :starts_at, :ends_at, :timezone]

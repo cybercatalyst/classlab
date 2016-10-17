@@ -1,3 +1,21 @@
+<div class="alert alert-info">
+  Any given feedback is <strong>anonymous</strong>.
+  The trainer can't see from whom the feedback is.<br>
+  Feedback is open for two weeks after after the event ended.
+</div>
+
+<div class="card">
+  <div class="card-header">
+    Open feedbacks
+  </div>
+  <%= for event <- @open_feedback_events do %>
+    <div class="card-block">
+      <p><%= event.id %> <%= event.name %></p>
+      <a href="#" class="card-link">Give feedback</a>
+    </div>
+  <% end %>
+</div>
+
 <table class="table">
   <tr>
     <th>Event</th>
@@ -8,7 +26,6 @@
     <th>Location rating</th>
     <th>Location comment</th>
     <th>Testimonial</th>
-
     <th></th>
   </tr>
   <%= for feedback <- @feedbacks do %>
