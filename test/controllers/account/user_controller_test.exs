@@ -21,7 +21,7 @@ defmodule Classlab.Account.UserControllerTest do
   describe "#update" do
     test "updates chosen resource and redirects when data is valid", %{conn: conn} do
       conn = put conn, account_user_path(conn, :update), user: @valid_attrs
-      assert redirected_to(conn) == account_user_path(conn, :show)
+      assert redirected_to(conn) == account_user_path(conn, :edit)
       assert Repo.get_by(User, @valid_attrs)
     end
 

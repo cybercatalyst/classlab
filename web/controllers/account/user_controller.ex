@@ -20,7 +20,7 @@ defmodule Classlab.Account.UserController do
       {:ok, _user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
-        |> redirect(to: account_user_path(conn, :show))
+        |> redirect(to: account_user_path(conn, :edit))
       {:error, changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
     end
