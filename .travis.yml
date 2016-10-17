@@ -14,7 +14,7 @@ addons:
   postgresql: "9.4"
 before_script:
   - psql -c 'create database classlab_test;' -U postgres
-script: mix ecto.reset && mix test
+script: MIX_ENV=test mix ecto.reset && MIX_ENV=test mix test
 after_script:
   - mix deps.get --only test
   - mix deps.get --only docs
