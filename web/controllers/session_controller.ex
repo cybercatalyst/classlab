@@ -14,7 +14,7 @@ defmodule Classlab.SessionController do
         conn
         |> put_session(:user_id_jwt, UserIdToken.encode(%UserIdToken{user_id: user.id}))
         |> put_flash(:info, "Logged in successfully.")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: account_dashboard_path(conn, :show))
       nil ->
         conn
         |> put_flash(:error, "You link is not valid or expired. Please request a new link.")
