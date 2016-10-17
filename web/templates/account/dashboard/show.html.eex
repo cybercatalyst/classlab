@@ -1,3 +1,22 @@
 <h1>Dashboard</h1>
 
-Account
+<br>
+
+<div class="row">
+  <div class="col-md-6">
+    <h4>My attended events</h4>
+    <ul>
+      <%= for event <- @events_as_attendee do %>
+        <li><%= link event.name, to: classroom_dashboard_path(@conn, :show, event) %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <h4>My created events</h4>
+    <ul>
+      <%= for event <- @events_as_owner do %>
+        <li><%= link event.name, to: classroom_dashboard_path(@conn, :show, event) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
