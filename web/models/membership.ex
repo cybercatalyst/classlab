@@ -22,6 +22,10 @@ defmodule Classlab.Membership do
     from membership in query, where: membership.event_id == ^event.id
   end
 
+  def not_owner(query) do
+    from membership in query, where: membership.role_id != 1
+  end
+
   # Changesets & Validations
   @fields ~w(role_id event_id seat_position_x seat_position_y)
   def changeset(struct, params \\ %{}) do

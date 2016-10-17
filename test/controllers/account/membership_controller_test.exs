@@ -8,19 +8,32 @@ defmodule Classlab.Account.MembershipControllerTest do
   end
 
   describe "#index" do
-    test "lists all entries on index", %{conn: conn} do
-      Factory.insert(:membership)
+    test "lists all entries on index where current user is not owner", %{conn: conn} do
+      membership = Factory.insert(:membership, user: current_user(conn), role_id: 3)
       conn = get conn, account_membership_path(conn, :index)
-      assert html_response(conn, 200) =~ "Role"
+      assert html_response(conn, 200) =~ membership.event.name
+    end
+
+    test "shows nothing if user is owner of an event", %{conn: conn} do
+      membership = Factory.insert(:membership, user: current_user(conn))
+      conn = get conn, account_membership_path(conn, :index)
+      refute html_response(conn, 200) =~ membership.event.name
     end
   end
 
   describe "#delete" do
-    test "deletes chosen resource", %{conn: conn} do
-      membership = Factory.insert(:membership, user: current_user(conn))
+    test "deletes chosen resource if current user is not owner", %{conn: conn} do
+      membership = Factory.insert(:membership, user: current_user(conn), role_id: 3)
       conn = delete conn, account_membership_path(conn, :delete, membership)
       assert redirected_to(conn) == account_membership_path(conn, :index)
       refute Repo.get(Membership, membership.id)
+    end
+
+    test "fails if current user is owner of the chosen resource", %{conn: conn} do
+      membership = Factory.insert(:membership, user: current_user(conn))
+      assert_error_sent 404, fn ->
+        delete conn, account_membership_path(conn, :delete, membership)
+      end
     end
   end
 end

@@ -1,4 +1,5 @@
 defmodule Classlab.Account.MembershipController do
+  alias Classlab.Membership
   use Classlab.Web, :controller
 
   def index(conn, _params) do
@@ -6,6 +7,7 @@ defmodule Classlab.Account.MembershipController do
       conn
       |> current_user()
       |> assoc(:memberships)
+      |> Membership.not_owner()
       |> Repo.all()
       |> Repo.preload([:user, :role, :event])
 
@@ -17,6 +19,7 @@ defmodule Classlab.Account.MembershipController do
       conn
       |> current_user()
       |> assoc(:memberships)
+      |> Membership.not_owner()
       |> Repo.get!(id)
 
     Repo.delete!(membership)
