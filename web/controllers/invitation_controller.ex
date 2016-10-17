@@ -11,8 +11,8 @@ defmodule Classlab.InvitationController do
       Invitation
       |> Invitation.for_event(event)
       |> Invitation.completed()
+      |> Query.preload(:event)
       |> Repo.get_by(invitation_token: invitation_token)
-      |> Repo.preload(:event)
 
     case res do
       %Invitation{} = invitation ->
