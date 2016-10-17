@@ -3,9 +3,7 @@ defmodule Classlab.InvitationController do
   alias Ecto.Query
   use Classlab.Web, :controller
 
-  def show(conn, %{
-    "invitation_token" => invitation_token
-  }) when is_binary(invitation_token) do
+  def show(conn, %{"invitation_token" => invitation_token}) when is_binary(invitation_token) do
     event = load_event(conn);
     res =
       Invitation
@@ -23,9 +21,7 @@ defmodule Classlab.InvitationController do
     end
   end
 
-  def new(conn, %{
-    "invitation_token" => invitation_token
-  }) do
+  def new(conn, %{"invitation_token" => invitation_token}) do
     event = load_event(conn);
     res =
       Invitation
@@ -42,9 +38,7 @@ defmodule Classlab.InvitationController do
     end
   end
 
-  def create(conn, %{
-    "invitation_token" => invitation_token
-  }) do
+  def create(conn, %{"invitation_token" => invitation_token}) do
     event = load_event(conn);
     invitation_res =
       Invitation

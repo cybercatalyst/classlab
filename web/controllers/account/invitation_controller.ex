@@ -16,6 +16,7 @@ defmodule Classlab.Account.InvitationController do
     invitation =
       Invitation
       |> Invitation.filter_by_email(current_user(conn))
+      |> Invitation.not_completed()
       |> Repo.get!(id)
 
     Repo.delete!(invitation)

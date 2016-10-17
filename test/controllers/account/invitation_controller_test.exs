@@ -22,5 +22,12 @@ defmodule Classlab.Account.InvitationControllerTest do
       assert redirected_to(conn) == account_invitation_path(conn, :index)
       refute Repo.get(Invitation, invitation.id)
     end
+
+    test "does not delete chosen resource if already completed", %{conn: conn} do
+      invitation = Factory.insert(:invitation, email: current_user(conn).email, completed_at: Calendar.DateTime.now_utc())
+      assert_error_sent 404, fn ->
+        delete conn, account_invitation_path(conn, :delete, invitation)
+      end
+    end
   end
 end
