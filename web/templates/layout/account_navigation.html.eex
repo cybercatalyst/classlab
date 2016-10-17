@@ -5,7 +5,7 @@
     <%= if current_user(@conn) do %>
       <%= if current_user(@conn).superadmin do %>
         <%= content_tag :li, class: "nav-item" do %>
-          <%= link "Superadmin", to: account_dashboard_path(@conn, :show), class: "btn btn-danger" %>
+          <%= link "Superadmin", to: superadmin_dashboard_path(@conn, :show), class: "btn btn-danger" %>
         <% end %>
       <% end %>
 

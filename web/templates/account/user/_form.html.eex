@@ -11,7 +11,6 @@
   <%= input f, :contact_url %>
 
   <div class="btn-toolbar">
-    <%= submit "Submit", class: "btn btn-primary" %>
-    <%= link "Back", to: superadmin_user_path(@conn, :index), class: "btn btn-secondary" %>
+    <%= submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>
