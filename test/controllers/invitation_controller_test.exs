@@ -12,7 +12,7 @@ defmodule Classlab.InvitationControllerTest do
 
   describe "#create" do
     test "creates user, membership and completes invitation", %{conn: conn} do
-      invitation = Factory.insert(:invitation)
+      invitation = Factory.insert(:invitation, role_id: 3)
       conn = post conn, invitation_path(conn, :create, invitation.event, invitation.invitation_token)
       assert redirected_to(conn) == invitation_path(conn, :show, invitation.event, invitation.invitation_token)
 
@@ -22,10 +22,34 @@ defmodule Classlab.InvitationControllerTest do
 
       assert user
       assert membership
+      assert membership.role_id == 3
       assert completed_invitation.completed_at
     end
 
-    test "does not create resource and renders errors when data is invalid", %{conn: conn} do
+    test "creates membership and completes invitation", %{conn: conn} do
+      user = Factory.insert(:user)
+      invitation = Factory.insert(:invitation, email: user.email, role_id: 3)
+      conn = post conn, invitation_path(conn, :create, invitation.event, invitation.invitation_token)
+      assert redirected_to(conn) == invitation_path(conn, :show, invitation.event, invitation.invitation_token)
+
+      membership = Repo.get_by(Membership, user_id: user.id)
+      completed_invitation = Repo.get(Invitation, invitation.id)
+
+      assert membership
+      assert membership.role_id == 3
+      assert completed_invitation.completed_at
+    end
+
+    test "does not create resource and redirects when membership already exists", %{conn: conn} do
+      user = Factory.insert(:user)
+      event = Factory.insert(:event)
+      Factory.insert(:membership, user: user, event: event, role_id: 3)
+      invitation = Factory.insert(:invitation, email: user.email, event: event, role_id: 3)
+      conn = post conn, invitation_path(conn, :create, invitation.event, invitation.invitation_token)
+      assert redirected_to(conn) == page_path(conn, :index)
+    end
+
+    test "does not create resource and redirects when token is invalid", %{conn: conn} do
       invitation = Factory.insert(:invitation)
       conn = post conn, invitation_path(conn, :create, invitation.event, "asdf")
       assert redirected_to(conn) == page_path(conn, :index)

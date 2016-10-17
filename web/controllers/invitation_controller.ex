@@ -74,8 +74,7 @@ defmodule Classlab.InvitationController do
           })
           Repo.update!(invitation_changeset)
 
-          conn
-          |> redirect(to: invitation_path(conn, :show, invitation.event.slug, invitation.invitation_token))
+          redirect(conn, to: invitation_path(conn, :show, invitation.event.slug, invitation.invitation_token))
         end
       nil ->
         conn
