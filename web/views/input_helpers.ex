@@ -11,13 +11,11 @@ defmodule Classlab.InputHelpers do
   def input(form, field, opts \\ []) do
     type = opts[:using] || Form.input_type(form, field)
 
-    wrapper_opts = [class: "form-group #{state_class(form, field)}"]
-    label_opts = [class: "control-label"]
-    input_opts = [class: "form-control"]
+    label_opts = [class: "control-label"] ++ (opts[:label_attrs] || [])
 
-    content_tag :div, wrapper_opts do
+    wrapper_html form, field, opts do
       label = label(form, field, humanize(field), label_opts)
-      input = input_field(type, form, field, input_opts)
+      input = input_html(type, form, field, opts)
       error = ErrorHelpers.error_tag(form, field)
       [label, input, error || ""]
     end
@@ -26,19 +24,33 @@ defmodule Classlab.InputHelpers do
   # Private methods
   defp state_class(form, field) do
     cond do
-      # The form was not yet submitted
-      !form.source.action -> ""
+      !form.source.action -> "" # The form was not yet submitted
       form.errors[field] -> "has-error"
       true -> "has-success"
     end
   end
 
-  # Implement clauses below for custom inputs.
-  # defp input_field(:datepicker, form, field, input_opts) do
-  #   raise "not yet implemented"
-  # end
+  defp wrapper_html(form, field, opts, do: block) do
+    wrapper_opts =
+      [class: "form-group #{state_class(form, field)}"] ++ (opts[:wrapper_attrs] || [])
 
-  defp input_field(type, form, field, input_opts) do
+    content_tag :div, wrapper_opts do
+      block
+    end
+  end
+
+  defp input_html(:select, form, field, opts) do
+    input_opts = [class: "form-control"] ++ clean_opts(opts)
+    Form.select(form, field, opts[:collection], input_opts)
+  end
+
+  defp input_html(type, form, field, opts) do
+    input_opts =  [class: "form-control"] ++ clean_opts(opts)
     apply(Form, type, [form, field, input_opts])
+  end
+
+  defp clean_opts(opts) do
+    [:using, :collection, :wrapper_attrs, :label_attrs]
+    |> List.foldr(opts, fn(value, list) -> List.keydelete(list, value, 0) end)
   end
 end
