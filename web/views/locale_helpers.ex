@@ -21,6 +21,6 @@ defmodule Classlab.LocaleHelpers do
   def l(%DateTime{} = date) do
     date
     # |> Calendar.DateTime.shift_zone!("Europe/Berlin")
-    |> Strftime.strftime!("%d.%m.%Y %M:%H")
+    |> Strftime.strftime!("%d.%m.%Y %H:%M")
   end
 end
