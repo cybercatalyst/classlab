@@ -4,6 +4,7 @@ defmodule Classlab.Membership do
   The role determines access rights.
   Possible roles: owner, trainer, attendee
   """
+  alias Classlab.Event
   use Classlab.Web, :model
 
   # Fields
@@ -18,8 +19,8 @@ defmodule Classlab.Membership do
   end
 
   # Composable Queries
-  def for_event(query, event) do
-    from membership in query, where: membership.event_id == ^event.id
+  def for_event(query, %Event{id: event_id}) do
+    from membership in query, where: membership.event_id == ^event_id
   end
 
   def not_owner(query) do

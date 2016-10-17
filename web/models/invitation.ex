@@ -33,8 +33,8 @@ defmodule Classlab.Invitation do
     from inviation in query, where: not is_nil(inviation.completed_at)
   end
 
-  def for_event(query, %Event{} = event) do
-    from inviation in query, where: inviation.event_id == ^event.id
+  def for_event(query, %Event{id: event_id}) do
+    from inviation in query, where: inviation.event_id == ^event_id
   end
 
   # Changesets & Validations
