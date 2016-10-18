@@ -20,6 +20,7 @@
   },
 
   "skip_files": [
+    "lib/bamboo/local_popup_adapter.ex", // will hopefully move to official repo soon
     "lib/classlab_de.ex",
     "web/web.ex",
     "test/support/*"
