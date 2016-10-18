@@ -1,5 +1,5 @@
 defmodule Classlab.Classroom.MembershipController do
-  alias Classlab.{Event, Invitation}
+  alias Classlab.{Event, Invitation, Membership}
   use Classlab.Web, :controller
 
   def index(conn, _params) do
@@ -7,6 +7,7 @@ defmodule Classlab.Classroom.MembershipController do
     memberships =
       event
       |> assoc(:memberships)
+      |> Membership.not_as_role(1)
       |> Repo.all()
       |> Repo.preload([:user, :role, :event])
 

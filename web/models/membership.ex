@@ -23,8 +23,8 @@ defmodule Classlab.Membership do
     from membership in query, where: membership.event_id == ^event_id
   end
 
-  def not_owner(query) do
-    from membership in query, where: membership.role_id != 1
+  def not_as_role(query, role_id) do
+    from membership in query, where: membership.role_id != ^role_id
   end
 
   # Changesets & Validations

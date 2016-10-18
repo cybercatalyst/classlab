@@ -7,7 +7,7 @@ defmodule Classlab.Account.MembershipController do
       conn
       |> current_user()
       |> assoc(:memberships)
-      |> Membership.not_owner()
+      |> Membership.not_as_role(1)
       |> Repo.all()
       |> Repo.preload([:user, :role, :event])
 
@@ -19,7 +19,7 @@ defmodule Classlab.Account.MembershipController do
       conn
       |> current_user()
       |> assoc(:memberships)
-      |> Membership.not_owner()
+      |> Membership.not_as_role(1)
       |> Repo.get!(id)
 
     Repo.delete!(membership)
