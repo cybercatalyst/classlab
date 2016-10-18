@@ -4,7 +4,7 @@ defmodule Classlab.AssignUserPlug do
 
   If the jwt is invalid or not present then the user will be nil.
   """
-  alias Classlab.{JWT.UserIdToken, Session, Repo, User}
+  alias Classlab.{JWT.UserToken, Session, Repo, User}
   use Phoenix.Controller
   import Plug.Conn
 
@@ -26,8 +26,8 @@ defmodule Classlab.AssignUserPlug do
 
   # Private methods
   defp get_user_by_jwt(jwt) when is_binary(jwt) do
-    case UserIdToken.decode(jwt) do
-      %{"user_id" => user_id} -> Repo.get(User, user_id)
+    case UserToken.decode(jwt) do
+      %UserToken{user_id: user_id} -> Repo.get(User, user_id)
       _ -> nil
     end
   end

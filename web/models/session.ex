@@ -4,7 +4,7 @@ defmodule Classlab.Session do
   and an optional token.
   """
   alias Plug.Conn
-  alias Classlab.{User, JWT.UserIdToken}
+  alias Classlab.{User, JWT.UserToken}
   use Classlab.Web, :model
 
   # Fields
@@ -24,7 +24,7 @@ defmodule Classlab.Session do
   def login(%Conn{} = conn, %User{} = user) do
     conn
     |> Conn.assign(:current_user, user)
-    |> Conn.put_session(:user_id_jwt, UserIdToken.encode(%UserIdToken{user_id: user.id}))
+    |> Conn.put_session(:user_id_jwt, UserToken.encode(%UserToken{user_id: user.id}))
   end
 
   def logout(%Conn{} = conn) do

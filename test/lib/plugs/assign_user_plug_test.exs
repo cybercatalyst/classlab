@@ -1,6 +1,5 @@
 defmodule Classlab.AssignUserPlugTest do
-  alias Classlab.{AssignUserPlug, JWT.UserIdToken, Session}
-
+  alias Classlab.{AssignUserPlug, JWT.UserToken, Session}
   use Classlab.ConnCase
 
   describe "#call" do
@@ -24,7 +23,7 @@ defmodule Classlab.AssignUserPlugTest do
 
       conn =
         conn
-        |> put_session(:user_id_jwt, UserIdToken.encode(%UserIdToken{user_id: user.id}))
+        |> put_session(:user_id_jwt, UserToken.encode(%UserToken{user_id: user.id}))
         |> AssignUserPlug.call(%{})
 
       assert conn.assigns[:current_user] == user

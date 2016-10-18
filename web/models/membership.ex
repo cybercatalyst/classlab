@@ -4,7 +4,7 @@ defmodule Classlab.Membership do
   The role determines access rights.
   Possible roles: owner, trainer, attendee
   """
-  alias Classlab.{Event, User}
+  alias Classlab.{Event}
   use Classlab.Web, :model
 
   # Fields

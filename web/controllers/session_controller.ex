@@ -1,6 +1,6 @@
 defmodule Classlab.SessionController do
   alias Classlab.{Repo, Session, UserMailer, User}
-  alias Classlab.JWT.UserIdToken
+  alias Classlab.JWT.UserToken
   use Classlab.Web, :controller
 
   def show(conn, %{"id" => access_token}) when is_binary(access_token) do
@@ -12,7 +12,7 @@ defmodule Classlab.SessionController do
     case res do
       %User{} = user ->
         conn
-        |> put_session(:user_id_jwt, UserIdToken.encode(%UserIdToken{user_id: user.id}))
+        |> put_session(:user_id_jwt, UserToken.encode(%UserToken{user_id: user.id}))
         |> put_flash(:info, "Logged in successfully.")
         |> redirect(to: account_dashboard_path(conn, :show))
       nil ->
