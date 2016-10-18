@@ -1,4 +1,5 @@
 defmodule Classlab.RoleTest do
+  # BE A PRO! ONLY CREATE DATABASE OBJECTS WHERE NEEDED! PREFER SIMPLE STRUCTS!
   alias Classlab.Role
   use Classlab.ModelCase
 

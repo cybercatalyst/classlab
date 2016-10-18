@@ -1,4 +1,5 @@
 defmodule Classlab.EventTest do
+  # BE A PRO! ONLY CREATE DATABASE OBJECTS WHERE NEEDED! PREFER SIMPLE STRUCTS!
   alias Classlab.Event
   alias Calendar.DateTime
   use Classlab.ModelCase
@@ -20,10 +21,9 @@ defmodule Classlab.EventTest do
 
   describe "#within_feedback_period" do
     test "with correct events" do
-      event1 = Factory.insert(:event, ends_at: DateTime.now_utc) # positive
-      event2 = Factory.insert(:event, ends_at: DateTime.subtract!(DateTime.now_utc, 60 * 60)) # positive
-      event3 = Factory.insert(:event, ends_at: DateTime.add!(DateTime.now_utc, 60 * 60)) # negative
-      event4 = Factory.insert(:event, ends_at: DateTime.subtract!(DateTime.now_utc, 60 * 60 * 24 * 15)) # negative
+      event_within = Factory.insert(:event, ends_at: DateTime.now_utc) # positive
+      event_before = Factory.insert(:event, ends_at: DateTime.subtract!(DateTime.now_utc, 60 * 60 * 24 * 15)) # negative
+      event_after = Factory.insert(:event, ends_at: DateTime.add!(DateTime.now_utc, 60 * 60)) # negative
 
       events =
         Event
@@ -31,10 +31,9 @@ defmodule Classlab.EventTest do
         |> Repo.all()
 
       assert length(events) == 2
-      assert Enum.find(events, fn(e) -> e.id == event1.id end)
-      assert Enum.find(events, fn(e) -> e.id == event2.id end)
-      refute Enum.find(events, fn(e) -> e.id == event3.id end)
-      refute Enum.find(events, fn(e) -> e.id == event4.id end)
+      assert Enum.find(events, fn(e) -> e.id == event_within.id end)
+      refute Enum.find(events, fn(e) -> e.id == event_before.id end)
+      refute Enum.find(events, fn(e) -> e.id == event_after.id end)
     end
   end
 

@@ -1,4 +1,5 @@
 defmodule Classlab.MembershipTest do
+  # BE A PRO! ONLY CREATE DATABASE OBJECTS WHERE NEEDED! PREFER SIMPLE STRUCTS!
   alias Classlab.Membership
   use Classlab.ModelCase
 

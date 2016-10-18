@@ -1,4 +1,5 @@
 defmodule Classlab.FeedbackTest do
+  # BE A PRO! ONLY CREATE DATABASE OBJECTS WHERE NEEDED! PREFER SIMPLE STRUCTS!
   alias Classlab.Feedback
   use Classlab.ModelCase
 

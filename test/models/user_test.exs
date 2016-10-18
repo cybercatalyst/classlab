@@ -1,7 +1,7 @@
 defmodule Classlab.UserTest do
+  # BE A PRO! ONLY CREATE DATABASE OBJECTS WHERE NEEDED! PREFER SIMPLE STRUCTS!
   alias Classlab.User
   use Classlab.ModelCase
-
 
   describe "#changeset" do
     @valid_attrs Factory.params_for(:user)
