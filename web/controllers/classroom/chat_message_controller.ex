@@ -10,8 +10,14 @@ defmodule Classlab.Classroom.ChatMessageController do
       event
       |> assoc(:chat_messages)
       |> Repo.all()
+      |> Repo.preload(:user)
 
-    render(conn, "index.html", chat_messages: chat_messages, event: event)
+    changeset =
+      event
+      |> build_assoc(:chat_messages, %{user: current_user(conn)})
+      |> ChatMessage.changeset()
+
+    render(conn, "index.html", changeset: changeset, chat_messages: chat_messages, event: event)
   end
 
   def new(conn, _params) do

@@ -11,3 +11,12 @@ form.link {
 main {
   margin-top: 72px;
 }
+
+// absolute positionated chat reply box
+.chat-reply {
+  position: fixed;
+  bottom: 0px;
+  left: $sidebar-width;
+  background-color: #fff;
+  padding: 5px ($grid-gutter-width / 2);
+}

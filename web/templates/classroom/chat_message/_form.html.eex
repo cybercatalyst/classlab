@@ -4,12 +4,10 @@
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
-
-  <%= input f, :body %>
-
-  <div class="btn-toolbar">
-    <%= submit "Submit", class: "btn btn-primary" %>
-
-    <%= link "Back", to: classroom_chat_message_path(@conn, :index, @event), class: "btn btn-secondary" %>
+  <div class="input-group">
+    <%= text_input f, :body, required: true, autocomplete: "off", class: "form-control", placeholder: "Chat with your class mates..." %>
+    <span class="input-group-btn">
+      <%= submit "Send", class: "btn btn-primary" %>
+    </span>
   </div>
 <% end %>
