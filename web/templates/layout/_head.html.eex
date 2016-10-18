@@ -5,7 +5,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>classlab.org</title>
+  <title>classlab.org → <%= page(@conn)[:title] %></title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
   <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

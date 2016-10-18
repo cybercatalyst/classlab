@@ -6,8 +6,8 @@ defmodule Classlab.Superadmin.UserView do
   def page("index.html", _conn), do: %{
     title: "User Liste"
   }
-  def page("edit.html", conn), do: %{
-    title: "#{conn.assigns.email}",
+  def page("edit.html", _conn), do: %{
+    title: "Edit user",
     noindex: true
   }
 
