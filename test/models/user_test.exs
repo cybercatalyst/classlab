@@ -2,10 +2,11 @@ defmodule Classlab.UserTest do
   alias Classlab.User
   use Classlab.ModelCase
 
-  @valid_attrs Factory.params_for(:user)
-  @invalid_attrs %{email: ""}
 
   describe "#changeset" do
+    @valid_attrs Factory.params_for(:user)
+    @invalid_attrs %{email: ""}
+
     test "with valid attributes" do
       changeset = User.changeset(%User{}, @valid_attrs)
       assert changeset.errors == []
@@ -18,6 +19,9 @@ defmodule Classlab.UserTest do
   end
 
   describe "#registration_changeset" do
+    @valid_attrs Factory.params_for(:user)
+    @invalid_attrs %{email: ""}
+
     test "with valid attributes" do
       changeset = User.registration_changeset(%User{}, @valid_attrs)
       assert changeset.errors == []

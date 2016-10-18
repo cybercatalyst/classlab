@@ -1,6 +1,6 @@
 defmodule Classlab.JWT.UserTokenTest do
   alias Classlab.JWT.UserToken
-  use Classlab.ConnCase
+  use Classlab.ConnCase, async: true
 
   describe "#encode" do
     test "return a valid jwt" do
