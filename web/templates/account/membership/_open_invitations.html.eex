@@ -1,0 +1,22 @@
+<table class="table table-hover m-t-2">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for invitation <- @open_invitations do %>
+      <tr>
+        <td><%= invitation.first_name %> <%= invitation.last_name %></td>
+        <td><%= invitation.email %></td>
+        <td><%= invitation.role.name %></td>
+        <td>
+          <#%= link "Cancel invitation", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

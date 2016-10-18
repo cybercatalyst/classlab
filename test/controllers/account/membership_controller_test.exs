@@ -14,10 +14,22 @@ defmodule Classlab.Account.MembershipControllerTest do
       assert html_response(conn, 200) =~ membership.event.name
     end
 
-    test "shows nothing if user is owner of an event", %{conn: conn} do
+    test "lists all entries on index where current user is owner", %{conn: conn} do
       membership = Factory.insert(:membership, user: current_user(conn))
       conn = get conn, account_membership_path(conn, :index)
-      refute html_response(conn, 200) =~ membership.event.name
+      assert html_response(conn, 200) =~ membership.event.name
+    end
+
+    test "lists all open invitations for current user", %{conn: conn} do
+      invitation = Factory.insert(:invitation, email: current_user(conn).email)
+      conn = get conn, account_membership_path(conn, :index)
+      refute html_response(conn, 200) =~ invitation.event.name
+    end
+
+    test "lists not completed invitations for current user", %{conn: conn} do
+      invitation = Factory.insert(:invitation, email: current_user(conn).email, completed_at: Calendar.DateTime.now_utc())
+      conn = get conn, account_membership_path(conn, :index)
+      refute html_response(conn, 200) =~ invitation.event.name
     end
   end
 

@@ -1,17 +1,39 @@
 defmodule Classlab.Account.MembershipController do
-  alias Classlab.Membership
+  alias Classlab.{Invitation, Membership}
   use Classlab.Web, :controller
 
   def index(conn, _params) do
+    user =
+      current_user(conn)
+
     memberships =
-      conn
-      |> current_user()
+      user
       |> assoc(:memberships)
       |> Membership.not_as_role(1)
       |> Repo.all()
       |> Repo.preload([:user, :role, :event])
 
-    render(conn, "index.html", memberships: memberships)
+    open_invitations =
+      Invitation
+      |> Invitation.filter_by_email(user)
+      |> Invitation.not_completed()
+      |> Repo.all()
+      |> Repo.preload(:role)
+
+    owner_memberships =
+      user
+      |> assoc(:memberships)
+      |> Membership.as_role(1)
+      |> Repo.all()
+      |> Repo.preload([:user, :role, :event])
+
+    render(
+      conn,
+      "index.html",
+      memberships: memberships,
+      open_invitations: open_invitations,
+      owner_memberships: owner_memberships
+    )
   end
 
   def delete(conn, %{"id" => id}) do

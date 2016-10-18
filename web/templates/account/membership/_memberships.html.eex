@@ -1,0 +1,30 @@
+<table class="table table-hover m-t-2">
+  <thead>
+    <tr>
+      <th>Public</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for membership <- @memberships do %>
+      <tr>
+        <td><%= membership.event.public %></td>
+        <td>
+          <%= link membership.event.name, to: classroom_dashboard_path(@conn, :show, membership.event) %><br>
+          <small class="text-muted text-truncate"><%= membership.event.description %></small>
+        </td>
+        <td>
+          <%= l(Calendar.DateTime.to_date(membership.event.starts_at)) %> -
+          <%= l(Calendar.DateTime.to_date(membership.event.ends_at)) %>
+        </td>
+        <td>
+          <%= if membership.role.id != 1 do %>
+            <%= link "Delete", to: account_membership_path(@conn, :delete, membership), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

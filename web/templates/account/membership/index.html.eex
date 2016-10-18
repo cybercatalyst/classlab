@@ -1,23 +1,23 @@
-<p class="font-weight-bold">
-  All your attended events
-</p>
+<ul class="nav nav-tabs m-t-2" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#owner" role="tab">Own events (<%= length(@owner_memberships) %>)</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#open_invitations" role="tab">Open invitations (<%= length(@open_invitations) %>)</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#attendee" role="tab">Event attendee (<%= length(@memberships) %>)</a>
+  </li>
+</ul>
 
-<table class="table">
-  <tr>
-    <th>Event</th>
-    <th>Role</th>
-    <th></th>
-  </tr>
-  <%= for membership <- @memberships do %>
-    <tr>
-      <td>
-        <%= link membership.event.name, to: classroom_dashboard_path(@conn, :show, membership.event) %><br>
-        <small><%= membership.event.description %></small>
-      </td>
-      <td><%= membership.role.name %></td>
-      <td>
-        <%= link "Delete", to: account_membership_path(@conn, :delete, membership), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<div class="tab-content">
+  <div class="tab-pane table-responsive active" id="owner" role="tabpanel">
+    <%= render "_memberships.html", conn: @conn, memberships: @owner_memberships %>
+  </div>
+  <div class="tab-pane table-responsive" id="open_invitations" role="tabpanel">
+    <%= render "_open_invitations.html", open_invitations: @open_invitations %>
+  </div>
+  <div class="tab-pane table-responsive" id="attendee" role="tabpanel">
+    <%= render "_memberships.html", conn: @conn, memberships: @memberships %>
+  </div>
+</div>
