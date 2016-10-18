@@ -22,7 +22,7 @@ defmodule Classlab.SessionControllerTest do
     end
 
     test "EXPIRED TOKEN redirects to new session page", %{conn: conn} do
-      access_token_expired_at = Calendar.DateTime.add!(Calendar.DateTime.now_utc, -60)
+      access_token_expired_at = Calendar.DateTime.subtract!(Calendar.DateTime.now_utc, 60)
       user = Factory.insert(:user, access_token_expired_at: access_token_expired_at)
       conn = get conn, session_path(conn, :show, user.access_token)
       assert redirected_to(conn) == session_path(conn, :new)
