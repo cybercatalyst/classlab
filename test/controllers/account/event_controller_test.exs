@@ -12,22 +12,6 @@ defmodule Classlab.Account.EventControllerTest do
     {:ok, conn: Session.login(conn, user)}
   end
 
-  describe "#index" do
-    test "lists all entries on index for current user as owner", %{conn: conn} do
-      event = Factory.insert(:event)
-      Factory.insert(:membership, user: current_user(conn), event: event, role_id: 1)
-      conn = get conn, account_event_path(conn, :index)
-      assert html_response(conn, 200) =~ event.name
-    end
-
-    test "lists all entries on index for current user as owner2", %{conn: conn} do
-      event = Factory.insert(:event)
-      Factory.insert(:membership, user: current_user(conn), event: event, role_id: 3)
-      conn = get conn, account_event_path(conn, :index)
-      refute html_response(conn, 200) =~ event.name
-    end
-  end
-
   describe "#new" do
     test "renders form for new resources", %{conn: conn} do
       conn = get conn, account_event_path(conn, :new)

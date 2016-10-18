@@ -2,20 +2,7 @@ defmodule Classlab.Account.EventController do
   alias Classlab.{Event, Membership}
   use Classlab.Web, :controller
 
-  plug :scrub_params, "event" when action in [:create, :update]
-
-  def index(conn, _params) do
-    user =
-      current_user(conn)
-
-    events =
-      Event
-      |> Event.as_role(user, 1)
-      |> Repo.all()
-      |> Repo.preload([:location, :invitations, :materials])
-
-    render(conn, "index.html", events: events)
-  end
+  plug :scrub_params, "event" when action in [:create]
 
   def new(conn, _params) do
     changeset = Event.changeset(%Event{})
