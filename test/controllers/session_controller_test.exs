@@ -35,7 +35,17 @@ defmodule Classlab.SessionControllerTest do
   end
 
   describe "#create" do
-    test "Creates resource and redirects when data is valid", %{conn: conn} do
+    test "Creates resource and redirects when data is valid for new user", %{conn: conn} do
+      user = Factory.insert(:user)
+      conn = post conn, session_path(conn, :create), session: %{email: user.email}
+      assert redirected_to(conn) == page_path(conn, :index)
+
+      user = Repo.one(User)
+      assert user
+      assert_delivered_email UserMailer.token_email(user)
+    end
+
+    test "Creates resource and redirects when data is valid for exiting user", %{conn: conn} do
       conn = post conn, session_path(conn, :create), session: @valid_attrs
       assert redirected_to(conn) == page_path(conn, :index)
 
