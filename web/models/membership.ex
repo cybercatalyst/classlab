@@ -23,10 +23,6 @@ defmodule Classlab.Membership do
     from membership in query, where: membership.event_id == ^event_id
   end
 
-  def for_user(query, %User{id: user_id}) do
-    from membership in query, where: membership.user_id == ^user_id
-  end
-
   def not_as_role(query, role_id) do
     from membership in query, where: membership.role_id != ^role_id
   end
