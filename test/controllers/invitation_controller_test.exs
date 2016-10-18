@@ -8,6 +8,13 @@ defmodule Classlab.InvitationControllerTest do
       conn = get conn, invitation_path(conn, :new, invitation.event, invitation.invitation_token)
       assert html_response(conn, 200) =~ invitation_path(conn, :create, invitation.event, invitation.invitation_token)
     end
+
+    test "shows error if invalid invitation token", %{conn: conn} do
+      invitation = Factory.insert(:invitation)
+      conn = get conn, invitation_path(conn, :new, invitation.event, "asdf")
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert get_flash(conn, :error) =~ "Invalid invitation"
+    end
   end
 
   describe "#create" do
@@ -47,12 +54,14 @@ defmodule Classlab.InvitationControllerTest do
       invitation = Factory.insert(:invitation, email: user.email, event: event, role_id: 3)
       conn = post conn, invitation_path(conn, :create, invitation.event, invitation.invitation_token)
       assert redirected_to(conn) == page_path(conn, :index)
+      assert get_flash(conn, :error) =~ "Already accepted the invitation"
     end
 
     test "does not create resource and redirects when token is invalid", %{conn: conn} do
       invitation = Factory.insert(:invitation)
       conn = post conn, invitation_path(conn, :create, invitation.event, "asdf")
       assert redirected_to(conn) == page_path(conn, :index)
+      assert get_flash(conn, :error) =~ "Invalid invitation"
     end
   end
 
@@ -61,6 +70,13 @@ defmodule Classlab.InvitationControllerTest do
       invitation = Factory.insert(:invitation, completed_at: Calendar.DateTime.now_utc())
       conn = get conn, invitation_path(conn, :show, invitation.event, invitation.invitation_token)
       assert html_response(conn, 200) =~ invitation.event.name
+    end
+
+    test "shows error if invalid invitation token", %{conn: conn} do
+      invitation = Factory.insert(:invitation)
+      conn = get conn, invitation_path(conn, :new, invitation.event, "asdf")
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert get_flash(conn, :error) =~ "Invalid invitation"
     end
   end
 end
