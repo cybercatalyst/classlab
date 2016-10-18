@@ -20,7 +20,7 @@ defmodule Classlab.EventTest do
     test "returns the correct events" do
       event1 = Factory.insert(:event, ends_at: DateTime.now_utc) # positive
       event2 = Factory.insert(:event, ends_at: DateTime.subtract!(DateTime.now_utc, 60 * 60)) # positive
-      event3 = Factory.insert(:event, ends_at: DateTime.add!(DateTime.now_utc, 60)) # negative
+      event3 = Factory.insert(:event, ends_at: DateTime.add!(DateTime.now_utc, 60 * 60)) # negative
       event4 = Factory.insert(:event, ends_at: DateTime.subtract!(DateTime.now_utc, 60 * 60 * 24 * 15)) # negative
 
       events =
@@ -33,6 +33,24 @@ defmodule Classlab.EventTest do
       assert Enum.find(events, fn(e) -> e.id == event2.id end)
       refute Enum.find(events, fn(e) -> e.id == event3.id end)
       refute Enum.find(events, fn(e) -> e.id == event4.id end)
+    end
+  end
+
+  describe "#within_feedback_period?" do
+    test "returns true" do
+      event1 = Factory.insert(:event, ends_at: DateTime.now_utc)
+      event2 = Factory.insert(:event, ends_at: DateTime.subtract!(DateTime.now_utc, 60 * 60))
+
+      assert Event.within_feedback_period?(event1)
+      assert Event.within_feedback_period?(event2)
+    end
+
+    test "returns false" do
+      event1 = Factory.insert(:event, ends_at: DateTime.add!(DateTime.now_utc, 60 * 60))
+      event2 = Factory.insert(:event, ends_at: DateTime.subtract!(DateTime.now_utc, 60 * 60 * 24 * 15))
+
+      refute Event.within_feedback_period?(event1)
+      refute Event.within_feedback_period?(event2)
     end
   end
 end

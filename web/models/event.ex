@@ -46,8 +46,8 @@ defmodule Classlab.Event do
 
   def within_feedback_period(query) do
     from event in query,
-      where: event.ends_at >= ^DateTime.subtract!(DateTime.now_utc, 60 * 60 * 24 * 14),
-      where: event.ends_at <= ^DateTime.now_utc
+      where: event.ends_at <= ^DateTime.now_utc(),
+      where: event.ends_at >= ^DateTime.subtract!(DateTime.now_utc, 60 * 60 * 24 * 14)
   end
 
   # Changesets & Validations
@@ -67,5 +67,14 @@ defmodule Classlab.Event do
   defp generate_invitation_token(struct, length \\ 6) do
     token = length |> :crypto.strong_rand_bytes |> Base.url_encode64 |> binary_part(0, length)
     put_change(struct, :invitation_token, token)
+  end
+
+  # Model methods
+  def within_feedback_period?(%__MODULE__{ends_at: ends_at}) do
+    if ends_at <= DateTime.now_utc() && ends_at >= DateTime.subtract!(DateTime.now_utc(), 60 * 60 * 24 * 14) do
+      true
+    else
+      false
+    end
   end
 end
