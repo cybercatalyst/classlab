@@ -2,16 +2,6 @@ defmodule Classlab.Account.InvitationController do
   alias Classlab.Invitation
   use Classlab.Web, :controller
 
-  def index(conn, _params) do
-    invitations =
-      Invitation
-      |> Invitation.filter_by_email(current_user(conn))
-      |> Repo.all()
-      |> Repo.preload(:event)
-
-    render(conn, "index.html", invitations: invitations)
-  end
-
   def delete(conn, %{"id" => id}) do
     invitation =
       Invitation
@@ -23,6 +13,6 @@ defmodule Classlab.Account.InvitationController do
 
     conn
     |> put_flash(:info, "Invitation deleted successfully.")
-    |> redirect(to: account_invitation_path(conn, :index))
+    |> redirect(to: account_membership_path(conn, :index, active_tab: "open_invitations"))
   end
 end
