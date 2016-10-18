@@ -11,21 +11,21 @@ defmodule Classlab.Account.MembershipController do
       |> assoc(:memberships)
       |> Membership.not_as_role(1)
       |> Repo.all()
-      |> Repo.preload([:user, :role, :event])
+      |> Repo.preload([:event, :user, :role])
 
     open_invitations =
       Invitation
       |> Invitation.filter_by_email(user)
       |> Invitation.not_completed()
       |> Repo.all()
-      |> Repo.preload(:role)
+      |> Repo.preload([:event, :role])
 
     owner_memberships =
       user
       |> assoc(:memberships)
       |> Membership.as_role(1)
       |> Repo.all()
-      |> Repo.preload([:user, :role, :event])
+      |> Repo.preload([:event, :user, :role])
 
     render(
       conn,
