@@ -9,7 +9,7 @@
     <a class="nav-link<%= if(@conn.params["active_tab"] == "open_invitations", do: " active") %>" data-toggle="tab" href="#open_invitations" role="tab">Open invitations (<%= length(@open_invitations) %>)</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link<%= if(!@conn.params["active_tab"] == "attendee", do: " active") %>" data-toggle="tab" href="#attendee" role="tab">Event attendee (<%= length(@memberships) %>)</a>
+    <a class="nav-link<%= if(!@conn.params["active_tab"] == "attendee", do: " active") %>" data-toggle="tab" href="#attendee" role="tab">My participations (<%= length(@memberships) %>)</a>
   </li>
 </ul>
 
