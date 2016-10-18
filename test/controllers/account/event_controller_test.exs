@@ -38,8 +38,9 @@ defmodule Classlab.Account.EventControllerTest do
   describe "#create" do
     test "creates resource and redirects when data is valid", %{conn: conn} do
       conn = post conn, account_event_path(conn, :create), event: Map.put(@valid_attrs, :location, Factory.params_for(:location))
-      assert redirected_to(conn) == account_event_path(conn, :index)
-      assert Repo.get_by(Event, @valid_attrs)
+      event = Repo.get_by(Event, @valid_attrs)
+      assert event
+      assert redirected_to(conn) == classroom_dashboard_path(conn, :show, event)
     end
 
     test "does not create resource and renders errors when data is invalid", %{conn: conn} do

@@ -26,10 +26,10 @@ defmodule Classlab.Account.EventController do
     changeset = Event.changeset(%Event{memberships: [%Membership{user: current_user(conn), role_id: 1}]}, event_params)
 
     case Repo.insert(changeset) do
-      {:ok, _event} ->
+      {:ok, event} ->
         conn
         |> put_flash(:info, "Event created successfully.")
-        |> redirect(to: account_event_path(conn, :index))
+        |> redirect(to: classroom_dashboard_path(conn, :show, event))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
