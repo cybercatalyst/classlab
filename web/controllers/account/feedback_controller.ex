@@ -8,6 +8,7 @@ defmodule Classlab.Account.FeedbackController do
     open_feedback_events =
       Event
       |> Event.not_feedbacked_by_user(current_user(conn))
+      |> Event.in_feedback_period()
       |> Repo.all()
 
     feedbacks =
