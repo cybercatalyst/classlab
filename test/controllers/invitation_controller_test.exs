@@ -74,7 +74,7 @@ defmodule Classlab.InvitationControllerTest do
 
     test "shows error if invalid invitation token", %{conn: conn} do
       invitation = Factory.insert(:invitation)
-      conn = get conn, invitation_path(conn, :new, invitation.event, "asdf")
+      conn = get conn, invitation_path(conn, :show, invitation.event, "aaa")
 
       assert redirected_to(conn) == page_path(conn, :index)
       assert get_flash(conn, :error) =~ "Invalid invitation"
