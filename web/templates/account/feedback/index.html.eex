@@ -42,7 +42,7 @@
       <td>
         <%= link "Show", to: account_feedback_path(@conn, :show, feedback), class: "btn btn-default btn-sm" %>
         <%= link "Edit", to: account_feedback_path(@conn, :edit, feedback), class: "btn btn-default btn-sm" %>
-        <%= link "Delete", to: account_feedback_path(@conn, :delete, feedback), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+        <%= link "Delete", to: account_feedback_path(@conn, :delete, feedback), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
       </td>
     </tr>
   <% end %>

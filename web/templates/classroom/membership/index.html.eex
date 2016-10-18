@@ -27,7 +27,7 @@
             <td><%= membership.role.name %></td>
 
             <td>
-              <%= link "Delete", to: classroom_membership_path(@conn, :delete, membership.event, membership), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+              <%= link "Delete", to: classroom_membership_path(@conn, :delete, membership.event, membership), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
             </td>
           </tr>
         <% end %>
@@ -51,7 +51,7 @@
             <td><%= invitation.email %></td>
             <td><%= invitation.role.name %></td>
             <td>
-              <%= link "Cancel invitation", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+              <%= link "Cancel invitation", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
             </td>
           </tr>
         <% end %>

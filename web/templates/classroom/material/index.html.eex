@@ -16,7 +16,7 @@
       <td>
         <%= link "Show", to: classroom_material_path(@conn, :show, @event, material), class: "btn btn-default btn-sm" %>
         <%= link "Edit", to: classroom_material_path(@conn, :edit, @event, material), class: "btn btn-default btn-sm" %>
-        <%= link "Delete", to: classroom_material_path(@conn, :delete, @event, material), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+        <%= link "Delete", to: classroom_material_path(@conn, :delete, @event, material), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
       </td>
     </tr>
   <% end %>

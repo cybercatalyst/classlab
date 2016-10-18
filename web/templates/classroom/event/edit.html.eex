@@ -3,4 +3,4 @@
 
 
 <%= link "Delete", to: classroom_event_path(@conn, :delete, @event), method: :delete,
-                   data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+                   data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>

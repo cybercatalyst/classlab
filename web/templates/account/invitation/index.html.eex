@@ -9,7 +9,7 @@
     <%= if is_nil(invitation.completed_at) do %>
       <div class="btn-toolbar">
         <%= link "Accept", to: "#", class: "btn btn-success" %>
-        <%= link "Decline", to: account_invitation_path(@conn, :delete, invitation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
+        <%= link "Decline", to: account_invitation_path(@conn, :delete, invitation), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger" %>
       </div>
     <% else %>
       Angenommen:

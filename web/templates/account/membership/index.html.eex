@@ -16,7 +16,7 @@
       </td>
       <td><%= membership.role.name %></td>
       <td>
-        <%= link "Delete", to: account_membership_path(@conn, :delete, membership), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+        <%= link "Delete", to: account_membership_path(@conn, :delete, membership), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
       </td>
     </tr>
   <% end %>

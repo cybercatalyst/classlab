@@ -10,7 +10,7 @@
 
       <td>
         <%= link "Edit", to: classroom_chat_message_path(@conn, :edit, @event, chat_message), class: "btn btn-default btn-sm" %>
-        <%= link "Delete", to: classroom_chat_message_path(@conn, :delete, @event, chat_message), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+        <%= link "Delete", to: classroom_chat_message_path(@conn, :delete, @event, chat_message), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
       </td>
     </tr>
   <% end %>
