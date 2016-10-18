@@ -44,10 +44,11 @@ defmodule Classlab.Event do
       where:  membership.user_id == ^user_id and membership.role_id == 3 and is_nil(feedback.user_id)
   end
 
+  @fourteen_days 60 * 60 * 24 * 14
   def within_feedback_period(query) do
     from event in query,
       where: event.ends_at <= ^DateTime.now_utc(),
-      where: event.ends_at >= ^DateTime.subtract!(DateTime.now_utc, 60 * 60 * 24 * 14)
+      where: event.ends_at >= ^DateTime.subtract!(DateTime.now_utc, @fourteen_days)
   end
 
   # Changesets & Validations
@@ -70,11 +71,8 @@ defmodule Classlab.Event do
   end
 
   # Model methods
+  @fourteen_days 60 * 60 * 24 * 14
   def within_feedback_period?(%__MODULE__{ends_at: ends_at}) do
-    if ends_at <= DateTime.now_utc() && ends_at >= DateTime.subtract!(DateTime.now_utc(), 60 * 60 * 24 * 14) do
-      true
-    else
-      false
-    end
+    ends_at <= DateTime.now_utc() && ends_at >= DateTime.subtract!(DateTime.now_utc(), @fourteen_days)
   end
 end
