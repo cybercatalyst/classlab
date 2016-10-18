@@ -20,6 +20,7 @@ defmodule Classlab.Classroom.MaterialController do
       event
       |> build_assoc(:materials)
       |> Material.changeset()
+
     render(conn, "new.html", changeset: changeset, event: event)
   end
 
