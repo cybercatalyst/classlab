@@ -11,6 +11,7 @@
   ],
 
   "custom_stop_words": [
+    "schema"
   ],
 
   "coverage_options": {
