@@ -44,7 +44,7 @@ defmodule Classlab.Event do
       where:  membership.user_id == ^user_id and membership.role_id == 3 and is_nil(feedback.user_id)
   end
 
-  def in_feedback_period(query) do
+  def within_feedback_period(query) do
     from event in query,
       where: event.ends_at >= ^DateTime.subtract!(DateTime.now_utc, 60 * 60 * 24 * 14),
       where: event.ends_at <= ^DateTime.now_utc

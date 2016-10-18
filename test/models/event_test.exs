@@ -16,7 +16,7 @@ defmodule Classlab.EventTest do
     refute changeset.errors == []
   end
 
-  describe "#in_feedback_period" do
+  describe "#within_feedback_period" do
     test "returns the correct events" do
       event1 = Factory.insert(:event, ends_at: DateTime.now_utc) # positive
       event2 = Factory.insert(:event, ends_at: DateTime.subtract!(DateTime.now_utc, 60 * 60)) # positive
@@ -25,7 +25,7 @@ defmodule Classlab.EventTest do
 
       events =
         Event
-        |> Event.in_feedback_period()
+        |> Event.within_feedback_period()
         |> Repo.all()
 
       assert length(events) == 2
