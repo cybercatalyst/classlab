@@ -60,5 +60,18 @@ defmodule Classlab.SessionControllerTest do
     end
   end
 
-  # TODO: Test Logout! (delete session)
+  describe "#delete" do
+    test "logout", %{conn: conn} do
+      user = Factory.insert(:user)
+
+      conn =
+        conn
+        |> Session.login(user)
+        |> delete(session_path(conn, :delete))
+
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert get_flash(conn, :error) =~ "Logged out"
+      refute current_user(conn)
+    end
+  end
 end
