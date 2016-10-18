@@ -9,6 +9,8 @@ defmodule Classlab.Classroom.DashboardView do
   # View functions
   def format_rating(nil), do: ""
   def format_rating(rating) do
-    Decimal.round(rating, 2, :half_up)
+    rating
+    |> Decimal.round(2, :half_up)
+    |> Decimal.to_string
   end
 end
