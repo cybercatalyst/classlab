@@ -32,7 +32,9 @@ defmodule Classlab.AssignUserPlugTest do
   end
 
   describe "#init" do
-    opts = %{"test" => true}
-    assert AssignUserPlug.init(opts) == opts
+    test "should return the passed options", %{conn: conn} do
+      opts = %{"test" => true}
+      assert AssignUserPlug.init(opts) == opts
+    end
   end
 end
