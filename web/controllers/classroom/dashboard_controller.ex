@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.DashboardController do
+  @moduledoc false
   alias Classlab.{Event, Feedback}
   use Classlab.Web, :controller
 

@@ -1,4 +1,5 @@
 defmodule Classlab.Account.DashboardController do
+  @moduledoc false
   alias Classlab.Event
   use Classlab.Web, :controller
 

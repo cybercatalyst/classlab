@@ -1,4 +1,5 @@
 defmodule <%= module %>View do
+  @moduledoc false
   use <%= base %>.Web, :view
 
   # Page Configuration

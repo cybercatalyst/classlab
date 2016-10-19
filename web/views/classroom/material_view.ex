@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.MaterialView do
+  @moduledoc false
   alias Classlab.Material
   use Classlab.Web, :view
 

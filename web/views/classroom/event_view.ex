@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.EventView do
+  @moduledoc false
   use Classlab.Web, :view
 
   # Page Configuration

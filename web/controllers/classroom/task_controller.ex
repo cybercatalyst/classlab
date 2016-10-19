@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.TaskController do
+  @moduledoc false
   alias Classlab.{Event, Repo, Task}
   use Classlab.Web, :controller
 

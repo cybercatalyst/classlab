@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.ChatMessageController do
+  @moduledoc false
   alias Classlab.{ChatMessage, Event}
   use Classlab.Web, :controller
 

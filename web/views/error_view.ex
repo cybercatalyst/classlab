@@ -1,4 +1,5 @@
 defmodule Classlab.ErrorView do
+  @moduledoc false
   use Classlab.Web, :view
 
   def render("404.html", _assigns) do

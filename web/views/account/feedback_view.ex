@@ -1,4 +1,5 @@
 defmodule Classlab.Account.FeedbackView do
+  @moduledoc false
   use Classlab.Web, :view
   import Classlab.StarHelpers
 

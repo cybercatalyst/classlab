@@ -1,4 +1,5 @@
 defmodule Classlab.InvitationController do
+  @moduledoc false
   alias Classlab.{Repo, Event, Invitation, User, Membership}
   alias Ecto.Query
   use Classlab.Web, :controller

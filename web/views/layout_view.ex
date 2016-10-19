@@ -1,4 +1,5 @@
 defmodule Classlab.LayoutView do
+  @moduledoc false
   use Classlab.Web, :view
 
   def page(conn) do

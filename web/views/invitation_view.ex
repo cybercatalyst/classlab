@@ -1,4 +1,5 @@
 defmodule Classlab.InvitationView do
+  @moduledoc false
   use Classlab.Web, :view
 
   # Page Configuration

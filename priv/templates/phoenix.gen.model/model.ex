@@ -1,4 +1,7 @@
 defmodule <%= module %> do
+  @moduledoc """
+  Document this!
+  """
   use <%= base %>.Web, :model
 
   # Fields

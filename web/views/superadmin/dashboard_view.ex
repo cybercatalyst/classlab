@@ -1,4 +1,5 @@
 defmodule Classlab.Superadmin.DashboardView do
+  @moduledoc false
   use Classlab.Web, :view
 
   # Page Configuration

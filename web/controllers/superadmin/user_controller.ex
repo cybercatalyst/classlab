@@ -1,4 +1,5 @@
 defmodule Classlab.Superadmin.UserController do
+  @moduledoc false
   alias Classlab.User
   use Classlab.Web, :controller
 

@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.MaterialController do
+  @moduledoc false
   alias Classlab.{Material, Event}
   use Classlab.Web, :controller
 

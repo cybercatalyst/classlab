@@ -1,4 +1,5 @@
 defmodule Classlab.Account.MembershipController do
+  @moduledoc false
   alias Classlab.{Invitation, Membership}
   use Classlab.Web, :controller
 

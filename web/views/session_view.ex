@@ -1,4 +1,5 @@
 defmodule Classlab.SessionView do
+  @moduledoc false
   use Classlab.Web, :view
 
   # Page Configuration

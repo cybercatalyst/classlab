@@ -1,4 +1,5 @@
 defmodule Classlab.SessionController do
+  @moduledoc false
   alias Classlab.{Repo, Session, UserMailer, User}
   alias Classlab.JWT.UserToken
   use Classlab.Web, :controller

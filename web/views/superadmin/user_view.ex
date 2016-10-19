@@ -1,4 +1,5 @@
 defmodule Classlab.Superadmin.UserView do
+  @moduledoc false
   alias Classlab.User
   use Classlab.Web, :view
 

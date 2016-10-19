@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.InvitationController do
+  @moduledoc false
   alias Classlab.{Event, Invitation, InvitationMailer}
   use Classlab.Web, :controller
 

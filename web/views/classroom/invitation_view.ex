@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.InvitationView do
+  @moduledoc false
   alias Classlab.Invitation
   use Classlab.Web, :view
 

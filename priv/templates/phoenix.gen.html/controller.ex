@@ -1,4 +1,5 @@
 defmodule <%= module %>Controller do
+  @moduledoc false
   alias <%= module %>
   use <%= base %>.Web, :controller
 

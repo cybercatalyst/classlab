@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.FeedbackController do
+  @moduledoc false
   alias Classlab.Event
   use Classlab.Web, :controller
 

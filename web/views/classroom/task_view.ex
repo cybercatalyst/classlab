@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.TaskView do
+  @moduledoc false
   use Classlab.Web, :view
 
   # Page Configuration
