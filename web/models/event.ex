@@ -28,7 +28,6 @@ defmodule Classlab.Event do
     has_many :memberships, Classlab.Membership, on_delete: :delete_all
     has_many :materials, Classlab.Material, on_delete: :delete_all
     has_many :tasks, Classlab.Task, on_delete: :delete_all
-    has_many :videos, Classlab.Video, on_delete: :delete_all
   end
 
   # Composable Queries
