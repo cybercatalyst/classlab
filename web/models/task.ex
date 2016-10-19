@@ -26,5 +26,3 @@ defmodule Classlab.Task do
     |> validate_required([:title, :position, :body])
   end
 end
-
-
