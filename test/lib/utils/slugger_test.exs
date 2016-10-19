@@ -1,6 +1,5 @@
 defmodule Classlab.Utils.SluggerTest do
   alias Classlab.Utils.Slugger
-  alias Ecto.Changeset
   use Classlab.ConnCase, async: true
 
   defmodule ExampleSchema do
