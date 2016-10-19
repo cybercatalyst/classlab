@@ -2,7 +2,7 @@ defmodule Classlab.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Classlab.RoomChannel
+  channel "page_reload:*", WorkshopsDe.PageReloadChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
