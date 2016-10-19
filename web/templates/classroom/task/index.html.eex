@@ -1,8 +1,16 @@
-<%= link "Neue Aufgabe", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary m-b-1" %>
+<%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary m-b-1" %>
 
 <%= for task <- @tasks do %>
   <%= render "_task.html", conn: @conn, event: @event, task: task %>
 <% end %>
 
-<%= link "Neue Aufgabe", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary" %>
+<%= if length(@tasks) == 0 do %>
+<div class="card">
+  <div class="card-block">
+    No Tasks available
+  </div>
+</div>
+<% end %>
+
+<%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary" %>
 

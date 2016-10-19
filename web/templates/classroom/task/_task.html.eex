@@ -23,8 +23,8 @@
   <div class="card-footer">
     <div class="row">
       <div class="col-xs-6">
-        <%= link "Show", to: classroom_task_path(@conn, :show, @event, @task), class: "btn btn-default btn-sm" %>
-        <%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-default btn-sm" %>
+        <%= link "Show", to: classroom_task_path(@conn, :show, @event, @task), class: "btn btn-clear btn-sm" %>
+        <%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-clear btn-sm" %>
       </div>
       <div class="col-xs-6 text-xs-right">
         <%= link "Delete", to: classroom_task_path(@conn, :delete, @event, @task), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
