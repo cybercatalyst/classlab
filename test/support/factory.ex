@@ -112,4 +112,14 @@ defmodule Classlab.Factory do
       superadmin: false
     }
   end
+
+  def video_factory do
+    %Classlab.Video{
+      event: build(:event),
+      description: "This is a slide.",
+      position: sequence(:position, &"#{&1}"),
+      title: sequence(:title, &"Slide-#{&1}"),
+      url: "http://example.com"
+    }
+  end
 end
