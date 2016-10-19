@@ -65,4 +65,4 @@ config :classlab, :jwt_secret, "ac0ccc48-91f4-11e6-8259-27a44adbb1fe"
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-import_config "prod.secret.exs"
+# import_config "prod.secret.exs"
