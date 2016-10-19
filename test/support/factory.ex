@@ -93,6 +93,15 @@ defmodule Classlab.Factory do
     }
   end
 
+  def task_factory do
+    %Classlab.Task{
+      event: build(:event),
+      body: "This is a task.",
+      position: sequence(:position, &"#{&1}"),
+      title: sequence(:title, &"Slide-#{&1}")
+    }
+  end
+
   def user_factory do
     %Classlab.User{
       first_name: "John",
