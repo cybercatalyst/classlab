@@ -1,4 +1,7 @@
 defmodule Classlab.Utils.StringExtensions do
+  @moduledoc"""
+  A collection of utilities for string manipulation.
+  """
 
   @doc """
   Replaces special characters in a string so that it may be used as part of a ‘pretty’ URL.
