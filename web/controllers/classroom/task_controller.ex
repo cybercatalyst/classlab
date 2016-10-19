@@ -62,11 +62,11 @@ defmodule Classlab.Classroom.TaskController do
 
   def update(conn, %{"id" => task_id, "task" => task_params}) do
     event = load_event(conn)
-    changeset =
+    task =
       event
       |> assoc(:tasks)
       |> Repo.get!(task_id)
-      |> Task.changeset(task_params)
+    changeset = Task.changeset(task, task_params)
 
     case Repo.update(changeset) do
       {:ok, task} ->
@@ -74,7 +74,7 @@ defmodule Classlab.Classroom.TaskController do
         |> put_flash(:info, "Task updated successfully.")
         |> redirect(to: classroom_task_path(conn, :show, event, task))
       {:error, changeset} ->
-        render(conn, "edit.html", event: event, changeset: changeset)
+        render(conn, "edit.html", event: event, changeset: changeset, task: task)
     end
   end
 

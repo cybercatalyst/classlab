@@ -89,7 +89,7 @@ defmodule Classlab.Factory do
     %Classlab.Task{
       event: build(:event),
       body: "This is a task.",
-      position: sequence(:position, &"#{&1}"),
+      position: 1,
       title: sequence(:title, &"Task-#{&1}")
     }
   end
