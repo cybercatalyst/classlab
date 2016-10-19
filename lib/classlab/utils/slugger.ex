@@ -12,8 +12,7 @@ defmodule Classlab.Utils.Slugger do
     |> String.downcase
     |> turn_unwanted_chars_into_separator(sep)
     |> remove_more_than_one_separator_in_row(sep)
-    |> String.trim_leading(sep)
-    |> String.trim_trailing(sep)
+    |> String.trim(sep)
   end
 
   @doc """
