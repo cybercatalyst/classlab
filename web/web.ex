@@ -48,11 +48,12 @@ defmodule Classlab.Web do
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
       import Classlab.AssignUserPlug, only: [current_user: 1]
-      import Classlab.Router.Helpers
-      import Classlab.ErrorHelpers
       import Classlab.CalendarHelpers
-      import Classlab.InputHelpers
+      import Classlab.ErrorHelpers
       import Classlab.Gettext
+      import Classlab.InputHelpers
+      import Classlab.PageReloadHelpers
+      import Classlab.Router.Helpers
     end
   end
 
