@@ -60,6 +60,7 @@ defmodule Classlab.Router do
     resources "/invitations", InvitationController, except: [:show, :edit, :update]
     resources "/memberships", MembershipController, only: [:index, :delete]
     resources "/event", EventController, only: [:edit, :update, :delete], singleton: true
+    resources "/materials", MaterialController
   end
 
   #############################################################################

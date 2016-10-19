@@ -1,0 +1,33 @@
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @material.title %>
+  </li>
+
+  <li>
+    <strong>Event:</strong>
+    <%= @material.event_id %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @material.description %>
+  </li>
+
+  <li>
+    <strong>Position:</strong>
+    <%= @material.position %>
+  </li>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @material.url %>
+  </li>
+
+</ul>
+
+<div class="btn-toolbar">
+  <%= link "Edit", to: classroom_material_path(@conn, :edit, @event, @material), class: "btn btn-primary" %>
+  <%= link "Back", to: classroom_material_path(@conn, :index, @event), class: "btn btn-secondary" %>
+</div>

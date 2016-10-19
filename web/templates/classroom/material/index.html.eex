@@ -1,0 +1,19 @@
+<table class="table">
+  <tr>
+    <th>Title</th>
+    <th></th>
+  </tr>
+  <%= for material <- @materials do %>
+    <tr>
+      <td><%= link material.title, to: classroom_material_path(@conn, :show, @event, material) %></td>
+      <td>
+        <%= link "Edit", to: classroom_material_path(@conn, :edit, @event, material), class: "btn btn-default btn-sm" %>
+        <%= link "Delete", to: classroom_material_path(@conn, :delete, @event, material), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="btn-toolbar">
+  <%= link "New material", to: classroom_material_path(@conn, :new, @event), class: "btn btn-success" %>
+</div>

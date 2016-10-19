@@ -79,7 +79,7 @@ defmodule Classlab.Factory do
     %Classlab.Material{
       event: build(:event),
       description: "This is a material element.",
-      position: sequence(:position, &"#{&1}"),
+      position: 1,
       title: sequence(:title, &"Material-#{&1}"),
       url: "http://example.com"
     }
