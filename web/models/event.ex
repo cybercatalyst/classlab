@@ -61,7 +61,7 @@ defmodule Classlab.Event do
     |> cast(params, @fields)
     |> cast_assoc(:location, required: true)
     |> generate_invitation_token()
-    |> Slugger.generate_slug(:name, random: 100000..999999)
+    |> Slugger.generate_slug(:name, random: 100_000..999_999)
     |> validate_required([:public, :slug, :name, :description, :invitation_token,
          :invitation_token_active, :starts_at, :ends_at, :timezone])
     |> unique_constraint(:slug)
