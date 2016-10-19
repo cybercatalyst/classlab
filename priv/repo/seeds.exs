@@ -10,17 +10,7 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 alias Calendar
-alias Classlab.{Repo, Role, User}
-
-Repo.insert!(%User{
-  id: 1,
-  first_name: "Super",
-  last_name: "Admin",
-  email: "info@classlab.org",
-  access_token: "1234",
-  access_token_expired_at: Calendar.DateTime.now_utc(),
-  superadmin: true
-})
+alias Classlab.{Repo, Role}
 
 Repo.insert!(%Role{id: 1, name: "Owner"})
 Repo.insert!(%Role{id: 2, name: "Trainer"})
