@@ -1,6 +1,6 @@
-defmodule Classlab.Utils.StringExtensions do
+defmodule Classlab.Utils.Slugger do
   @moduledoc"""
-  A collection of utilities for string manipulation.
+  A collection of methods to create beautiful slugs.
   """
 
   @doc """
