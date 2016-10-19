@@ -10,8 +10,8 @@ defmodule Classlab.Utils.Slugger do
     str
     |> transliterate()
     |> String.downcase
-    |> String.replace(~r/[^a-z0-9\-_]+/, sep)
-    |> String.replace(~r/#{sep}{2,}/, sep)
+    |> turn_unwanted_chars_into_separator(sep)
+    |> remove_more_than_one_separator_in_row(sep)
     |> String.trim_leading(sep)
     |> String.trim_trailing(sep)
   end
@@ -28,5 +28,14 @@ defmodule Classlab.Utils.Slugger do
     |> String.replace("Ö", "Oe")
     |> String.replace("ö", "oe")
     |> String.replace("ß", "ss")
+  end
+
+  # Private methods
+  defp turn_unwanted_chars_into_separator(str, sep) do
+    String.replace(str, ~r/[^a-z0-9\-_]+/, sep)
+  end
+
+  defp remove_more_than_one_separator_in_row(str, sep) do
+    String.replace(str, ~r/#{sep}{2,}/, sep)
   end
 end
