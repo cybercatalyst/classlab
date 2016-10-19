@@ -12,6 +12,9 @@
     <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "materials", do: " active")}" do %>
       <%= link "Materials", to: classroom_material_path(@conn, :index, @conn.params["event_id"]), class: "nav-link" %>
     <% end %>
+    <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "tasks", do: " active")}" do %>
+      <%= link "Tasks", to: classroom_task_path(@conn, :index, @conn.params["event_id"]), class: "nav-link" %>
+    <% end %>
     <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "feedbacks", do: " active")}" do %>
       <%= link "Feedbacks", to: classroom_feedback_path(@conn, :index, @conn.params["event_id"]), class: "nav-link" %>
     <% end %>

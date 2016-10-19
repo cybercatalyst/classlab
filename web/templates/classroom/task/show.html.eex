@@ -1,0 +1,40 @@
+<%= link "Bearbeiten", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-primary m-b-1" %>
+
+<div class="row">
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-header center">
+        <%= @task.title %>
+      </div>
+      <div class="card-block">
+        <%= raw @task.body %>
+      </div>
+      <%= if @task.hint && @task.hint != "" do %>
+          <div class="card-header bg-white center">
+            Hints
+          </div>
+        <div class="card-block">
+          <%= @task.hint %>
+        </div>
+      <% end %>
+      <%= if @task.external_app_url && @task.external_app_url != "" do %>
+        <div class="card-block">
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="<%= @task.external_app_url %>" allowfullscreen></iframe>
+          </div>
+        </div>
+      <% end %>
+      <%= if @task.bonus && @task.bonus != "" do %>
+          <div class="card-header bg-white center">
+            Bonus
+          </div>
+        <div class="card-block">
+          <%= @task.bonus %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+
+<%= link "Bearbeiten", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-primary" %>

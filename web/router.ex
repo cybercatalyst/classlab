@@ -61,6 +61,7 @@ defmodule Classlab.Router do
     resources "/memberships", MembershipController, only: [:index, :delete]
     resources "/event", EventController, only: [:edit, :update, :delete], singleton: true
     resources "/materials", MaterialController
+    resources "/tasks", TaskController
   end
 
   #############################################################################
