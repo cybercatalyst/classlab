@@ -3,14 +3,14 @@
 <div class="row">
   <div class="col-md-10">
     <div class="card">
-      <div class="card-header center">
+      <div class="card-header text-xs-center">
         <%= @task.title %>
       </div>
       <div class="card-block">
         <%= raw @task.body %>
       </div>
       <%= if @task.hint && @task.hint != "" do %>
-          <div class="card-header bg-white center">
+          <div class="card-header text-xs-center">
             Hints
           </div>
         <div class="card-block">
@@ -25,7 +25,7 @@
         </div>
       <% end %>
       <%= if @task.bonus && @task.bonus != "" do %>
-          <div class="card-header bg-white center">
+          <div class="card-header text-xs-center">
             Bonus
           </div>
         <div class="card-block">
