@@ -7,10 +7,10 @@ defmodule Classlab.Slide do
 
   # Fields
   schema "slides" do
-    field :title, :string
-    field :position, :integer
-    field :url, :string
     field :description, :string
+    field :position, :integer
+    field :title, :string
+    field :url, :string
     timestamps
 
     belongs_to :event, Classlab.Event
