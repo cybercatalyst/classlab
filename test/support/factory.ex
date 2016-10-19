@@ -78,6 +78,7 @@ defmodule Classlab.Factory do
   def material_factory do
     %Classlab.Material{
       event: build(:event),
+      type: 1,
       description: "This is a material element.",
       position: 1,
       title: sequence(:title, &"Material-#{&1}"),
