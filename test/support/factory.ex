@@ -14,7 +14,7 @@ defmodule Classlab.Factory do
     %Classlab.Event{
       public: false,
       name: sequence(:name, &"My Event #{&1}"),
-      slug: sequence(:slug, &"event-#{&1}"),
+      slug: sequence(:slug, &"my-event-#{&1}"),
       description: "My awesome event!",
       invitation_token: sequence(:invitation_token, &"inivitation-token-#{&1}"),
       invitation_token_active: false,

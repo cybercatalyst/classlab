@@ -9,7 +9,6 @@
     <div class="col-md-6">
       <h4>Event settings</h4>
       <%= input f, :public %>
-      <%= input f, :slug %>
       <%= input f, :name %>
       <%= input f, :description, using: :textarea %>
       <%= input f, :starts_at %>

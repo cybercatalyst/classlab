@@ -3,7 +3,7 @@ defmodule Classlab.Event do
   Event model. An event is connected with an user by a membership.
   Location information is a separate model.
   """
-  alias Classlab.User
+  alias Classlab.{User, Utils.Slugger}
   alias Calendar.DateTime
   use Classlab.Web, :model
 
@@ -54,23 +54,35 @@ defmodule Classlab.Event do
   end
 
   # Changesets & Validations
-  @fields [:public, :slug, :name, :description, :invitation_token, :invitation_token_active,
+  @fields [:public, :name, :description, :invitation_token, :invitation_token_active,
            :starts_at, :ends_at, :timezone]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
     |> cast_assoc(:location, required: true)
     |> generate_invitation_token()
+    |> generate_slug()
     |> validate_required([:public, :slug, :name, :description, :invitation_token,
          :invitation_token_active, :starts_at, :ends_at, :timezone])
     |> unique_constraint(:slug)
     |> unique_constraint(:invitation_token)
   end
 
-  defp generate_invitation_token(struct, length \\ 6) do
+  defp generate_invitation_token(changeset, length \\ 6) do
     token = length |> :crypto.strong_rand_bytes |> Base.url_encode64 |> binary_part(0, length)
-    put_change(struct, :invitation_token, token)
+    put_change(changeset, :invitation_token, token)
   end
+
+  defp generate_slug(changeset) do
+    new_name = get_change(changeset, :name)
+    if new_name do
+      changeset
+      |> put_change(:slug, Slugger.parameterize(new_name))
+    else
+      changeset
+    end
+  end
+
 
   # Model methods
   @fourteen_days 60 * 60 * 24 * 14
