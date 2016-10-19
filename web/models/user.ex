@@ -64,6 +64,12 @@ defmodule Classlab.User do
     [first_name, last_name] |> Enum.join(" ") |> String.trim()
   end
 
+  def change_superadmin(%__MODULE__{} = user) do
+    if user.id == 1 && !user.superadmin do
+      change(user, superadmin: true)
+    end
+  end
+
   defp generate_access_token(%Ecto.Changeset{} = changeset) do
     access_token_max_age = Application.get_env(:classlab, __MODULE__)[:access_token_max_age]
     access_token_expired_at = DateTime.add!(DateTime.now_utc, access_token_max_age)

@@ -43,6 +43,7 @@ defmodule Classlab.SessionControllerTest do
       user = Repo.one(User)
       assert user
       assert_delivered_email UserMailer.token_email(user)
+      refute user.superadmin
     end
 
     test "creates resource and redirects when data is valid for exiting user", %{conn: conn} do
@@ -51,6 +52,18 @@ defmodule Classlab.SessionControllerTest do
 
       user = Repo.one(User)
       assert user
+      assert_delivered_email UserMailer.token_email(user)
+      refute user.superadmin
+    end
+
+    test "creates super admin user if data is valid and it is the user with id 1", %{conn: conn} do
+      user = Factory.insert(:user, id: 1)
+      conn = post conn, session_path(conn, :create), session: %{email: user.email}
+      assert redirected_to(conn) == page_path(conn, :index)
+
+      user = Repo.one(User)
+      assert user
+      assert user.superadmin
       assert_delivered_email UserMailer.token_email(user)
     end
 

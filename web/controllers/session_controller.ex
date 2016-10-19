@@ -42,6 +42,8 @@ defmodule Classlab.SessionController do
         |> UserMailer.token_email()
         |> Mailer.deliver_now()
 
+        check_and_set_superadmin(user)
+
         conn
         |> put_flash(:info, "We sent you a link to create an account. Please check your inbox.")
         |> redirect(to: page_path(conn, :index))
@@ -59,4 +61,11 @@ defmodule Classlab.SessionController do
 
   defp normalize_email(nil), do: ""
   defp normalize_email(email) when is_binary(email), do: String.downcase(email)
+
+  defp check_and_set_superadmin(%User{} = user) do
+    case User.change_superadmin(user) do
+      %Ecto.Changeset{} = changeset -> Repo.update!(changeset)
+      nil -> nil
+    end
+  end
 end
