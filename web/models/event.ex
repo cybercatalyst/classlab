@@ -45,10 +45,10 @@ defmodule Classlab.Event do
   end
 
   @fourteen_days 60 * 60 * 24 * 14
-  def within_feedback_period(query) do
+  def within_feedback_period(query, current_time \\ DateTime.now_utc()) do
     from event in query,
-      where: event.ends_at <= ^DateTime.now_utc(),
-      where: event.ends_at >= ^DateTime.subtract!(DateTime.now_utc, @fourteen_days)
+      where: event.ends_at <= ^current_time,
+      where: event.ends_at >= ^DateTime.subtract!(current_time, @fourteen_days)
   end
 
   # Changesets & Validations
@@ -72,7 +72,7 @@ defmodule Classlab.Event do
 
   # Model methods
   @fourteen_days 60 * 60 * 24 * 14
-  def within_feedback_period?(%__MODULE__{ends_at: ends_at}) do
-    ends_at <= DateTime.now_utc() && ends_at >= DateTime.subtract!(DateTime.now_utc(), @fourteen_days)
+  def within_feedback_period?(%__MODULE__{ends_at: ends_at}, current_time \\ DateTime.now_utc()) do
+    ends_at <= current_time && ends_at >= DateTime.subtract!(current_time, @fourteen_days)
   end
 end
