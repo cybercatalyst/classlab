@@ -7,6 +7,7 @@ defmodule Classlab.Material do
 
   # Fields
   schema "materials" do
+    field :type, :integer
     field :description, :string
     field :position, :integer
     field :title, :string
@@ -17,10 +18,18 @@ defmodule Classlab.Material do
   end
 
   # Changesets & Validations
-  @fields [:description, :position, :title, :url]
+  @fields [:description, :type, :position, :title, :url]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
     |> validate_required(@fields)
+  end
+
+  # Methods
+  def types do
+    [
+      %{id: 1, name: "Slidedeck"},
+      %{id: 2, name: "Video"}
+    ]
   end
 end

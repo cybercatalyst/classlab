@@ -1,4 +1,5 @@
 defmodule Classlab.Classroom.MaterialView do
+  alias Classlab.Material
   use Classlab.Web, :view
 
   # Page Configuration
@@ -16,4 +17,8 @@ defmodule Classlab.Classroom.MaterialView do
   }
 
   # View functions
+  def type_collection do
+    Material.types()
+    |> Enum.map(&({"#{&1.name}", &1.id}))
+  end
 end

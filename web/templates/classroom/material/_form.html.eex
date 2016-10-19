@@ -5,6 +5,7 @@
     </div>
   <% end %>
 
+  <%= input f, :type, collection: type_collection(), using: :select %>
   <%= input f, :title %>
   <%= input f, :event_id %>
   <%= input f, :description %>
