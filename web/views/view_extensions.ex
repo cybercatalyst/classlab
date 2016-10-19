@@ -1,4 +1,7 @@
 defmodule Classlab.PageReloadHelpers do
+  @moduledoc """
+  Helps listening for page_reload events emitted in controllers.
+  """
   use Phoenix.HTML
 
   def page_reload_listener(list) when is_list(list) do
