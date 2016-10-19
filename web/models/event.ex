@@ -61,7 +61,7 @@ defmodule Classlab.Event do
     |> cast(params, @fields)
     |> cast_assoc(:location, required: true)
     |> generate_invitation_token()
-    |> generate_slug()
+    |> Slugger.generate_slug(:name, random: 100000..999999)
     |> validate_required([:public, :slug, :name, :description, :invitation_token,
          :invitation_token_active, :starts_at, :ends_at, :timezone])
     |> unique_constraint(:slug)
@@ -72,17 +72,6 @@ defmodule Classlab.Event do
     token = length |> :crypto.strong_rand_bytes |> Base.url_encode64 |> binary_part(0, length)
     put_change(changeset, :invitation_token, token)
   end
-
-  defp generate_slug(changeset) do
-    new_name = get_change(changeset, :name)
-    if new_name do
-      changeset
-      |> put_change(:slug, Slugger.parameterize(new_name))
-    else
-      changeset
-    end
-  end
-
 
   # Model methods
   @fourteen_days 60 * 60 * 24 * 14
