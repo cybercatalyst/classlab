@@ -13,8 +13,8 @@ $(document).on('turbolinks:load', function () {
       .receive('ok', resp => { console.log('Monitoring event_message for event ') })
       .receive('error', resp => { console.log('Unable to join', resp) });
 
-    pageReloadChannel.on('refresh', () => {
-      console.log('refresh')
+    pageReloadChannel.on('reload', () => {
+      console.log('reload')
       Turbolinks.visit(location, { action: 'replace' })
     });
   });
