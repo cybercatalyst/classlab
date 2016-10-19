@@ -25,7 +25,6 @@ defmodule Classlab.Event do
     has_many :chat_messages, Classlab.ChatMessage, on_delete: :delete_all
     has_many :feedbacks, Classlab.Feedback, on_delete: :delete_all
     has_many :invitations, Classlab.Invitation, on_delete: :delete_all
-    has_many :materials, Classlab.Material, on_delete: :delete_all
     has_many :memberships, Classlab.Membership, on_delete: :delete_all
     has_many :slides, Classlab.Slide, on_delete: :delete_all
     has_many :tasks, Classlab.Task, on_delete: :delete_all

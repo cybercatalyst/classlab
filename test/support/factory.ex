@@ -55,14 +55,6 @@ defmodule Classlab.Factory do
     }
   end
 
-  def material_factory do
-    %Classlab.Material{
-      name: "First task",
-      type: 1,
-      event: build(:event)
-    }
-  end
-
   def membership_factory do
     %Classlab.Membership{
       user: build(:user),
