@@ -1,5 +1,4 @@
 defmodule Classlab.Classroom.MaterialView do
-  alias Classlab.Material
   use Classlab.Web, :view
 
   # Page Configuration
