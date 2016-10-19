@@ -19,10 +19,10 @@ defmodule Classlab.Task do
   end
 
   # Changesets & Validations
-  @fields [:title, :position, :body, :hint, :bonus, :external_app_url]
+  @fields [:body, :bonus, :external_app_url, :hint, :position, :title]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> validate_required([:title, :position, :body])
+    |> validate_required([:body, :position, :title])
   end
 end

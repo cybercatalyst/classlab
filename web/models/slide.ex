@@ -17,7 +17,7 @@ defmodule Classlab.Slide do
   end
 
   # Changesets & Validations
-  @fields [:title, :position, :url, :description]
+  @fields [:description, :position, :title, :url]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
