@@ -6,7 +6,6 @@
     <%= render "app_navigation.html", conn: @conn %>
     <main role="main">
       <%= render "_flash_messages.html", conn: @conn %>
-
       <%= render @view_module, @view_template, assigns %>
     </main>
   </div> <!-- /container -->

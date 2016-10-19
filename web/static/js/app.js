@@ -26,3 +26,7 @@ import Turbolinks from 'turbolinks'
 Turbolinks.start();
 
 import './components/delete-modal.js'
+import './components/page-reload-socket.js'
+
+let meta =
+console.log(meta)

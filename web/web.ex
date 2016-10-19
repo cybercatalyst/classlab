@@ -35,8 +35,9 @@ defmodule Classlab.Web do
       import Ecto
       import Ecto.Query
       import Classlab.AssignUserPlug, only: [current_user: 1]
-      import Classlab.Router.Helpers
       import Classlab.Gettext
+      import Classlab.Router.Helpers
+      import Classlab.Turbolinks.ControllerExtensions
     end
   end
 

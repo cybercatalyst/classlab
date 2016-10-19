@@ -40,6 +40,8 @@ defmodule Classlab.Classroom.ChatMessageController do
 
     case Repo.insert(changeset) do
       {:ok, _chat_message} ->
+        page_reload_broadcast!([:event, event.id, :chat_message, :create])
+
         conn
         |> redirect(to: classroom_chat_message_path(conn, :index, event))
       {:error, changeset} ->

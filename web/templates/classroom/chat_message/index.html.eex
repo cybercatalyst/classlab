@@ -1,3 +1,5 @@
+<%= page_reload_listener([:event, @event.id, :chat_message, :create]) %>
+
 <div class="p-b-2">
   <%= for chat_message <- @chat_messages do %>
     <div class="media">
