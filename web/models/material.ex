@@ -1,12 +1,12 @@
-defmodule Classlab.Slide do
+defmodule Classlab.Material do
   @moduledoc """
-  Connects a slide with an event. All event slides are
+  Connects a material with an event. All event materials are
   visible to the attendees of an event. Similar to task.
   """
   use Classlab.Web, :model
 
   # Fields
-  schema "slides" do
+  schema "materials" do
     field :description, :string
     field :position, :integer
     field :title, :string

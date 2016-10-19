@@ -75,12 +75,12 @@ defmodule Classlab.Factory do
     }
   end
 
-  def slide_factory do
-    %Classlab.Slide{
+  def material_factory do
+    %Classlab.Material{
       event: build(:event),
-      description: "This is a slide.",
+      description: "This is a material element.",
       position: sequence(:position, &"#{&1}"),
-      title: sequence(:title, &"Slide-#{&1}"),
+      title: sequence(:title, &"Material-#{&1}"),
       url: "http://example.com"
     }
   end
@@ -90,7 +90,7 @@ defmodule Classlab.Factory do
       event: build(:event),
       body: "This is a task.",
       position: sequence(:position, &"#{&1}"),
-      title: sequence(:title, &"Slide-#{&1}")
+      title: sequence(:title, &"Task-#{&1}")
     }
   end
 
@@ -108,9 +108,9 @@ defmodule Classlab.Factory do
   def video_factory do
     %Classlab.Video{
       event: build(:event),
-      description: "This is a slide.",
+      description: "This is a video.",
       position: sequence(:position, &"#{&1}"),
-      title: sequence(:title, &"Slide-#{&1}"),
+      title: sequence(:title, &"Video-#{&1}"),
       url: "http://example.com"
     }
   end
