@@ -1,12 +1,13 @@
 defmodule Classlab.Classroom.TaskController do
   @moduledoc false
-  alias Classlab.{Event, Repo, Task}
+  alias Classlab.{Repo, Task}
   use Classlab.Web, :controller
 
   plug :scrub_params, "task" when action in [:create, :update]
+  plug :restrict_roles, [1, 2] when action in [:create, :delete, :edit, :new, :update]
 
   def index(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
     tasks =
       event
       |> assoc(:tasks)
@@ -16,14 +17,14 @@ defmodule Classlab.Classroom.TaskController do
   end
 
   def new(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
     changeset = Task.changeset(%Task{})
 
     render(conn, "new.html", changeset: changeset, event: event)
   end
 
   def create(conn, %{"task" => task_params}) do
-    event = load_event(conn)
+    event = current_event(conn)
     changeset =
       event
       |> build_assoc(:tasks)
@@ -40,7 +41,7 @@ defmodule Classlab.Classroom.TaskController do
   end
 
   def edit(conn, %{"id" => task_id}) do
-    event = load_event(conn)
+    event = current_event(conn)
     task =
       event
       |> assoc(:tasks)
@@ -52,7 +53,7 @@ defmodule Classlab.Classroom.TaskController do
   end
 
   def show(conn, %{"id" => task_id}) do
-    event = load_event(conn)
+    event = current_event(conn)
     task =
       event
       |> assoc(:tasks)
@@ -62,7 +63,7 @@ defmodule Classlab.Classroom.TaskController do
   end
 
   def update(conn, %{"id" => task_id, "task" => task_params}) do
-    event = load_event(conn)
+    event = current_event(conn)
     task =
       event
       |> assoc(:tasks)
@@ -80,7 +81,7 @@ defmodule Classlab.Classroom.TaskController do
   end
 
   def delete(conn, %{"id" => task_id}) do
-    event = load_event(conn)
+    event = current_event(conn)
     task =
       event
       |> assoc(:tasks)
@@ -94,9 +95,4 @@ defmodule Classlab.Classroom.TaskController do
   end
 
   # Private methods
-  defp load_event(conn) do
-    Event
-    |> Repo.get_by!(slug: conn.params["event_id"])
-    |> Repo.preload(:location)
-  end
 end

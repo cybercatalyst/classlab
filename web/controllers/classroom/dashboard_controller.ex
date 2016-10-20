@@ -4,7 +4,7 @@ defmodule Classlab.Classroom.DashboardController do
   use Classlab.Web, :controller
 
   def show(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
 
     feedback_averages =
       event
@@ -15,9 +15,5 @@ defmodule Classlab.Classroom.DashboardController do
     render(conn, "show.html", event: event, feedback_averages: feedback_averages)
   end
 
-
   # Private methods
-  defp load_event(conn) do
-    Repo.get_by!(Event, slug: conn.params["event_id"])
-  end
 end

@@ -1,5 +1,6 @@
 defmodule Classlab.Router do
   use Classlab.Web, :router
+  import Classlab.PermissionPlug
 
   if Mix.env == :dev do
     forward "/sent_emails", Bamboo.EmailPreviewPlug
@@ -33,6 +34,7 @@ defmodule Classlab.Router do
   #############################################################################
   pipeline :account do
     plug :put_layout, {Classlab.LayoutView, :account}
+    plug :as_user
   end
 
   scope "/account", Classlab.Account, as: :account do
@@ -50,6 +52,9 @@ defmodule Classlab.Router do
   #############################################################################
   pipeline :classroom do
     plug :put_layout, {Classlab.LayoutView, :classroom}
+    plug Classlab.AssignEventPlug, "event_id"
+    plug :as_user # user needs to be authenticated
+    plug :restrict_roles, [1, 2, 3] # user needs a membership to access classroom
   end
 
   scope "/classroom/:event_id", Classlab.Classroom, as: :classroom do
@@ -69,6 +74,7 @@ defmodule Classlab.Router do
   #############################################################################
   pipeline :superadmin do
     plug :put_layout, {Classlab.LayoutView, :superadmin}
+    plug :as_superadmin
   end
 
   scope "/superadmin", Classlab.Superadmin, as: :superadmin do

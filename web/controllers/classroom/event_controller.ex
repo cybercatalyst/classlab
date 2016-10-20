@@ -4,6 +4,7 @@ defmodule Classlab.Classroom.EventController do
   use Classlab.Web, :controller
 
   plug :scrub_params, "event" when action in [:create, :update]
+  plug :restrict_roles, [1]
 
   def edit(conn, _params) do
     event = load_event(conn)
@@ -36,8 +37,8 @@ defmodule Classlab.Classroom.EventController do
 
   # Private methods
   defp load_event(conn) do
-    Event
-    |> Repo.get_by!(slug: conn.params["event_id"])
+    conn
+    |> current_event
     |> Repo.preload(:location)
   end
 end

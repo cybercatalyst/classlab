@@ -1,12 +1,13 @@
 defmodule Classlab.Classroom.MaterialController do
   @moduledoc false
-  alias Classlab.{Material, Event}
+  alias Classlab.{Material}
   use Classlab.Web, :controller
 
+  plug :restrict_roles, [1, 2] when action in [:create, :delete, :edit, :new, :update]
   plug :scrub_params, "material" when action in [:create, :update]
 
   def index(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
     materials =
       event
       |> assoc(:materials)
@@ -16,7 +17,7 @@ defmodule Classlab.Classroom.MaterialController do
   end
 
   def new(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
     changeset =
       event
       |> build_assoc(:materials)
@@ -26,7 +27,7 @@ defmodule Classlab.Classroom.MaterialController do
   end
 
   def create(conn, %{"material" => material_params}) do
-    event = load_event(conn)
+    event = current_event(conn)
     changeset =
       event
       |> build_assoc(:materials)
@@ -43,7 +44,7 @@ defmodule Classlab.Classroom.MaterialController do
   end
 
   def show(conn, %{"id" => id}) do
-    event = load_event(conn)
+    event = current_event(conn)
     material =
       event
       |> assoc(:materials)
@@ -53,7 +54,7 @@ defmodule Classlab.Classroom.MaterialController do
   end
 
   def edit(conn, %{"id" => id}) do
-    event = load_event(conn)
+    event = current_event(conn)
     material =
       event
       |> assoc(:materials)
@@ -64,7 +65,7 @@ defmodule Classlab.Classroom.MaterialController do
   end
 
   def update(conn, %{"id" => id, "material" => material_params}) do
-    event = load_event(conn)
+    event = current_event(conn)
     material =
       event
       |> assoc(:materials)
@@ -83,7 +84,7 @@ defmodule Classlab.Classroom.MaterialController do
   end
 
   def delete(conn, %{"id" => id}) do
-    event = load_event(conn)
+    event = current_event(conn)
     material =
       event
       |> assoc(:materials)
@@ -97,7 +98,4 @@ defmodule Classlab.Classroom.MaterialController do
   end
 
   # Private methods
-  defp load_event(conn) do
-    Repo.get_by!(Event, slug: conn.params["event_id"])
-  end
 end

@@ -31,6 +31,10 @@ defmodule Classlab.Membership do
     from membership in query, where: membership.role_id == ^role_id
   end
 
+  def as_roles(query, role_ids) do
+    from membership in query, where: membership.role_id in ^role_ids
+  end
+
   # Changesets & Validations
   @fields ~w(role_id event_id seat_position_x seat_position_y)
   def changeset(struct, params \\ %{}) do

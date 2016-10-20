@@ -1,12 +1,13 @@
 defmodule Classlab.Classroom.ChatMessageController do
   @moduledoc false
-  alias Classlab.{ChatMessage, Event}
+  alias Classlab.{ChatMessage}
   use Classlab.Web, :controller
 
+  plug :restrict_roles, [1, 2] when action in [:update, :edit, :delete]
   plug :scrub_params, "chat_message" when action in [:create, :update]
 
   def index(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
     chat_messages =
       event
       |> assoc(:chat_messages)
@@ -22,7 +23,7 @@ defmodule Classlab.Classroom.ChatMessageController do
   end
 
   def new(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
     changeset =
       event
       |> build_assoc(:chat_messages, %{user: current_user(conn)})
@@ -32,7 +33,7 @@ defmodule Classlab.Classroom.ChatMessageController do
   end
 
   def create(conn, %{"chat_message" => chat_message_params}) do
-    event = load_event(conn)
+    event = current_event(conn)
     changeset =
       event
       |> build_assoc(:chat_messages, %{user: current_user(conn)})
@@ -50,7 +51,7 @@ defmodule Classlab.Classroom.ChatMessageController do
   end
 
   def edit(conn, %{"id" => id}) do
-    event = load_event(conn)
+    event = current_event(conn)
     chat_message =
       event
       |> assoc(:chat_messages)
@@ -61,7 +62,7 @@ defmodule Classlab.Classroom.ChatMessageController do
   end
 
   def update(conn, %{"id" => id, "chat_message" => chat_message_params}) do
-    event = load_event(conn)
+    event = current_event(conn)
     chat_message =
       event
       |> assoc(:chat_messages)
@@ -80,7 +81,7 @@ defmodule Classlab.Classroom.ChatMessageController do
   end
 
   def delete(conn, %{"id" => id}) do
-    event = load_event(conn)
+    event = current_event(conn)
     chat_message =
       event
       |> assoc(:chat_messages)
@@ -94,7 +95,4 @@ defmodule Classlab.Classroom.ChatMessageController do
   end
 
   # Private methods
-  defp load_event(conn) do
-    Repo.get_by!(Event, slug: conn.params["event_id"])
-  end
 end

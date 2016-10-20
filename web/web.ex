@@ -35,6 +35,8 @@ defmodule Classlab.Web do
       import Ecto
       import Ecto.Query
       import Classlab.AssignUserPlug, only: [current_user: 1]
+      import Classlab.AssignEventPlug, only: [current_event: 1]
+      import Classlab.PermissionPlug
       import Classlab.Gettext
       import Classlab.Router.Helpers
       import Classlab.Turbolinks.ControllerExtensions
@@ -49,6 +51,8 @@ defmodule Classlab.Web do
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
       import Classlab.AssignUserPlug, only: [current_user: 1]
+      import Classlab.AssignEventPlug, only: [current_event: 1]
+      import Classlab.PermissionPlug
       import Classlab.CalendarHelpers
       import Classlab.ErrorHelpers
       import Classlab.Gettext

@@ -1,12 +1,13 @@
 defmodule Classlab.Classroom.InvitationController do
   @moduledoc false
-  alias Classlab.{Event, Invitation, InvitationMailer}
+  alias Classlab.{Invitation, InvitationMailer}
   use Classlab.Web, :controller
 
+  plug :restrict_roles, [1, 2]
   plug :scrub_params, "invitation" when action in [:create, :update]
 
   def index(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
     invitations =
       event
       |> assoc(:invitations)
@@ -17,7 +18,7 @@ defmodule Classlab.Classroom.InvitationController do
   end
 
   def new(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
     changeset =
       event
       |> build_assoc(:invitations)
@@ -27,7 +28,7 @@ defmodule Classlab.Classroom.InvitationController do
   end
 
   def create(conn, %{"invitation" => invitation_params}) do
-    event = load_event(conn)
+    event = current_event(conn)
     changeset =
       event
       |> build_assoc(:invitations, %{role_id: 3})
@@ -49,7 +50,7 @@ defmodule Classlab.Classroom.InvitationController do
   end
 
   def delete(conn, %{"id" => id}) do
-    event = load_event(conn)
+    event = current_event(conn)
     invitation =
       event
       |> assoc(:invitations)
@@ -63,7 +64,4 @@ defmodule Classlab.Classroom.InvitationController do
   end
 
   # Private methods
-  defp load_event(conn) do
-    Repo.get_by!(Event, slug: conn.params["event_id"])
-  end
 end

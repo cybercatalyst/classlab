@@ -1,10 +1,11 @@
 defmodule Classlab.Classroom.FeedbackController do
   @moduledoc false
-  alias Classlab.Event
   use Classlab.Web, :controller
 
+  plug :restrict_roles, [1, 2]
+
   def index(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
     feedbacks =
       event
       |> assoc(:feedbacks)
@@ -14,7 +15,4 @@ defmodule Classlab.Classroom.FeedbackController do
   end
 
   # Private methods
-  defp load_event(conn) do
-    Repo.get_by!(Event, slug: conn.params["event_id"])
-  end
 end

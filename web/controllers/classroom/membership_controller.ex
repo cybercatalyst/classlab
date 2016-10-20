@@ -1,10 +1,12 @@
 defmodule Classlab.Classroom.MembershipController do
   @moduledoc false
-  alias Classlab.{Event, Invitation, Membership}
+  alias Classlab.{Invitation, Membership}
   use Classlab.Web, :controller
 
+   plug :restrict_roles, [1, 2] when action in [:delete]
+
   def index(conn, _params) do
-    event = load_event(conn)
+    event = current_event(conn)
     memberships =
       event
       |> assoc(:memberships)
@@ -43,7 +45,7 @@ defmodule Classlab.Classroom.MembershipController do
   end
 
   def delete(conn, %{"id" => id}) do
-    event = load_event(conn)
+    event = current_event(conn)
     membership =
       event
       |> assoc(:memberships)
@@ -57,7 +59,4 @@ defmodule Classlab.Classroom.MembershipController do
   end
 
   # Private methods
-  defp load_event(conn) do
-    Repo.get_by!(Event, slug: conn.params["event_id"])
-  end
 end

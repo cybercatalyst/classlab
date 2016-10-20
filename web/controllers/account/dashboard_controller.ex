@@ -3,6 +3,8 @@ defmodule Classlab.Account.DashboardController do
   alias Classlab.Event
   use Classlab.Web, :controller
 
+  plug :as_user when action in [:show]
+
   def show(conn, _params) do
     user =
       current_user(conn)
