@@ -11,7 +11,7 @@ defmodule Classlab.AssignEventPlug do
   def call(%Plug.Conn{assigns: %{current_event: %Event{}}} = conn, _opts), do: conn
   def call(conn, required_param) do
     unless required_param do
-      raise Phoenix.MissingParamError, key: required_param
+      raise "Missing parameter for event id key."
     end
 
     event_slug = conn.params[required_param]

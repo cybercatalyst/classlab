@@ -9,7 +9,7 @@ defmodule Classlab.PermissionPlug do
 
   def restrict_roles(conn, roles) do
     unless roles do
-      raise Phoenix.MissingParamError, key: roles
+      raise "Missing list of roles."
     end
 
     current_user = conn.assigns[:current_user]
