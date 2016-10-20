@@ -6,7 +6,7 @@
     <div class="col-md-4 offset-md-4">
       <div class="card">
         <div class="card-block">
-          <h4 class="text-xs-center m-b-2">Login</h4>
+          <h4 class="text-xs-center mb-2">Login</h4>
           <%= input f, :email %>
           <%= submit "Login", class: "btn btn-primary btn-block" %>
         </div>

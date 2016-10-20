@@ -9,11 +9,11 @@
           <br>from <strong><%= l(@invitation.event.starts_at) %></strong>
           <br>till <strong><%= l(@invitation.event.ends_at) %></strong>
         </p>
-        <div class="text-truncate m-b-2">
+        <div class="text-truncate mb-2">
           <%= @invitation.event.description %>
         </div>
 
-        <div class="text-truncate m-b-2">
+        <div class="text-truncate mb-2">
           <div class="row">
             <div class="col-xs-12">
               You are attending as<br>

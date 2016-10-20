@@ -1,4 +1,4 @@
-<%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary m-b-1" %>
+<%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary mb-1" %>
 
 <%= for task <- @tasks do %>
   <%= render "_task.html", conn: @conn, event: @event, task: task %>

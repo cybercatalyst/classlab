@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-fixed-top bg-primary">
   <%= link "Account", to: account_dashboard_path(@conn, :show), class: "navbar-brand" %>
 
-  <ul class="nav navbar-nav pull-xs-right">
+  <ul class="nav navbar-nav float-xs-right">
     <%= if current_user(@conn) do %>
       <%= if current_user(@conn).superadmin do %>
         <%= content_tag :li, class: "nav-item" do %>

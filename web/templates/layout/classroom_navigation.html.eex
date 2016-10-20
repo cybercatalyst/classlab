@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
   <%= link "Classroom", to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "navbar-brand" %>
 
-  <ul class="nav navbar-nav pull-xs-right">
+  <ul class="nav navbar-nav float-xs-right">
     <%= if current_user(@conn) do %>
       <%= content_tag :li, class: "nav-item" do %>
         <%= link "My account", to: account_dashboard_path(@conn, :show), class: "btn btn-primary" %>

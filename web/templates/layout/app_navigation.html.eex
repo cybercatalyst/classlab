@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light navbar-fixed-top bg-faded">
   <%= link "Classlab", to: page_path(@conn, :index), class: "navbar-brand" %>
 
-  <ul class="nav navbar-nav pull-xs-right">
+  <ul class="nav navbar-nav float-xs-right">
     <%= if current_user(@conn) do %>
       <%= content_tag :li, class: "nav-item" do %>
         <%= link "Profile", to: account_dashboard_path(@conn, :show), class: "btn btn-outline-primary" %>

@@ -1,6 +1,6 @@
 <%= page_reload_listener([:event, @event.id, :chat_message, :create]) %>
 
-<div class="p-b-2">
+<div class="pb-2">
   <%= for chat_message <- @chat_messages do %>
     <div class="media">
       <%= if chat_message.user.id != current_user(@conn).id do %>
