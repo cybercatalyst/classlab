@@ -5,7 +5,9 @@ defmodule Classlab.Account.UserController do
 
   def edit(conn, _params) do
     user =
-      current_user(conn)
+      User
+      |> Classlab.Permission.member(current_user(conn), :update)
+      |> Repo.one
 
     changeset = User.changeset(user)
     render(conn, "edit.html", user: user, changeset: changeset)
@@ -13,7 +15,9 @@ defmodule Classlab.Account.UserController do
 
   def update(conn, %{"user" => user_params}) do
     user =
-      current_user(conn)
+      User
+      |> Classlab.Permission.member(current_user(conn), :update)
+      |> Repo.one
 
     changeset = User.changeset(user, user_params)
 

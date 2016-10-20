@@ -90,6 +90,7 @@ defmodule Classlab.Web do
     quote do
       alias Classlab.Repo
       alias Classlab.User
+      require Ecto.Query
     end
   end
 

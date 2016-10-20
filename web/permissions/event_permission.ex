@@ -3,7 +3,7 @@ defimpl Classlab.Permission, for: Classlab.Event do
   alias Classlab.Event
   use Classlab.Web, :permission
 
-  def collection(%Event{} = _event, _, %User{} = _user) do
+  def query(%Event{} = _event, _, %User{} = _user) do
     # event
     # |> preload([:memberships])
     # |> where(membership.role = :owner and membership.user_id == user.id)
