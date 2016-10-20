@@ -86,6 +86,13 @@ defmodule Classlab.Web do
     end
   end
 
+  def permission do
+    quote do
+      alias Classlab.Repo
+      alias Classlab.User
+    end
+  end
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """
