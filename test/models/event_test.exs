@@ -38,6 +38,25 @@ defmodule Classlab.EventTest do
     end
   end
 
+  describe "#within_after_email_period" do
+    test "only returns the correct memberships" do
+      current_time = DateTime.now_utc()
+      event_within = Factory.insert(:event, ends_at: current_time) # positive
+      event_before = Factory.insert(:event, ends_at: DateTime.subtract!(current_time, 60 * 60 * 24 * 15)) # negative
+      event_after = Factory.insert(:event, ends_at: DateTime.add!(current_time, 60 * 60)) # negative
+
+      events =
+        Event
+        |> Event.within_after_email_period()
+        |> Repo.all()
+
+      assert length(events) == 1
+      assert Enum.find(events, fn(e) -> e.id == event_within.id end)
+      refute Enum.find(events, fn(e) -> e.id == event_before.id end)
+      refute Enum.find(events, fn(e) -> e.id == event_after.id end)
+    end
+  end
+
   describe "#within_feedback_period?" do
     test "with event within period" do
       current_time = DateTime.now_utc()

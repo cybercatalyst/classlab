@@ -5,6 +5,7 @@ defmodule Classlab.Membership do
   Possible roles: owner, trainer, attendee
   """
   alias Classlab.{Event}
+  alias Calendar.DateTime
   use Classlab.Web, :model
 
   # Fields
@@ -50,12 +51,12 @@ defmodule Classlab.Membership do
   end
 
   def touch(%Ecto.Changeset{} = changeset, field) do
-    put_change(changeset, field, Calendar.DateTime.now_utc)
+    put_change(changeset, field, DateTime.now_utc)
   end
 
   # Model Functions
   def touch(%__MODULE__{} = membership, field) do
-    params = Map.put(%{}, field, Calendar.DateTime.now_utc)
+    params = Map.put(%{}, field, DateTime.now_utc)
     membership |> cast(params, [field])
   end
 end
