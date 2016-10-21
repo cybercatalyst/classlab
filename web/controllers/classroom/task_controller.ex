@@ -1,6 +1,7 @@
 defmodule Classlab.Classroom.TaskController do
   @moduledoc false
 
+  alias Calendar.DateTime
   alias Ecto.{Changeset, Query}
   alias Classlab.{Membership, Repo, Task}
   use Classlab.Web, :controller
@@ -110,7 +111,7 @@ defmodule Classlab.Classroom.TaskController do
     event
     |> assoc(:tasks)
     |> Task.not_public()
-    |> Repo.update_all([set: [public: true]])
+    |> Repo.update_all([set: [public: true, unlocked_at: DateTime.now_utc()]])
 
     conn
     |> put_flash(:info, "Tasks successfully unlocked.")
@@ -123,7 +124,7 @@ defmodule Classlab.Classroom.TaskController do
     event
     |> assoc(:tasks)
     |> Task.public()
-    |> Repo.update_all([set: [public: false]])
+    |> Repo.update_all([set: [public: false, unlocked_at: nil]])
 
     conn
     |> put_flash(:info, "Tasks successfully locked.")
@@ -143,7 +144,7 @@ defmodule Classlab.Classroom.TaskController do
     case task_res do
       %Task{} = task ->
         task
-        |> Task.changeset(%{public: true})
+        |> Changeset.change(%{public: true, unlocked_at: DateTime.now_utc()})
         |> Repo.update!()
 
         conn
@@ -164,9 +165,16 @@ defmodule Classlab.Classroom.TaskController do
       |> assoc(:tasks)
       |> Repo.get!(task_id)
 
+    updates =
+      if task.public do
+        %{public: false, unlocked_at: nil}
+      else
+        %{public: true, unlocked_at: DateTime.now_utc()}
+      end
+
     task
-    |> Changeset.change(%{public: !task.public})
-    |> Repo.update()
+    |> Changeset.change(updates)
+    |> Repo.update!()
 
     flash =
       if task.public do

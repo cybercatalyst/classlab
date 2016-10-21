@@ -89,6 +89,7 @@ defmodule Classlab.Classroom.TaskControllerTest do
 
       assert redirected_to(conn) == classroom_task_path(conn, :index, event)
       assert task.public == true
+      assert task.unlocked_at
     end
   end
 
@@ -101,6 +102,7 @@ defmodule Classlab.Classroom.TaskControllerTest do
 
       assert redirected_to(conn) == classroom_task_path(conn, :index, event)
       assert task.public == false
+      refute task.unlocked_at
     end
   end
 
@@ -118,6 +120,7 @@ defmodule Classlab.Classroom.TaskControllerTest do
       assert redirected_to(conn) == classroom_task_path(conn, :show, event, second_task)
       assert first_task.public == true
       assert second_task.public == true
+      assert second_task.unlocked_at
       assert third_task.public == false
     end
 
@@ -138,6 +141,7 @@ defmodule Classlab.Classroom.TaskControllerTest do
 
       assert redirected_to(conn) == classroom_task_path(conn, :index, event)
       assert task.public == true
+      assert task.unlocked_at
     end
 
     test "lock resource if public", %{conn: conn, event: event} do
@@ -148,6 +152,7 @@ defmodule Classlab.Classroom.TaskControllerTest do
 
       assert redirected_to(conn) == classroom_task_path(conn, :index, event)
       assert task.public == false
+      refute task.unlocked_at
     end
   end
 

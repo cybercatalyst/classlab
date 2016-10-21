@@ -14,6 +14,7 @@ defmodule Classlab.Task do
     field :position, :integer
     field :public, :boolean
     field :title, :string
+    field :unlocked_at, Calecto.DateTimeUTC
     timestamps
 
     belongs_to :event, Classlab.Event
@@ -31,7 +32,7 @@ defmodule Classlab.Task do
   end
 
   # Changesets & Validations
-  @fields [:body, :bonus, :external_app_url, :hint, :position, :public, :title]
+  @fields [:body, :bonus, :external_app_url, :hint, :position, :title]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
