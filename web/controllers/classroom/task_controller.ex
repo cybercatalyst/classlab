@@ -3,7 +3,7 @@ defmodule Classlab.Classroom.TaskController do
 
   alias Calendar.DateTime
   alias Ecto.{Changeset, Query}
-  alias Classlab.{Membership, Repo, Task}
+  alias Classlab.{Event, Membership, Repo, Task}
   use Classlab.Web, :controller
 
   plug :scrub_params, "task" when action in [:create, :update]
@@ -33,7 +33,14 @@ defmodule Classlab.Classroom.TaskController do
       |> Membership.for_event(event)
       |> Repo.all()
 
-    render(conn, "index.html", current_memberships: current_memberships, event: event, not_public_tasks: not_public_tasks, public_tasks: public_tasks)
+    render(
+      conn,
+      "index.html",
+      current_memberships: current_memberships,
+      event: event,
+      not_public_tasks: not_public_tasks,
+      public_tasks: public_tasks
+    )
   end
 
   def new(conn, _params) do
@@ -86,7 +93,18 @@ defmodule Classlab.Classroom.TaskController do
       |> Membership.for_event(event)
       |> Repo.all()
 
-    render(conn, "show.html", current_memberships: current_memberships, event: event, task: task)
+    next_task = get_next_task(event, task)
+    previous_task = get_previous_task(event, task)
+
+    render(
+      conn,
+      "show.html",
+      current_memberships: current_memberships,
+      event: event,
+      next_task: next_task,
+      previous_task: previous_task,
+      task: task
+    )
   end
 
   def update(conn, %{"id" => task_id, "task" => task_params}) do
@@ -205,4 +223,45 @@ defmodule Classlab.Classroom.TaskController do
   end
 
   # Private methods
+  defp get_next_task(%Event{}, %Task{unlocked_at: unlocked_at}) when is_nil(unlocked_at), do: nil
+  defp get_next_task(%Event{} = event, %Task{} = task) do
+    next_task =
+      event
+      |> assoc(:tasks)
+      |> Task.public()
+      |> Query.where(unlocked_at: ^task.unlocked_at)
+      |> Task.next_via_position(task)
+      |> Repo.one()
+
+    if next_task do
+      next_task
+    else
+      event
+      |> assoc(:tasks)
+      |> Task.public()
+      |> Task.next_via_unlocked_at(task)
+      |> Repo.one()
+    end
+  end
+
+  defp get_previous_task(%Event{}, %Task{unlocked_at: unlocked_at}) when is_nil(unlocked_at), do: nil
+  defp get_previous_task(%Event{} = event, %Task{} = task) do
+    next_task =
+      event
+      |> assoc(:tasks)
+      |> Task.public()
+      |> Query.where(unlocked_at: ^task.unlocked_at)
+      |> Task.previous_via_position(task)
+      |> Repo.one()
+
+    if next_task do
+      next_task
+    else
+      event
+      |> assoc(:tasks)
+      |> Task.public()
+      |> Task.previous_via_unlocked_at(task)
+      |> Repo.one()
+    end
+  end
 end

@@ -14,6 +14,7 @@ defmodule Classlab.Repo.Migrations.CreateTask do
       add :unlocked_at, :datetime
       timestamps()
     end
+    create unique_index(:tasks, [:position])
     create index(:tasks, [:event_id])
   end
 end

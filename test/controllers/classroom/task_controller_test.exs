@@ -44,10 +44,33 @@ defmodule Classlab.Classroom.TaskControllerTest do
   end
 
   describe "#show" do
-    test "shows chosen resource", %{conn: conn, event: event} do
+    test "shows locked chosen resource", %{conn: conn, event: event} do
       task = Factory.insert(:task, event: event)
       conn = get conn, classroom_task_path(conn, :show, task.event, task)
       assert html_response(conn, 200) =~ task.title
+    end
+
+    test "shows unlocked chosen resource without next and pevious task", %{conn: conn, event: event} do
+      task = Factory.insert(:task, event: event, public: true, unlocked_at: Calendar.DateTime.now_utc())
+      conn = get conn, classroom_task_path(conn, :show, task.event, task)
+      assert html_response(conn, 200) =~ task.title
+    end
+
+    test "shows unlocked chosen resource with next and pevious task with different unlock dates", %{conn: conn, event: event} do
+      Factory.insert(:task, event: event, public: true, unlocked_at: Calendar.DateTime.now_utc(), position: 1)
+      second_task = Factory.insert(:task, event: event, public: true, unlocked_at: Calendar.DateTime.now_utc(), position: 2)
+      Factory.insert(:task, event: event, public: true, unlocked_at: Calendar.DateTime.now_utc(), position: 3)
+      conn = get conn, classroom_task_path(conn, :show, event, second_task)
+      assert html_response(conn, 200) =~ second_task.title
+    end
+
+    test "shows unlocked chosen resource with next and pevious task with same unlock dates", %{conn: conn, event: event} do
+      unlocked_at = Calendar.DateTime.now_utc()
+      Factory.insert(:task, event: event, public: true, unlocked_at: unlocked_at, position: 1)
+      second_task = Factory.insert(:task, event: event, public: true, unlocked_at: unlocked_at, position: 2)
+      Factory.insert(:task, event: event, public: true, unlocked_at: unlocked_at, position: 3)
+      conn = get conn, classroom_task_path(conn, :show, event, second_task)
+      assert html_response(conn, 200) =~ second_task.title
     end
 
     test "renders page not found when id is nonexistent", %{conn: conn} do
@@ -111,6 +134,7 @@ defmodule Classlab.Classroom.TaskControllerTest do
       first_task = Factory.insert(:task, event: event, public: true, position: 1)
       second_task = Factory.insert(:task, event: event, public: false, position: 2)
       third_task = Factory.insert(:task, event: event, public: false, position: 3)
+
       conn = post conn, classroom_task_path(conn, :unlock_next, event)
 
       first_task = Repo.get(Task, first_task.id)

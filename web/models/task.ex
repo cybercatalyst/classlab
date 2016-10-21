@@ -31,11 +31,40 @@ defmodule Classlab.Task do
       where: task.public == false
   end
 
+  def next_via_unlocked_at(query, %__MODULE__{} = current_task) do
+    from task in query,
+      order_by: [asc: :unlocked_at, asc: :position],
+      where: task.unlocked_at > ^current_task.unlocked_at,
+      limit: 1
+  end
+
+  def previous_via_unlocked_at(query, %__MODULE__{} = current_task) do
+    from task in query,
+      order_by: [desc: :unlocked_at, desc: :position],
+      where: task.unlocked_at < ^current_task.unlocked_at,
+      limit: 1
+  end
+
+  def next_via_position(query, %__MODULE__{} = current_task) do
+    from task in query,
+      order_by: [asc: :position],
+      where: task.position > ^current_task.position,
+      limit: 1
+  end
+
+  def previous_via_position(query, %__MODULE__{} = current_task) do
+    from task in query,
+      order_by: [desc: :position],
+      where: task.position < ^current_task.position,
+      limit: 1
+  end
+
   # Changesets & Validations
   @fields [:body, :bonus, :external_app_url, :hint, :position, :title]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
     |> validate_required([:body, :position, :title])
+    |> unique_constraint(:position)
   end
 end
