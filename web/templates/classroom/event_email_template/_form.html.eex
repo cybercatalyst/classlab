@@ -1,26 +1,3 @@
-<h4>Available placeholders</h4>
-<table class="table table-sm table-hover">
-  <tbody>
-    <tr>
-      <td><pre>{{event_name}}</pre></td>
-      <td><%= @event.name %></td>
-    </tr>
-    <tr>
-      <td><pre>{{attendee_first_name}}</pre></td>
-      <td><%= current_user(@conn).first_name || "Users first name" %></td>
-    </tr>
-    <tr>
-      <td><pre>{{attendee_last_name}}</pre></td>
-      <td><%= current_user(@conn).last_name || "Users last name" %></td>
-    </tr>
-    <tr>
-      <td><pre>{{classroom_link}}</pre></td>
-      <td><%= classroom_dashboard_url(@conn, :show, @event) %></td>
-    </tr>
-  </tbody>
-</table>
-
-
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">

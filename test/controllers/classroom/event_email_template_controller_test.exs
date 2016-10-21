@@ -1,5 +1,5 @@
 defmodule Classlab.Classroom.EventEmailTemplateControllerTest do
-  alias Classlab.Event
+  alias Classlab.{Event, MembershipMailer, Membership}
   use Classlab.ConnCase
 
   @valid_attrs %{
@@ -31,6 +31,34 @@ defmodule Classlab.Classroom.EventEmailTemplateControllerTest do
       event = Repo.get_by(Event, @valid_attrs)
       assert redirected_to(conn) == classroom_event_email_template_path(conn, :edit, event)
       assert event.before_email_subject == @valid_attrs.before_email_subject
+    end
+  end
+
+  describe "#send_test_email?before" do
+    test "sends an email and redirects to edit", %{conn: conn, event: event} do
+      conn = post conn, classroom_event_email_template_path(conn, :send_test_email, event), before: ""
+      assert redirected_to(conn) == classroom_event_email_template_path(conn, :edit, event)
+
+      membership =
+        Membership
+        |> Repo.get_by!(user_id: current_user(conn).id, event_id: event.id)
+        |> Repo.preload([:event, :user])
+
+      assert_delivered_email MembershipMailer.before_event_email(membership)
+    end
+  end
+
+  describe "#send_test_email?after" do
+    test "sends an email and redirects to edit", %{conn: conn, event: event} do
+      conn = post conn, classroom_event_email_template_path(conn, :send_test_email, event), after: ""
+      assert redirected_to(conn) == classroom_event_email_template_path(conn, :edit, event)
+
+      membership =
+        Membership
+        |> Repo.get_by!(user_id: current_user(conn).id, event_id: event.id)
+        |> Repo.preload([:event, :user])
+
+      assert_delivered_email MembershipMailer.after_event_email(membership)
     end
   end
 end

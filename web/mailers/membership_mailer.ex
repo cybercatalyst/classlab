@@ -27,7 +27,6 @@ defmodule Classlab.MembershipMailer do
   # Private methods
   defp resolve_variables(text, %Membership{user: user, event: event}) do
     classroom_link = classroom_dashboard_url(Endpoint, :show, event.slug)
-
     text
     |> String.replace("{{attendee_first_name}}", user.first_name)
     |> String.replace("{{attendee_last_name}}", user.last_name)
