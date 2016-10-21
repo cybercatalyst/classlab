@@ -16,12 +16,14 @@ defmodule Classlab.Classroom.TaskController do
       event
       |> assoc(:tasks)
       |> Task.public()
+      |> Query.order_by(asc: :unlocked_at)
       |> Repo.all()
 
     not_public_tasks =
       event
       |> assoc(:tasks)
       |> Task.not_public()
+      |> Query.order_by(asc: :position)
       |> Repo.all()
 
     current_memberships =
