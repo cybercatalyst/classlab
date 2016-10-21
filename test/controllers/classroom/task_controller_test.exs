@@ -80,6 +80,55 @@ defmodule Classlab.Classroom.TaskControllerTest do
     end
   end
 
+  describe "#unlock all" do
+    test "shows chosen resource", %{conn: conn, event: event} do
+      task = Factory.insert(:task, event: event, public: false)
+      conn = post conn, classroom_task_path(conn, :unlock_all, event)
+
+      task = Repo.get(Task, task.id)
+
+      assert redirected_to(conn) == classroom_task_path(conn, :index, event)
+      assert task.public == true
+    end
+  end
+
+  describe "#lock all" do
+    test "shows chosen resource", %{conn: conn, event: event} do
+      task = Factory.insert(:task, event: event, public: true)
+      conn = post conn, classroom_task_path(conn, :lock_all, event)
+
+      task = Repo.get(Task, task.id)
+
+      assert redirected_to(conn) == classroom_task_path(conn, :index, event)
+      assert task.public == false
+    end
+  end
+
+  describe "#unlock_next" do
+    test "unlocks next resource and shows resource", %{conn: conn, event: event} do
+      first_task = Factory.insert(:task, event: event, public: true, position: 1)
+      second_task = Factory.insert(:task, event: event, public: false, position: 2)
+      third_task = Factory.insert(:task, event: event, public: false, position: 3)
+      conn = post conn, classroom_task_path(conn, :unlock_next, event)
+
+      first_task = Repo.get(Task, first_task.id)
+      second_task = Repo.get(Task, second_task.id)
+      third_task = Repo.get(Task, third_task.id)
+
+      assert redirected_to(conn) == classroom_task_path(conn, :show, event, second_task)
+      assert first_task.public == true
+      assert second_task.public == true
+      assert third_task.public == false
+    end
+
+    test "nothing to unlock redirects to #index", %{conn: conn, event: event} do
+      Factory.insert(:task, event: event, public: true)
+      conn = post conn, classroom_task_path(conn, :unlock_next, event)
+
+      assert redirected_to(conn) == classroom_task_path(conn, :index, event)
+    end
+  end
+
   describe "#delete" do
     test "deletes chosen resource", %{conn: conn, event: event} do
       task = Factory.insert(:task, event: event)

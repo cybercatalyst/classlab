@@ -1,10 +1,12 @@
 defmodule Classlab.Classroom.TaskController do
   @moduledoc false
+
+  alias Ecto.Query
   alias Classlab.{Repo, Task}
   use Classlab.Web, :controller
 
   plug :scrub_params, "task" when action in [:create, :update]
-  plug :restrict_roles, [1, 2] when action in [:create, :delete, :edit, :new, :update]
+  plug :restrict_roles, [1, 2] when action in [:create, :delete, :edit, :lock_all, :new, :update, :unlock_all, :unlock_next]
 
   def index(conn, _params) do
     event = current_event(conn)
@@ -77,6 +79,58 @@ defmodule Classlab.Classroom.TaskController do
         |> redirect(to: classroom_task_path(conn, :show, event, task))
       {:error, changeset} ->
         render(conn, "edit.html", event: event, changeset: changeset, task: task)
+    end
+  end
+
+  def unlock_all(conn, _params) do
+    event = current_event(conn)
+
+    event
+    |> assoc(:tasks)
+    |> Task.not_public()
+    |> Repo.update_all([set: [public: true]])
+
+    conn
+    |> put_flash(:info, "Tasks successfully unlocked.")
+    |> redirect(to: classroom_task_path(conn, :index, event))
+  end
+
+  def lock_all(conn, _params) do
+    event = current_event(conn)
+
+    event
+    |> assoc(:tasks)
+    |> Task.public()
+    |> Repo.update_all([set: [public: false]])
+
+    conn
+    |> put_flash(:info, "Tasks successfully locked.")
+    |> redirect(to: classroom_task_path(conn, :index, event))
+  end
+
+  def unlock_next(conn, _params) do
+    event = current_event(conn)
+
+    task_res = event
+    |> assoc(:tasks)
+    |> Task.not_public()
+    |> Query.order_by(asc: :position)
+    |> Ecto.Query.first
+    |> Repo.one()
+
+    case task_res do
+      %Task{} = task ->
+        task
+        |> Task.changeset(%{public: true})
+        |> Repo.update!()
+
+        conn
+        |> put_flash(:info, "Task successfully unlocked.")
+        |> redirect(to: classroom_task_path(conn, :show, event, task))
+      nil ->
+        conn
+        |> put_flash(:error, "No task left.")
+        |> redirect(to: classroom_task_path(conn, :index, event))
     end
   end
 

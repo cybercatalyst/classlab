@@ -67,6 +67,9 @@ defmodule Classlab.Router do
     resources "/event", EventController, only: [:edit, :update, :delete], singleton: true
     resources "/materials", MaterialController
     resources "/tasks", TaskController
+    post "/tasks/unlock_all", TaskController, :unlock_all
+    post "/tasks/lock_all", TaskController, :lock_all
+    post "/tasks/unlock_next", TaskController, :unlock_next
   end
 
   #############################################################################

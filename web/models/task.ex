@@ -12,14 +12,26 @@ defmodule Classlab.Task do
     field :external_app_url, :string
     field :hint, :string
     field :position, :integer
+    field :public, :boolean
     field :title, :string
     timestamps
 
     belongs_to :event, Classlab.Event
   end
 
+  # Composable Queries
+  def public(query) do
+    from task in query,
+      where: task.public == true
+  end
+
+  def not_public(query) do
+    from task in query,
+      where: task.public == false
+  end
+
   # Changesets & Validations
-  @fields [:body, :bonus, :external_app_url, :hint, :position, :title]
+  @fields [:body, :bonus, :external_app_url, :hint, :position, :public, :title]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
