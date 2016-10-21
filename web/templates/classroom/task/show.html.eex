@@ -1,4 +1,6 @@
-<%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-primary mb-1" %>
+<%= if has_permission?(@current_memberships, [1, 2]) do %>
+  <%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-primary mb-1" %>
+<% end %>
 
 <div class="row">
   <div class="col-md-10">
@@ -37,4 +39,6 @@
   </div>
 </div>
 
-<%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-primary" %>
+<%= if has_permission?(@current_memberships, [1, 2]) do %>
+  <%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-primary" %>
+<% end %>

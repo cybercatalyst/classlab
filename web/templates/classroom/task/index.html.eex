@@ -1,11 +1,13 @@
-<%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary mb-1" %>
+<%= if has_permission?(@current_memberships, [1, 2]) do %>
+  <%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary mb-1" %>
+<% end %>
 
 <%= if length(@public_tasks) > 0 do %>
 <div class="card">
   <div class="card-block clearfix">
     <h5 class="card-title float-xs-left">Unlocked</h5>
     <div class="block float-xs-right">
-    <%= if length(@public_tasks) > 1 do %>
+    <%= if length(@public_tasks) > 1 && has_permission?(@current_memberships, [1, 2]) do %>
       <%= link "Lock all", to: classroom_task_path(@conn, :lock_all, @event), method: :post, class: "btn btn-sm btn-outline-warning" %>
     <% end %>
     </div>
@@ -17,8 +19,15 @@
   </ul>
 </div>
 <% end %>
+<%= if length(@public_tasks) == 0 do %>
+  <div class="card">
+    <div class="card-block">
+      No Tasks available
+    </div>
+  </div>
+<% end %>
 
-<%= if length(@not_public_tasks) > 0 do %>
+<%= if length(@not_public_tasks) > 0 && has_permission?(@current_memberships, [1, 2]) do %>
 <div class="card">
   <div class="card-block clearfix">
     <h5 class="card-title float-xs-left">Locked</h5>
@@ -36,12 +45,6 @@
 </div>
 <% end %>
 
-<%= if length(@public_tasks) == 0 && length(@not_public_tasks) == 0 do %>
-  <div class="card">
-    <div class="card-block">
-      No Tasks available
-    </div>
-  </div>
+<%= if has_permission?(@current_memberships, [1, 2]) do %>
+  <%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary" %>
 <% end %>
-
-<%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary" %>

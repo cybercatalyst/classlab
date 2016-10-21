@@ -2,7 +2,7 @@ defmodule Classlab.Classroom.TaskController do
   @moduledoc false
 
   alias Ecto.{Changeset, Query}
-  alias Classlab.{Repo, Task}
+  alias Classlab.{Membership, Repo, Task}
   use Classlab.Web, :controller
 
   plug :scrub_params, "task" when action in [:create, :update]
@@ -23,7 +23,14 @@ defmodule Classlab.Classroom.TaskController do
       |> Task.not_public()
       |> Repo.all()
 
-    render(conn, "index.html", event: event, public_tasks: public_tasks, not_public_tasks: not_public_tasks)
+    current_memberships =
+      conn
+      |> current_user()
+      |> assoc(:memberships)
+      |> Membership.for_event(event)
+      |> Repo.all()
+
+    render(conn, "index.html", current_memberships: current_memberships, event: event, not_public_tasks: not_public_tasks, public_tasks: public_tasks)
   end
 
   def new(conn, _params) do
@@ -69,7 +76,14 @@ defmodule Classlab.Classroom.TaskController do
       |> assoc(:tasks)
       |> Repo.get!(task_id)
 
-    render(conn, "show.html", event: event, task: task)
+    current_memberships =
+      conn
+      |> current_user()
+      |> assoc(:memberships)
+      |> Membership.for_event(event)
+      |> Repo.all()
+
+    render(conn, "show.html", current_memberships: current_memberships, event: event, task: task)
   end
 
   def update(conn, %{"id" => task_id, "task" => task_params}) do

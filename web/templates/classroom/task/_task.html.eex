@@ -7,7 +7,6 @@
       <%= link @task.title, to: classroom_task_path(@conn, :show, @event, @task) %>
     </div>
     <div class="media-right">
-
       <%= link to: classroom_task_path(@conn, :toggle_lock, @event, @task), method: :post, class: "btn btn-sm #{if(@task.public, do: "btn-outline-warning", else: "btn-outline-success")}" do %>
         <%= if @task.public do %>
           Lock
