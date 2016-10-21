@@ -95,6 +95,10 @@ defmodule Classlab.Classroom.TaskController do
 
     next_task = get_next_task(event, task)
     previous_task = get_previous_task(event, task)
+    next_unlockable_task =
+      if is_nil(next_task) do
+        get_next_unlockable_task(event, task)
+      end
 
     render(
       conn,
@@ -102,6 +106,7 @@ defmodule Classlab.Classroom.TaskController do
       current_memberships: current_memberships,
       event: event,
       next_task: next_task,
+      next_unlockable_task: next_unlockable_task,
       previous_task: previous_task,
       task: task
     )
@@ -263,5 +268,14 @@ defmodule Classlab.Classroom.TaskController do
       |> Task.previous_via_unlocked_at(task)
       |> Repo.one()
     end
+  end
+
+  defp get_next_unlockable_task(%Event{}, %Task{unlocked_at: unlocked_at}) when is_nil(unlocked_at), do: nil
+  defp get_next_unlockable_task(%Event{} = event, %Task{} = task) do
+    event
+    |> assoc(:tasks)
+    |> Task.locked()
+    |> Task.next_via_position(task)
+    |> Repo.one()
   end
 end

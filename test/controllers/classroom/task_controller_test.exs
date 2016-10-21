@@ -73,6 +73,15 @@ defmodule Classlab.Classroom.TaskControllerTest do
       assert html_response(conn, 200) =~ second_task.title
     end
 
+    test "shows unlocked chosen resource with next unlockable task", %{conn: conn, event: event} do
+      task = Factory.insert(:task, event: event, unlocked_at: Calendar.DateTime.now_utc(), position: 1)
+      Factory.insert(:task, event: event,  position: 2)
+
+      conn = get conn, classroom_task_path(conn, :show, event, task)
+      assert html_response(conn, 200) =~ task.title
+      assert html_response(conn, 200) =~ classroom_task_path(conn, :unlock_next, event)
+    end
+
     test "renders page not found when id is nonexistent", %{conn: conn} do
       assert_error_sent 404, fn ->
         get conn, classroom_task_path(conn, :show, -1, -1)
