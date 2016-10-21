@@ -37,25 +37,27 @@
           <%= @task.bonus %>
         </div>
       <% end %>
+      <div class="card-footer">
+        <div class="btn-toolbar clearfix" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group" role="group" aria-label="Previous">
+            <%= if @previous_task do %>
+              <%= link "« #{@previous_task.title}", to: classroom_task_path(@conn, :show, @event, @previous_task), class: "btn btn-outline-primary" %>
+            <% end %>
+          </div>
+          <div class="btn-group float-xs-right" role="group" aria-label="Next">
+            <%= if has_permission?(@current_memberships, [1, 2]) && @next_unlockable_task do %>
+              <%= link "Unlock next", to: classroom_task_path(@conn, :unlock_next, @event), method: :post, class: "btn btn-success" %>
+            <% end %>
+            <%= if @next_task do %>
+              <%= link "#{@next_task.title} »", to: classroom_task_path(@conn, :show, @event, @next_task), class: "btn btn-outline-primary" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-
   </div>
 </div>
 
-
-<%= if @previous_task do %>
-  prev <%= @previous_task.position %>
-  <%= link @previous_task.title, to: classroom_task_path(@conn, :show, @event, @previous_task), class: "btn btn-primary" %>
-<% end %>
-<%= if @next_task do %>
-  next <%= @next_task.position %>
-  <%= link @next_task.title, to: classroom_task_path(@conn, :show, @event, @next_task), class: "btn btn-primary" %>
-<% end %>
-
-<%= if has_permission?(@current_memberships, [1, 2]) && @next_unlockable_task do %>
-  <%= link "Unlock next", to: classroom_task_path(@conn, :unlock_next, @event), method: :post, class: "btn btn-sm btn-outline-success" %>
-<% end %>
-
 <%= if has_permission?(@current_memberships, [1, 2]) do %>
-  <%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-primary" %>
+  <%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "mt-1 btn btn-primary" %>
 <% end %>
