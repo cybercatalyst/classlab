@@ -51,24 +51,24 @@ defmodule Classlab.Classroom.TaskControllerTest do
     end
 
     test "shows unlocked chosen resource without next and pevious task", %{conn: conn, event: event} do
-      task = Factory.insert(:task, event: event, public: true, unlocked_at: Calendar.DateTime.now_utc())
+      task = Factory.insert(:task, event: event, unlocked_at: Calendar.DateTime.now_utc())
       conn = get conn, classroom_task_path(conn, :show, task.event, task)
       assert html_response(conn, 200) =~ task.title
     end
 
     test "shows unlocked chosen resource with next and pevious task with different unlock dates", %{conn: conn, event: event} do
-      Factory.insert(:task, event: event, public: true, unlocked_at: Calendar.DateTime.now_utc(), position: 1)
-      second_task = Factory.insert(:task, event: event, public: true, unlocked_at: Calendar.DateTime.now_utc(), position: 2)
-      Factory.insert(:task, event: event, public: true, unlocked_at: Calendar.DateTime.now_utc(), position: 3)
+      Factory.insert(:task, event: event, unlocked_at: Calendar.DateTime.now_utc(), position: 1)
+      second_task = Factory.insert(:task, event: event, unlocked_at: Calendar.DateTime.now_utc(), position: 2)
+      Factory.insert(:task, event: event, unlocked_at: Calendar.DateTime.now_utc(), position: 3)
       conn = get conn, classroom_task_path(conn, :show, event, second_task)
       assert html_response(conn, 200) =~ second_task.title
     end
 
     test "shows unlocked chosen resource with next and pevious task with same unlock dates", %{conn: conn, event: event} do
       unlocked_at = Calendar.DateTime.now_utc()
-      Factory.insert(:task, event: event, public: true, unlocked_at: unlocked_at, position: 1)
-      second_task = Factory.insert(:task, event: event, public: true, unlocked_at: unlocked_at, position: 2)
-      Factory.insert(:task, event: event, public: true, unlocked_at: unlocked_at, position: 3)
+      Factory.insert(:task, event: event, unlocked_at: unlocked_at, position: 1)
+      second_task = Factory.insert(:task, event: event, unlocked_at: unlocked_at, position: 2)
+      Factory.insert(:task, event: event, unlocked_at: unlocked_at, position: 3)
       conn = get conn, classroom_task_path(conn, :show, event, second_task)
       assert html_response(conn, 200) =~ second_task.title
     end
@@ -105,35 +105,33 @@ defmodule Classlab.Classroom.TaskControllerTest do
 
   describe "#unlock all" do
     test "shows chosen resource", %{conn: conn, event: event} do
-      task = Factory.insert(:task, event: event, public: false)
+      task = Factory.insert(:task, event: event)
       conn = post conn, classroom_task_path(conn, :unlock_all, event)
 
       task = Repo.get(Task, task.id)
 
       assert redirected_to(conn) == classroom_task_path(conn, :index, event)
-      assert task.public == true
       assert task.unlocked_at
     end
   end
 
   describe "#lock all" do
     test "shows chosen resource", %{conn: conn, event: event} do
-      task = Factory.insert(:task, event: event, public: true)
+      task = Factory.insert(:task, event: event)
       conn = post conn, classroom_task_path(conn, :lock_all, event)
 
       task = Repo.get(Task, task.id)
 
       assert redirected_to(conn) == classroom_task_path(conn, :index, event)
-      assert task.public == false
       refute task.unlocked_at
     end
   end
 
   describe "#unlock_next" do
     test "unlocks next resource and shows resource", %{conn: conn, event: event} do
-      first_task = Factory.insert(:task, event: event, public: true, position: 1)
-      second_task = Factory.insert(:task, event: event, public: false, position: 2)
-      third_task = Factory.insert(:task, event: event, public: false, position: 3)
+      first_task = Factory.insert(:task, event: event, position: 1, unlocked_at: Calendar.DateTime.now_utc())
+      second_task = Factory.insert(:task, event: event, position: 2)
+      third_task = Factory.insert(:task, event: event, position: 3)
 
       conn = post conn, classroom_task_path(conn, :unlock_next, event)
 
@@ -142,14 +140,13 @@ defmodule Classlab.Classroom.TaskControllerTest do
       third_task = Repo.get(Task, third_task.id)
 
       assert redirected_to(conn) == classroom_task_path(conn, :show, event, second_task)
-      assert first_task.public == true
-      assert second_task.public == true
+      assert first_task.unlocked_at
       assert second_task.unlocked_at
-      assert third_task.public == false
+      refute third_task.unlocked_at
     end
 
     test "nothing to unlock redirects to #index", %{conn: conn, event: event} do
-      Factory.insert(:task, event: event, public: true)
+      Factory.insert(:task, event: event, unlocked_at: Calendar.DateTime.now_utc())
       conn = post conn, classroom_task_path(conn, :unlock_next, event)
 
       assert redirected_to(conn) == classroom_task_path(conn, :index, event)
@@ -158,24 +155,22 @@ defmodule Classlab.Classroom.TaskControllerTest do
 
   describe "#toggle_lock" do
     test "unlocks resource if not public", %{conn: conn, event: event} do
-      task = Factory.insert(:task, event: event, public: false)
+      task = Factory.insert(:task, event: event)
       conn = post conn, classroom_task_path(conn, :toggle_lock, event, task)
 
       task = Repo.get(Task, task.id)
 
       assert redirected_to(conn) == classroom_task_path(conn, :index, event)
-      assert task.public == true
       assert task.unlocked_at
     end
 
     test "lock resource if public", %{conn: conn, event: event} do
-      task = Factory.insert(:task, event: event, public: true)
+      task = Factory.insert(:task, event: event, unlocked_at: Calendar.DateTime.now_utc())
       conn = post conn, classroom_task_path(conn, :toggle_lock, event, task)
 
       task = Repo.get(Task, task.id)
 
       assert redirected_to(conn) == classroom_task_path(conn, :index, event)
-      assert task.public == false
       refute task.unlocked_at
     end
   end

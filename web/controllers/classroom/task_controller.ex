@@ -12,17 +12,17 @@ defmodule Classlab.Classroom.TaskController do
 
   def index(conn, _params) do
     event = current_event(conn)
-    public_tasks =
+    unlocked_tasks =
       event
       |> assoc(:tasks)
-      |> Task.public()
+      |> Task.unlocked()
       |> Query.order_by([asc: :unlocked_at, asc: :position])
       |> Repo.all()
 
-    not_public_tasks =
+    locked_tasks =
       event
       |> assoc(:tasks)
-      |> Task.not_public()
+      |> Task.locked()
       |> Query.order_by(asc: :position)
       |> Repo.all()
 
@@ -38,8 +38,8 @@ defmodule Classlab.Classroom.TaskController do
       "index.html",
       current_memberships: current_memberships,
       event: event,
-      not_public_tasks: not_public_tasks,
-      public_tasks: public_tasks
+      locked_tasks: locked_tasks,
+      unlocked_tasks: unlocked_tasks
     )
   end
 
@@ -130,8 +130,8 @@ defmodule Classlab.Classroom.TaskController do
 
     event
     |> assoc(:tasks)
-    |> Task.not_public()
-    |> Repo.update_all([set: [public: true, unlocked_at: DateTime.now_utc()]])
+    |> Task.locked()
+    |> Repo.update_all([set: [unlocked_at: DateTime.now_utc()]])
 
     conn
     |> put_flash(:info, "Tasks successfully unlocked.")
@@ -143,8 +143,8 @@ defmodule Classlab.Classroom.TaskController do
 
     event
     |> assoc(:tasks)
-    |> Task.public()
-    |> Repo.update_all([set: [public: false, unlocked_at: nil]])
+    |> Task.unlocked()
+    |> Repo.update_all([set: [unlocked_at: nil]])
 
     conn
     |> put_flash(:info, "Tasks successfully locked.")
@@ -156,7 +156,7 @@ defmodule Classlab.Classroom.TaskController do
 
     task_res = event
     |> assoc(:tasks)
-    |> Task.not_public()
+    |> Task.locked()
     |> Query.order_by(asc: :position)
     |> Query.first
     |> Repo.one()
@@ -164,7 +164,7 @@ defmodule Classlab.Classroom.TaskController do
     case task_res do
       %Task{} = task ->
         task
-        |> Changeset.change(%{public: true, unlocked_at: DateTime.now_utc()})
+        |> Changeset.change(%{unlocked_at: DateTime.now_utc()})
         |> Repo.update!()
 
         conn
@@ -186,10 +186,10 @@ defmodule Classlab.Classroom.TaskController do
       |> Repo.get!(task_id)
 
     updates =
-      if task.public do
-        %{public: false, unlocked_at: nil}
+      if task.unlocked_at do
+        %{unlocked_at: nil}
       else
-        %{public: true, unlocked_at: DateTime.now_utc()}
+        %{unlocked_at: DateTime.now_utc()}
       end
 
     task
@@ -197,7 +197,7 @@ defmodule Classlab.Classroom.TaskController do
     |> Repo.update!()
 
     flash =
-      if task.public do
+      if task.unlocked_at do
         "Task successfully locked"
       else
         "Task successfully unlocked"
@@ -228,7 +228,7 @@ defmodule Classlab.Classroom.TaskController do
     next_task =
       event
       |> assoc(:tasks)
-      |> Task.public()
+      |> Task.unlocked()
       |> Query.where(unlocked_at: ^task.unlocked_at)
       |> Task.next_via_position(task)
       |> Repo.one()
@@ -238,7 +238,7 @@ defmodule Classlab.Classroom.TaskController do
     else
       event
       |> assoc(:tasks)
-      |> Task.public()
+      |> Task.unlocked()
       |> Task.next_via_unlocked_at(task)
       |> Repo.one()
     end
@@ -249,7 +249,7 @@ defmodule Classlab.Classroom.TaskController do
     next_task =
       event
       |> assoc(:tasks)
-      |> Task.public()
+      |> Task.unlocked()
       |> Query.where(unlocked_at: ^task.unlocked_at)
       |> Task.previous_via_position(task)
       |> Repo.one()
@@ -259,7 +259,7 @@ defmodule Classlab.Classroom.TaskController do
     else
       event
       |> assoc(:tasks)
-      |> Task.public()
+      |> Task.unlocked()
       |> Task.previous_via_unlocked_at(task)
       |> Repo.one()
     end

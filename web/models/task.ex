@@ -12,7 +12,6 @@ defmodule Classlab.Task do
     field :external_app_url, :string
     field :hint, :string
     field :position, :integer
-    field :public, :boolean
     field :title, :string
     field :unlocked_at, Calecto.DateTimeUTC
     timestamps
@@ -21,14 +20,14 @@ defmodule Classlab.Task do
   end
 
   # Composable Queries
-  def public(query) do
+  def unlocked(query) do
     from task in query,
-      where: task.public == true
+      where: not is_nil(task.unlocked_at)
   end
 
-  def not_public(query) do
+  def locked(query) do
     from task in query,
-      where: task.public == false
+      where: is_nil(task.unlocked_at)
   end
 
   def next_via_unlocked_at(query, %__MODULE__{} = current_task) do

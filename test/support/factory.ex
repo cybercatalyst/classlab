@@ -91,7 +91,6 @@ defmodule Classlab.Factory do
       event: build(:event),
       body: "This is a task.",
       position: 1,
-      public: false,
       title: sequence(:title, &"Task-#{&1}")
     }
   end

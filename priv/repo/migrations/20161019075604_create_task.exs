@@ -9,7 +9,6 @@ defmodule Classlab.Repo.Migrations.CreateTask do
       add :external_app_url, :string
       add :hint, :text
       add :position, :integer, null: false
-      add :public, :boolean, null: false, default: false
       add :title, :string, null: false
       add :unlocked_at, :datetime
       timestamps()
