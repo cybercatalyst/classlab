@@ -83,32 +83,36 @@ defmodule Classlab.Event do
     ends_at <= current_time && ends_at >= DateTime.subtract!(current_time, @fourteen_days)
   end
 
+  ## Before event email
   def before_email_subject(%__MODULE__{before_email_subject: subject}) when is_binary(subject) do
     subject
   end
-  def before_email_subject(%__MODULE__{before_email_subject: _} = event) do
-    "#{event.name}: A warm welcome"
+  def before_email_subject(%__MODULE__{before_email_subject: _}) do
+    "{{event_name}}: A warm welcome"
   end
 
   def before_email_body_text(%__MODULE__{before_email_body_text: text}) when is_binary(text) do
     text
   end
-  def before_email_body_text(%__MODULE__{before_email_body_text: _} = event) do
-    "Welcome to #{event.name}\n\n" <>
+  def before_email_body_text(%__MODULE__{before_email_body_text: _}) do
+    "Hi {{attendee_first_name}},\n\n" <>
+    "Welcome to {{event_name}}\n\n" <>
     "Here is the Link to the classroom: {{classroom_link}}"
   end
 
-  def after_email_subject(%__MODULE__{before_email_subject: subject}) when is_binary(subject) do
+  ## After event email
+  def after_email_subject(%__MODULE__{after_email_subject: subject}) when is_binary(subject) do
     subject
   end
-  def after_email_subject(%__MODULE__{before_email_subject: _} = event) do
-    "#{event.name}: Thanks for joining"
+  def after_email_subject(%__MODULE__{after_email_subject: _}) do
+    "{{event_name}}: Thanks for joining"
   end
 
   def after_email_body_text(%__MODULE__{after_email_body_text: text}) when is_binary(text) do
     text
   end
-  def after_email_body_text(%__MODULE__{after_email_body_text: _} = event) do
-    "Thanks for joining us at #{event.name}"
+  def after_email_body_text(%__MODULE__{after_email_body_text: _}) do
+    "Hi {{attendee_first_name}},\n\n" <>
+    "Thanks for joining us at {{event_name}}"
   end
 end
