@@ -16,8 +16,10 @@ defmodule Classlab.Event do
     field :description, :string
     field :invitation_token, :string
     field :invitation_token_active, :boolean, default: false
-    field :before_email_template, :string
-    field :after_email_template, :string
+    field :before_email_subject, :string
+    field :before_email_body_text, :string
+    field :after_email_subject, :string
+    field :after_email_body_text, :string
     field :starts_at, Calecto.DateTimeUTC
     field :ends_at, Calecto.DateTimeUTC
     field :timezone, :string
@@ -56,7 +58,8 @@ defmodule Classlab.Event do
 
   # Changesets & Validations
   @fields [:public, :name, :description, :invitation_token, :invitation_token_active,
-           :starts_at, :ends_at, :timezone, :before_email_template, :after_email_template]
+           :starts_at, :ends_at, :timezone, :before_email_subject, :before_email_body_text,
+           :after_email_subject, :after_email_body_text]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
@@ -78,5 +81,34 @@ defmodule Classlab.Event do
   @fourteen_days 60 * 60 * 24 * 14
   def within_feedback_period?(%__MODULE__{ends_at: ends_at}, current_time \\ DateTime.now_utc()) do
     ends_at <= current_time && ends_at >= DateTime.subtract!(current_time, @fourteen_days)
+  end
+
+  def before_email_subject(%__MODULE__{before_email_subject: subject}) when is_binary(subject) do
+    subject
+  end
+  def before_email_subject(%__MODULE__{before_email_subject: _} = event) do
+    "#{event.name}: A warm welcome"
+  end
+
+  def before_email_body_text(%__MODULE__{before_email_body_text: text}) when is_binary(text) do
+    text
+  end
+  def before_email_body_text(%__MODULE__{before_email_body_text: _} = event) do
+    "Welcome to #{event.name}\n\n" <>
+    "Here is the Link to the classroom: {{classroom_link}}"
+  end
+
+  def after_email_subject(%__MODULE__{before_email_subject: subject}) when is_binary(subject) do
+    subject
+  end
+  def after_email_subject(%__MODULE__{before_email_subject: _} = event) do
+    "#{event.name}: Thanks for joining"
+  end
+
+  def after_email_body_text(%__MODULE__{after_email_body_text: text}) when is_binary(text) do
+    text
+  end
+  def after_email_body_text(%__MODULE__{after_email_body_text: _} = event) do
+    "Thanks for joining us at #{event.name}"
   end
 end
