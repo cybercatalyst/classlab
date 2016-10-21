@@ -1,16 +1,47 @@
 <%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary mb-1" %>
 
-<%= for task <- @tasks do %>
-  <%= render "_task.html", conn: @conn, event: @event, task: task %>
-<% end %>
-
-<%= if length(@tasks) == 0 do %>
+<%= if length(@public_tasks) > 0 do %>
 <div class="card">
-  <div class="card-block">
-    No Tasks available
+  <div class="card-block clearfix">
+    <h5 class="card-title float-xs-left">Unlocked</h5>
+    <div class="block float-xs-right">
+    <%= if length(@public_tasks) > 1 do %>
+      <%= link "Lock all", to: classroom_task_path(@conn, :lock_all, @event), method: :post, class: "btn btn-sm btn-outline-warning" %>
+    <% end %>
+    </div>
   </div>
+  <ul class="list-group list-group-flush">
+    <%= for task <- @public_tasks do %>
+      <%= render "_task.html", conn: @conn, event: @event, task: task %>
+    <% end %>
+  </ul>
 </div>
 <% end %>
 
-<%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary" %>
+<%= if length(@not_public_tasks) > 0 do %>
+<div class="card">
+  <div class="card-block clearfix">
+    <h5 class="card-title float-xs-left">Locked</h5>
+    <div class="block float-xs-right">
+      <%= if length(@not_public_tasks) > 1 do %>
+        <%= link "Unlock all", to: classroom_task_path(@conn, :unlock_all, @event), method: :post, class: "btn btn-sm btn-outline-success" %>
+      <% end %>
+    </div>
+  </div>
+  <ul class="list-group list-group-flush">
+    <%= for task <- @not_public_tasks do %>
+      <%= render "_task.html", conn: @conn, event: @event, task: task %>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
+<%= if length(@public_tasks) == 0 && length(@not_public_tasks) == 0 do %>
+  <div class="card">
+    <div class="card-block">
+      No Tasks available
+    </div>
+  </div>
+<% end %>
+
+<%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary" %>

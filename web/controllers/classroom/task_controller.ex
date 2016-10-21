@@ -10,12 +10,19 @@ defmodule Classlab.Classroom.TaskController do
 
   def index(conn, _params) do
     event = current_event(conn)
-    tasks =
+    public_tasks =
       event
       |> assoc(:tasks)
+      |> Task.public()
       |> Repo.all()
 
-    render(conn, "index.html", event: event, tasks: tasks)
+    not_public_tasks =
+      event
+      |> assoc(:tasks)
+      |> Task.not_public()
+      |> Repo.all()
+
+    render(conn, "index.html", event: event, public_tasks: public_tasks, not_public_tasks: not_public_tasks)
   end
 
   def new(conn, _params) do

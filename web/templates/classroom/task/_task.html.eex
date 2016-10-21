@@ -1,34 +1,3 @@
-<div class="card">
-  <div class="card-header">
-    <a data-toggle="collapse" href="#task_<%= @task.id %>" style="display: block">
-      <%= @task.position %>.
-      <%= @task.title %>
-    </a>
-  </div>
-  <div class="card-block collapse" id="task_<%= @task.id %>">
-    <h3>Description</h3>
-    <%= @task.body %>
-
-    <%= if @task.hint && @task.hint != "" do %>
-      <h3>Hints</h3>
-      <%= @task.hint %>
-    <% end%>
-
-    <%= if @task.bonus && @task.bonus != "" do %>
-      <h3>Bonus</h3>
-      <%= @task.bonus %>
-    <% end%>
-
-  </div>
-  <div class="card-footer">
-    <div class="row">
-      <div class="col-xs-6">
-        <%= link "Show", to: classroom_task_path(@conn, :show, @event, @task), class: "btn btn-clear btn-sm" %>
-        <%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-clear btn-sm" %>
-      </div>
-      <div class="col-xs-6 text-xs-right">
-        <%= link "Delete", to: classroom_task_path(@conn, :delete, @event, @task), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
-      </div>
-    </div>
-  </div>
-</div>
+<li class="list-group-item">
+  <%= link @task.title, to: classroom_task_path(@conn, :show, @event, @task), class: "btn btn-clear btn-sm block" %>
+</li>
