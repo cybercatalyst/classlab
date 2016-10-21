@@ -129,6 +129,28 @@ defmodule Classlab.Classroom.TaskControllerTest do
     end
   end
 
+  describe "#toggle_lock" do
+    test "unlocks resource if not public", %{conn: conn, event: event} do
+      task = Factory.insert(:task, event: event, public: false)
+      conn = post conn, classroom_task_path(conn, :toggle_lock, event, task)
+
+      task = Repo.get(Task, task.id)
+
+      assert redirected_to(conn) == classroom_task_path(conn, :index, event)
+      assert task.public == true
+    end
+
+    test "lock resource if public", %{conn: conn, event: event} do
+      task = Factory.insert(:task, event: event, public: true)
+      conn = post conn, classroom_task_path(conn, :toggle_lock, event, task)
+
+      task = Repo.get(Task, task.id)
+
+      assert redirected_to(conn) == classroom_task_path(conn, :index, event)
+      assert task.public == false
+    end
+  end
+
   describe "#delete" do
     test "deletes chosen resource", %{conn: conn, event: event} do
       task = Factory.insert(:task, event: event)

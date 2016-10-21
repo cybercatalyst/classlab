@@ -1,3 +1,20 @@
 <li class="list-group-item">
-  <%= link @task.title, to: classroom_task_path(@conn, :show, @event, @task), class: "btn btn-clear btn-sm block" %>
+  <div class="media">
+    <div class="media-left">
+      <div class="text-muted" style="width: 20px">1.</div>
+    </div>
+    <div class="media-body media-middle">
+      <%= link @task.title, to: classroom_task_path(@conn, :show, @event, @task) %>
+    </div>
+    <div class="media-right">
+
+      <%= link to: classroom_task_path(@conn, :toggle_lock, @event, @task), method: :post, class: "btn btn-sm #{if(@task.public, do: "btn-outline-warning", else: "btn-outline-success")}" do %>
+        <%= if @task.public do %>
+          Lock
+        <% else %>
+          Unlock
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </li>

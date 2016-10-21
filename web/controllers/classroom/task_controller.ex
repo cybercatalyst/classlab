@@ -1,12 +1,13 @@
 defmodule Classlab.Classroom.TaskController do
   @moduledoc false
 
-  alias Ecto.Query
+  alias Ecto.{Changeset, Query}
   alias Classlab.{Repo, Task}
   use Classlab.Web, :controller
 
   plug :scrub_params, "task" when action in [:create, :update]
-  plug :restrict_roles, [1, 2] when action in [:create, :delete, :edit, :lock_all, :new, :update, :unlock_all, :unlock_next]
+  plug :restrict_roles, [1, 2] when action in
+      [:create, :delete, :edit, :lock_all, :new, :toggle_lock, :update, :unlock_all, :unlock_next]
 
   def index(conn, _params) do
     event = current_event(conn)
@@ -122,7 +123,7 @@ defmodule Classlab.Classroom.TaskController do
     |> assoc(:tasks)
     |> Task.not_public()
     |> Query.order_by(asc: :position)
-    |> Ecto.Query.first
+    |> Query.first
     |> Repo.one()
 
     case task_res do
@@ -139,6 +140,30 @@ defmodule Classlab.Classroom.TaskController do
         |> put_flash(:error, "No task left.")
         |> redirect(to: classroom_task_path(conn, :index, event))
     end
+  end
+
+  def toggle_lock(conn, %{"id" => task_id}) do
+    event = current_event(conn)
+
+    task =
+      event
+      |> assoc(:tasks)
+      |> Repo.get!(task_id)
+
+    task
+    |> Changeset.change(%{public: !task.public})
+    |> Repo.update()
+
+    flash =
+      if task.public do
+        "Task successfully locked"
+      else
+        "Task successfully unlocked"
+      end
+
+    conn
+    |> put_flash(:info, flash)
+    |> redirect(to: classroom_task_path(conn, :index, event))
   end
 
   def delete(conn, %{"id" => task_id}) do

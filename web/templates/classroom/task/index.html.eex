@@ -11,8 +11,8 @@
     </div>
   </div>
   <ul class="list-group list-group-flush">
-    <%= for task <- @public_tasks do %>
-      <%= render "_task.html", conn: @conn, event: @event, task: task %>
+    <%= for {task, line} <- Enum.with_index(@public_tasks) do %>
+      <%= render "_task.html", conn: @conn, event: @event, task: task, line: line + 1 %>
     <% end %>
   </ul>
 </div>
@@ -29,8 +29,8 @@
     </div>
   </div>
   <ul class="list-group list-group-flush">
-    <%= for task <- @not_public_tasks do %>
-      <%= render "_task.html", conn: @conn, event: @event, task: task %>
+    <%= for {task, line} <- Enum.with_index(@not_public_tasks) do %>
+      <%= render "_task.html", conn: @conn, event: @event, task: task, line: line + 1 %>
     <% end %>
   </ul>
 </div>
