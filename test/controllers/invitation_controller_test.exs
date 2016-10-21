@@ -53,6 +53,16 @@ defmodule Classlab.InvitationControllerTest do
       assert_delivered_email MembershipMailer.before_event_email(membership)
     end
 
+    test "does not send before event email if not attendee", %{conn: conn} do
+      user = Factory.insert(:user, first_name: "Martin", last_name: "Schurig")
+      invitation = Factory.insert(:invitation, email: user.email, role_id: 2)
+      conn = post conn, invitation_path(conn, :create, invitation.event, invitation.invitation_token)
+      assert redirected_to(conn) == invitation_path(conn, :show, invitation.event, invitation.invitation_token)
+
+      membership = Membership |> Repo.get_by(user_id: user.id) |> Repo.preload([:event, :user])
+      refute_delivered_email MembershipMailer.before_event_email(membership)
+    end
+
     test "does not create resource and redirects when membership already exists", %{conn: conn} do
       user = Factory.insert(:user)
       event = Factory.insert(:event)
