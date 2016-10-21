@@ -16,7 +16,7 @@ defmodule Classlab.Classroom.TaskController do
       event
       |> assoc(:tasks)
       |> Task.public()
-      |> Query.order_by(asc: :unlocked_at)
+      |> Query.order_by([asc: :unlocked_at, asc: :position])
       |> Repo.all()
 
     not_public_tasks =
