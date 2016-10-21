@@ -1,3 +1,6 @@
+<%= page_reload_listener([:event, @event.id, :task, :unlock]) %>
+<%= page_reload_listener([:event, @event.id, :task, :lock]) %>
+
 <%= if has_permission?(@current_memberships, [1, 2]) do %>
   <%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-primary mb-1" %>
 <% end %>
@@ -49,7 +52,7 @@
   <%= link @next_task.title, to: classroom_task_path(@conn, :show, @event, @next_task), class: "btn btn-primary" %>
 <% end %>
 
-<%= if @next_unlockable_task do %>
+<%= if has_permission?(@current_memberships, [1, 2]) && @next_unlockable_task do %>
   <%= link "Unlock next", to: classroom_task_path(@conn, :unlock_next, @event), method: :post, class: "btn btn-sm btn-outline-success" %>
 <% end %>
 

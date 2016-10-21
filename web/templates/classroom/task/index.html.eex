@@ -1,3 +1,6 @@
+<%= page_reload_listener([:event, @event.id, :task, :unlock]) %>
+<%= page_reload_listener([:event, @event.id, :task, :lock]) %>
+
 <%= if has_permission?(@current_memberships, [1, 2]) do %>
   <%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary mb-1" %>
 <% end %>
@@ -14,7 +17,7 @@
   </div>
   <ul class="list-group list-group-flush">
     <%= for {task, line} <- Enum.with_index(@unlocked_tasks) do %>
-      <%= render "_task.html", conn: @conn, event: @event, task: task, line: line + 1 %>
+      <%= render "_task.html", conn: @conn, event: @event, current_memberships: @current_memberships, task: task, line: line + 1 %>
     <% end %>
   </ul>
 </div>
@@ -39,7 +42,7 @@
   </div>
   <ul class="list-group list-group-flush">
     <%= for {task, line} <- Enum.with_index(@locked_tasks) do %>
-      <%= render "_task.html", conn: @conn, event: @event, task: task, line: line + 1 %>
+      <%= render "_task.html", conn: @conn, event: @event, current_memberships: @current_memberships, task: task, line: line + 1 %>
     <% end %>
   </ul>
 </div>

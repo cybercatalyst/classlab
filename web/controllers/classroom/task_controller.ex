@@ -138,6 +138,8 @@ defmodule Classlab.Classroom.TaskController do
     |> Task.locked()
     |> Repo.update_all([set: [unlocked_at: DateTime.now_utc()]])
 
+    page_reload_broadcast!([:event, event.id, :task, :unlock])
+
     conn
     |> put_flash(:info, "Tasks successfully unlocked.")
     |> redirect(to: classroom_task_path(conn, :index, event))
@@ -150,6 +152,8 @@ defmodule Classlab.Classroom.TaskController do
     |> assoc(:tasks)
     |> Task.unlocked()
     |> Repo.update_all([set: [unlocked_at: nil]])
+
+    page_reload_broadcast!([:event, event.id, :task, :lock])
 
     conn
     |> put_flash(:info, "Tasks successfully locked.")
@@ -171,6 +175,8 @@ defmodule Classlab.Classroom.TaskController do
         task
         |> Changeset.change(%{unlocked_at: DateTime.now_utc()})
         |> Repo.update!()
+
+        page_reload_broadcast!([:event, event.id, :task, :unlock])
 
         conn
         |> put_flash(:info, "Task successfully unlocked.")
@@ -200,6 +206,12 @@ defmodule Classlab.Classroom.TaskController do
     task
     |> Changeset.change(updates)
     |> Repo.update!()
+
+    if task.unlocked_at do
+      page_reload_broadcast!([:event, event.id, :task, :lock])
+    else
+      page_reload_broadcast!([:event, event.id, :task, :unlock])
+    end
 
     flash =
       if task.unlocked_at do
