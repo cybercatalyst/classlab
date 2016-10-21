@@ -1,7 +1,7 @@
 <li class="list-group-item">
   <div class="media">
     <div class="media-left">
-      <div class="text-muted" style="width: 20px">1.</div>
+      <div class="text-muted" style="width: 20px"><%= @line %></div>
     </div>
     <div class="media-body media-middle">
       <%= link @task.title, to: classroom_task_path(@conn, :show, @event, @task) %>
