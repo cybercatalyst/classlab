@@ -14,10 +14,6 @@
       <%= input f, :starts_at %>
       <%= input f, :ends_at %>
       <%= input f, :timezone %>
-      <%= input f, :before_email_subject, using: :text_input %>
-      <%= input f, :before_email_body_text, using: :textarea %>
-      <%= input f, :after_email_subject, using: :text_input %>
-      <%= input f, :after_email_body_text, using: :textarea %>
     </div>
     <div class="col-md-6">
       <h4>Location settings</h4>

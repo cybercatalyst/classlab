@@ -72,6 +72,12 @@ defmodule Classlab.Event do
     |> unique_constraint(:invitation_token)
   end
 
+  @fields [:before_email_subject, :before_email_body_text, :after_email_subject, :after_email_body_text]
+  def email_template_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, @fields)
+  end
+
   defp generate_invitation_token(changeset, length \\ 6) do
     token = length |> :crypto.strong_rand_bytes |> Base.url_encode64 |> binary_part(0, length)
     put_change(changeset, :invitation_token, token)

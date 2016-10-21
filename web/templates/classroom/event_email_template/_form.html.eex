@@ -1,0 +1,96 @@
+<h4>Available placeholders</h4>
+<table class="table table-sm table-hover">
+  <tbody>
+    <tr>
+      <td><pre>{{event_name}}</pre></td>
+      <td><%= @event.name %></td>
+    </tr>
+    <tr>
+      <td><pre>{{attendee_first_name}}</pre></td>
+      <td><%= current_user(@conn).first_name || "Users first name" %></td>
+    </tr>
+    <tr>
+      <td><pre>{{attendee_last_name}}</pre></td>
+      <td><%= current_user(@conn).last_name || "Users last name" %></td>
+    </tr>
+    <tr>
+      <td><pre>{{classroom_link}}</pre></td>
+      <td><%= classroom_dashboard_url(@conn, :show, @event) %></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="card">
+    <div class="card-header">
+      Before Event email
+    </div>
+    <div class="card-block">
+      <table class="table table-hover">
+        <p class="text-muted"><small>The user will receive this email when he joins the classroom.</small></p>
+        <thead>
+          <th width="50%">Edit</th>
+          <th>Current</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= input f, :before_email_subject, using: :text_input %></td>
+            <td class="table-active">
+              <p><strong>Subject</strong></p>
+              <%= Event.before_email_subject(@event) %>
+            </td>
+          </tr>
+          <tr>
+            <td><%= input f, :before_email_body_text, using: :textarea %></td>
+            <td class="table-active">
+              <p><strong>Text</strong></p>
+              <%= Event.before_email_body_text(@event) %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      After Event email
+    </div>
+    <div class="card-block">
+      <table class="table table-hover">
+        <p class="text-muted"><small>The user will receive this email within 30 minutes after the event endet.</small></p>
+        <thead>
+          <th width="50%">Edit</th>
+          <th>Current</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= input f, :after_email_subject, using: :text_input %></td>
+            <td class="table-active">
+              <p><strong>Subject</strong></p>
+              <%= Event.after_email_subject(@event) %>
+            </td>
+          </tr>
+          <tr>
+            <td><%= input f, :after_email_body_text, using: :textarea %></td>
+            <td class="table-active">
+              <p><strong>Text</strong></p>
+              <%= Event.after_email_body_text(@event) %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
