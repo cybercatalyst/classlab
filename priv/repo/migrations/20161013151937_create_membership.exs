@@ -8,6 +8,8 @@ defmodule Classlab.Repo.Migrations.CreateMembership do
       add :role_id, references(:roles, on_delete: :nilify_all), null: false
       add :seat_position_x, :integer, null: false, default: 0
       add :seat_position_y, :integer, null: false, default: 0
+      add :before_email_sent_at, :datetime
+      add :after_email_sent_at, :datetime
       timestamps()
     end
     create index(:memberships, [:user_id])

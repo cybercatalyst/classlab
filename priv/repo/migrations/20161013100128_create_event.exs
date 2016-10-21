@@ -9,6 +9,8 @@ defmodule Classlab.Repo.Migrations.CreateEvent do
       add :description, :text, null: false
       add :invitation_token, :string, null: false
       add :invitation_token_active, :boolean, default: false, null: false
+      add :before_email_template, :text
+      add :after_email_template, :text
       add :starts_at, :datetime, null: false
       add :ends_at, :datetime, null: false
       add :timezone, :string, null: false

@@ -16,6 +16,8 @@ defmodule Classlab.Event do
     field :description, :string
     field :invitation_token, :string
     field :invitation_token_active, :boolean, default: false
+    field :before_email_template, :string
+    field :after_email_template, :string
     field :starts_at, Calecto.DateTimeUTC
     field :ends_at, Calecto.DateTimeUTC
     field :timezone, :string
@@ -54,7 +56,7 @@ defmodule Classlab.Event do
 
   # Changesets & Validations
   @fields [:public, :name, :description, :invitation_token, :invitation_token_active,
-           :starts_at, :ends_at, :timezone]
+           :starts_at, :ends_at, :timezone, :before_email_template, :after_email_template]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
