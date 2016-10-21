@@ -21,7 +21,7 @@ defmodule Classlab.Mixfile do
   def application do
     [mod: {Classlab, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :bamboo]]
+                    :phoenix_ecto, :postgrex, :bamboo, :quantum]]
   end
 
   # Specifies which paths to compile per environment.
@@ -50,7 +50,8 @@ defmodule Classlab.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix, "~> 1.2.0"},
-      {:postgrex, ">= 0.0.0"}
+      {:postgrex, ">= 0.0.0"},
+      {:quantum, ">= 1.8.0"}
     ]
   end
 

@@ -37,6 +37,10 @@ defmodule Classlab.Membership do
     from membership in query, where: membership.role_id in ^role_ids
   end
 
+  def no_after_email_sent(query) do
+    from membership in query, where: is_nil(membership.after_email_sent_at)
+  end
+
   # Changesets & Validations
   @fields ~w(role_id event_id seat_position_x seat_position_y)
   def changeset(struct, params \\ %{}) do
@@ -45,5 +49,13 @@ defmodule Classlab.Membership do
     |> validate_required(~w(role_id event_id seat_position_x seat_position_y)a)
   end
 
+  def touch(%Ecto.Changeset{} = changeset, field) do
+    put_change(changeset, field, Calendar.DateTime.now_utc)
+  end
+
   # Model Functions
+  def touch(%__MODULE__{} = membership, field) do
+    params = Map.put(%{}, field, Calendar.DateTime.now_utc)
+    membership |> cast(params, [field])
+  end
 end

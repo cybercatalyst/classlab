@@ -43,6 +43,19 @@ defmodule Classlab.Web do
     end
   end
 
+  def job do
+    quote do
+
+      alias Classlab.Repo
+      alias Classlab.Mailer
+      import Ecto
+      import Ecto.Query, only: [from: 1, from: 2]
+
+      import Classlab.Router.Helpers
+      import Classlab.Gettext
+    end
+  end
+
   def view do
     quote do
       use Phoenix.View, root: "web/templates"

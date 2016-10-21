@@ -56,6 +56,13 @@ defmodule Classlab.Event do
       where: event.ends_at >= ^DateTime.subtract!(current_time, @fourteen_days)
   end
 
+  @seven_days 60 * 60 * 24 * 7
+  def within_after_email_period(query, current_time \\ DateTime.now_utc()) do
+    from event in query,
+      where: event.ends_at <= ^current_time,
+      where: event.ends_at >= ^DateTime.subtract!(current_time, @seven_days)
+  end
+
   # Changesets & Validations
   @fields [:public, :name, :description, :invitation_token, :invitation_token_active,
            :starts_at, :ends_at, :timezone, :before_email_subject, :before_email_body_text,
