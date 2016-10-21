@@ -6,15 +6,17 @@ defmodule Classlab.Jobs.MembershipAfterEventEmailJobTest do
   use Classlab.JobCase
 
   describe "#perform_now" do
-    test "sends emails to attendees (role_id 2)" do
+    test "sends emails to attendees (role_id 3)" do
       current_time = DateTime.now_utc()
       event = Factory.insert(:event, ends_at: DateTime.subtract!(current_time, 60 * 60))
-      membership1 = Factory.insert(:membership, role_id: 1, event: event)
-      membership2 = Factory.insert(:membership, role_id: 2, event: event)
+      wrong_role_m = Factory.insert(:membership, role_id: 1, event: event)
+      wrong_role_m2 = Factory.insert(:membership, role_id: 2, event: event)
+      correct_role_m = Factory.insert(:membership, role_id: 3, event: event)
       MembershipAfterEventEmailJob.perform_now()
 
-      refute_delivered_email MembershipMailer.after_event_email(membership1)
-      assert_delivered_email MembershipMailer.after_event_email(membership2)
+      refute_delivered_email MembershipMailer.after_event_email(wrong_role_m)
+      refute_delivered_email MembershipMailer.after_event_email(wrong_role_m2)
+      assert_delivered_email MembershipMailer.after_event_email(correct_role_m)
     end
   end
 end

@@ -43,7 +43,7 @@ defmodule Classlab.User do
     |> unique_constraint(:access_token)
   end
 
-  @fields [:email]
+  @fields [:email, :first_name, :last_name]
   def registration_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)

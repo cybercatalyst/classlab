@@ -1,5 +1,5 @@
 defmodule Classlab.InvitationControllerTest do
-  alias Classlab.{Invitation, Membership, User}
+  alias Classlab.{Invitation, Membership, User, MembershipMailer}
   use Classlab.ConnCase
 
   describe "#new" do
@@ -18,33 +18,39 @@ defmodule Classlab.InvitationControllerTest do
   end
 
   describe "#create" do
-    test "creates user, membership and completes invitation", %{conn: conn} do
-      invitation = Factory.insert(:invitation, role_id: 3)
+    test "creates user, membership, sends before event email, and completes invitation", %{conn: conn} do
+      invitation = Factory.insert(:invitation, role_id: 3, first_name: "Martin", last_name: "Schurig")
       conn = post conn, invitation_path(conn, :create, invitation.event, invitation.invitation_token)
       assert redirected_to(conn) == invitation_path(conn, :show, invitation.event, invitation.invitation_token)
 
       user = Repo.get_by(User, email: invitation.email)
-      membership = Repo.get_by(Membership, user_id: user.id)
+      membership = Membership |> Repo.get_by(user_id: user.id) |> Repo.preload([:event, :user])
       completed_invitation = Repo.get(Invitation, invitation.id)
 
       assert user
+      assert user.email == invitation.email
+      assert user.first_name == invitation.first_name
+      assert user.last_name == invitation.last_name
       assert membership
       assert membership.role_id == 3
+      assert membership.before_email_sent_at
       assert completed_invitation.completed_at
+      assert_delivered_email MembershipMailer.before_event_email(membership)
     end
 
-    test "creates membership and completes invitation", %{conn: conn} do
-      user = Factory.insert(:user)
+    test "creates membership, sends before event email, and completes invitation", %{conn: conn} do
+      user = Factory.insert(:user, first_name: "Martin", last_name: "Schurig")
       invitation = Factory.insert(:invitation, email: user.email, role_id: 3)
       conn = post conn, invitation_path(conn, :create, invitation.event, invitation.invitation_token)
       assert redirected_to(conn) == invitation_path(conn, :show, invitation.event, invitation.invitation_token)
 
-      membership = Repo.get_by(Membership, user_id: user.id)
+      membership = Membership |> Repo.get_by(user_id: user.id) |> Repo.preload([:event, :user])
       completed_invitation = Repo.get(Invitation, invitation.id)
 
       assert membership
       assert membership.role_id == 3
       assert completed_invitation.completed_at
+      assert_delivered_email MembershipMailer.before_event_email(membership)
     end
 
     test "does not create resource and redirects when membership already exists", %{conn: conn} do

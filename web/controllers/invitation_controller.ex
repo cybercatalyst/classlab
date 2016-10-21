@@ -1,6 +1,6 @@
 defmodule Classlab.InvitationController do
   @moduledoc false
-  alias Classlab.{Repo, Event, Invitation, User, Membership}
+  alias Classlab.{Repo, Event, Invitation, User, Membership, MembershipMailer}
   alias Ecto.Query
   use Classlab.Web, :controller
 
@@ -52,6 +52,7 @@ defmodule Classlab.InvitationController do
           handle_error(conn, "Already accepted the invitation.")
         else
           membership = create_membership(invitation, user)
+          send_event_before_email(membership)
           invitation_changeset = Invitation.completion_changeset(invitation, %{
             completed_at: membership.inserted_at
           })
@@ -84,7 +85,9 @@ defmodule Classlab.InvitationController do
       %User{} = user ->
         user
       nil ->
-        user_changeset = User.registration_changeset(%User{}, %{email: invitation.email})
+        user_changeset = User.registration_changeset(%User{},
+          %{email: invitation.email, first_name: invitation.first_name, last_name: invitation.last_name}
+        )
         Repo.insert!(user_changeset)
     end
   end
@@ -114,4 +117,15 @@ defmodule Classlab.InvitationController do
 
     Repo.insert!(membership_changeset)
   end
+
+  defp send_event_before_email(%Membership{role_id: 3} = membership) do
+    membership
+    |> Repo.preload([:user, :event])
+    |> MembershipMailer.before_event_email()
+    |> Mailer.deliver_now()
+
+    membership |> Membership.touch(:before_email_sent_at) |> Repo.update!()
+    %{ok: :sent}
+  end
+  defp send_event_before_email(%Membership{role_id: _}), do: %{ok: :not_sent}
 end

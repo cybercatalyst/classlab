@@ -5,6 +5,7 @@ defmodule Classlab.Jobs.MembershipAfterEventEmailJob do
   """
 
   alias Classlab.{Event, Membership, MembershipMailer}
+  alias Ecto.Query
   use Classlab.Web, :job
 
   def perform_now do
@@ -16,10 +17,10 @@ defmodule Classlab.Jobs.MembershipAfterEventEmailJob do
 
     attendee_memberships =
       Membership
-      |> Membership.as_role(2)
+      |> Membership.as_role(3)
       |> Membership.no_after_email_sent()
-      |> Ecto.Query.where([m], m.event_id in ^events)
-      |> Ecto.Query.preload([:user, :event])
+      |> Query.where([m], m.event_id in ^events)
+      |> Query.preload([:user, :event])
       |> Repo.all()
 
     for membership <- attendee_memberships do
