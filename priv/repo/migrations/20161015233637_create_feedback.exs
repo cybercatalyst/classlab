@@ -1,4 +1,4 @@
-defmodule Classlab.Repo.Migrations.CreateClassroom.Feedback do
+defmodule Classlab.Repo.Migrations.CreateFeedback do
   use Ecto.Migration
 
   def change do
