@@ -8,7 +8,9 @@ defmodule Classlab.Classroom.EventEmailTemplateControllerTest do
     after_email_subject: "After Subject",
     after_email_body_text: "After Text"
   }
-  @invalid_attrs %{}
+  @invalid_attrs %{
+    before_email_subject: String.duplicate("a", 80)
+  }
   @form_field "event_before_email_subject"
 
   setup %{conn: conn} do
@@ -31,6 +33,11 @@ defmodule Classlab.Classroom.EventEmailTemplateControllerTest do
       event = Repo.get_by(Event, @valid_attrs)
       assert redirected_to(conn) == classroom_event_email_template_path(conn, :edit, event)
       assert event.before_email_subject == @valid_attrs.before_email_subject
+    end
+
+    test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, event: event} do
+      conn = put conn, classroom_event_email_template_path(conn, :update, event), event: @invalid_attrs
+      assert html_response(conn, 200) =~ @form_field
     end
   end
 

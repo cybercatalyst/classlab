@@ -83,6 +83,8 @@ defmodule Classlab.Event do
   def email_template_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
+    |> validate_length(:before_email_subject, max: 70)
+    |> validate_length(:after_email_subject, max: 70)
   end
 
   defp generate_invitation_token(changeset, length \\ 6) do
