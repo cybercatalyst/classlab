@@ -13,7 +13,7 @@
 // to also remove its path from "config.paths.watched".
 // import "phoenix_html"
 
-import "bootstrap/dist/js/bootstrap.min"
+import 'bootstrap/dist/js/bootstrap.min';
 
 // Import local files
 //
@@ -22,11 +22,11 @@ import "bootstrap/dist/js/bootstrap.min"
 
 // import socket from "./socket"
 
-import Turbolinks from 'turbolinks'
+import Turbolinks from 'turbolinks';
 Turbolinks.start();
 
-import './components/delete-modal.js'
-import './components/page-reload-socket.js'
+import './components/delete-modal';
+import './components/page-reload-socket';
+import './components/markdown-editor';
 
-let meta =
-console.log(meta)
+let meta = console.log(meta);
