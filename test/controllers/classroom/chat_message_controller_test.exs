@@ -31,7 +31,7 @@ defmodule Classlab.Classroom.ChatMessageControllerTest do
   describe "#create" do
     test "creates resource and redirects when data is valid", %{conn: conn, event: event} do
       conn = post conn, classroom_chat_message_path(conn, :create, event), chat_message: @valid_attrs
-      assert redirected_to(conn) == classroom_chat_message_path(conn, :index, event)
+      assert redirected_to(conn) == "#{classroom_chat_message_path(conn, :index, event)}#last_message"
       assert Repo.get_by(ChatMessage, @valid_attrs)
     end
 
