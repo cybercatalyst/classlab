@@ -38,6 +38,7 @@ defmodule Classlab.Web do
       import Classlab.AssignEventPlug, only: [current_event: 1]
       import Classlab.PermissionPlug
       import Classlab.Gettext
+      import Classlab.PermissionHelpers
       import Classlab.Router.Helpers
       import Classlab.Turbolinks.ControllerExtensions
     end

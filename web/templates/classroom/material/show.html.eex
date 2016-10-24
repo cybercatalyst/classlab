@@ -1,33 +1,33 @@
-<ul>
+<%= page_reload_listener([:event, @event.id, :material, :unlock]) %>
+<%= page_reload_listener([:event, @event.id, :material, :lock]) %>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @material.title %>
-  </li>
+<%= if has_permission?(@current_memberships, [1, 2]) do %>
+  <%= link "Edit", to: classroom_material_path(@conn, :edit, @event, @material), class: "btn btn-primary mb-1" %>
+<% end %>
 
-  <li>
-    <strong>Event:</strong>
-    <%= @material.event_id %>
-  </li>
+<div class="row">
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-header text-xs-center">
+        <%= @material.title %>
+      </div>
+      <div class="card-block">
+        <%= raw @material.description %>
+      </div>
+      <div class="card-block">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="<%= @material.url %>" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="btn-toolbar clearfix" role="toolbar" aria-label="Toolbar with button groups">
 
-  <li>
-    <strong>Description:</strong>
-    <%= @material.description %>
-  </li>
-
-  <li>
-    <strong>Position:</strong>
-    <%= @material.position %>
-  </li>
-
-  <li>
-    <strong>Url:</strong>
-    <%= @material.url %>
-  </li>
-
-</ul>
-
-<div class="btn-toolbar">
-  <%= link "Edit", to: classroom_material_path(@conn, :edit, @event, @material), class: "btn btn-primary" %>
-  <%= link "Back", to: classroom_material_path(@conn, :index, @event), class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<%= if has_permission?(@current_memberships, [1, 2]) do %>
+  <%= link "Edit", to: classroom_material_path(@conn, :edit, @event, @material), class: "mt-1 btn btn-primary" %>
+<% end %>

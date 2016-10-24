@@ -82,6 +82,17 @@ defmodule Classlab.Classroom.TaskControllerTest do
       assert html_response(conn, 200) =~ classroom_task_path(conn, :unlock_next, event)
     end
 
+    test "redirects with permission denied if chosen resource locked and membership attendee", %{conn: conn, event: event} do
+      user = Factory.insert(:user)
+      Factory.insert(:membership, event: event, user: user, role_id: 3)
+      conn = Session.login(conn, user)
+      task = Factory.insert(:task, event: event)
+      conn = get conn, classroom_task_path(conn, :show, task.event, task)
+
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert get_flash(conn, :error) =~ "Permission denied"
+    end
+
     test "renders page not found when id is nonexistent", %{conn: conn} do
       assert_error_sent 404, fn ->
         get conn, classroom_task_path(conn, :show, -1, -1)

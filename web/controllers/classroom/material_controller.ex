@@ -5,7 +5,8 @@ defmodule Classlab.Classroom.MaterialController do
   alias Ecto.{Changeset, Query}
   use Classlab.Web, :controller
 
-  plug :restrict_roles, [1, 2] when action in [:create, :delete, :edit, :new, :update]
+  plug :restrict_roles, [1, 2] when action in
+      [:create, :delete, :edit, :lock_all, :new, :toggle_lock, :update, :unlock_all]
   plug :scrub_params, "material" when action in [:create, :update]
 
   def index(conn, _params) do
@@ -76,7 +77,20 @@ defmodule Classlab.Classroom.MaterialController do
       |> assoc(:materials)
       |> Repo.get!(id)
 
-    render(conn, "show.html", material: material, event: event)
+    current_memberships =
+      conn
+      |> current_user()
+      |> assoc(:memberships)
+      |> Membership.for_event(event)
+      |> Repo.all()
+
+    if is_nil(material.unlocked_at) && !has_permission?(current_memberships, [1, 2]) do
+      conn
+      |> put_flash(:error, "Permission denied!")
+      |> redirect(to: "/")
+    else
+      render(conn, "show.html", current_memberships: current_memberships, material: material, event: event)
+    end
   end
 
   def edit(conn, %{"id" => id}) do

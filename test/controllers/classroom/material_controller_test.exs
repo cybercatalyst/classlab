@@ -48,6 +48,17 @@ defmodule Classlab.Classroom.MaterialControllerTest do
       assert html_response(conn, 200) =~ material.title
     end
 
+    test "redirects with permission denied if chosen resource locked and membership attendee", %{conn: conn, event: event} do
+      user = Factory.insert(:user)
+      Factory.insert(:membership, event: event, user: user, role_id: 3)
+      conn = Session.login(conn, user)
+      material = Factory.insert(:material, event: event)
+      conn = get conn, classroom_material_path(conn, :show, material.event, material)
+
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert get_flash(conn, :error) =~ "Permission denied"
+    end
+
     test "renders page not found when id is nonexistent", %{conn: conn} do
       assert_error_sent 404, fn ->
         get conn, classroom_material_path(conn, :show, -1, -1)

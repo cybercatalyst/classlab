@@ -100,16 +100,22 @@ defmodule Classlab.Classroom.TaskController do
         get_next_unlockable_task(event, task)
       end
 
-    render(
-      conn,
-      "show.html",
-      current_memberships: current_memberships,
-      event: event,
-      next_task: next_task,
-      next_unlockable_task: next_unlockable_task,
-      previous_task: previous_task,
-      task: task
-    )
+    if is_nil(task.unlocked_at) && !has_permission?(current_memberships, [1, 2]) do
+      conn
+      |> put_flash(:error, "Permission denied!")
+      |> redirect(to: "/")
+    else
+      render(
+        conn,
+        "show.html",
+        current_memberships: current_memberships,
+        event: event,
+        next_task: next_task,
+        next_unlockable_task: next_unlockable_task,
+        previous_task: previous_task,
+        task: task
+      )
+    end
   end
 
   def update(conn, %{"id" => task_id, "task" => task_params}) do
