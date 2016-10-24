@@ -8,9 +8,11 @@ defmodule Classlab.Repo.Migrations.CreateMaterial do
       add :description, :text, null: false
       add :position, :integer, null: false
       add :title, :string, null: false
+      add :unlocked_at, :datetime
       add :url, :string, null: false
       timestamps()
     end
     create index(:materials, [:event_id])
+    create unique_index(:materials, [:position])
   end
 end

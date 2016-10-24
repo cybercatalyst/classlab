@@ -11,6 +11,7 @@ defmodule Classlab.Material do
     field :description, :string
     field :position, :integer
     field :title, :string
+    field :unlocked_at, Calecto.DateTimeUTC
     field :url, :string
     timestamps
 
@@ -23,6 +24,7 @@ defmodule Classlab.Material do
     struct
     |> cast(params, @fields)
     |> validate_required(@fields)
+    |> unique_constraint(:position)
   end
 
   # Methods
