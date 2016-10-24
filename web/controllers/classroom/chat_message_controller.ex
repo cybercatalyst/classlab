@@ -1,12 +1,13 @@
 defmodule Classlab.Classroom.ChatMessageController do
   @moduledoc false
-  alias Classlab.{ChatMessage}
+  alias Classlab.{ChatMessage, Membership}
   use Classlab.Web, :controller
 
   plug :restrict_roles, [1, 2] when action in [:update, :edit, :delete]
   plug :scrub_params, "chat_message" when action in [:create, :update]
 
   def index(conn, _params) do
+    current_user = current_user(conn)
     event = current_event(conn)
     chat_messages =
       event
@@ -16,10 +17,23 @@ defmodule Classlab.Classroom.ChatMessageController do
 
     changeset =
       event
-      |> build_assoc(:chat_messages, %{user: current_user(conn)})
+      |> build_assoc(:chat_messages, %{user: current_user})
       |> ChatMessage.changeset()
 
-    render(conn, "index.html", changeset: changeset, chat_messages: chat_messages, event: event)
+    current_memberships =
+      current_user
+      |> assoc(:memberships)
+      |> Membership.for_event(event)
+      |> Repo.all()
+
+    render(
+      conn,
+      "index.html",
+      changeset: changeset,
+      chat_messages: chat_messages,
+      current_memberships: current_memberships,
+      event: event
+    )
   end
 
   def new(conn, _params) do

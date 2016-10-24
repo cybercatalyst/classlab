@@ -53,7 +53,7 @@ defmodule Classlab.Classroom.ChatMessageControllerTest do
     test "updates chosen resource and redirects when data is valid", %{conn: conn, event: event} do
       chat_message = Factory.insert(:chat_message, event: event)
       conn = put conn, classroom_chat_message_path(conn, :update, chat_message.event, chat_message), chat_message: @valid_attrs
-      assert redirected_to(conn) == classroom_chat_message_path(conn, :index, chat_message.event)
+      assert redirected_to(conn) == "#{classroom_chat_message_path(conn, :index, event)}#last_message"
       assert Repo.get_by(ChatMessage, @valid_attrs)
     end
 
@@ -68,7 +68,7 @@ defmodule Classlab.Classroom.ChatMessageControllerTest do
     test "deletes chosen resource", %{conn: conn, event: event} do
       chat_message = Factory.insert(:chat_message, event: event)
       conn = delete conn, classroom_chat_message_path(conn, :delete, chat_message.event, chat_message)
-      assert redirected_to(conn) == classroom_chat_message_path(conn, :index, chat_message.event)
+      assert redirected_to(conn) == "#{classroom_chat_message_path(conn, :index, event)}#last_message"
       refute Repo.get(ChatMessage, chat_message.id)
     end
   end
