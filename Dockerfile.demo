@@ -28,7 +28,7 @@ RUN yes | npm install
 
 COPY ./ /phoenixapp
 
-ENV PORT 8080
+ENV PORT 80
 ENV MIX_ENV demo
 
 RUN mkdir -p priv/static
@@ -37,6 +37,6 @@ RUN mix phoenix.digest
 RUN mix deps.compile
 RUN mix compile
 
-EXPOSE 8080
+EXPOSE 80
 
 ENTRYPOINT /phoenixapp/scripts/start-server.sh

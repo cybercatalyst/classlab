@@ -2,6 +2,11 @@
   <%= link "Classlab", to: page_path(@conn, :index), class: "navbar-brand" %>
 
   <ul class="nav navbar-nav float-xs-right">
+    <%= if Application.get_env(:classlab, Classlab.Mailer)[:adapter] == Bamboo.LocalAdapter do %>
+      <%= content_tag :li, class: "nav-item" do %>
+        <%= link "Email Inbox", to: "/sent_emails", class: "btn btn-info" %>
+      <% end %>
+    <% end %>
     <%= if current_user(@conn) do %>
       <%= content_tag :li, class: "nav-item" do %>
         <%= link "Profile", to: account_dashboard_path(@conn, :show), class: "btn btn-outline-primary" %>
@@ -16,3 +21,10 @@
     <% end %>
   </ul>
 </nav>
+
+<div>
+<br>
+<br>
+<br>
+<br>
+</div>

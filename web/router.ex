@@ -2,7 +2,7 @@ defmodule Classlab.Router do
   use Classlab.Web, :router
   import Classlab.PermissionPlug
 
-  if Mix.env == :dev do
+  if Mix.env in [:dev, :demo] do
     forward "/sent_emails", Bamboo.EmailPreviewPlug
   end
 

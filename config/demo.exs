@@ -8,8 +8,9 @@ use Mix.Config
 # with brunch.io to recompile .js and .css sources.
 config :classlab, Classlab.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
+  url: [host: "demo.classlab.org", port: 80],
+  cache_static_manifest: "priv/static/manifest.json",
+  check_origin: false
 
 # JWT secret for signing session token
 config :classlab, :jwt_secret, "23324324-91f4-123456-8ecd-74332wg"
@@ -25,3 +26,6 @@ config :classlab, Classlab.Repo,
   database: "classlab_demo",
   hostname: "127.0.0.1",
   pool_size: 10
+
+config :classlab, Classlab.Mailer,
+  adapter: Bamboo.LocalAdapter

@@ -18,8 +18,8 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
-## Build and run demo container
+## Build and run the docker demo container
 
-build: `docker build -t symetics/classlab .`
+build: `docker build -t classlab/classlab-demo -f Dockerfile.demo .`
 
-run: `docker run --name classlab -d -p 8080:8080 symetics/classlab`
+run: `docker run -p 8080:80 classlab/classlab-demo`
