@@ -15,7 +15,6 @@ defmodule Classlab.Router do
     plug Classlab.AssignUserPlug
   end
 
-
   scope "/", Classlab do
     pipe_through :browser # Use the default browser stack
 
@@ -40,7 +39,9 @@ defmodule Classlab.Router do
   scope "/account", Classlab.Account, as: :account do
     pipe_through [:browser, :account]
     resources "/", DashboardController, only: [:show], singleton: true
-    resources "/events", EventController, only: [:index, :new, :create]
+    resources "/events", EventController, only: [:index, :new, :create] do
+      resources "/copy", EventCopyController, only: [:show, :create], singleton: true
+    end
     resources "/feedbacks", FeedbackController
     resources "/invitations", InvitationController, only: [:index, :update, :delete]
     resources "/memberships", MembershipController, only: [:index, :delete]
