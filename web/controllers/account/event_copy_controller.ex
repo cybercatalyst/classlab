@@ -13,7 +13,6 @@ defmodule Classlab.Account.EventCopyController do
 
   # Private methods
   defp load_event(%{params: %{"event_id" => event_id}}) do
-    IO.inspect(event_id)
     Event
     |> Repo.get_by!(slug: event_id)
     |> Repo.preload(:location)

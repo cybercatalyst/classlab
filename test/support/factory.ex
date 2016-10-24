@@ -25,6 +25,14 @@ defmodule Classlab.Factory do
     }
   end
 
+  def event_copy_factory do
+     %Classlab.EventCopy{
+       name: "Workshop",
+       copy_tasks: false,
+       copy_materials: false
+     }
+  end
+
   def feedback_factory do
     %Classlab.Feedback{
       content_rating: 4,
