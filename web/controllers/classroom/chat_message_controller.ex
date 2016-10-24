@@ -44,7 +44,7 @@ defmodule Classlab.Classroom.ChatMessageController do
         page_reload_broadcast!([:event, event.id, :chat_message, :create])
 
         conn
-        |> redirect(to: classroom_chat_message_path(conn, :index, event))
+        |> redirect(to: "#{classroom_chat_message_path(conn, :index, event)}#last_message")
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset, event: event)
     end
