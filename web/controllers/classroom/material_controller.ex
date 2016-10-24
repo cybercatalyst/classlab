@@ -1,6 +1,8 @@
 defmodule Classlab.Classroom.MaterialController do
   @moduledoc false
-  alias Classlab.{Material}
+  alias Calendar.DateTime
+  alias Classlab.{Material, Membership}
+  alias Ecto.{Changeset, Query}
   use Classlab.Web, :controller
 
   plug :restrict_roles, [1, 2] when action in [:create, :delete, :edit, :new, :update]
@@ -8,12 +10,36 @@ defmodule Classlab.Classroom.MaterialController do
 
   def index(conn, _params) do
     event = current_event(conn)
-    materials =
+
+    unlocked_materials =
       event
       |> assoc(:materials)
+      |> Material.unlocked()
+      |> Query.order_by([asc: :unlocked_at, asc: :position])
       |> Repo.all()
 
-    render(conn, "index.html", materials: materials, event: event)
+    locked_materials =
+      event
+      |> assoc(:materials)
+      |> Material.locked()
+      |> Query.order_by(asc: :position)
+      |> Repo.all()
+
+    current_memberships =
+      conn
+      |> current_user()
+      |> assoc(:memberships)
+      |> Membership.for_event(event)
+      |> Repo.all()
+
+    render(
+      conn,
+      "index.html",
+      current_memberships: current_memberships,
+      event: event,
+      locked_materials: locked_materials,
+      unlocked_materials: unlocked_materials
+    )
   end
 
   def new(conn, _params) do
@@ -81,6 +107,73 @@ defmodule Classlab.Classroom.MaterialController do
       {:error, changeset} ->
         render(conn, "edit.html", material: material, changeset: changeset, event: event)
     end
+  end
+
+  def unlock_all(conn, _params) do
+    event = current_event(conn)
+
+    event
+    |> assoc(:materials)
+    |> Material.locked()
+    |> Repo.update_all([set: [unlocked_at: DateTime.now_utc()]])
+
+    page_reload_broadcast!([:event, event.id, :material, :unlock])
+
+    conn
+    |> put_flash(:info, "Materials successfully unlocked.")
+    |> redirect(to: classroom_material_path(conn, :index, event))
+  end
+
+  def lock_all(conn, _params) do
+    event = current_event(conn)
+
+    event
+    |> assoc(:materials)
+    |> Material.unlocked()
+    |> Repo.update_all([set: [unlocked_at: nil]])
+
+    page_reload_broadcast!([:event, event.id, :material, :lock])
+
+    conn
+    |> put_flash(:info, "Materials successfully locked.")
+    |> redirect(to: classroom_material_path(conn, :index, event))
+  end
+
+  def toggle_lock(conn, %{"id" => material_id}) do
+    event = current_event(conn)
+
+    material =
+      event
+      |> assoc(:materials)
+      |> Repo.get!(material_id)
+
+    updates =
+      if material.unlocked_at do
+        %{unlocked_at: nil}
+      else
+        %{unlocked_at: DateTime.now_utc()}
+      end
+
+    material
+    |> Changeset.change(updates)
+    |> Repo.update!()
+
+    if material.unlocked_at do
+      page_reload_broadcast!([:event, event.id, :material, :lock])
+    else
+      page_reload_broadcast!([:event, event.id, :material, :unlock])
+    end
+
+    flash =
+      if material.unlocked_at do
+        "Material successfully locked"
+      else
+        "Material successfully unlocked"
+      end
+
+    conn
+    |> put_flash(:info, flash)
+    |> redirect(to: classroom_material_path(conn, :index, event))
   end
 
   def delete(conn, %{"id" => id}) do

@@ -68,6 +68,9 @@ defmodule Classlab.Router do
     resources "/event_email_templates", EventEmailTemplateController, only: [:edit, :update], singleton: true
     post "/event_email_templates/send_test_email", EventEmailTemplateController, :send_test_email
     resources "/materials", MaterialController
+    post "/materials/lock_all", MaterialController, :lock_all
+    post "/materials/unlock_all", MaterialController, :unlock_all
+    post "/materials/:id/toggle", MaterialController, :toggle_lock
     resources "/tasks", TaskController
     post "/tasks/unlock_all", TaskController, :unlock_all
     post "/tasks/lock_all", TaskController, :lock_all

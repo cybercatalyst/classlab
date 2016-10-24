@@ -78,6 +78,52 @@ defmodule Classlab.Classroom.MaterialControllerTest do
     end
   end
 
+  describe "#unlock all" do
+    test "shows chosen resource", %{conn: conn, event: event} do
+      material = Factory.insert(:material, event: event)
+      conn = post conn, classroom_material_path(conn, :unlock_all, event)
+
+      material = Repo.get(Material, material.id)
+
+      assert redirected_to(conn) == classroom_material_path(conn, :index, event)
+      assert material.unlocked_at
+    end
+  end
+
+  describe "#lock all" do
+    test "shows chosen resource", %{conn: conn, event: event} do
+      material = Factory.insert(:material, event: event)
+      conn = post conn, classroom_material_path(conn, :lock_all, event)
+
+      material = Repo.get(Material, material.id)
+
+      assert redirected_to(conn) == classroom_material_path(conn, :index, event)
+      refute material.unlocked_at
+    end
+  end
+
+  describe "#toggle_lock" do
+    test "unlocks resource if not public", %{conn: conn, event: event} do
+      material = Factory.insert(:material, event: event)
+      conn = post conn, classroom_material_path(conn, :toggle_lock, event, material)
+
+      material = Repo.get(Material, material.id)
+
+      assert redirected_to(conn) == classroom_material_path(conn, :index, event)
+      assert material.unlocked_at
+    end
+
+    test "lock resource if public", %{conn: conn, event: event} do
+      material = Factory.insert(:material, event: event, unlocked_at: Calendar.DateTime.now_utc())
+      conn = post conn, classroom_material_path(conn, :toggle_lock, event, material)
+
+      material = Repo.get(Material, material.id)
+
+      assert redirected_to(conn) == classroom_material_path(conn, :index, event)
+      refute material.unlocked_at
+    end
+  end
+
   describe "#delete" do
     test "deletes chosen resource", %{conn: conn, event: event} do
       material = Factory.insert(:material, event: event)

@@ -18,6 +18,17 @@ defmodule Classlab.Material do
     belongs_to :event, Classlab.Event
   end
 
+  # Composable Queries
+  def unlocked(query) do
+    from material in query,
+      where: not is_nil(material.unlocked_at)
+  end
+
+  def locked(query) do
+    from material in query,
+      where: is_nil(material.unlocked_at)
+  end
+
   # Changesets & Validations
   @fields [:description, :type, :position, :title, :url]
   def changeset(struct, params \\ %{}) do
