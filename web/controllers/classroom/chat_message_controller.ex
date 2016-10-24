@@ -43,8 +43,7 @@ defmodule Classlab.Classroom.ChatMessageController do
       {:ok, _chat_message} ->
         page_reload_broadcast!([:event, event.id, :chat_message, :create])
 
-        conn
-        |> redirect(to: "#{classroom_chat_message_path(conn, :index, event)}#last_message")
+        redirect(conn, to: "#{classroom_chat_message_path(conn, :index, event)}#last_message")
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset, event: event)
     end
@@ -72,9 +71,12 @@ defmodule Classlab.Classroom.ChatMessageController do
 
     case Repo.update(changeset) do
       {:ok, _chat_message} ->
+
+        page_reload_broadcast!([:event, event.id, :chat_message, :update])
+
         conn
         |> put_flash(:info, "Chat message updated successfully.")
-        |> redirect(to: classroom_chat_message_path(conn, :index, event))
+        |> redirect(to: "#{classroom_chat_message_path(conn, :index, event)}#last_message")
       {:error, changeset} ->
         render(conn, "edit.html", chat_message: chat_message, changeset: changeset, event: event)
     end
@@ -89,9 +91,11 @@ defmodule Classlab.Classroom.ChatMessageController do
 
     Repo.delete!(chat_message)
 
+    page_reload_broadcast!([:event, event.id, :chat_message, :delete])
+
     conn
     |> put_flash(:info, "Chat message deleted successfully.")
-    |> redirect(to: classroom_chat_message_path(conn, :index, event))
+    |> redirect(to: "#{classroom_chat_message_path(conn, :index, event)}#last_message")
   end
 
   # Private methods

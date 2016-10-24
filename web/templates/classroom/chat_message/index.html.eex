@@ -1,4 +1,6 @@
 <%= page_reload_listener([:event, @event.id, :chat_message, :create]) %>
+<%= page_reload_listener([:event, @event.id, :chat_message, :delete]) %>
+<%= page_reload_listener([:event, @event.id, :chat_message, :update]) %>
 
 <div class="pb-2">
   <%= for {chat_message, index} <- Enum.with_index(@chat_messages) do %>
