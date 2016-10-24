@@ -41,7 +41,7 @@ defmodule Classlab.Mixfile do
       {:excoveralls, "~> 0.5", only: :test},
       {:ex_doc, "~> 0.13", only: :dev},
       {:ex_machina, "~> 1.0", only: :test},
-      {:gettext, "~> 0.11"},
+      {:gettext, "~> 0.12.1"},
       {:inch_ex, "~> 0.5", only: :docs},
       {:joken, "~> 1.3.1"},
       {:mix_test_watch, "~> 0.2", only: :dev},
