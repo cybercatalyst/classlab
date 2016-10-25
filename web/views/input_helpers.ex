@@ -47,11 +47,9 @@ defmodule Classlab.InputHelpers do
     end
   end
 
-  def input(:markdown_editor, form, field, opts) do
-    wrapper_html form, field, opts do
-      input_opts = [class: "form-control code-mirror-markdown"] ++ clean_opts(opts)
-      textarea(form, field, input_opts)
-    end
+  defp input_html(:markdown_editor, form, field, opts) do
+    input_opts = [class: "form-control code-mirror-markdown"] ++ clean_opts(opts)
+    textarea(form, field, input_opts)
   end
 
   defp input_html(:select, form, field, opts) do

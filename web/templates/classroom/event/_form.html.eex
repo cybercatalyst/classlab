@@ -10,7 +10,7 @@
       <h4>Event settings</h4>
       <%= input f, :public %>
       <%= input f, :name %>
-      <%= input f, :description, using: :textarea %>
+      <%= input f, :description, using: :markdown_editor %>
       <%= input f, :starts_at %>
       <%= input f, :ends_at %>
       <%= input f, :timezone %>

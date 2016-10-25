@@ -12,7 +12,7 @@
         <%= @material.title %>
       </div>
       <div class="card-block">
-        <%= raw @material.description %>
+        <%= render_markdown @material.description %>
       </div>
       <div class="card-block">
         <div class="embed-responsive embed-responsive-16by9">

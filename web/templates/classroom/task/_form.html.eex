@@ -7,9 +7,9 @@
 
   <%= input f, :position %>
   <%= input f, :title %>
-  <%= input f, :body %>
-  <%= input f, :hint %>
-  <%= input f, :bonus %>
+  <%= input f, :body, using: :markdown_editor %>
+  <%= input f, :hint, using: :markdown_editor %>
+  <%= input f, :bonus, using: :markdown_editor %>
   <%= input f, :external_app_url %>
 
   <div class="btn-toolbar">

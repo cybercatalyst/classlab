@@ -10,7 +10,7 @@
           <br>till <strong><%= l(@invitation.event.ends_at) %></strong>
         </p>
         <div class="text-truncate mb-2">
-          <%= @invitation.event.description %>
+          <%= render_markdown @invitation.event.description, escape: true %>
         </div>
 
         <div class="text-truncate mb-2">
