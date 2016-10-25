@@ -1,36 +1,29 @@
 <div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}", name: "Phoenix!" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+  <h2><%= gettext "Welcome to %{name}", name: "Classlab.org!" %></h2>
+  <p class="lead">A simpel way<br />to share your knowledge.</p>
 </div>
 
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
-      </li>
-      <li>
-        <a href="https://hexdocs.pm/phoenix">Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-      </li>
-      <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-      </li>
-    </ul>
+<div class="card-deck-wrapper">
+  <div class="card-deck">
+    <%= for event <- @events do %>
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title"><%= event.name %></h4>
+          <p class="card-text text-truncate">
+            <%= render_markdown event.description_markdown %>
+          </p>
+          <p class="card-text"><small class="text-muted"><%= "#{l(event.starts_at)} - #{l(event.ends_at)}" %></small></p>
+        </div>
+      </div>
+    <% end %>
+    <%= if length(@events) == 0 do %>
+    <div class="card">
+        <div class="card-block">
+          <p class="card-text">
+            No public events in the near future
+          </p>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

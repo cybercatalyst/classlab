@@ -35,6 +35,12 @@ defmodule Classlab.Event do
   end
 
   # Composable Queries
+  def next_public(query) do
+    from event in query,
+      where: event.starts_at > ^DateTime.now_utc(),
+      where: event.public == true
+  end
+
   def as_role(query, %User{id: user_id}, role_id) do
     from event in query,
       left_join: membership in assoc(event, :memberships),
