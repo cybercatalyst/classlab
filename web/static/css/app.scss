@@ -1,6 +1,7 @@
 @import "bootstrap_variables";
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "node_modules/codemirror/lib/codemirror";
+@import "codemirror";
 @import "sidebar-nav";
 
 // This is a fix for phoenix form helpers
