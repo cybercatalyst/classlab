@@ -2,6 +2,7 @@ defmodule Classlab.Account.MembershipController do
   @moduledoc false
   alias Classlab.{Invitation, Membership}
   use Classlab.Web, :controller
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   def index(conn, _params) do
     user =

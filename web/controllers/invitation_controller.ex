@@ -3,6 +3,7 @@ defmodule Classlab.InvitationController do
   alias Classlab.{Repo, Event, Invitation, User, Membership, MembershipMailer}
   alias Ecto.Query
   use Classlab.Web, :controller
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   def show(conn, %{"invitation_token" => invitation_token}) when is_binary(invitation_token) do
     event = load_event(conn);

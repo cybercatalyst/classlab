@@ -43,7 +43,7 @@ defmodule Classlab.Account.MembershipControllerTest do
 
     test "fails if current user is owner of the chosen resource", %{conn: conn} do
       membership = Factory.insert(:membership, user: current_user(conn))
-      assert_error_sent 404, fn ->
+      assert_error_sent 301, fn ->
         delete conn, account_membership_path(conn, :delete, membership)
       end
     end

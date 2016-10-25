@@ -2,6 +2,7 @@ defmodule Classlab.Account.FeedbackController do
   @moduledoc false
   alias Classlab.{Event, Feedback}
   use Classlab.Web, :controller
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   plug :scrub_params, "feedback" when action in [:create, :update]
 

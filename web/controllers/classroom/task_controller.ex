@@ -5,6 +5,7 @@ defmodule Classlab.Classroom.TaskController do
   alias Ecto.{Changeset, Query}
   alias Classlab.{Event, Membership, Repo, Task}
   use Classlab.Web, :controller
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   plug :scrub_params, "task" when action in [:create, :update]
   plug :restrict_roles, [1, 2] when action in

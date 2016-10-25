@@ -93,9 +93,9 @@ defmodule Classlab.Classroom.TaskControllerTest do
       assert get_flash(conn, :error) =~ "Permission denied"
     end
 
-    test "renders page not found when id is nonexistent", %{conn: conn} do
-      assert_error_sent 404, fn ->
-        get conn, classroom_task_path(conn, :show, -1, -1)
+    test "renders page not found when id is nonexistent", %{conn: conn, event: event} do
+      assert_error_sent 301, fn ->
+        get conn, classroom_task_path(conn, :show, event, -1)
       end
     end
   end

@@ -2,6 +2,7 @@ defmodule Classlab.Classroom.InvitationController do
   @moduledoc false
   alias Classlab.{Invitation, InvitationMailer}
   use Classlab.Web, :controller
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   plug :restrict_roles, [1, 2]
   plug :scrub_params, "invitation" when action in [:create, :update]

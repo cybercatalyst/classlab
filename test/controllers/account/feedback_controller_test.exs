@@ -48,7 +48,7 @@ defmodule Classlab.Account.FeedbackControllerTest do
     end
 
     test "renders page not found when id is nonexistent", %{conn: conn} do
-      assert_error_sent 404, fn ->
+      assert_error_sent 301, fn ->
         get conn, account_feedback_path(conn, :show, -1)
       end
     end

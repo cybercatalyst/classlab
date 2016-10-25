@@ -2,6 +2,7 @@ defmodule Classlab.Classroom.MembershipController do
   @moduledoc false
   alias Classlab.{Invitation, Membership}
   use Classlab.Web, :controller
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
    plug :restrict_roles, [1, 2] when action in [:delete]
 

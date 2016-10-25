@@ -13,5 +13,12 @@ defmodule Classlab.Classroom.DashboardControllerTest do
       conn = get conn, classroom_dashboard_path(conn, :show, event)
       assert html_response(conn, 200) =~ "Dashboard"
     end
+
+    test "no event for event_id it redirects with ressource not found", %{conn: conn} do
+      conn = get conn, classroom_dashboard_path(conn, :show, "123")
+
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert get_flash(conn, :error) =~ "Ressource not found"
+    end
   end
 end

@@ -16,8 +16,14 @@ defmodule Classlab.AssignEventPlug do
 
     event_slug = conn.params[required_param]
     if event_slug do
-      event = Repo.get_by!(Event, slug: event_slug)
-      assign(conn, :current_event, event)
+      case Repo.get_by(Event, slug: event_slug) do
+        %Event{} = event -> assign(conn, :current_event, event)
+        _ ->
+          conn
+          |> put_flash(:error, "Ressource not found")
+          |> redirect(to: "/")
+          |> halt()
+      end
     else
       conn
     end

@@ -2,6 +2,7 @@ defmodule Classlab.Classroom.ChatMessageController do
   @moduledoc false
   alias Classlab.{ChatMessage, Membership}
   use Classlab.Web, :controller
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   plug :restrict_roles, [1, 2] when action in [:update, :edit, :delete]
   plug :scrub_params, "chat_message" when action in [:create, :update]

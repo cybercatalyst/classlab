@@ -2,6 +2,7 @@ defmodule Classlab.Account.EventCopyController do
   @moduledoc false
   alias Classlab.{Event, EventCopy}
   use Classlab.Web, :controller
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   plug :scrub_params, "event_copy" when action in [:create]
 

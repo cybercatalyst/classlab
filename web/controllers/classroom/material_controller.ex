@@ -4,6 +4,7 @@ defmodule Classlab.Classroom.MaterialController do
   alias Classlab.{Material, Membership}
   alias Ecto.{Changeset, Query}
   use Classlab.Web, :controller
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   plug :restrict_roles, [1, 2] when action in
       [:create, :delete, :edit, :lock_all, :new, :toggle_lock, :update, :unlock_all]

@@ -2,6 +2,7 @@ defmodule Classlab.Classroom.EventController do
   @moduledoc false
   alias Classlab.Event
   use Classlab.Web, :controller
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   plug :scrub_params, "event" when action in [:create, :update]
   plug :restrict_roles, [1]
