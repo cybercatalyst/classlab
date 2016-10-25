@@ -71,6 +71,7 @@ defmodule Classlab.Web do
       import Classlab.ErrorHelpers
       import Classlab.Gettext
       import Classlab.InputHelpers
+      import Classlab.MarkdownHelpers
       import Classlab.PageReloadHelpers
       import Classlab.PermissionHelpers
       import Classlab.Router.Helpers

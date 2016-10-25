@@ -38,6 +38,7 @@ defmodule Classlab.Mixfile do
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.4.13", only: [:dev, :test]},
       {:dialyxir, "~> 0.3.5", only: :dev},
+      {:earmark, "~> 1.0.2"},
       {:excoveralls, "~> 0.5", only: :test},
       {:ex_doc, "~> 0.13", only: :dev},
       {:ex_machina, "~> 1.0", only: :test},
