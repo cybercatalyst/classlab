@@ -4,10 +4,10 @@ defmodule Classlab.Repo.Migrations.CreateTask do
   def change do
     create table(:tasks) do
       add :event_id, references(:events, on_delete: :delete_all), null: false
-      add :body, :text, null: false
-      add :bonus, :text
+      add :body_markdown, :text, null: false
+      add :bonus_markdown, :text
       add :external_app_url, :string
-      add :hint, :text
+      add :hint_markdown, :text
       add :position, :integer, null: false
       add :title, :string, null: false
       add :unlocked_at, :datetime

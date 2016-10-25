@@ -2,7 +2,7 @@ defmodule Classlab.Classroom.TaskControllerTest do
   alias Classlab.Task
   use Classlab.ConnCase
 
-  @valid_attrs Factory.params_for(:task) |> Map.take(~w[body position title]a)
+  @valid_attrs Factory.params_for(:task) |> Map.take(~w[body_markdown position title]a)
   @invalid_attrs %{title: ""}
   @form_field "task_title"
 

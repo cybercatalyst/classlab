@@ -2,7 +2,7 @@ defmodule Classlab.Classroom.MaterialControllerTest do
   alias Classlab.Material
   use Classlab.ConnCase
 
-  @valid_attrs Factory.params_for(:material) |> Map.take(~w[type description title position url]a)
+  @valid_attrs Factory.params_for(:material) |> Map.take(~w[type description_markdown title position url]a)
   @invalid_attrs %{title: ""}
   @form_field "material_title"
 

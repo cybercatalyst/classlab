@@ -15,7 +15,7 @@ defmodule Classlab.Factory do
       public: false,
       name: sequence(:name, &"My Event #{&1}"),
       slug: sequence(:slug, &"event-#{&1}"),
-      description: "My awesome event!",
+      description_markdown: "My awesome event!",
       invitation_token: sequence(:invitation_token, &"inivitation-token-#{&1}"),
       invitation_token_active: false,
       starts_at: DateTimeUTC.cast!("2001-07-29T01:02:03"),
@@ -87,7 +87,7 @@ defmodule Classlab.Factory do
     %Classlab.Material{
       event: build(:event),
       type: 1,
-      description: "This is a material element.",
+      description_markdown: "This is a material element.",
       position: 1,
       title: sequence(:title, &"Material-#{&1}"),
       url: "http://example.com"
@@ -97,7 +97,7 @@ defmodule Classlab.Factory do
   def task_factory do
     %Classlab.Task{
       event: build(:event),
-      body: "This is a task.",
+      body_markdown: "This is a task.",
       position: 1,
       title: sequence(:title, &"Task-#{&1}")
     }

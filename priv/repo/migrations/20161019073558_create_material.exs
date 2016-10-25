@@ -5,7 +5,7 @@ defmodule Classlab.Repo.Migrations.CreateMaterial do
     create table(:materials) do
       add :event_id, references(:events, on_delete: :delete_all), null: false
       add :type, :integer, null: false
-      add :description, :text, null: false
+      add :description_markdown, :text, null: false
       add :position, :integer, null: false
       add :title, :string, null: false
       add :unlocked_at, :datetime

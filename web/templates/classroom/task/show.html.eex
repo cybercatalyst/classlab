@@ -12,14 +12,14 @@
         <%= @task.title %>
       </div>
       <div class="card-block">
-        <%= render_markdown @task.body %>
+        <%= render_markdown @task.body_markdown %>
       </div>
-      <%= if @task.hint && @task.hint != "" do %>
+      <%= if @task.hint_markdown && @task.hint_markdown != "" do %>
           <div class="card-header text-xs-center">
             Hints
           </div>
         <div class="card-block">
-          <%= render_markdown @task.hint %>
+          <%= render_markdown @task.hint_markdown %>
         </div>
       <% end %>
       <%= if @task.external_app_url && @task.external_app_url != "" do %>
@@ -29,12 +29,12 @@
           </div>
         </div>
       <% end %>
-      <%= if @task.bonus && @task.bonus != "" do %>
+      <%= if @task.bonus_markdown && @task.bonus_markdown != "" do %>
           <div class="card-header text-xs-center">
             Bonus
           </div>
         <div class="card-block">
-          <%= render_markdown @task.bonus %>
+          <%= render_markdown @task.bonus_markdown %>
         </div>
       <% end %>
       <div class="card-footer">

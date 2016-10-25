@@ -14,7 +14,7 @@
         <td>
           <%= link membership.event.name, to: classroom_dashboard_path(@conn, :show, membership.event) %><br>
           <small class="text-muted text-truncate">
-            <%= render_markdown membership.event.description, escape: true %>
+            <%= render_markdown membership.event.description_markdown, escape: true %>
           </small>
         </td>
         <td>

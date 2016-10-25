@@ -7,7 +7,7 @@
 
   <%= input f, :type, collection: type_collection(), using: :select %>
   <%= input f, :title %>
-  <%= input f, :description, using: :markdown_editor %>
+  <%= input f, :description_markdown, using: :markdown_editor %>
   <%= input f, :position %>
   <%= input f, :url %>
 

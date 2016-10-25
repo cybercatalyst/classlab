@@ -6,7 +6,7 @@ defmodule Classlab.Repo.Migrations.CreateEvent do
       add :public, :boolean, default: false, null: false
       add :slug, :string, null: false
       add :name, :string, null: false
-      add :description, :text, null: false
+      add :description_markdown, :text, null: false
       add :invitation_token, :string, null: false
       add :invitation_token_active, :boolean, default: false, null: false
       add :before_email_subject, :string

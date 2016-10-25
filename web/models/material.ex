@@ -8,7 +8,7 @@ defmodule Classlab.Material do
   # Fields
   schema "materials" do
     field :type, :integer
-    field :description, :string
+    field :description_markdown, :string
     field :position, :integer
     field :title, :string
     field :unlocked_at, Calecto.DateTimeUTC
@@ -30,7 +30,7 @@ defmodule Classlab.Material do
   end
 
   # Changesets & Validations
-  @fields [:description, :type, :position, :title, :url]
+  @fields [:description_markdown, :type, :position, :title, :url]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)

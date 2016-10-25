@@ -13,7 +13,7 @@ defmodule Classlab.Event do
     field :public, :boolean, default: false
     field :slug, :string
     field :name, :string
-    field :description, :string
+    field :description_markdown, :string
     field :invitation_token, :string
     field :invitation_token_active, :boolean, default: false
     field :before_email_subject, :string
@@ -64,7 +64,7 @@ defmodule Classlab.Event do
   end
 
   # Changesets & Validations
-  @fields [:public, :name, :description, :invitation_token, :invitation_token_active,
+  @fields [:public, :name, :description_markdown, :invitation_token, :invitation_token_active,
            :starts_at, :ends_at, :timezone, :before_email_subject, :before_email_body_text,
            :after_email_subject, :after_email_body_text]
   def changeset(struct, params \\ %{}) do
@@ -73,7 +73,7 @@ defmodule Classlab.Event do
     |> cast_assoc(:location, required: true)
     |> generate_invitation_token()
     |> Slugger.generate_slug(:name, random: 100_000..999_999)
-    |> validate_required([:public, :slug, :name, :description, :invitation_token,
+    |> validate_required([:public, :slug, :name, :description_markdown, :invitation_token,
          :invitation_token_active, :starts_at, :ends_at, :timezone])
     |> unique_constraint(:slug)
     |> unique_constraint(:invitation_token)

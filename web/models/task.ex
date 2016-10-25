@@ -7,10 +7,10 @@ defmodule Classlab.Task do
 
   # Fields
   schema "tasks" do
-    field :body, :string
-    field :bonus, :string
+    field :body_markdown, :string
+    field :bonus_markdown, :string
     field :external_app_url, :string
-    field :hint, :string
+    field :hint_markdown, :string
     field :position, :integer
     field :title, :string
     field :unlocked_at, Calecto.DateTimeUTC
@@ -59,11 +59,11 @@ defmodule Classlab.Task do
   end
 
   # Changesets & Validations
-  @fields [:body, :bonus, :external_app_url, :hint, :position, :title]
+  @fields [:body_markdown, :bonus_markdown, :external_app_url, :hint_markdown, :position, :title]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> validate_required([:body, :position, :title])
+    |> validate_required([:body_markdown, :position, :title])
     |> unique_constraint(:position)
   end
 end
