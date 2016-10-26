@@ -1,28 +1,29 @@
-<div class="container-sidebar-left">
-  <ul class="sidebar-nav">
-    <%= content_tag :li, class: "nav-item #{if(!Enum.at(@conn.path_info, 2), do: " active")}" do %>
-      <%= link "Dashboard", to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "nav-link" %>
+<div class="ui visible inverted left vertical sidebar menu">
+    <%= link to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "item #{if(!Enum.at(@conn.path_info, 2), do: " active")}" do %>
+      <i class="block layout icon"></i>
+      Dashboard
     <% end %>
-    <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "chat_messages", do: " active")}" do %>
-      <%= link "Chat", to: "#{classroom_chat_message_path(@conn, :index, @conn.params["event_id"])}#last_message", class: "nav-link" %>
+    <%= link to: "#{classroom_chat_message_path(@conn, :index, @conn.params["event_id"])}#last_message", class: "item #{if(Enum.at(@conn.path_info, 2) == "chat_messages", do: " active")}" do %>
+      Chat
     <% end %>
-    <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "memberships", do: " active")}" do %>
-      <%= link "Attendees", to: classroom_membership_path(@conn, :index, @conn.params["event_id"]), class: "nav-link" %>
+    <%= link to: classroom_membership_path(@conn, :index, @conn.params["event_id"]), class: "item #{if(Enum.at(@conn.path_info, 2) == "memberships", do: " active")}" do %>
+      Attendees
     <% end %>
-    <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "materials", do: " active")}" do %>
-      <%= link "Materials", to: classroom_material_path(@conn, :index, @conn.params["event_id"]), class: "nav-link" %>
+    <%= link to: classroom_material_path(@conn, :index, @conn.params["event_id"]), class: "item #{if(Enum.at(@conn.path_info, 2) == "materials", do: " active")}" do %>
+      Materials
     <% end %>
-    <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "tasks", do: " active")}" do %>
-      <%= link "Tasks", to: classroom_task_path(@conn, :index, @conn.params["event_id"]), class: "nav-link" %>
+    <%= link to: classroom_task_path(@conn, :index, @conn.params["event_id"]), class: "item #{if(Enum.at(@conn.path_info, 2) == "tasks", do: " active")}" do %>
+      Tasks
     <% end %>
-    <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "feedbacks", do: " active")}" do %>
-      <%= link "Feedbacks", to: classroom_feedback_path(@conn, :index, @conn.params["event_id"]), class: "nav-link" %>
+    <%= link to: classroom_feedback_path(@conn, :index, @conn.params["event_id"]), class: "item #{if(Enum.at(@conn.path_info, 2) == "feedbacks", do: " active")}" do %>
+      Feedbacks
     <% end %>
-    <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "event_email_templates", do: " active")}" do %>
-      <%= link "Email Templates", to: classroom_event_email_template_path(@conn, :edit, @conn.params["event_id"]), class: "nav-link" %>
+    <%= link to: classroom_event_email_template_path(@conn, :edit, @conn.params["event_id"]), class: "item #{if(Enum.at(@conn.path_info, 2) == "event_email_templates", do: " active")}" do %>
+      Email Templates
     <% end %>
-    <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "event", do: " active")}" do %>
-      <%= link "Settings", to: classroom_event_path(@conn, :edit, @conn.params["event_id"]), class: "nav-link" %>
+    <%= link to: classroom_event_path(@conn, :edit, @conn.params["event_id"]), class: "item #{if(Enum.at(@conn.path_info, 2) == "event", do: " active")}" do %>
+      Settings
     <% end %>
-  </ul>
+
 </div>
+

@@ -2,7 +2,7 @@
 <%= page_reload_listener([:event, @event.id, :task, :lock]) %>
 
 <%= if has_permission?(@current_memberships, [1, 2]) do %>
-  <%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary mb-1" %>
+  <%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "ui button positive" %>
 <% end %>
 
 <%= if length(@unlocked_tasks) > 0 do %>
@@ -49,5 +49,5 @@
 <% end %>
 
 <%= if has_permission?(@current_memberships, [1, 2]) do %>
-  <%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary" %>
+  <%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "ui button positive" %>
 <% end %>

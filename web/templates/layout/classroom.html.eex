@@ -2,15 +2,17 @@
 <html lang="en">
 <%= render "_head.html", conn: @conn %>
 <body>
-  <%= render "classroom_navigation.html", conn: @conn %>
-  <%= render "classroom_sidebar.html", conn: @conn %>
-  <div class="container-fluid container-main-sidebar-left">
-    <main role="main">
-      <%= render "_flash_messages.html", conn: @conn %>
+  <%#= render "classroom_navigation.html", conn: @conn %>
 
-      <%= render @view_module, @view_template, assigns %>
-    </main>
-  </div> <!-- /container -->
+  <div class="ui bottom attached segment pushable">
+    <%= render "classroom_sidebar.html", conn: @conn %>
+    <div class="pusher">
+      <div class="ui basic segment">
+        <%= render @view_module, @view_template, assigns %>
+      </div>
+    </div>
+  </div>
+
   <%= render "_modal.html" %>
 </body>
 </html>
