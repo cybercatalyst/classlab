@@ -16,7 +16,7 @@
   <% end %>
 </div>
 
-<table class="table">
+<table class="ui celled table">
   <tr>
     <th>Event</th>
     <th>Content rating</th>
@@ -38,7 +38,6 @@
       <td><%= stars(feedback.location_rating) %></td>
       <td><%= feedback.location_comment %></td>
       <td><%= feedback.testimonial %></td>
-
       <td>
         <%= link "Show", to: account_feedback_path(@conn, :show, feedback), class: "btn btn-default btn-sm" %>
         <%= link "Edit", to: account_feedback_path(@conn, :edit, feedback), class: "btn btn-default btn-sm" %>
@@ -49,5 +48,5 @@
 </table>
 
 <div class="btn-toolbar">
-  <%= link "New feedback", to: account_feedback_path(@conn, :new), class: "btn btn-success" %>
+  <%= link "New feedback", to: account_feedback_path(@conn, :new), class: "ui button positive" %>
 </div>

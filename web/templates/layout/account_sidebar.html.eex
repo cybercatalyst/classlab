@@ -1,17 +1,15 @@
-<div class="ui bottom attached segment pushable">
-  <div class="ui visible inverted left vertical sidebar menu">
-      <%= link to: account_dashboard_path(@conn, :show), class: "item #{if(@conn.path_info == ["account"], do: " active")}" do %>
-        <i class="block layout icon"></i>
-        Dashboard
-      <% end %>
-      <%= link to: account_membership_path(@conn, :index), class: "item #{if(@conn.path_info == ["account", "memberships"], do: " active")}" do %>
-        Events
-      <% end %>
-      <%= link to: account_feedback_path(@conn, :index), class: "item #{if(@conn.path_info == ["account", "feedbacks"], do: " active")}" do %>
-        My feedbacks
-      <% end %>
-      <%= link to: account_user_path(@conn, :edit), class: "item #{if(@conn.path_info == ["account", "user", "edit"], do: " active")}" do %>
-        My profile
-      <% end %>
-  </div>
+<div class="ui visible inverted left vertical sidebar menu">
+    <%= link to: account_dashboard_path(@conn, :show), class: "item #{if(@conn.path_info == ["account"], do: " active")}" do %>
+      <i class="block layout icon"></i>
+      Dashboard
+    <% end %>
+    <%= link to: account_membership_path(@conn, :index), class: "item #{if(@conn.path_info == ["account", "memberships"], do: " active")}" do %>
+      Events
+    <% end %>
+    <%= link to: account_feedback_path(@conn, :index), class: "item #{if(@conn.path_info == ["account", "feedbacks"], do: " active")}" do %>
+      My feedbacks
+    <% end %>
+    <%= link to: account_user_path(@conn, :edit), class: "item #{if(@conn.path_info == ["account", "user", "edit"], do: " active")}" do %>
+      My profile
+    <% end %>
 </div>

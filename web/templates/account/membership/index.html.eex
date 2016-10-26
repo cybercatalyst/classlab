@@ -1,5 +1,5 @@
 <div class="btn-toolbar">
-  <%= link "New event", to: account_event_path(@conn, :new), class: "btn btn-success" %>
+  <%= link "New event", to: account_event_path(@conn, :new), class: "ui positive button" %>
 </div>
 
 <ul class="nav nav-tabs mt-2" role="tablist">
