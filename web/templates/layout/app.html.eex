@@ -6,9 +6,10 @@
   <div class="pusher">
     <%= render "app_fixed_navigation.html", conn: @conn %>
 
-    <%= render "_flash_messages.html", conn: @conn %>
-    <%= render @view_module, @view_template, assigns %>
-
+    <div class="ui container">
+      <%= render "_flash_messages.html", conn: @conn %>
+      <%= render @view_module, @view_template, assigns %>
+    </div>
     <%= render "_footer.html" %>
   </div>
   <%= render "_modal.html" %>

@@ -1,17 +1,22 @@
-<%= form_for @changeset, session_path(@conn, :create), fn f -> %>
-
-  <br>
-
-  <div class="row">
-    <div class="col-md-4 offset-md-4">
-      <div class="card">
-        <div class="card-block">
-          <h4 class="text-xs-center mb-2">Login</h4>
+<%= form_for @changeset, session_path(@conn, :create), [class: "ui form"], fn f -> %>
+  <div class="ui cards center">
+    <div class="card">
+      <div class="content">
+        <div class="header">
+          Login
+        </div>
+        <div class="meta">
+          Sends you an new authentication link
+        </div>
+        <div class="description">
           <%= input f, :email %>
-          <%= submit "Login", class: "btn btn-primary btn-block" %>
+        </div>
+      </div>
+      <div class="extra content">
+        <div class="ui one buttons">
+          <%= submit "Login", class: "ui basic green button" %>
         </div>
       </div>
     </div>
   </div>
-
 <% end %>

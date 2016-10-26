@@ -1,3 +1,32 @@
+<div class="ui text container">
+  <div class="ui statistics">
+    <div class="statistic">
+      <div class="value">
+        22
+      </div>
+      <div class="label">
+        Events
+      </div>
+    </div>
+    <div class="statistic">
+      <div class="value">
+        31,200
+      </div>
+      <div class="label">
+        Participants
+      </div>
+    </div>
+    <div class="statistic">
+      <div class="value">
+        22
+      </div>
+      <div class="label">
+        Trainer
+      </div>
+    </div>
+  </div>
+</div>
+
 <div>
   <div class="ui text container">
     <h1 class="ui header">
