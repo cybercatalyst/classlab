@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <%= render "_head.html", conn: @conn %>
-<body>
-  <div class="container">
-    <%= render "app_navigation.html", conn: @conn %>
-    <main role="main">
-      <%= render "_flash_messages.html", conn: @conn %>
-      <%= render @view_module, @view_template, assigns %>
-    </main>
-  </div> <!-- /container -->
+<body class="pushable">
+  <%= render "app_navigation.html", conn: @conn %>
+  <div class="pusher">
+    <%= render "app_fixed_navigation.html", conn: @conn %>
+
+    <%= render "_flash_messages.html", conn: @conn %>
+    <%= render @view_module, @view_template, assigns %>
+
+    <%= render "_footer.html" %>
+  </div>
   <%= render "_modal.html" %>
 </body>
 </html>

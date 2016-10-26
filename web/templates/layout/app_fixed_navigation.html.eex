@@ -1,0 +1,29 @@
+<div data-fixed="true" class="ui inverted vertical center aligned segment">
+  <div class="ui container">
+    <div class="ui secondary inverted pointing menu">
+      <a class="toc item">
+        <i class="sidebar icon"></i>
+      </a>
+      <%= link "Classlab", to: page_path(@conn, :index), class: "active item" %>
+      <div class="right item">
+        <%= if Application.get_env(:classlab, Classlab.Mailer)[:adapter] == Bamboo.LocalAdapter do %>
+          <%= content_tag :div, class: "item" do %>
+            <%= link "Email Inbox", to: "/sent_emails", class: "ui info button" %>
+          <% end %>
+        <% end %>
+        <%= if current_user(@conn) do %>
+          <%= content_tag :div, class: "item" do %>
+            <%= link "Profile", to: account_dashboard_path(@conn, :show), class: "ui primary button" %>
+          <% end %>
+          <%= content_tag :div, class: "item" do %>
+            <%= link "Logout", to: session_path(@conn, :delete), method: :delete, class: "ui red button" %>
+          <% end %>
+        <% else %>
+          <%= content_tag :div, class: "item" do %>
+            <%= link "Login", to: session_path(@conn, :new), class: "ui positive button" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

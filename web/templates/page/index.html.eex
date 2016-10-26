@@ -1,29 +1,28 @@
-<div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}", name: "Classlab.org!" %></h2>
-  <p class="lead">A simpel way<br />to share your knowledge.</p>
+<div>
+  <div class="ui text container">
+    <h1 class="ui header">
+      <%= gettext "Welcome to %{name}", name: "Classlab.org!" %>
+    </h1>
+    <h2>A simpel way<br />to share your knowledge.</h2>
+  </div>
 </div>
 
-<div class="card-deck-wrapper">
-  <div class="card-deck">
+<div class="ui vertical stripe segment">
+  <div class="ui text container">
+    <h4 class="ui horizontal header divider">
+      <a href="#">Public future events</a>
+    </h4>
     <%= for event <- @events do %>
-      <div class="card">
-        <div class="card-block">
-          <h4 class="card-title"><%= event.name %></h4>
-          <p class="card-text text-truncate">
-            <%= render_markdown event.description_markdown %>
-          </p>
-          <p class="card-text"><small class="text-muted"><%= "#{l(event.starts_at)} - #{l(event.ends_at)}" %></small></p>
-        </div>
-      </div>
+      <h3 class="ui header"><%= event.name %></h3>
+      <p>
+        <%= render_markdown event.description_markdown %>
+      </p>
+      <a class="ui large button"><%= "#{l(event.starts_at)} - #{l(event.ends_at)}" %></a>
     <% end %>
     <%= if length(@events) == 0 do %>
-    <div class="card">
-        <div class="card-block">
-          <p class="card-text">
-            No public events in the near future
-          </p>
-        </div>
-      </div>
+      <p>
+        No public events in the near future
+      </p>
     <% end %>
   </div>
 </div>

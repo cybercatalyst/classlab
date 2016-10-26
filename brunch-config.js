@@ -6,7 +6,7 @@ exports.config = {
     },
     stylesheets: {
       joinTo: {
-        "css/app.css": "web/static/css/app.scss"
+        "css/app.css": "web/static/css/app.less"
       }
     },
     templates: {
@@ -18,7 +18,9 @@ exports.config = {
     // This option sets where we should place non-css and non-js assets in.
     // By default, we set this to "/web/static/assets". Files in this directory
     // will be copied to `paths.public`, which is "priv/static" by default.
-    assets: /^(web\/static\/assets)/
+    assets: [
+      /^(web\/static\/assets)/
+    ]
   },
 
   // Phoenix paths configuration
@@ -37,7 +39,7 @@ exports.config = {
   plugins: {
     babel: {
       // Do not use ES6 compiler in vendor code
-      ignore: [/web\/static\/vendor/]
+      ignore: [/web\/static\/vendor/, /web\/semantic\/dist/]
     }
   },
 
