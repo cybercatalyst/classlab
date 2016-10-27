@@ -1,0 +1,19 @@
+<div class="media">
+  <%= if @chat_message.user.id != current_user(@conn).id && has_permission?(@current_memberships, [1, 2]) do %>
+    <div class="media-left media-middle">
+      <%= link "Edit", to: classroom_chat_message_path(@conn, :edit, @event, @chat_message), class: "btn btn-default btn-sm" %>
+      <%= link "Delete", to: classroom_chat_message_path(@conn, :delete, @event, @chat_message), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
+    </div>
+  <% end %>
+  <div class="media-body">
+    <p><small><%= @chat_message.user.email %> wrote <%= l(@chat_message.inserted_at) %></small></p>
+    <p><%= @chat_message.body %></p>
+  </div>
+  <%= if @chat_message.user.id == current_user(@conn).id && has_permission?(@current_memberships, [1, 2]) do %>
+    <div class="media-right media-middle">
+      <%= link "Edit", to: classroom_chat_message_path(@conn, :edit, @event, @chat_message), class: "btn btn-default btn-sm" %>
+      <%= link "Delete", to: classroom_chat_message_path(@conn, :delete, @event, @chat_message), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
+    </div>
+  <% end %>
+</div>
+<hr>

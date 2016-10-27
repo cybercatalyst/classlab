@@ -4,7 +4,7 @@ defmodule Classlab.Classroom.ChatMessageView do
 
   # Page Configuration
   def page("index.html", _conn), do: %{
-    title: "chat messages"
+    title: "Chat"
   }
   def page("new.html", _conn), do: %{
     title: "New chat message"
