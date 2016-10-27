@@ -1,5 +1,13 @@
-$font-family-sans-serif: 'Roboto', sans-serif;
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+
+$font-family-sans-serif: 'Lat', sans-serif;
 
 $line-height-base: 1.68;
 
 $btn-font-weight: 300;
+
+$font-size-base: 0.90rem;
+
+$input-border-color:             rgba(34,36,38,.15);
+
+$input-line-height:              1.25 !default;

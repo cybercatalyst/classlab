@@ -2,7 +2,7 @@
   <%= link "New event", to: account_event_path(@conn, :new), class: "btn btn-success" %>
 </div>
 
-<ul class="nav nav-tabs mt-2" role="tablist">
+<ul class="nav nav-pills mt-2" role="tablist">
   <li class="nav-item">
     <a class="nav-link<%= if(!@conn.params["active_tab"], do: " active") %>" data-toggle="tab" href="#owner" role="tab">Own events (<%= length(@owner_memberships) %>)</a>
   </li>
