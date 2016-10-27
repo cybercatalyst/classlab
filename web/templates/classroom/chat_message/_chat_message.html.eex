@@ -1,19 +1,18 @@
 <div class="media">
-  <%= if @chat_message.user.id != current_user(@conn).id && has_permission?(@current_memberships, [1, 2]) do %>
-    <div class="media-left media-middle">
-      <%= link "Edit", to: classroom_chat_message_path(@conn, :edit, @event, @chat_message), class: "btn btn-default btn-sm" %>
-      <%= link "Delete", to: classroom_chat_message_path(@conn, :delete, @event, @chat_message), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
-    </div>
-  <% end %>
+  <a class="media-left" href="#">
+    <img class="pull-left" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(@chat_message.user.email)), case: :lower) %>?s=32&d=identicon">
+  </a>
   <div class="media-body">
-    <p><small><%= @chat_message.user.email %> wrote <%= l(@chat_message.inserted_at) %></small></p>
+    <p>
+      <strong><%= @chat_message.user.email %></strong>
+      <span class="text-muted">at <%= l(@chat_message.inserted_at) %></span>
+    </p>
     <p><%= @chat_message.body %></p>
   </div>
   <%= if @chat_message.user.id == current_user(@conn).id && has_permission?(@current_memberships, [1, 2]) do %>
     <div class="media-right media-middle">
-      <%= link "Edit", to: classroom_chat_message_path(@conn, :edit, @event, @chat_message), class: "btn btn-default btn-sm" %>
+      <%= link "Edit", to: classroom_chat_message_path(@conn, :edit, @event, @chat_message), class: "btn btn-secondary btn-sm" %>
       <%= link "Delete", to: classroom_chat_message_path(@conn, :delete, @event, @chat_message), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
     </div>
   <% end %>
 </div>
-<hr>
