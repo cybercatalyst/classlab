@@ -1,4 +1,8 @@
 <div class="container-sidebar-left">
+  <nav class="navbar navbar-dark bg-inverse">
+    <%= link "Superadmin", to: superadmin_dashboard_path(@conn, :show), class: "navbar-brand" %>
+  </nav>
+
   <ul class="sidebar-nav">
     <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["superadmin"], do: " active")}" do %>
       <%= link "Dashboard", to: superadmin_dashboard_path(@conn, :show), class: "nav-link" %>

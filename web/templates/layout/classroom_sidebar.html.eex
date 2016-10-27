@@ -1,4 +1,10 @@
 <div class="container-sidebar-left">
+
+  <nav class="navbar navbar-dark bg-inverse" >
+    <%= link "Classroom", to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "navbar-brand" %>
+  </nav>
+
+
   <ul class="sidebar-nav">
     <%= content_tag :li, class: "nav-item #{if(!Enum.at(@conn.path_info, 2), do: " active")}" do %>
       <%= link "Dashboard", to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "nav-link" %>

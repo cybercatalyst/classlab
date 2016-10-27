@@ -4,7 +4,7 @@ defmodule Classlab.Classroom.DashboardView do
 
   # Page Configuration
   def page("show.html", _conn), do: %{
-    title: "Classroom Dashboard"
+    title: "Dashboard"
   }
 
   # View functions

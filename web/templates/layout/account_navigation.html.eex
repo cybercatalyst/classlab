@@ -1,5 +1,5 @@
-<nav class="navbar navbar-dark navbar-fixed-top bg-primary">
-  <%= link "Account", to: account_dashboard_path(@conn, :show), class: "navbar-brand" %>
+<nav class="navbar navbar-dark navbar-fixed-top bg-primary" style="left: 200px">
+  <%= link (page(@conn)[:headline] || page(@conn)[:title]), to: account_dashboard_path(@conn, :show), class: "navbar-brand" %>
 
   <ul class="nav navbar-nav float-xs-right">
     <%= if current_user(@conn) do %>

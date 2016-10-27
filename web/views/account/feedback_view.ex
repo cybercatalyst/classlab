@@ -5,10 +5,10 @@ defmodule Classlab.Account.FeedbackView do
 
   # Page Configuration
   def page("index.html", _conn), do: %{
-    title: "feedbacks"
+    title: "Feedbacks"
   }
   def page("show.html", conn), do: %{
-    title: "feedback #{conn.assigns.feedback.event_id}"
+    title: "Feedback #{conn.assigns.feedback.event_id}"
   }
   def page("new.html", _conn), do: %{
     title: "New feedback"

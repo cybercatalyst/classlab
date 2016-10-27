@@ -1,4 +1,4 @@
-$sidebar-top: 56px;
+$sidebar-top: 0;
 $sidebar-width: 200px;
 $sidebar-bg: #222;
 $sidebar-padding-x: $navbar-padding-x !default;
@@ -24,8 +24,6 @@ $sidebar-padding-y: $navbar-padding-y !default;
   list-style: none;
   margin: 0;
   padding: 0;
-  position: absolute;
-  top: 0;
   width: $sidebar-width;
 
   li a {
