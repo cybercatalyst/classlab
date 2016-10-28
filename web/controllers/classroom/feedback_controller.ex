@@ -30,6 +30,7 @@ defmodule Classlab.Classroom.FeedbackController do
 
     res =
       Event
+      |> Event.not_feedbacked_by_user(current_user(conn))
       |> Event.within_feedback_period()
       |> Repo.get(event.id)
 

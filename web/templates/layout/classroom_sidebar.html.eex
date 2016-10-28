@@ -32,8 +32,10 @@
         <%= link "Settings", to: classroom_event_path(@conn, :edit, @conn.params["event_id"]), class: "nav-link" %>
       <% end %>
     <% else %>
-      <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "feedback", do: " active")}" do %>
-        <%= link "My Feedback", to: classroom_feedback_path(@conn, :show, @conn.params["event_id"]), class: "nav-link" %>
+      <%= if Calendar.DateTime.before?(current_event(@conn).ends_at, Calendar.DateTime.now_utc()) do %>
+        <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "feedback", do: " active")}" do %>
+          <%= link "My Feedback", to: classroom_feedback_path(@conn, :show, @conn.params["event_id"]), class: "nav-link" %>
+        <% end %>
       <% end %>
     <% end %>
   </ul>

@@ -31,7 +31,7 @@ defmodule Classlab.Classroom.EventEmailTemplateController do
     event = load_event(conn)
 
     Membership
-    |> Repo.get_by!(user_id: current_user(conn).id, event_id: event.id)
+    |> Repo.get_by!(user_id: current_user(conn).id, event_id: event.id, role_id: 1)
     |> Repo.preload([:event, :user])
     |> MembershipMailer.before_event_email()
     |> Mailer.deliver_now()
@@ -44,7 +44,7 @@ defmodule Classlab.Classroom.EventEmailTemplateController do
     event = load_event(conn)
 
     Membership
-    |> Repo.get_by!(user_id: current_user(conn).id, event_id: event.id)
+    |> Repo.get_by!(user_id: current_user(conn).id, event_id: event.id, role_id: 1)
     |> Repo.preload([:event, :user])
     |> MembershipMailer.after_event_email()
     |> Mailer.deliver_now()

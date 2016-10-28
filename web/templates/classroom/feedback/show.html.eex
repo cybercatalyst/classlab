@@ -62,7 +62,7 @@
   <% else %>
     <div class="card">
       <div class="card-block">
-        You can tell us your feedback after the workshop.
+        Sending feedback is not possible, yet.
       </div>
     </div>
   <% end %>
