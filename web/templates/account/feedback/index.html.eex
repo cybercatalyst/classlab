@@ -1,36 +1,54 @@
-<div class="alert alert-info">
-  Any given feedback is <strong>anonymous</strong>.
-  The trainer can't see from whom the feedback is.<br>
-  Feedback is open for two weeks after the event ended.
-</div>
+<%= if length(@open_feedback_events) > 0 do %>
+  <div class="card">
+    <div class="card-header">
+      Open feedbacks
+    </div>
+    <%= for event <- @open_feedback_events do %>
+      <div class="card-block">
+        <p><%= event.id %> <%= event.name %></p>
+        <%= link "New feedback", to: classroom_feedback_path(@conn, :new, event), class: "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
 <div class="card">
-  <div class="card-header">
-    Open feedbacks
-  </div>
-  <%= for event <- @open_feedback_events do %>
-    <div class="card-block">
-      <p><%= event.id %> <%= event.name %></p>
-      <%= link "New feedback", to: classroom_feedback_path(@conn, :new, event), class: "btn btn-success" %>
+  <%= if length(@feedbacks) == 0 do %>
+    <div class="card-block text-xs-center">
+      <h4 class="card-title">No feedbacks available</h4>
+      <p class="card-text">Open your mind and extend your knowledges and skills.</p>
+      <%= link "Discover events", to: page_path(@conn, :index), class: "btn btn-outline-primary" %>
     </div>
+  <% else %>
+    <table class="table">
+      <tr>
+        <th>Event</th>
+        <th>Content rating</th>
+        <th>Trainer rating</th>
+        <th>Location rating</th>
+        <th>Testimonial</th>
+      </tr>
+      <%= for feedback <- @feedbacks do %>
+        <tr>
+          <td><%= link feedback.event.name, to: classroom_feedback_path(@conn, :show, feedback.event) %></td>
+          <td>
+            <%= stars(feedback.content_rating) %>
+            <br>
+            <%= feedback.content_comment %>
+          </td>
+          <td>
+            <%= stars(feedback.trainer_rating) %>
+            <br>
+            <%= feedback.trainer_comment %>
+          </td>
+          <td>
+            <%= stars(feedback.location_rating) %>
+            <br>
+            <%= feedback.location_comment %>
+          </td>
+          <td><%= feedback.testimonial %></td>
+        </tr>
+      <% end %>
+    </table>
   <% end %>
 </div>
-
-<table class="table">
-  <tr>
-    <th>Event</th>
-    <th>Content rating</th>
-    <th>Trainer rating</th>
-    <th>Location rating</th>
-    <th>Testimonial</th>
-  </tr>
-  <%= for feedback <- @feedbacks do %>
-    <tr>
-      <td><%= link feedback.event.name, to: classroom_feedback_path(@conn, :show, feedback.event) %></td>
-      <td><%= stars(feedback.content_rating) %></td>
-      <td><%= stars(feedback.trainer_rating) %></td>
-      <td><%= stars(feedback.location_rating) %></td>
-      <td><%= feedback.testimonial %></td>
-    </tr>
-  <% end %>
-</table>

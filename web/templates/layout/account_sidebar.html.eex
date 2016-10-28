@@ -12,10 +12,10 @@
       <%= link "Events", to: account_membership_path(@conn, :index), class: "nav-link" %>
     <% end %>
     <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["account", "feedbacks"], do: " active")}" do %>
-      <%= link "My feedbacks", to: account_feedback_path(@conn, :index), class: "nav-link" %>
+      <%= link "Feedbacks", to: account_feedback_path(@conn, :index), class: "nav-link" %>
     <% end %>
     <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["account", "user", "edit"], do: " active")}" do %>
-      <%= link "My profile", to: account_user_path(@conn, :edit), class: "nav-link" %>
+      <%= link "Profile", to: account_user_path(@conn, :edit), class: "nav-link" %>
     <% end %>
   </ul>
 </div>

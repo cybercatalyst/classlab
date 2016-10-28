@@ -1,2 +1,10 @@
-<%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
-                        action: account_event_event_copy_path(@conn, :create, @event) %>
+<div class="row">
+  <div class="col-md-10 col-lg-6">
+    <div class="card">
+      <div class="card-block">
+        <%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
+                            action: account_event_event_copy_path(@conn, :create, @event) %>
+      </div>
+    </div>
+  </div>
+</div>

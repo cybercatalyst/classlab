@@ -10,7 +10,6 @@
   <%= input f, :copy_materials %>
   <%= input f, :copy_attendees %>
 
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
-  </div>
+
+  <%= submit "Copy", class: "btn btn-primary" %>
 <% end %>

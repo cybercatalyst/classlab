@@ -1,2 +1,10 @@
-<%= render "_form.html", changeset: @changeset, conn: @conn,
-           action: account_user_path(@conn, :update) %>
+<div class="row">
+  <div class="col-md-10 col-lg-6">
+    <div class="card">
+      <div class="card-block">
+        <%= render "_form.html", changeset: @changeset, conn: @conn,
+              action: account_user_path(@conn, :update) %>
+      </div>
+    </div>
+  </div>
+</div>
