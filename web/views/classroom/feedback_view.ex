@@ -8,5 +8,15 @@ defmodule Classlab.Classroom.FeedbackView do
     title: "feedbacks"
   }
 
+  def page("show.html", _conn), do: %{
+    title: "Feedback"
+  }
+  def page("new.html", _conn), do: %{
+    title: "New feedback"
+  }
+  def page("edit.html", _conn), do: %{
+    title: "Edit feedback"
+  }
+
   # View functions
 end

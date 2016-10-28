@@ -4,8 +4,8 @@ defmodule Classlab.FeedbackTest do
   use Classlab.ModelCase
 
   describe "#changeset" do
-    @valid_attrs %{content_rating: 5, location_rating: 5, trainer_rating: 5, event_id: 1}
-    @invalid_attrs %{}
+    @valid_attrs %{content_rating: 5, location_rating: 5, trainer_rating: 5}
+    @invalid_attrs %{content_rating: -1}
 
     test "with valid attributes" do
       changeset = Feedback.changeset(%Feedback{}, @valid_attrs)

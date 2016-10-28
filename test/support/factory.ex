@@ -39,6 +39,7 @@ defmodule Classlab.Factory do
       content_comment: "Awesome content",
       trainer_rating: 5,
       location_rating: 5,
+      testimonial: "Awesome, very very great job!",
       user: build(:user),
       event: build(:event)
     }

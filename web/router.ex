@@ -42,7 +42,7 @@ defmodule Classlab.Router do
     resources "/events", EventController, only: [:index, :new, :create] do
       resources "/copy", EventCopyController, only: [:show, :create], singleton: true
     end
-    resources "/feedbacks", FeedbackController
+    resources "/feedbacks", FeedbackController, only: [:index]
     resources "/invitations", InvitationController, only: [:index, :update, :delete]
     resources "/memberships", MembershipController, only: [:index, :delete]
     resources "/user", UserController, only: [:edit, :update], singleton: true
@@ -64,6 +64,7 @@ defmodule Classlab.Router do
     resources "/", DashboardController, only: [:show], singleton: true
     resources "/chat_messages", ChatMessageController, except: [:show]
     resources "/feedbacks", FeedbackController, only: [:index]
+    resources "/feedback", FeedbackController, except: [:index], singleton: true
     resources "/invitations", InvitationController, except: [:show, :edit, :update]
     resources "/memberships", MembershipController, only: [:index, :delete]
     resources "/event", EventController, only: [:edit, :update, :delete], singleton: true

@@ -29,12 +29,12 @@ defmodule Classlab.Feedback do
   end
 
   # Changesets & Validations
-  @fields ~w(event_id content_rating content_comment trainer_rating trainer_comment
+  @fields ~w(content_rating content_comment trainer_rating trainer_comment
              location_rating location_comment testimonial)
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> validate_required(~w(event_id content_rating trainer_rating location_rating)a)
+    |> validate_required(~w(content_rating trainer_rating location_rating)a)
     |> validate_inclusion(:content_rating, 1..5)
     |> validate_inclusion(:trainer_rating, 1..5)
     |> validate_inclusion(:location_rating, 1..5)

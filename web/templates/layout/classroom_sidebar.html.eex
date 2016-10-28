@@ -31,6 +31,10 @@
       <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "event", do: " active")}" do %>
         <%= link "Settings", to: classroom_event_path(@conn, :edit, @conn.params["event_id"]), class: "nav-link" %>
       <% end %>
+    <% else %>
+      <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "feedback", do: " active")}" do %>
+        <%= link "My Feedback", to: classroom_feedback_path(@conn, :show, @conn.params["event_id"]), class: "nav-link" %>
+      <% end %>
     <% end %>
   </ul>
 </div>
