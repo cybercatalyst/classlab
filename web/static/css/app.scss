@@ -4,6 +4,14 @@
 @import "codemirror";
 @import "sidebar-nav";
 
+body {
+  background-color: #fcfcfc;
+}
+
+.bg-light {
+    background:#fcfcfc;
+}
+
 // This is a fix for phoenix form helpers
 form.link {
   display: inline-block;
