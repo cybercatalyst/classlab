@@ -1,4 +1,4 @@
-# Classlab [![Build Status](https://travis-ci.org/classlab/classlab.svg?branch=master)](https://travis-ci.org/classlab/classlab) [![Inline docs](http://inch-ci.org/github/classlab/classlab.svg?=123)](http://inch-ci.org/github/classlab/classlab) [![Coverage Status](https://coveralls.io/repos/github/classlab/classlab/badge.svg?branch=master)](https://coveralls.io/github/classlab/classlab?branch=master)
+# Classlab [![Build Status](https://travis-ci.org/classlab/classlab.svg?branch=master)](https://travis-ci.org/classlab/classlab) [![Coverage Status](https://coveralls.io/repos/github/classlab/classlab/badge.svg?branch=master)](https://coveralls.io/github/classlab/classlab?branch=master) [![Deps Status](https://beta.hexfaktor.org/badge/all/github/classlab/classlab.svg)](https://beta.hexfaktor.org/github/classlab/classlab) [![Inline docs](http://inch-ci.org/github/classlab/classlab.svg?=123)](http://inch-ci.org/github/classlab/classlab)
 
 ## Installation
 
