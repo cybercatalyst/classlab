@@ -1,53 +1,69 @@
 <%= if @feedback do %>
-<ul>
+  <div class="card">
+    <div class="card-block">
+      <ul>
 
-  <li>
-    <strong>Event:</strong>
-    <%= @feedback.event_id %>
-  </li>
+        <li>
+          <strong>Event:</strong>
+          <%= @feedback.event_id %>
+        </li>
 
-  <li>
-    <strong>Content rating:</strong>
-    <%= @feedback.content_rating %>
-  </li>
+        <li>
+          <strong>Content rating:</strong>
+          <%= @feedback.content_rating %>
+        </li>
 
-  <li>
-    <strong>Content comment:</strong>
-    <%= @feedback.content_comment %>
-  </li>
+        <li>
+          <strong>Content comment:</strong>
+          <%= @feedback.content_comment %>
+        </li>
 
-  <li>
-    <strong>Trainer rating:</strong>
-    <%= @feedback.trainer_rating %>
-  </li>
+        <li>
+          <strong>Trainer rating:</strong>
+          <%= @feedback.trainer_rating %>
+        </li>
 
-  <li>
-    <strong>Trainer comment:</strong>
-    <%= @feedback.trainer_comment %>
-  </li>
+        <li>
+          <strong>Trainer comment:</strong>
+          <%= @feedback.trainer_comment %>
+        </li>
 
-  <li>
-    <strong>Location rating:</strong>
-    <%= @feedback.location_rating %>
-  </li>
+        <li>
+          <strong>Location rating:</strong>
+          <%= @feedback.location_rating %>
+        </li>
 
-  <li>
-    <strong>Location comment:</strong>
-    <%= @feedback.location_comment %>
-  </li>
+        <li>
+          <strong>Location comment:</strong>
+          <%= @feedback.location_comment %>
+        </li>
 
-  <li>
-    <strong>Testimonial:</strong>
-    <%= @feedback.testimonial %>
-  </li>
+        <li>
+          <strong>Testimonial:</strong>
+          <%= @feedback.testimonial %>
+        </li>
 
-</ul>
-
-<div class="btn-toolbar">
-  <%= link "Edit", to: classroom_feedback_path(@conn, :edit, @event), class: "btn btn-primary" %>
-</div>
+      </ul>
+    </div>
+  </div>
+  <div class="btn-toolbar">
+    <%= link "Edit", to: classroom_feedback_path(@conn, :edit, @event), class: "btn btn-primary" %>
+  </div>
 <% else %>
-<div class="btn-toolbar">
-  <%= link "New", to: classroom_feedback_path(@conn, :new, @event), class: "btn btn-primary" %>
-</div>
+  <%= if @can_give_feedback do %>
+    <div class="card">
+      <div class="card-block">
+        Please let us know your opinion on the event.
+      </div>
+    </div>
+    <div class="btn-toolbar">
+      <%= link "New", to: classroom_feedback_path(@conn, :new, @event), class: "btn btn-primary" %>
+    </div>
+  <% else %>
+    <div class="card">
+      <div class="card-block">
+        You can tell us your feedback after the workshop.
+      </div>
+    </div>
+  <% end %>
 <% end %>
