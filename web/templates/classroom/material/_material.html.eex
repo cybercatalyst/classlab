@@ -7,7 +7,7 @@
       <%= link @material.title, to: classroom_material_path(@conn, :show, @event, @material) %>
     </div>
     <div class="media-right">
-      <%= if has_permission?(@current_memberships, [1, 2]) do %>
+      <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
         <%= link to: classroom_material_path(@conn, :toggle_lock, @event, @material), method: :post, class: "btn btn-sm #{if(@material.unlocked_at, do: "btn-outline-warning", else: "btn-outline-success")}" do %>
           <%= if @material.unlocked_at do %>
             Lock

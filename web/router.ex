@@ -54,6 +54,7 @@ defmodule Classlab.Router do
   pipeline :classroom do
     plug :put_layout, {Classlab.LayoutView, :classroom}
     plug Classlab.AssignEventPlug, "event_id"
+    plug Classlab.AssignMembershipsPlug
     plug :as_user # user needs to be authenticated
     plug :restrict_roles, [1, 2, 3] # user needs a membership to access classroom
   end

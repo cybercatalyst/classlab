@@ -1,7 +1,7 @@
 <%= page_reload_listener([:event, @event.id, :task, :unlock]) %>
 <%= page_reload_listener([:event, @event.id, :task, :lock]) %>
 
-<%= if has_permission?(@current_memberships, [1, 2]) do %>
+<%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
   <%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "btn btn-primary mb-1" %>
 <% end %>
 
@@ -45,7 +45,7 @@
             <% end %>
           </div>
           <div class="btn-group float-xs-right" role="group" aria-label="Next">
-            <%= if has_permission?(@current_memberships, [1, 2]) && @next_unlockable_task do %>
+            <%= if has_permission?(current_memberships(@conn), [1, 2]) && @next_unlockable_task do %>
               <%= link "Unlock next", to: classroom_task_path(@conn, :unlock_next, @event), method: :post, class: "btn btn-success" %>
             <% end %>
             <%= if @next_task do %>
@@ -58,6 +58,6 @@
   </div>
 </div>
 
-<%= if has_permission?(@current_memberships, [1, 2]) do %>
+<%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
   <%= link "Edit", to: classroom_task_path(@conn, :edit, @event, @task), class: "mt-1 btn btn-primary" %>
 <% end %>

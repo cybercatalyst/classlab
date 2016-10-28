@@ -78,19 +78,12 @@ defmodule Classlab.Classroom.MaterialController do
       |> assoc(:materials)
       |> Repo.get!(id)
 
-    current_memberships =
-      conn
-      |> current_user()
-      |> assoc(:memberships)
-      |> Membership.for_event(event)
-      |> Repo.all()
-
-    if is_nil(material.unlocked_at) && !has_permission?(current_memberships, [1, 2]) do
+    if is_nil(material.unlocked_at) && !has_permission?(current_memberships(conn), [1, 2]) do
       conn
       |> put_flash(:error, "Permission denied!")
       |> redirect(to: "/")
     else
-      render(conn, "show.html", current_memberships: current_memberships, material: material, event: event)
+      render(conn, "show.html", material: material, event: event)
     end
   end
 

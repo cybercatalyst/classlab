@@ -1,7 +1,7 @@
 <%= page_reload_listener([:event, @event.id, :material, :unlock]) %>
 <%= page_reload_listener([:event, @event.id, :material, :lock]) %>
 
-<%= if has_permission?(@current_memberships, [1, 2]) do %>
+<%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
   <%= link "New Material", to: classroom_material_path(@conn, :new, @event), class: "btn btn-primary mb-1" %>
 <% end %>
 
@@ -10,14 +10,14 @@
   <div class="card-block clearfix">
     <h5 class="card-title float-xs-left">Unlocked</h5>
     <div class="block float-xs-right">
-    <%= if length(@unlocked_materials) > 1 && has_permission?(@current_memberships, [1, 2]) do %>
+    <%= if length(@unlocked_materials) > 1 && has_permission?(current_memberships(@conn), [1, 2]) do %>
       <%= link "Lock all", to: classroom_material_path(@conn, :lock_all, @event), method: :post, class: "btn btn-sm btn-outline-warning" %>
     <% end %>
     </div>
   </div>
   <ul class="list-group list-group-flush">
     <%= for {material, line} <- Enum.with_index(@unlocked_materials) do %>
-      <%= render "_material.html", conn: @conn, event: @event, current_memberships: @current_memberships, material: material, line: line + 1 %>
+      <%= render "_material.html", conn: @conn, event: @event, current_memberships: current_memberships(@conn), material: material, line: line + 1 %>
     <% end %>
   </ul>
 </div>
@@ -30,7 +30,7 @@
   </div>
 <% end %>
 
-<%= if length(@locked_materials) > 0 && has_permission?(@current_memberships, [1, 2]) do %>
+<%= if length(@locked_materials) > 0 && has_permission?(current_memberships(@conn), [1, 2]) do %>
 <div class="card">
   <div class="card-block clearfix">
     <h5 class="card-title float-xs-left">Locked</h5>
@@ -42,12 +42,12 @@
   </div>
   <ul class="list-group list-group-flush">
     <%= for {material, line} <- Enum.with_index(@locked_materials) do %>
-      <%= render "_material.html", conn: @conn, event: @event, current_memberships: @current_memberships, material: material, line: line + 1 %>
+      <%= render "_material.html", conn: @conn, event: @event, current_memberships: current_memberships(@conn), material: material, line: line + 1 %>
     <% end %>
   </ul>
 </div>
 <% end %>
 
-<%= if has_permission?(@current_memberships, [1, 2]) do %>
+<%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
   <%= link "New Material", to: classroom_material_path(@conn, :new, @event), class: "btn btn-primary" %>
 <% end %>

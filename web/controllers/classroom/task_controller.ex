@@ -87,13 +87,6 @@ defmodule Classlab.Classroom.TaskController do
       |> assoc(:tasks)
       |> Repo.get!(task_id)
 
-    current_memberships =
-      conn
-      |> current_user()
-      |> assoc(:memberships)
-      |> Membership.for_event(event)
-      |> Repo.all()
-
     next_task = get_next_task(event, task)
     previous_task = get_previous_task(event, task)
     next_unlockable_task =
@@ -101,7 +94,7 @@ defmodule Classlab.Classroom.TaskController do
         get_next_unlockable_task(event, task)
       end
 
-    if is_nil(task.unlocked_at) && !has_permission?(current_memberships, [1, 2]) do
+    if is_nil(task.unlocked_at) && !has_permission?(current_memberships(conn), [1, 2]) do
       conn
       |> put_flash(:error, "Permission denied!")
       |> redirect(to: "/")
@@ -109,7 +102,6 @@ defmodule Classlab.Classroom.TaskController do
       render(
         conn,
         "show.html",
-        current_memberships: current_memberships,
         event: event,
         next_task: next_task,
         next_unlockable_task: next_unlockable_task,

@@ -1,7 +1,7 @@
 <%= page_reload_listener([:event, @event.id, :material, :unlock]) %>
 <%= page_reload_listener([:event, @event.id, :material, :lock]) %>
 
-<%= if has_permission?(@current_memberships, [1, 2]) do %>
+<%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
   <%= link "Edit", to: classroom_material_path(@conn, :edit, @event, @material), class: "btn btn-primary mb-1" %>
 <% end %>
 
@@ -28,6 +28,6 @@
   </div>
 </div>
 
-<%= if has_permission?(@current_memberships, [1, 2]) do %>
+<%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
   <%= link "Edit", to: classroom_material_path(@conn, :edit, @event, @material), class: "mt-1 btn btn-primary" %>
 <% end %>
