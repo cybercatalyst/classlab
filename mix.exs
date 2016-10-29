@@ -36,7 +36,7 @@ defmodule Classlab.Mixfile do
       {:calendar_translations, "~> 0.0.3"},
       {:calendar, "~> 0.16.0"},
       {:cowboy, "~> 1.0"},
-      {:credo, "~> 0.4.13", only: [:dev, :test]},
+      {:credo, "~> 0.5.1", only: [:dev, :test]},
       {:dialyxir, "~> 0.3.5", only: :dev},
       {:earmark, "~> 1.0.2"},
       {:excoveralls, "~> 0.5", only: :test},
