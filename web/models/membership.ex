@@ -30,6 +30,7 @@ defmodule Classlab.Membership do
     from membership in query, where: membership.role_id != ^role_id
   end
 
+  def as_role(query, nil), do: query
   def as_role(query, role_id) do
     from membership in query, where: membership.role_id == ^role_id
   end

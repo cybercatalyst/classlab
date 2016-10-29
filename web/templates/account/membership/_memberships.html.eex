@@ -1,7 +1,7 @@
 <%= if length(@memberships) == 0 do %>
   <div class="card-block text-xs-center">
     <h4 class="card-title">No events available</h4>
-    <p class="card-text">Create your own events and meet new interesenting people.</p>
+    <p class="card-text">Create your own event.</p>
     <%= link "Create event", to: account_event_path(@conn, :new), class: "btn btn-outline-primary" %>
   </div>
 <% else %>

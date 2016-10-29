@@ -2,21 +2,23 @@
   <div class="card-header">
     <ul class="nav nav-pills card-header-pills">
       <li class="nav-item">
-        <a class="nav-link<%= if(!@conn.params["active_tab"], do: " active") %>" data-toggle="tab" href="#owner" role="tab">Own events (<%= length(@owner_memberships) %>)</a>
+        <%= link "All", to: account_membership_path(@conn, :index), class: "nav-link#{if(!@conn.params["role_id"], do: " active")}" %>
       </li>
       <li class="nav-item">
-        <a class="nav-link<%= if(!@conn.params["active_tab"] == "attendee", do: " active") %>" data-toggle="tab" href="#attendee" role="tab">My participations (<%= length(@memberships) %>)</a>
+        <%= link "Owner", to: account_membership_path(@conn, :index, role_id: 1), class: "nav-link#{if(@conn.params["role_id"] == "1", do: " active")}" %>
+      </li>
+      <li class="nav-item">
+        <%= link "Trainer", to: account_membership_path(@conn, :index, role_id: 2), class: "nav-link#{if(@conn.params["role_id"] == "2", do: " active")}" %>
+      </li>
+      <li class="nav-item">
+        <%= link "Attendee", to: account_membership_path(@conn, :index, role_id: 3), class: "nav-link#{if(@conn.params["role_id"] == "3", do: " active")}" %>
       </li>
       <li class="nav-item float-xs-right">
         <%= link "New event", to: account_event_path(@conn, :new), class: "btn btn-success" %>
       </li>
     </ul>
   </div>
-  <div class="tab-content">
-    <div class="tab-pane table-responsive<%= if(!@conn.params["active_tab"], do: " active") %>" id="owner" role="tabpanel">
-      <%= render "_memberships.html", conn: @conn, memberships: @owner_memberships %>
-    </div>
-    <div class="tab-pane table-responsive<%= if(@conn.params["active_tab"] == "attendee", do: " active") %>" id="attendee" role="tabpanel">
+    <div class="table-responsive">
       <%= render "_memberships.html", conn: @conn, memberships: @memberships %>
     </div>
   </div>
