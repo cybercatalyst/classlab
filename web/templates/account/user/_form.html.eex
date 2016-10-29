@@ -6,8 +6,12 @@
   <% end %>
 
   <%= input f, :email %>
-  <%= input f, :first_name %>
-  <%= input f, :last_name %>
+
+  <div class="row">
+    <div class="col-md-6"><%= input f, :first_name %></div>
+    <div class="col-md-6"><%= input f, :last_name %></div>
+  </div>
+
   <%= input f, :contact_url %>
 
   <div class="btn-toolbar">
