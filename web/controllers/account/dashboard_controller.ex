@@ -1,6 +1,6 @@
 defmodule Classlab.Account.DashboardController do
   @moduledoc false
-  alias Classlab.Event
+  alias Classlab.{Event, Invitation}
   use Classlab.Web, :controller
 
   plug :as_user when action in [:show]
@@ -19,6 +19,13 @@ defmodule Classlab.Account.DashboardController do
       |> Event.as_role(user, 3)
       |> Repo.all()
 
-    render(conn, "show.html", user: user, events_as_owner: events_as_owner, events_as_attendee: events_as_attendee)
+    open_invitations =
+      Invitation
+      |> Invitation.filter_by_email(user)
+      |> Invitation.not_completed()
+      |> Repo.all()
+      |> Repo.preload([:event, :role])
+
+    render(conn, "show.html", user: user, events_as_owner: events_as_owner, events_as_attendee: events_as_attendee, open_invitations: open_invitations)
   end
 end

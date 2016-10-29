@@ -5,9 +5,6 @@
         <a class="nav-link<%= if(!@conn.params["active_tab"], do: " active") %>" data-toggle="tab" href="#owner" role="tab">Own events (<%= length(@owner_memberships) %>)</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link<%= if(@conn.params["active_tab"] == "open_invitations", do: " active") %>" data-toggle="tab" href="#open_invitations" role="tab">Open invitations (<%= length(@open_invitations) %>)</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link<%= if(!@conn.params["active_tab"] == "attendee", do: " active") %>" data-toggle="tab" href="#attendee" role="tab">My participations (<%= length(@memberships) %>)</a>
       </li>
       <li class="nav-item float-xs-right">
@@ -18,9 +15,6 @@
   <div class="tab-content">
     <div class="tab-pane table-responsive<%= if(!@conn.params["active_tab"], do: " active") %>" id="owner" role="tabpanel">
       <%= render "_memberships.html", conn: @conn, memberships: @owner_memberships %>
-    </div>
-    <div class="tab-pane table-responsive<%= if(@conn.params["active_tab"] == "open_invitations", do: " active") %>" id="open_invitations" role="tabpanel">
-      <%= render "_open_invitations.html", conn: @conn, open_invitations: @open_invitations %>
     </div>
     <div class="tab-pane table-responsive<%= if(@conn.params["active_tab"] == "attendee", do: " active") %>" id="attendee" role="tabpanel">
       <%= render "_memberships.html", conn: @conn, memberships: @memberships %>

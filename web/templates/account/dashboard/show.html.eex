@@ -1,3 +1,6 @@
+<%= if length(@open_invitations) > 0 do %>
+  <%= render "_open_invitations.html", conn: @conn, open_invitations: @open_invitations %>
+<% end %>
 
 <div class="row">
   <div class="col-md-6">

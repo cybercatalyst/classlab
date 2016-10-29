@@ -1,6 +1,6 @@
 defmodule Classlab.Account.MembershipController do
   @moduledoc false
-  alias Classlab.{Invitation, Membership}
+  alias Classlab.Membership
   use Classlab.Web, :controller
   use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
@@ -15,13 +15,6 @@ defmodule Classlab.Account.MembershipController do
       |> Repo.all()
       |> Repo.preload([:event, :user, :role])
 
-    open_invitations =
-      Invitation
-      |> Invitation.filter_by_email(user)
-      |> Invitation.not_completed()
-      |> Repo.all()
-      |> Repo.preload([:event, :role])
-
     owner_memberships =
       user
       |> assoc(:memberships)
@@ -29,13 +22,7 @@ defmodule Classlab.Account.MembershipController do
       |> Repo.all()
       |> Repo.preload([:event, :user, :role])
 
-    render(
-      conn,
-      "index.html",
-      memberships: memberships,
-      open_invitations: open_invitations,
-      owner_memberships: owner_memberships
-    )
+    render(conn, "index.html", memberships: memberships, owner_memberships: owner_memberships)
   end
 
   def delete(conn, %{"id" => id}) do

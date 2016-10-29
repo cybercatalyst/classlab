@@ -19,18 +19,6 @@ defmodule Classlab.Account.MembershipControllerTest do
       conn = get conn, account_membership_path(conn, :index)
       assert html_response(conn, 200) =~ membership.event.name
     end
-
-    test "lists all open invitations for current user", %{conn: conn} do
-      invitation = Factory.insert(:invitation, email: current_user(conn).email)
-      conn = get conn, account_membership_path(conn, :index)
-      assert html_response(conn, 200) =~ invitation.event.name
-    end
-
-    test "lists not completed invitations for current user", %{conn: conn} do
-      invitation = Factory.insert(:invitation, email: current_user(conn).email, completed_at: Calendar.DateTime.now_utc())
-      conn = get conn, account_membership_path(conn, :index)
-      refute html_response(conn, 200) =~ invitation.event.name
-    end
   end
 
   describe "#delete" do

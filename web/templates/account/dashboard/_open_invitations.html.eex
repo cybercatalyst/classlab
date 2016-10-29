@@ -1,0 +1,27 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Date</th>
+      <th>Name</th>
+      <th>Role</th>
+      <th class="icon"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for invitation <- @open_invitations do %>
+      <tr>
+        <td><%= invitation.event.name %></td>
+        <td>
+          <%= l(Calendar.DateTime.to_date(invitation.event.starts_at)) %> -
+          <%= l(Calendar.DateTime.to_date(invitation.event.ends_at)) %>
+        </td>
+        <td><%= invitation.first_name %> <%= invitation.last_name %></td>
+        <td><%= invitation.role.name %></td>
+        <td class="icon">
+          <%= link "Cancel invitation", to: account_invitation_path(@conn, :delete, invitation), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
