@@ -7,6 +7,7 @@ defmodule Classlab.Mixfile do
      elixir: "~> 1.3",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+     build_path: build_path_prefix <> "/_build",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      test_coverage: [tool: ExCoveralls],
@@ -71,5 +72,17 @@ defmodule Classlab.Mixfile do
       "s": ["phoenix.server"],
       "test": ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
+  end
+
+  @doc """
+  You can't use symlinks to build paths. So we have to set this
+  manually.
+  """
+  defp ci_build_path_prefix do
+    if System.get_env("SEMAPHORE_CACHE_DIR") do
+      System.get_env("SEMAPHORE_CACHE_DIR")
+    else
+      "."
+    end
   end
 end

@@ -30,7 +30,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 build: `docker build -t classlab/classlab-demo -f Dockerfile.demo .`
 
-run: `docker run -p 8080:80 classlab/classlab-demo`
+run: `docker run -it -p 8080:80 classlab/classlab-demo`
 
 ## Team
 
