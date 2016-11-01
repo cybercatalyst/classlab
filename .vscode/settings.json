@@ -15,7 +15,8 @@
     "priv/repo/structure.sql": true,
     "node_modules": true,
     "deps": true,
-    "cover": true
+    "cover": true,
+    "doc": true
   },
   "editor.tabSize": 2,
   "editor.trimAutoWhitespace": true,
