@@ -34,3 +34,9 @@ main {
   background-color: #fcfcfc;
   padding: 5px ($grid-gutter-width-base / 2);
 }
+
+.hover:hover {
+  .visible {
+    display: table-cell !important;
+  }
+}
