@@ -27,7 +27,3 @@
     </div>
   </div>
 </div>
-
-<%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
-  <%= link "Edit", to: classroom_material_path(@conn, :edit, @event, @material), class: "mt-1 btn btn-primary" %>
-<% end %>
