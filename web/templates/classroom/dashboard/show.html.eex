@@ -1,14 +1,87 @@
 <h1><%= @event.name %></h1>
 
-<div class="card">
-  <div class="card-header">Feedbacks</div>
-  <div class="card-block">
-    <%= if @feedback_averages.trainer_rating do %>
-      Content rating: Ø <%= format_rating(@feedback_averages.content_rating) %><br>
-      Trainer rating: Ø <%= format_rating(@feedback_averages.trainer_rating) %><br>
-      Location rating: Ø <%= format_rating(@feedback_averages.location_rating) %>
-    <% else %>
-      No feedbacks yet
-    <% end %>
+<div class="row">
+  <div class="col-xs-6">
+    <div class="card">
+      <div class="card-header">Lastest unlocked materials</div>
+      <div class="card-block">
+        <ul class="list-group list-group-flush">
+          <%= for material <- @latest_unlocked_materials do %>
+            <li class="list-group-item">
+              <div class="media">
+                <div class="media-body media-middle">
+                  <%= link @material.title, to: classroom_material_path(@conn, :show, @event, @material) %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div class="card">
+      <div class="card-header">Lastest unlocked tasks</div>
+      <div class="card-block">
+        <ul class="list-group list-group-flush">
+          <%= for task <- @latest_unlocked_tasks do %>
+            <li class="list-group-item">
+              <div class="media">
+                <div class="media-body media-middle">
+                  <%= link @task.title, to: classroom_task_path(@conn, :show, @event, @task) %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-8">
+    <div class="card">
+      <div class="card-header">Lastest chat messages</div>
+      <div class="card-block">
+
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="card">
+          <div class="card-header">Feedbacks</div>
+          <div class="card-block">
+            <%= if @feedback_averages.trainer_rating do %>
+              Content rating: Ø <%= format_rating(@feedback_averages.content_rating) %><br>
+              Trainer rating: Ø <%= format_rating(@feedback_averages.trainer_rating) %><br>
+              Location rating: Ø <%= format_rating(@feedback_averages.location_rating) %>
+            <% else %>
+              No feedbacks yet
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="card">
+          <div class="card-header">New attendees</div>
+          <div class="card-block">
+            <ul class="list-group list-group-flush">
+              <%= for membership <- @latest_memberships do %>
+                <li class="list-group-item">
+                  <div class="media">
+                    <div class="media-body media-middle">
+                      <%= membership.user.email %>
+                    </div>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
