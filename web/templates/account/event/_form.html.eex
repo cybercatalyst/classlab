@@ -16,7 +16,7 @@
       <%= input f, :timezone %>
     </div>
     <div class="col-md-6">
-      <h4>Location settings</h4>
+      <h4>Location (optional)</h4>
       <%= inputs_for f, :location, fn fl -> %>
         <%= input fl, :name %>
         <div class="row">

@@ -5,7 +5,7 @@ defmodule Classlab.EventTest do
   use Classlab.ModelCase
 
   describe "#changeset" do
-    @valid_attrs Factory.params_for(:event) |> Map.put(:location, Factory.params_for(:location))
+    @valid_attrs Factory.params_for(:event)
     @invalid_attrs %{}
 
     test "with valid attributes" do
@@ -13,6 +13,12 @@ defmodule Classlab.EventTest do
       assert changeset.errors == []
     end
 
+    test "with valid attributes and empty location" do
+      changeset = Event.changeset(%Event{}, @valid_attrs |> Map.put(:location, %{"name" => nil}))
+      assert changeset.errors == []
+    end
+
+# |> Map.put(:location, Factory.params_for(:location))
     test "with invalid attributes" do
       changeset = Event.changeset(%Event{}, @invalid_attrs)
       refute changeset.errors == []

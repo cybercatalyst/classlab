@@ -76,7 +76,7 @@ defmodule Classlab.Event do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> cast_assoc(:location, required: true)
+    |> optional_cast_location(params[:location] || params["location"])
     |> generate_invitation_token()
     |> Slugger.generate_slug(:name, random: 100_000..999_999)
     |> validate_required([:public, :slug, :name, :description_markdown, :invitation_token,
@@ -139,5 +139,14 @@ defmodule Classlab.Event do
   def after_email_body_text(%__MODULE__{after_email_body_text: _}) do
     "Hi {{attendee_first_name}},\n\n" <>
     "Thanks for joining us at {{event_name}}"
+  end
+
+  defp optional_cast_location(changeset, nil), do: changeset
+  defp optional_cast_location(changeset, location_params) do
+    if Enum.all?(location_params, fn({_,v}) -> is_nil(v) end) do
+      changeset
+    else
+      cast_assoc(changeset, :location, required: false)
+    end
   end
 end

@@ -20,8 +20,7 @@ defmodule Classlab.Factory do
       invitation_token_active: false,
       starts_at: DateTimeUTC.cast!("2001-07-29T01:02:03"),
       ends_at: DateTimeUTC.cast!("2001-07-29T01:02:03"),
-      timezone: "Europe/Berlin",
-      location: build(:location)
+      timezone: "Europe/Berlin"
     }
   end
 

@@ -16,7 +16,7 @@ defmodule Classlab.Repo.Migrations.CreateEvent do
       add :starts_at, :datetime, null: false
       add :ends_at, :datetime, null: false
       add :timezone, :string, null: false
-      add :location_id, references(:locations, on_delete: :nilify_all), null: false
+      add :location_id, references(:locations, on_delete: :delete_all)
       timestamps()
     end
 
