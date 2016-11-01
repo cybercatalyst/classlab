@@ -6,25 +6,25 @@
 [![Deps Status](https://beta.hexfaktor.org/badge/all/github/classlab/classlab.svg)](https://beta.hexfaktor.org/github/classlab/classlab)
 [![Inline docs](http://inch-ci.org/github/classlab/classlab.svg?=123)](http://inch-ci.org/github/classlab/classlab)
 
-Classlab is a virtual classroom for giving workshops.
+Classlab is a virtual classroom for workshops.
 
 ## Installation
 
 **Requirements**
 
+* Elixir 1.3+
+* Node 6.0+
 * PostgreSQL
 
+To start the classlab app:
 
-To start your Phoenix app:
-
+  * Clone the repo with `git clone https://github.com/classlab/classlab.git`
   * Install dependencies with `mix deps.get`
   * Set up the project the first time `mix setup`
   * Install Node.js dependencies with `npm install`
-  * Start Phoenix endpoint with `mix phoenix.server`
+  * Start the app with `mix s`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
 ## Build and run the docker demo container
 
