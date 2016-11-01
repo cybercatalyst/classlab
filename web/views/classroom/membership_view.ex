@@ -4,7 +4,7 @@ defmodule Classlab.Classroom.MembershipView do
 
   # Page Configuration
   def page("index.html", _conn), do: %{
-    title: "memberships"
+    title: "Attendees"
   }
 
   # View functions

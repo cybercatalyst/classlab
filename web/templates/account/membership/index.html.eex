@@ -18,8 +18,7 @@
       </li>
     </ul>
   </div>
-    <div class="table-responsive">
-      <%= render "_memberships.html", conn: @conn, memberships: @memberships %>
-    </div>
+  <div class="table-responsive">
+    <%= render "_memberships.html", conn: @conn, memberships: @memberships %>
   </div>
 </div>
