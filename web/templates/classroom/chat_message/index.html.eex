@@ -3,9 +3,11 @@
 <%= page_reload_listener([:event, @event.id, :chat_message, :update]) %>
 
 <div class="pb-2">
+  <ul class="list-group list-group-flush">
   <%= for chat_message <- @chat_messages do %>
     <%= render "_chat_message.html", conn: @conn, chat_message: chat_message, current_memberships: @current_memberships, event: @event %>
   <% end %>
+  </ul>
   <div id=last_message></div>
 </div>
 <div class="chat-reply">
