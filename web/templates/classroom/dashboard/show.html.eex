@@ -1,4 +1,9 @@
-<h1><%= @event.name %></h1>
+<div class="jumbotron">
+  <h1 class="display-3"><%= @event.name %></h1>
+  <div class="lead">
+    <%= render_markdown @event.description_markdown %>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-sm-12 col-md-6">
