@@ -14,7 +14,7 @@
         <%= link "Attendee", to: account_membership_path(@conn, :index, role_id: 3), class: "nav-link#{if(@conn.params["role_id"] == "3", do: " active")}" %>
       </li>
       <li class="nav-item float-xs-right">
-        <%= link "New event", to: account_event_path(@conn, :new), class: "btn btn-success" %>
+        <%= link "New event", to: account_event_path(@conn, :new), class: "btn btn-outline-success" %>
       </li>
     </ul>
   </div>

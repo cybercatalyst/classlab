@@ -1,11 +1,23 @@
-<nav class="navbar navbar-dark navbar-fixed-top bg-primary" style="left: 200px">
-  <%= link (page(@conn)[:headline] || page(@conn)[:title]), to: account_dashboard_path(@conn, :show), class: "navbar-brand" %>
+<nav class="navbar navbar-dark navbar-fixed-top bg-light" style="left: 200px">
+  <%= if page(@conn)[:breadcrumb] do %>
+    <div class="breadcrumb float-xs-left">
+      <%= for {entry, index} <- Enum.with_index(page(@conn)[:breadcrumb]) do %>
+        <%= if Map.has_key?(entry, :path) do %>
+          <%= link entry.name, to: entry.path, class: "breadcrumb-item #{if(index == length(page(@conn)[:breadcrumb]), do: "active")}" %>
+        <% else %>
+          <span class="breadcrumb-item active"><%= entry.name %></span>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <%= link (page(@conn)[:headline] || page(@conn)[:title]), to: account_dashboard_path(@conn, :show), class: "navbar-brand" %>
+  <% end %>
 
   <ul class="nav navbar-nav float-xs-right">
     <%= if current_user(@conn) do %>
       <%= if current_user(@conn).superadmin do %>
         <%= content_tag :li, class: "nav-item" do %>
-          <%= link "Superadmin", to: superadmin_dashboard_path(@conn, :show), class: "btn btn-danger" %>
+          <%= link "Superadmin", to: superadmin_dashboard_path(@conn, :show), class: "btn btn-outline-warning" %>
         <% end %>
       <% end %>
 

@@ -4,7 +4,10 @@ defmodule Classlab.Account.UserView do
 
   # Page Configuration
   def page("edit.html", _conn), do: %{
-    title: "Edit User profile"
+    title: "Edit User profile",
+    breadcrumb: [%{
+      name: "Profile",
+    }]
   }
 
   # View functions

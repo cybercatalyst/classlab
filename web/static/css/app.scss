@@ -4,6 +4,8 @@
 @import "codemirror";
 @import "sidebar-nav";
 
+$bg-light-grey: #fcfcfc;
+
 .navbar-light {
   background: #fff;
     border-bottom: 1px solid #dbe2e8;
@@ -12,7 +14,7 @@
 }
 
 .bg-light {
-    background:#fcfcfc;
+    background: $bg-light-grey;
 }
 
 // This is a fix for phoenix form helpers
@@ -36,7 +38,7 @@ main {
   bottom: 0px;
   left: $sidebar-width;
   right: 0px;
-  background-color: #fcfcfc;
+  background-color:$bg-light-grey;
   padding: 5px ($grid-gutter-width-base / 2);
 }
 

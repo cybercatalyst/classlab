@@ -5,7 +5,10 @@ defmodule Classlab.Account.FeedbackView do
 
   # Page Configuration
   def page("index.html", _conn), do: %{
-    title: "Feedbacks"
+    title: "Feedbacks",
+    breadcrumb: [%{
+      name: "Feedbacks"
+    }]
   }
 
   # View functions

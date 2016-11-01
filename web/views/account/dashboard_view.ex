@@ -4,7 +4,10 @@ defmodule Classlab.Account.DashboardView do
 
   # Page Configuration
   def page("show.html", _conn), do: %{
-    title: "My dashboard"
+    title: "Dashboard",
+    breadcrumb: [%{
+      name: "Dashboard"
+    }]
   }
 
   # View functions

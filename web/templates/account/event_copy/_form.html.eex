@@ -10,6 +10,5 @@
   <%= input f, :copy_materials %>
   <%= input f, :copy_attendees %>
 
-
   <%= submit "Copy", class: "btn btn-primary" %>
 <% end %>
