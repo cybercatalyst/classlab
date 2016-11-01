@@ -3,30 +3,34 @@
   <%= link "Send after event email to myself", to: classroom_event_email_template_path(@conn, :send_test_email, @event) <> "?after", method: :post, class: "btn btn-sm btn-primary" %>
 </p>
 
-<hr>
 
-<h4>Available placeholders</h4>
-<table class="table table-sm table-hover">
-  <tbody>
-    <tr>
-      <td><pre>{{event_name}}</pre></td>
-      <td><%= @event.name %></td>
-    </tr>
-    <tr>
-      <td><pre>{{attendee_first_name}}</pre></td>
-      <td><%= current_user(@conn).first_name || "Users first name" %></td>
-    </tr>
-    <tr>
-      <td><pre>{{attendee_last_name}}</pre></td>
-      <td><%= current_user(@conn).last_name || "Users last name" %></td>
-    </tr>
-    <tr>
-      <td><pre>{{classroom_link}}</pre></td>
-      <td><%= classroom_dashboard_url(@conn, :show, @event) %></td>
-    </tr>
-  </tbody>
-</table>
+<div class="card">
+  <div class="card-header">
+    Available placeholders
+  </div>
+  <div class="table-responsive">
+    <table class="table table-sm table-hover">
+      <tbody>
+        <tr>
+          <td><pre>{{event_name}}</pre></td>
+          <td><%= @event.name %></td>
+        </tr>
+        <tr>
+          <td><pre>{{attendee_first_name}}</pre></td>
+          <td><%= current_user(@conn).first_name || "Users first name" %></td>
+        </tr>
+        <tr>
+          <td><pre>{{attendee_last_name}}</pre></td>
+          <td><%= current_user(@conn).last_name || "Users last name" %></td>
+        </tr>
+        <tr>
+          <td><pre>{{classroom_link}}</pre></td>
+          <td><%= classroom_dashboard_url(@conn, :show, @event) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <%= render "_form.html", conn: @conn, event: @event, changeset: @changeset,
                         action: classroom_event_email_template_path(@conn, :update, @event) %>
-

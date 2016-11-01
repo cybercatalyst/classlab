@@ -5,7 +5,7 @@ defmodule Classlab.Classroom.EventEmailTemplateView do
 
   # Page Configuration
   def page("edit.html", _conn), do: %{
-    title: "Edit email templates"
+    title: "Email templates"
   }
 
   # View functions

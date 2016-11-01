@@ -5,7 +5,7 @@ defmodule Classlab.Classroom.FeedbackView do
 
   # Page Configuration
   def page("index.html", _conn), do: %{
-    title: "feedbacks"
+    title: "Feedbacks"
   }
 
   def page("show.html", _conn), do: %{

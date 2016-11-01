@@ -1,28 +1,44 @@
-<table class="table">
-  <tr>
-    <th>Content</th>
-    <th>Trainer</th>
-    <th>Location</th>
-    <th>Testimonial</th>
-  </tr>
-  <%= for feedback <- @feedbacks do %>
-    <tr>
-      <td>
-        <%= stars(feedback.content_rating) %>
-        <br>
-        <%= feedback.content_comment %>
-      </td>
-      <td>
-        <%= stars(feedback.trainer_rating) %>
-        <br>
-        <%= feedback.trainer_comment %>
-      </td>
-      <td>
-        <%= stars(feedback.location_rating) %>
-        <br>
-        <%= feedback.location_comment %>
-      </td>
-      <td><%= feedback.testimonial %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="card">
+  <%= if length(@feedbacks) > 0 do %>
+    <div class="card-header">All feedbacks</div>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Content</th>
+            <th>Trainer</th>
+            <th>Location</th>
+            <th>Testimonial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for feedback <- @feedbacks do %>
+            <tr>
+              <td>
+                <%= stars(feedback.content_rating) %>
+                <br>
+                <%= feedback.content_comment %>
+              </td>
+              <td>
+                <%= stars(feedback.trainer_rating) %>
+                <br>
+                <%= feedback.trainer_comment %>
+              </td>
+              <td>
+                <%= stars(feedback.location_rating) %>
+                <br>
+                <%= feedback.location_comment %>
+              </td>
+              <td><%= feedback.testimonial %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+      <div class="card-block text-xs-center">
+        <h4 class="card-title">No Feedbacks available</h4>
+        <p class="card-text">Feedbacks might help you to improve your teaching skills.</p>
+      </div>
+    <% end %>
+</div>
