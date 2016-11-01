@@ -7,17 +7,6 @@ defmodule Classlab.Classroom.InvitationController do
   plug :restrict_roles, [1, 2]
   plug :scrub_params, "invitation" when action in [:create, :update]
 
-  def index(conn, _params) do
-    event = current_event(conn)
-    invitations =
-      event
-      |> assoc(:invitations)
-      |> Repo.all()
-      |> Repo.preload(:event)
-
-    render(conn, "index.html", invitations: invitations, event: event)
-  end
-
   def new(conn, _params) do
     event = current_event(conn)
     changeset =

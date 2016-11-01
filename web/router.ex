@@ -65,7 +65,7 @@ defmodule Classlab.Router do
     resources "/chat_messages", ChatMessageController, except: [:show]
     resources "/feedbacks", FeedbackController, only: [:index]
     resources "/feedback", FeedbackController, except: [:index], singleton: true
-    resources "/invitations", InvitationController, except: [:show, :edit, :update]
+    resources "/invitations", InvitationController, only: [:create, :delete, :new]
     resources "/memberships", MembershipController, only: [:index, :delete]
     resources "/event", EventController, only: [:edit, :update, :delete], singleton: true
     resources "/event_email_templates", EventEmailTemplateController, only: [:edit, :update], singleton: true

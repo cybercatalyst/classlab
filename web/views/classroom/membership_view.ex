@@ -4,7 +4,10 @@ defmodule Classlab.Classroom.MembershipView do
 
   # Page Configuration
   def page("index.html", _conn), do: %{
-    title: "Attendees"
+    title: "Attendees",
+    breadcrumb: [%{
+      name: "Attendees"
+    }]
   }
 
   # View functions

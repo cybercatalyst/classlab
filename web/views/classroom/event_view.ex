@@ -4,7 +4,10 @@ defmodule Classlab.Classroom.EventView do
 
   # Page Configuration
   def page("edit.html", _conn), do: %{
-    title: "Settings"
+    title: "Settings",
+    breadcrumb: [%{
+      name: "Settings"
+    }]
   }
 
   # View functions

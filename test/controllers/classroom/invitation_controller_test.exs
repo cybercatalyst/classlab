@@ -13,14 +13,6 @@ defmodule Classlab.Classroom.InvitationControllerTest do
     {:ok, conn: Session.login(conn, user), event: event}
   end
 
-  describe "#index" do
-    test "lists all entries on index", %{conn: conn, event: event} do
-      invitation = Factory.insert(:invitation, event: event)
-      conn = get conn, classroom_invitation_path(conn, :index, invitation.event)
-      assert html_response(conn, 200) =~ invitation.email
-    end
-  end
-
   describe "#new" do
     test "renders form for new resources", %{conn: conn, event: event} do
       conn = get conn, classroom_invitation_path(conn, :new, event)

@@ -1,5 +1,17 @@
 <nav class="navbar navbar-light navbar-fixed-top" style="left: 200px">
-  <%= link (page(@conn)[:headline] || page(@conn)[:title]), to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "navbar-brand" %>
+  <%= if page(@conn)[:breadcrumb] do %>
+    <div class="breadcrumb float-xs-left">
+      <%= for {entry, index} <- Enum.with_index(page(@conn)[:breadcrumb]) do %>
+        <%= if Map.has_key?(entry, :path) do %>
+          <%= link entry.name, to: entry.path, class: "breadcrumb-item #{if(index == length(page(@conn)[:breadcrumb]), do: "active")}" %>
+        <% else %>
+          <span class="breadcrumb-item active"><%= entry.name %></span>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <%= link (page(@conn)[:headline] || page(@conn)[:title]), to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "navbar-brand" %>
+  <% end %>
 
   <ul class="nav navbar-nav float-xs-right">
     <%= if current_user(@conn) do %>
