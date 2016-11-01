@@ -1,7 +1,7 @@
 <div class="media">
-  <a class="media-left" href="#">
+  <div class="media-left">
     <img class="pull-left" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(@chat_message.user.email)), case: :lower) %>?s=32&d=identicon">
-  </a>
+  </div>
   <div class="media-body">
     <p>
       <strong><%= @chat_message.user.email %></strong>
