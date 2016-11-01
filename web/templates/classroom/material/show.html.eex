@@ -2,7 +2,7 @@
 <%= page_reload_listener([:event, @event.id, :material, :lock]) %>
 
 <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
-  <%= link "Edit", to: classroom_material_path(@conn, :edit, @event, @material), class: "btn btn-primary mb-1" %>
+  <%= link "Edit Material", to: classroom_material_path(@conn, :edit, @event, @material), class: "btn btn-outline-primary mb-1" %>
 <% end %>
 
 <div class="row">
@@ -17,11 +17,6 @@
       <div class="card-block">
         <div class="embed-responsive embed-responsive-16by9">
           <iframe class="embed-responsive-item" src="<%= @material.url %>" allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="card-footer">
-        <div class="btn-toolbar clearfix" role="toolbar" aria-label="Toolbar with button groups">
-
         </div>
       </div>
     </div>

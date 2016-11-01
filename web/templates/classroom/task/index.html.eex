@@ -11,7 +11,7 @@
       </div>
     </div>
   <% else %>
-    <%= link "New task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary mb-1" %>
+    <%= link "Add task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-outline-primary mb-1" %>
   <% end %>
 <% end %>
 
