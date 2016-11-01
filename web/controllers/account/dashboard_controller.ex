@@ -26,6 +26,13 @@ defmodule Classlab.Account.DashboardController do
       |> Repo.all()
       |> Repo.preload([:event, :role])
 
-    render(conn, "show.html", user: user, events_as_owner: events_as_owner, events_as_attendee: events_as_attendee, open_invitations: open_invitations)
+    render(
+      conn,
+      "show.html",
+      user: user,
+      events_as_owner: events_as_owner,
+      events_as_attendee: events_as_attendee,
+      open_invitations: open_invitations
+    )
   end
 end

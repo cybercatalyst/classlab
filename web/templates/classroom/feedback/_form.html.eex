@@ -14,8 +14,6 @@
   <%= input f, :testimonial, using: :textarea, rows: 5 %>
 
   <div class="btn-toolbar">
-    <%= submit "Submit", class: "btn btn-primary" %>
-
-    <%= link "Back", to: classroom_feedback_path(@conn, :show, @event), class: "btn btn-secondary" %>
+    <%= submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>

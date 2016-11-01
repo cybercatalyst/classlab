@@ -101,7 +101,11 @@ defmodule Classlab.Event do
   # Model methods
   @fourteen_days 60 * 60 * 24 * 14
   def within_feedback_period?(%__MODULE__{ends_at: ends_at}, current_time \\ DateTime.now_utc()) do
-    ends_at <= current_time && ends_at >= DateTime.subtract!(current_time, @fourteen_days)
+    fourteen_days_ago = DateTime.subtract!(current_time, @fourteen_days)
+
+    (DateTime.after?(ends_at, fourteen_days_ago) || !DateTime.before?(ends_at, fourteen_days_ago))
+    &&
+    (DateTime.before?(ends_at, current_time) || !DateTime.after?(ends_at, current_time))
   end
 
   ## Before event email

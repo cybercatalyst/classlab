@@ -2,7 +2,17 @@
 <%= page_reload_listener([:event, @event.id, :task, :lock]) %>
 
 <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
-  <%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary mb-1" %>
+  <%= if length(@unlocked_tasks) == 0 && length(@locked_tasks) == 0 do %>
+    <div class="card">
+      <div class="card-block text-xs-center">
+        <h4 class="card-title">No tasks available</h4>
+        <p class="card-text">Use tasks to add practical parts to your workshop.</p>
+        <%= link "Create tasks", to: classroom_task_path(@conn, :new, @event), class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+  <% else %>
+    <%= link "New task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary mb-1" %>
+  <% end %>
 <% end %>
 
 <%= if length(@unlocked_tasks) > 0 do %>
@@ -22,7 +32,7 @@
   </ul>
 </div>
 <% end %>
-<%= if length(@unlocked_tasks) == 0 do %>
+<%= if length(@unlocked_tasks) == 0 && !has_permission?(current_memberships(@conn), [1, 2]) do %>
   <div class="card">
     <div class="card-block">
       No Tasks available
@@ -46,8 +56,4 @@
     <% end %>
   </ul>
 </div>
-<% end %>
-
-<%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
-  <%= link "New Task", to: classroom_task_path(@conn, :new, @event), class: "btn btn-primary" %>
 <% end %>

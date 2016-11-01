@@ -56,7 +56,7 @@
             <td><%= invitation.role.name %></td>
             <td>
               <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
-                <%= link "Cancel invitation", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
+                <%= link "Cancel invitation", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-outline-danger btn-sm" %>
               <% end %>
             </td>
           </tr>

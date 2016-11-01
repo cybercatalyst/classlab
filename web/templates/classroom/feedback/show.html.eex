@@ -63,7 +63,7 @@
       </div>
     </div>
     <div class="btn-toolbar">
-      <%= link "New", to: classroom_feedback_path(@conn, :new, @event), class: "btn btn-primary" %>
+      <%= link "New", to: classroom_feedback_path(@conn, :new, @event), class: "btn btn-outline-primary" %>
     </div>
   <% else %>
     <div class="card">
