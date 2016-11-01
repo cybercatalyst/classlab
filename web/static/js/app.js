@@ -25,8 +25,8 @@ import 'bootstrap/dist/js/bootstrap.min';
 import Turbolinks from 'turbolinks';
 Turbolinks.start();
 
+import './components/default-timezone';
 import './components/delete-modal';
-import './components/page-reload-socket';
 import './components/markdown-editor';
+import './components/page-reload-socket';
 
-let meta = console.log(meta);
