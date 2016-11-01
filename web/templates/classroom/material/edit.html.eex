@@ -1,2 +1,20 @@
-<%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
+<div class="card">
+  <div class="card-block">
+    <%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
                         action: classroom_material_path(@conn, :update, @event, @material) %>
+  </div>
+</div>
+
+<div class="card alert-danger">
+  <div class="card-block">
+    <div class="media">
+      <div class="media-body media-middle text-danger">
+        <strong>Attention:</strong>
+        Delete entry
+      </div>
+      <div class="media-right">
+        <%= link "Delete", to: classroom_material_path(@conn, :delete, @event, @material), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>

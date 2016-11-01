@@ -4,7 +4,7 @@ defmodule Classlab.Classroom.EventView do
 
   # Page Configuration
   def page("edit.html", _conn), do: %{
-    title: "Edit event"
+    title: "Settings"
   }
 
   # View functions
