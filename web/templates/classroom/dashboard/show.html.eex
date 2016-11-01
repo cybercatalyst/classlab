@@ -1,3 +1,13 @@
+<%= page_reload_listener([:event, @event.id, :task, :unlock]) %>
+<%= page_reload_listener([:event, @event.id, :task, :lock]) %>
+
+<%= page_reload_listener([:event, @event.id, :material, :unlock]) %>
+<%= page_reload_listener([:event, @event.id, :material, :lock]) %>
+
+<%= page_reload_listener([:event, @event.id, :chat_message, :create]) %>
+<%= page_reload_listener([:event, @event.id, :chat_message, :delete]) %>
+<%= page_reload_listener([:event, @event.id, :chat_message, :update]) %>
+
 <div class="jumbotron">
   <h1 class="display-3"><%= @event.name %></h1>
   <div class="lead">

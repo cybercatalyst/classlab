@@ -15,45 +15,49 @@
   <% end %>
 <% end %>
 
-<%= if length(@unlocked_tasks) > 0 do %>
-<div class="card">
-  <div class="card-block clearfix">
-    <h5 class="card-title float-xs-left">Unlocked</h5>
-    <div class="block float-xs-right">
-    <%= if length(@unlocked_tasks) > 1 && has_permission?(current_memberships(@conn), [1, 2]) do %>
-      <%= link "Lock all", to: classroom_task_path(@conn, :lock_all, @event), method: :post, class: "btn btn-sm btn-outline-warning" %>
-    <% end %>
+<div class="row">
+  <div class="col-md-10">
+    <%= if length(@unlocked_tasks) > 0 do %>
+    <div class="card">
+      <div class="card-block clearfix">
+        <h5 class="card-title float-xs-left">Unlocked</h5>
+        <div class="block float-xs-right">
+        <%= if length(@unlocked_tasks) > 1 && has_permission?(current_memberships(@conn), [1, 2]) do %>
+          <%= link "Lock all", to: classroom_task_path(@conn, :lock_all, @event), method: :post, class: "btn btn-sm btn-outline-warning" %>
+        <% end %>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <%= for {task, line} <- Enum.with_index(@unlocked_tasks) do %>
+          <%= render "_task.html", conn: @conn, event: @event, current_memberships: current_memberships(@conn), task: task, line: line + 1 %>
+        <% end %>
+      </ul>
     </div>
-  </div>
-  <ul class="list-group list-group-flush">
-    <%= for {task, line} <- Enum.with_index(@unlocked_tasks) do %>
-      <%= render "_task.html", conn: @conn, event: @event, current_memberships: current_memberships(@conn), task: task, line: line + 1 %>
     <% end %>
-  </ul>
-</div>
-<% end %>
-<%= if length(@unlocked_tasks) == 0 && !has_permission?(current_memberships(@conn), [1, 2]) do %>
-  <div class="card">
-    <div class="card-block">
-      No Tasks available
-    </div>
-  </div>
-<% end %>
+    <%= if length(@unlocked_tasks) == 0 && !has_permission?(current_memberships(@conn), [1, 2]) do %>
+      <div class="card">
+        <div class="card-block">
+          No Tasks available
+        </div>
+      </div>
+    <% end %>
 
-<%= if length(@locked_tasks) > 0 && has_permission?(current_memberships(@conn), [1, 2]) do %>
-<div class="card">
-  <div class="card-block clearfix">
-    <h5 class="card-title float-xs-left">Locked</h5>
-    <div class="block float-xs-right">
-      <%= if length(@locked_tasks) > 1 do %>
-        <%= link "Unlock all", to: classroom_task_path(@conn, :unlock_all, @event), method: :post, class: "btn btn-sm btn-outline-success" %>
-      <% end %>
+    <%= if length(@locked_tasks) > 0 && has_permission?(current_memberships(@conn), [1, 2]) do %>
+    <div class="card">
+      <div class="card-block clearfix">
+        <h5 class="card-title float-xs-left">Locked</h5>
+        <div class="block float-xs-right">
+          <%= if length(@locked_tasks) > 1 do %>
+            <%= link "Unlock all", to: classroom_task_path(@conn, :unlock_all, @event), method: :post, class: "btn btn-sm btn-outline-success" %>
+          <% end %>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <%= for {task, line} <- Enum.with_index(@locked_tasks) do %>
+          <%= render "_task.html", conn: @conn, event: @event, current_memberships: current_memberships(@conn), task: task, line: line + 1 %>
+        <% end %>
+      </ul>
     </div>
-  </div>
-  <ul class="list-group list-group-flush">
-    <%= for {task, line} <- Enum.with_index(@locked_tasks) do %>
-      <%= render "_task.html", conn: @conn, event: @event, current_memberships: current_memberships(@conn), task: task, line: line + 1 %>
     <% end %>
-  </ul>
+  </div>
 </div>
-<% end %>

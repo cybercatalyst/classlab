@@ -1,2 +1,11 @@
-<%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
-                        action: classroom_invitation_path(@conn, :create, @event) %>
+<div class="row">
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-header">New invitation</div>
+      <div class="card-block">
+        <%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
+                            action: classroom_invitation_path(@conn, :create, @event) %>
+      </div>
+    </div>
+  </div>
+</div>

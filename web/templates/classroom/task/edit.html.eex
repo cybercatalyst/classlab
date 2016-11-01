@@ -1,19 +1,27 @@
-<div class="card">
-  <div class="card-block">
-    <%= render "_form.html", conn: @conn, event: @event, changeset: @changeset,
-                        action: classroom_task_path(@conn, :update, @event, @task) %>
+<div class="row">
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-block">
+        <%= render "_form.html", conn: @conn, event: @event, changeset: @changeset,
+                            action: classroom_task_path(@conn, :update, @event, @task) %>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="card alert-danger">
-  <div class="card-block">
-    <div class="media">
-      <div class="media-body media-middle text-danger">
-        <strong>Attention:</strong>
-        Delete entry
-      </div>
-      <div class="media-right">
-        <%= link "Delete", to: classroom_task_path(@conn, :delete, @event, @task), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger" %>
+<div class="row">
+  <div class="col-md-10">
+    <div class="card alert-danger">
+      <div class="card-block">
+        <div class="media">
+          <div class="media-body media-middle text-danger">
+            <strong>Attention:</strong>
+            Delete entry
+          </div>
+          <div class="media-right">
+            <%= link "Delete", to: classroom_task_path(@conn, :delete, @event, @task), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

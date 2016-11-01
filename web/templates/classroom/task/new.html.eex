@@ -1,6 +1,10 @@
-<div class="card">
-  <div class="card-block">
-    <%= render "_form.html", conn: @conn, event: @event, changeset: @changeset,
-                        action: classroom_task_path(@conn, :create, @event) %>
+<div class="row">
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-block">
+        <%= render "_form.html", conn: @conn, event: @event, changeset: @changeset,
+                            action: classroom_task_path(@conn, :create, @event) %>
+      </div>
+    </div>
   </div>
 </div>
