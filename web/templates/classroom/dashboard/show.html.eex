@@ -1,77 +1,153 @@
 <h1><%= @event.name %></h1>
 
 <div class="row">
-  <div class="col-xs-6">
+  <div class="col-sm-12 col-md-6">
     <div class="card">
-      <div class="card-header">Lastest unlocked materials</div>
-      <div class="card-block">
+      <div class="card-header">
+        Lastest materials
+        <div class="float-xs-right">
+          <%= link "View all", to: classroom_material_path(@conn, :index, @event), class: "btn btn-sm btn-secondary" %>
+        </div>
+      </div>
+      <%= if length(@latest_unlocked_materials) == 0 do %>
+        <div class="card-block text-xs-center">
+          <h4 class="card-title">No materials available</h4>
+          <p class="card-text">All the information you need should be in materials.</p>
+          <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
+            <%= link "Create Materials", to: classroom_material_path(@conn, :new, @event), class: "btn btn-outline-primary" %>
+          <% end %>
+        </div>
+      <% else %>
         <ul class="list-group list-group-flush">
           <%= for material <- @latest_unlocked_materials do %>
             <li class="list-group-item">
               <div class="media">
                 <div class="media-body media-middle">
-                  <%= link @material.title, to: classroom_material_path(@conn, :show, @event, @material) %>
+                  <%= link material.title, to: classroom_material_path(@conn, :show, @event, material) %>
                 </div>
               </div>
             </li>
           <% end %>
         </ul>
-      </div>
+      <% end %>
     </div>
   </div>
-  <div class="col-xs-6">
+  <div class="col-xs-12 col-md-6">
     <div class="card">
-      <div class="card-header">Lastest unlocked tasks</div>
-      <div class="card-block">
+      <div class="card-header">
+        Lastest tasks
+        <div class="float-xs-right">
+          <%= link "View all", to: classroom_task_path(@conn, :index, @event), class: "btn btn-sm btn-secondary" %>
+        </div>
+      </div>
+      <%= if length(@latest_unlocked_tasks) == 0 do %>
+        <div class="card-block text-xs-center">
+          <h4 class="card-title">No tasks available</h4>
+          <p class="card-text">With tasks you can practise your new knowledge.</p>
+          <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
+            <%= link "Create Tasks", to: classroom_task_path(@conn, :new, @event), class: "btn btn-outline-primary" %>
+          <% end %>
+        </div>
+      <% else %>
         <ul class="list-group list-group-flush">
           <%= for task <- @latest_unlocked_tasks do %>
             <li class="list-group-item">
               <div class="media">
                 <div class="media-body media-middle">
-                  <%= link @task.title, to: classroom_task_path(@conn, :show, @event, @task) %>
+                  <%= link task.title, to: classroom_task_path(@conn, :show, @event, task) %>
                 </div>
               </div>
             </li>
           <% end %>
         </ul>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-xs-8">
+  <div class="col-xs-12 col-md-8">
     <div class="card">
-      <div class="card-header">Lastest chat messages</div>
-      <div class="card-block">
-
+      <div class="card-header">
+        Lastest chat messages
+        <div class="float-xs-right">
+          <%= link "View all", to: classroom_chat_message_path(@conn, :index, @event), class: "btn btn-sm btn-secondary" %>
+        </div>
       </div>
+      <%= if length(@latest_chat_messages) == 0 do %>
+        <div class="card-block text-xs-center mt-3 mb-3">
+          <h4 class="card-title">No chat messages available</h4>
+          <p class="card-text">Hurry! And be the first, who writes something in the chat!</p>
+          <%= link "Write message", to: classroom_chat_message_path(@conn, :index, @event), class: "btn btn-outline-primary" %>
+        </div>
+      <% else %>
+        <ul class="list-group list-group-flush">
+            <%= for chat_message <- Enum.reverse(@latest_chat_messages) do %>
+              <li class="list-group-item">
+                <div class="media">
+                  <div class="media-left">
+                    <img class="pull-left" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(chat_message.user.email)), case: :lower) %>?s=32&d=identicon">
+                  </div>
+                  <div class="media-body media-middle">
+                    <p>
+                      <strong><%= chat_message.user.email %></strong>
+                      <span class="text-muted">at <%= l(chat_message.inserted_at) %></span>
+                    </p>
+                    <p><%= chat_message.body %></p>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+      <% end %>
     </div>
   </div>
-  <div class="col-xs-4">
+
+  <div class="col-xs-12 col-md-4">
     <div class="row">
       <div class="col-xs-12">
         <div class="card">
           <div class="card-header">Feedbacks</div>
-          <div class="card-block">
-            <%= if @feedback_averages.trainer_rating do %>
+          <%= if @feedback_averages.trainer_rating do %>
+            <div class="card-block">
               Content rating: Ø <%= format_rating(@feedback_averages.content_rating) %><br>
               Trainer rating: Ø <%= format_rating(@feedback_averages.trainer_rating) %><br>
               Location rating: Ø <%= format_rating(@feedback_averages.location_rating) %>
-            <% else %>
-              No feedbacks yet
-            <% end %>
-          </div>
+            </div>
+          <% else %>
+            <div class="card-block text-xs-center">
+              <h4 class="card-title">No feedbacks available</h4>
+              <p class="card-text">Let us know what we can do better.</p>
+            </div>
+          <% end %>
         </div>
       </div>
+    </div>
+    <div class="row">
       <div class="col-xs-12">
         <div class="card">
-          <div class="card-header">New attendees</div>
-          <div class="card-block">
+          <div class="card-header">
+            New attendees
+            <div class="float-xs-right">
+              <%= link "View all", to: classroom_membership_path(@conn, :index, @event), class: "btn btn-sm btn-secondary" %>
+            </div>
+          </div>
+          <%= if length(@latest_memberships) == 0 do %>
+            <div class="card-block text-xs-center">
+              <h4 class="card-title">No attendees available</h4>
+              <p class="card-text">An event lives from its participats.</p>
+              <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
+                <%= link "Invite people", to: classroom_membership_path(@conn, :index, @event), class: "btn btn-outline-primary" %>
+              <% end %>
+            </div>
+          <% else %>
             <ul class="list-group list-group-flush">
               <%= for membership <- @latest_memberships do %>
                 <li class="list-group-item">
                   <div class="media">
+                    <div class="media-left">
+                      <img class="pull-left" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(membership.user.email)), case: :lower) %>?s=32&d=identicon">
+                    </div>
                     <div class="media-body media-middle">
                       <%= membership.user.email %>
                     </div>
@@ -79,7 +155,7 @@
                 </li>
               <% end %>
             </ul>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>

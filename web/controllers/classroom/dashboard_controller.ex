@@ -36,6 +36,7 @@ defmodule Classlab.Classroom.DashboardController do
       |> Query.order_by(desc: :inserted_at)
       |> Query.limit(5)
       |> Repo.all()
+      |> Repo.preload(:user)
 
     latest_memberships =
       event
