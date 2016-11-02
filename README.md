@@ -1,4 +1,4 @@
-# ![classlab](web/static/assets/images/classlab-logo-with-name.png)
+# ![classlab](web/static/assets/images/classlab-logo-with-border.png)
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/classlab/classlab/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/classlab/classlab.svg?branch=master)](https://travis-ci.org/classlab/classlab)
