@@ -10,7 +10,8 @@ config :classlab, Classlab.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: "demo.classlab.org", port: 80],
   cache_static_manifest: "priv/static/manifest.json",
-  check_origin: false
+  check_origin: false,
+  server: true
 
 # JWT secret for signing session token
 config :classlab, :jwt_secret, "23324324-91f4-123456-8ecd-74332wg"
