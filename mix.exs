@@ -7,6 +7,7 @@ defmodule Classlab.Mixfile do
      elixir: "~> 1.3",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+     deps_path: custom_deps_path(),
      build_path: custom_build_path(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -74,8 +75,16 @@ defmodule Classlab.Mixfile do
     ]
   end
 
-  # You can't use symlinks to build paths. So we have to set this
+  # You can't use symlinks to build and deps paths. So we have to set them
   # manually.
+  defp custom_deps_path do
+    if System.get_env("SEMAPHORE_CACHE_DIR") do
+      System.get_env("SEMAPHORE_CACHE_DIR") <> "/deps"
+    else
+      "deps"
+    end
+  end
+
   defp custom_build_path do
     if System.get_env("SEMAPHORE_CACHE_DIR") do
       System.get_env("SEMAPHORE_CACHE_DIR") <> "/_build"
