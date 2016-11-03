@@ -26,11 +26,17 @@ To start the classlab app:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-## Build and run the docker demo container
+## Use with docker
 
-build: `docker build -t classlab/classlab-demo -f Dockerfile.demo .`
+### Start it locally
 
-run: `docker run -it -p 8080:80 classlab/classlab-demo`
+init: `docker-compose run web mix ecto.setup`
+
+run: `docker-compose up`
+
+### Build the container
+
+build: `docker build -t classlab .`
 
 ## Team
 
