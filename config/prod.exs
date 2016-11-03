@@ -27,6 +27,17 @@ config :logger, level: :info
 # JWT secret for signing session token
 config :classlab, :jwt_secret, get_env("SECRET_KEY_BASE")
 
+# SMTP configuration
+config :my_app, Classlab.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: get_env("CLASSLAB_SMTP_SERVER"),
+  port: get_env("CLASSLAB_SMTP_PORT") || 587,
+  username: get_env("CLASSLAB_SMTP_USERNAME"),
+  password: get_env("CLASSLAB_SMTP_PASSWORD"),
+  tls: :if_available, # can be `:always` or `:never`
+  ssl: get_env("CLASSLAB_SMTP_SSL") || false, # can be `true`
+  retries: 1
+
 # Configure your database
 config :classlab, Classlab.Repo,
   adapter: Ecto.Adapters.Postgres,

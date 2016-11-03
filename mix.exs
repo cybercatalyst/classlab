@@ -23,7 +23,7 @@ defmodule Classlab.Mixfile do
   def application do
     [mod: {Classlab, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :bamboo, :quantum]]
+                    :phoenix_ecto, :postgrex, :bamboo, :bamboo_smtp, :quantum]]
   end
 
   # Specifies which paths to compile per environment.
@@ -34,6 +34,7 @@ defmodule Classlab.Mixfile do
   defp deps do
     [
       {:bamboo, "~> 0.7"},
+      {:bamboo_smtp, "~> 1.2.1"},
       {:calecto, "~> 0.16.0"},
       {:calendar_translations, "~> 0.0.3"},
       {:calendar, "~> 0.16.0"},
