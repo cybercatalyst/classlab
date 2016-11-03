@@ -3,7 +3,7 @@ defmodule Classlab.SessionController do
   alias Classlab.{Repo, Session, UserMailer, User}
   alias Classlab.JWT.UserToken
   use Classlab.Web, :controller
-  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
+  # use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   def show(conn, %{"id" => access_token}) when is_binary(access_token) do
     res =
