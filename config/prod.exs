@@ -28,7 +28,7 @@ config :logger, level: :info
 config :classlab, :jwt_secret, get_env("SECRET_KEY_BASE")
 
 # SMTP configuration
-config :my_app, Classlab.Mailer,
+config :classlab, Classlab.Mailer,
   adapter: Bamboo.SMTPAdapter,
   server: get_env("CLASSLAB_SMTP_SERVER"),
   port: get_env("CLASSLAB_SMTP_PORT") || 587,
