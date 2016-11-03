@@ -17,7 +17,7 @@ config :classlab, Classlab.Endpoint,
   url: [host: get_env("CLASSLAB_URL_HOST") || "example.com",
         port: get_env("CLASSLAB_URL_PORT") || get_env("PORT") || 80],
   cache_static_manifest: "priv/static/manifest.json",
-  secret_key_base: get_env("SECRET_KEY_BASE"),
+  secret_key_base: get_env("SECRET_KEY_BASE") || raise("Please set env variable SECRET_KEY_BASE"),
   check_origin: false,
   server: true
 
@@ -27,13 +27,15 @@ config :logger, level: :info
 # JWT secret for signing session token
 config :classlab, :jwt_secret, get_env("SECRET_KEY_BASE")
 
+
+
 # SMTP configuration
 config :classlab, Classlab.Mailer,
   adapter: Bamboo.SMTPAdapter,
-  server: get_env("CLASSLAB_SMTP_SERVER"),
+  server: get_env("CLASSLAB_SMTP_SERVER") || raise("Please set env variable CLASSLAB_SMTP_SERVER"),
   port: get_env("CLASSLAB_SMTP_PORT") || 587,
-  username: get_env("CLASSLAB_SMTP_USERNAME"),
-  password: get_env("CLASSLAB_SMTP_PASSWORD"),
+  username: get_env("CLASSLAB_SMTP_USERNAME") || raise("Please set env variable CLASSLAB_SMTP_USERNAME"),
+  password: get_env("CLASSLAB_SMTP_PASSWORD") || raise("Please set env variable CLASSLAB_SMTP_PASSWORD"),
   tls: :if_available, # can be `:always` or `:never`
   ssl: get_env("CLASSLAB_SMTP_SSL") || false, # can be `true`
   retries: 1
