@@ -39,7 +39,7 @@ config :classlab, :jwt_secret, get_env("SECRET_KEY_BASE")
 config :classlab, Classlab.Mailer,
   adapter: Bamboo.SMTPAdapter,
   server: get_env("CLASSLAB_SMTP_SERVER") || Logger.info("Please set env variable CLASSLAB_SMTP_SERVER"),
-  port: 587,
+  port: 2525,
   username: get_env("CLASSLAB_SMTP_USERNAME") || Logger.info("Please set env variable CLASSLAB_SMTP_USERNAME"),
   password: get_env("CLASSLAB_SMTP_PASSWORD") || Logger.info("Please set env variable CLASSLAB_SMTP_PASSWORD"),
   tls: :if_available, # can be `:always` or `:never`
