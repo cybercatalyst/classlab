@@ -27,6 +27,9 @@ config :classlab, Classlab.Endpoint,
 # config :logger, level: :info
 config :logger, level: :debug
 
+config :phoenix, :stacktrace_depth, 20
+
+
 # JWT secret for signing session token
 config :classlab, :jwt_secret, get_env("SECRET_KEY_BASE")
 
