@@ -20,10 +20,12 @@ config :classlab, Classlab.Endpoint,
   cache_static_manifest: "priv/static/manifest.json",
   secret_key_base: get_env("SECRET_KEY_BASE") || Logger.info("Please set env variable SECRET_KEY_BASE"),
   check_origin: false,
+  debug_errors: true,
   server: true
 
 # Do not print debug messages in production
-config :logger, level: :info
+# config :logger, level: :info
+config :logger, level: :debug
 
 # JWT secret for signing session token
 config :classlab, :jwt_secret, get_env("SECRET_KEY_BASE")
