@@ -19,7 +19,8 @@ config :classlab, Classlab.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :classlab, Classlab.Mailer,
-  adapter: Bamboo.TestAdapter
+  adapter: Bamboo.TestAdapter,
+  from: "mailer@example.com"
 
   # JWT secret for signing session token
 config :classlab, :jwt_secret, "a401993e-91f4-11e6-a7af-030741a2ba6a"

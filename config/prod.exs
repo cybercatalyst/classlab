@@ -33,8 +33,6 @@ config :phoenix, :stacktrace_depth, 20
 # JWT secret for signing session token
 config :classlab, :jwt_secret, get_env("SECRET_KEY_BASE")
 
-
-
 # SMTP configuration
 config :classlab, Classlab.Mailer,
   adapter: Bamboo.SMTPAdapter,
@@ -45,6 +43,10 @@ config :classlab, Classlab.Mailer,
   tls: :if_available, # can be `:always` or `:never`
   ssl: false, # can be `true`
   retries: 1
+
+# Email configuration
+config :classlab, Classlab.Mailer,
+  from: get_env("CLASSLAB_EMAIL_FROM") || Logger.info("Please set env variable CLASSLAB_EMAIL_FROM")
 
 # Configure your database
 config :classlab, Classlab.Repo,

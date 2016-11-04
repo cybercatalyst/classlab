@@ -5,13 +5,13 @@ defmodule Classlab.MembershipMailer do
 
   Also replaces the placeholders with real information.
   """
-  alias Classlab.{Endpoint, Membership, Event}
+  alias Classlab.{Endpoint, Mailer, Membership, Event}
   use Classlab.Web, :mailer
 
   def before_event_email(%Membership{user: user, event: event} = membership) do
     new_email
     |> to(user.email)
-    |> from("me@example.com")
+    |> from(Application.get_env(:classlab, Mailer, :from))
     |> subject(resolve_variables(Event.before_email_subject(event), membership))
     |> text_body(resolve_variables(Event.before_email_body_text(event), membership))
   end
@@ -19,7 +19,7 @@ defmodule Classlab.MembershipMailer do
   def after_event_email(%Membership{user: user, event: event} = membership) do
     new_email
     |> to(user.email)
-    |> from("me@example.com")
+    |> from(Application.get_env(:classlab, Mailer, :from))
     |> subject(resolve_variables(Event.after_email_subject(event), membership))
     |> text_body(resolve_variables(Event.after_email_body_text(event), membership))
   end
