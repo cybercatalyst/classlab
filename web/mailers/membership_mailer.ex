@@ -11,7 +11,7 @@ defmodule Classlab.MembershipMailer do
   def before_event_email(%Membership{user: user, event: event} = membership) do
     new_email
     |> to(user.email)
-    |> from(Application.get_env(:classlab, Mailer, :from))
+    |> from(Application.get_env(:classlab, Mailer)[:from])
     |> subject(resolve_variables(Event.before_email_subject(event), membership))
     |> text_body(resolve_variables(Event.before_email_body_text(event), membership))
   end
@@ -19,7 +19,7 @@ defmodule Classlab.MembershipMailer do
   def after_event_email(%Membership{user: user, event: event} = membership) do
     new_email
     |> to(user.email)
-    |> from(Application.get_env(:classlab, Mailer, :from))
+    |> from(Application.get_env(:classlab, Mailer)[:from])
     |> subject(resolve_variables(Event.after_email_subject(event), membership))
     |> text_body(resolve_variables(Event.after_email_body_text(event), membership))
   end

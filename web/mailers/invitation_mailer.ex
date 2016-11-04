@@ -10,7 +10,7 @@ defmodule Classlab.InvitationMailer do
 
     new_email
     |> to(email)
-    |> from(Application.get_env(:classlab, Mailer, :from))
+    |> from(Application.get_env(:classlab, Mailer)[:from])
     |> subject("Invitation to event #{event.name} #{invite_url}")
     |> html_body("Invitation to event #{event.name} <a href=\"#{invite_url}\" target=\"_blank\">#{invite_url}</a>")
   end
