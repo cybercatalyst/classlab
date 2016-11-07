@@ -25,6 +25,8 @@ defmodule Classlab.Router do
     delete "/logout", SessionController, :delete
 
     resources "/events", EventController, only: [:index, :show] do
+      get "/invitation", InvitationController, :new
+      post "/invitation", InvitationController, :create
       pipe_through [:as_user]
       post "/memberships", MembershipController, :create
     end

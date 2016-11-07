@@ -6,7 +6,10 @@
     </p>
     <p class="card-text"><small class="text-muted"><%= "#{l(@event.starts_at)} - #{l(@event.ends_at)}" %></small></p>
     <%= if current_user(@conn) do %>
+      <%= link "Invite", to: event_invitation_path(@conn, :new, @event), class: "btn btn-sm btn-outline-success" %>
       <%= link "Attend", to: event_membership_path(@conn, :create, @event), method: :post, class: "btn btn-sm btn-outline-success" %>
+    <% else %>
+      <%= link "Attend", to: event_invitation_path(@conn, :new, @event), class: "btn btn-sm btn-outline-success" %>
     <% end %>
   </div>
 </div>

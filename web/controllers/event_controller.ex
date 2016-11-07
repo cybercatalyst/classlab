@@ -19,12 +19,12 @@ defmodule Classlab.EventController do
   def show(conn, _params) do
     event = load_event(conn)
 
-    if !event.public do
+    if event.public do
+      render(conn, "show.html", event: event)
+    else
       conn
       |> put_flash(:error, "Permission denied")
       |> redirect(to: page_path(conn, :index))
-    else
-      render(conn, "show.html", event: event)
     end
   end
 
