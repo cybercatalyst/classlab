@@ -5,6 +5,7 @@
   <%= render "account_navigation.html", conn: @conn %>
   <%= render "account_sidebar.html", conn: @conn %>
   <div class="container-fluid container-main-sidebar-left">
+    <div class="spacer"></div>
     <main role="main">
       <%= render "_flash_messages.html", conn: @conn %>
 

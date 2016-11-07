@@ -5,6 +5,7 @@
   <%= render "superadmin_navigation.html", conn: @conn %>
   <%= render "superadmin_sidebar.html", conn: @conn %>
   <div class="container container-main-sidebar-left">
+    <div class="spacer"></div>
     <main role="main">
       <%= render "_flash_messages.html", conn: @conn %>
       <%= render @view_module, @view_template, assigns %>
