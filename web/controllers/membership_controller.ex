@@ -65,38 +65,39 @@ defmodule Classlab.MembershipController do
     end
   end
 
-  # def create(conn, _) do
-  #   event = load_event(conn)
-  #   user = current_user(conn)
+  def create(conn, _) do
+    event = load_event(conn)
+    user = current_user(conn)
 
-  #   if user && event.public do
-  #     test =
-  #       user
-  #       |> assoc(:memberships)
-  #       |> Membership.for_event(event)
-  #       |> Membership.not_as_role(3)
-  #       |> Repo.one()
+    # not logged in or not a public event --> permission denied
+    if event.public do
+      membership =
+        user
+        |> assoc(:memberships)
+        |> Membership.for_event(event)
+        |> Membership.as_role(3)
+        |> Repo.one()
 
-  #     if test do
-  #       handle_error(conn, "Already participating this event.")
-  #     else
-  #       membership_changeset =
-  #         user
-  #         |> build_assoc(:memberships)
-  #         |> Membership.changeset(%{
-  #           event_id: event.id,
-  #           role_id: 3
-  #         })
+      if membership do
+        handle_error(conn, "Already participating this event.")
+      else
+        membership_changeset =
+          user
+          |> build_assoc(:memberships)
+          |> Membership.changeset(%{
+            event_id: event.id,
+            role_id: 3
+          })
 
-  #       membership = Repo.insert!(membership_changeset)
-  #       send_event_before_email(membership)
+        membership = Repo.insert!(membership_changeset)
+        send_event_before_email(membership)
 
-  #       redirect(conn, to: classroom_dashboard_path(conn, :show, event))
-  #     end
-  #   else
-  #     handle_error(conn, "Permission denied.")
-  #   end
-  # end
+        redirect(conn, to: classroom_dashboard_path(conn, :show, event))
+      end
+    else
+      handle_error(conn, "Permission denied.")
+    end
+  end
 
   # Private methods
   defp load_event(conn) do

@@ -5,5 +5,8 @@
       <%= render_markdown @event.description_markdown %>
     </p>
     <p class="card-text"><small class="text-muted"><%= "#{l(@event.starts_at)} - #{l(@event.ends_at)}" %></small></p>
+    <%= if current_user(@conn) do %>
+      <%= link "Attend", to: event_membership_path(@conn, :create, @event), method: :post, class: "btn btn-sm btn-outline-success" %>
+    <% end %>
   </div>
 </div>

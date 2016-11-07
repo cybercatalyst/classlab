@@ -24,7 +24,10 @@ defmodule Classlab.Router do
     get "/session/:id", SessionController, :show
     delete "/logout", SessionController, :delete
 
-    resources "/events", EventController, only: [:index, :show]
+    resources "/events", EventController, only: [:index, :show] do
+      pipe_through [:as_user]
+      post "/memberships", MembershipController, :create
+    end
 
     get "/membership/:event_id/:invitation_token/complete", MembershipController, :show
     get "/membership/:event_id/:invitation_token", MembershipController, :new
