@@ -6,7 +6,7 @@ defmodule Classlab.InvitationMailer do
   use Classlab.Web, :mailer
 
   def invitation_email(%Invitation{invitation_token: invitation_token, email: email, first_name: _first_name, last_name: _last_name, event: event}) do
-    invite_url = invitation_url(Endpoint, :new, event.slug, invitation_token)
+    invite_url = membership_url(Endpoint, :new, event.slug, invitation_token)
 
     new_email
     |> to(email)

@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <%= form_for @conn, invitation_path(@conn, :create, @invitation.event.slug, @invitation.invitation_token), [as: :complete], fn _ -> %>
+        <%= form_for @conn, membership_path(@conn, :create, @invitation.event, @invitation.invitation_token), [as: :complete], fn _ -> %>
           <%= submit "Accept Invitation", class: "btn btn-success" %>
         <% end %>
       </div>

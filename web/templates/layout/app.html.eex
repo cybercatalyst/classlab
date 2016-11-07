@@ -4,7 +4,21 @@
 <body>
   <div class="container">
     <%= render "app_navigation.html", conn: @conn %>
-    <main role="main">
+    <div class="spacer"></div>
+
+    <main role="main" class="mt-3">
+      <%= if page(@conn)[:breadcrumb] do %>
+        <div class="breadcrumb mb-2">
+          <%= for {entry, index} <- Enum.with_index(page(@conn)[:breadcrumb]) do %>
+            <%= if Map.has_key?(entry, :path) do %>
+              <%= link entry.name, to: entry.path, class: "breadcrumb-item #{if(index == length(page(@conn)[:breadcrumb]), do: "active")}" %>
+            <% else %>
+              <span class="breadcrumb-item active"><%= entry.name %></span>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+
       <%= render "_flash_messages.html", conn: @conn %>
       <%= render @view_module, @view_template, assigns %>
     </main>

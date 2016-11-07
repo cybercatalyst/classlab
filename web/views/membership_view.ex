@@ -1,4 +1,4 @@
-defmodule Classlab.InvitationView do
+defmodule Classlab.MembershipView do
   @moduledoc false
   use Classlab.Web, :view
 
