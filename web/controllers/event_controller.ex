@@ -4,6 +4,8 @@ defmodule Classlab.EventController do
   alias Ecto.Query
   use Classlab.Web, :controller
 
+  use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
+
   def index(conn, _params) do
     events =
       Event
@@ -17,7 +19,13 @@ defmodule Classlab.EventController do
   def show(conn, _params) do
     event = load_event(conn)
 
-    render(conn, "show.html", event: event)
+    if !event.public do
+      conn
+      |> put_flash(:error, "Permission denied")
+      |> redirect(to: page_path(conn, :index))
+    else
+      render(conn, "show.html", event: event)
+    end
   end
 
   # Private methods

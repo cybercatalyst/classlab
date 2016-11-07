@@ -16,5 +16,12 @@ defmodule Classlab.EventControllerTest do
       conn = get conn, event_path(conn, :show, event)
       assert html_response(conn, 200) =~ event.name
     end
+
+    test "redirects to startpage if chosen resource not public", %{conn: conn} do
+      event = Factory.insert(:event, starts_at: Calendar.DateTime.now_utc())
+      conn = get conn, event_path(conn, :show, event)
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert get_flash(conn, :error) =~ "Permission denied"
+    end
   end
 end
