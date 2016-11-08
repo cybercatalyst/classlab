@@ -1,6 +1,6 @@
 defmodule Classlab.EventController do
   @moduledoc false
-  alias Classlab.Event
+  alias Classlab.{Event, Membership}
   alias Ecto.Query
   use Classlab.Web, :controller
 
@@ -13,14 +13,36 @@ defmodule Classlab.EventController do
       |> Query.preload(:location)
       |> Repo.all()
 
-    render(conn, "index.html", events: events)
+    user = current_user(conn)
+
+    memberships =
+      if user do
+        user
+        |> assoc(:memberships)
+        |> Repo.all()
+      else
+        []
+      end
+
+    render(conn, "index.html", events: events, current_memberships: memberships)
   end
 
   def show(conn, _params) do
     event = load_event(conn)
+    user = current_user(conn)
 
     if event.public do
-      render(conn, "show.html", event: event)
+      memberships =
+        if user do
+          user
+          |> assoc(:memberships)
+          |> Membership.for_event(event)
+          |> Repo.all()
+        else
+          []
+        end
+
+      render(conn, "show.html", event: event, current_memberships: memberships)
     else
       conn
       |> put_flash(:error, "Permission denied")

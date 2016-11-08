@@ -5,6 +5,8 @@ defmodule Classlab.PageController do
   use Classlab.Web, :controller
 
   def index(conn, _params) do
+    user = current_user(conn)
+
     events =
       Event
       |> Event.next_public()
@@ -12,6 +14,15 @@ defmodule Classlab.PageController do
       |> Query.preload(:location)
       |> Repo.all()
 
-    render(conn, "index.html", events: events)
+    memberships =
+      if user do
+        user
+        |> assoc(:memberships)
+        |> Repo.all()
+      else
+        []
+      end
+
+    render(conn, "index.html", events: events, current_memberships: memberships)
   end
 end

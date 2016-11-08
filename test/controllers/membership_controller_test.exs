@@ -119,6 +119,14 @@ defmodule Classlab.MembershipControllerTest do
       assert redirected_to(conn) == page_path(conn, :index)
       assert get_flash(conn, :error) =~ "Already participating"
     end
+
+    test "does not create if not loggedin", %{conn: conn} do
+      event = Factory.insert(:event, public: true)
+
+      conn = post conn, event_membership_path(conn, :create, event)
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert get_flash(conn, :error) =~ "Permission denied"
+    end
   end
 
   describe "#show" do
