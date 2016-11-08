@@ -7,28 +7,29 @@
 <% else %>
   <table class="table table-hover">
     <thead>
-      <tr>
-        <th>Public</th>
-        <th>Name</th>
-        <th>Date</th>
-        <th></th>
+      <tr class="row">
+        <th class="col-xs-1">Public</th>
+        <th class="col-xs-8">Name</th>
+        <th class="col-xs-2">Date</th>
+        <th class="col-xs-1">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <%= for membership <- @memberships do %>
-        <tr>
-          <td><%= membership.event.public %></td>
-          <td>
-            <%= link membership.event.name, to: classroom_dashboard_path(@conn, :show, membership.event) %><br>
-            <small class="text-muted text-truncate">
+        <tr class="row">
+          <td class="col-xs-1"><%= membership.event.public %></td>
+          <td class="col-xs-8">
+            <%= link membership.event.name, to: classroom_dashboard_path(@conn, :show, membership.event) %>
+            <br>
+            <small class="text-muted">
               <%= render_markdown truncate(membership.event.description_markdown, 200), escape: true %>
             </small>
           </td>
-          <td>
+          <td class="col-xs-2">
             <%= l(Calendar.DateTime.to_date(membership.event.starts_at)) %> -
             <%= l(Calendar.DateTime.to_date(membership.event.ends_at)) %>
           </td>
-          <td>
+          <td class="col-xs-1">
             <%= if membership.role.id != 1 do %>
               <%= link "Delete", to: account_membership_path(@conn, :delete, membership), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-outline-danger btn-sm" %>
             <% end %>
