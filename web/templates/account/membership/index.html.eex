@@ -1,4 +1,4 @@
-<div class="card mt-2" role="tablist">
+<div class="card" role="tablist">
   <div class="card-header">
     <ul class="nav nav-pills card-header-pills">
       <li class="nav-item">
