@@ -14,4 +14,8 @@ defmodule Classlab.Classroom.InvitationView do
   }
 
   # View functions
+  def role_collection(roles) do
+    roles
+    |> Enum.map(&({"#{&1.name}", &1.id}))
+  end
 end

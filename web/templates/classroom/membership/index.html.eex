@@ -1,5 +1,5 @@
 <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
-  <%= render Classlab.Classroom.InvitationView, "new.html", event: @event, changeset: @invitation_changeset, conn: @conn %>
+  <%= render Classlab.Classroom.InvitationView, "new.html", event: @event, roles: @roles, changeset: @invitation_changeset, conn: @conn %>
 <% end %>
 
 <div class="card" role="tablist">
@@ -39,7 +39,9 @@
             <%= for membership <- @memberships do %>
               <tr>
                 <td><%= membership.user.email %></td>
-                <td><%= membership.role.name %></td>
+                <td>
+                  <%= membership.role.name %>
+                </td>
                 <td>
                   <%= if has_permission?(current_memberships(@conn), [1, 2]) ||membership.user_id == current_user(@conn).id do %>
                     <%= link "Delete", to: classroom_membership_path(@conn, :delete, membership.event, membership), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>

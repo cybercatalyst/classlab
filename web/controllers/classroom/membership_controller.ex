@@ -1,6 +1,7 @@
 defmodule Classlab.Classroom.MembershipController do
   @moduledoc false
-  alias Classlab.{Invitation, Membership}
+  alias Classlab.{Invitation, Membership, Role}
+  alias Ecto.Query
   use Classlab.Web, :controller
   use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
@@ -34,6 +35,12 @@ defmodule Classlab.Classroom.MembershipController do
       |> build_assoc(:invitations)
       |> Invitation.changeset()
 
+    roles =
+      Role
+      |> Query.where([r], r.id > 1)
+      |> Query.order_by(desc: :id)
+      |> Repo.all()
+
     render(
       conn,
       "index.html",
@@ -41,7 +48,8 @@ defmodule Classlab.Classroom.MembershipController do
       invitation_changeset: invitation_changeset,
       memberships: memberships,
       completed_invitations: completed_invitations,
-      open_invitations: open_invitations
+      open_invitations: open_invitations,
+      roles: roles
     )
   end
 

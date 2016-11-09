@@ -25,11 +25,13 @@
       <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "feedbacks", do: " active")}" do %>
         <%= link "Feedbacks", to: classroom_feedback_path(@conn, :index, @conn.params["event_id"]), class: "nav-link" %>
       <% end %>
-      <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "event_email_templates", do: " active")}" do %>
-        <%= link "Email Templates", to: classroom_event_email_template_path(@conn, :edit, @conn.params["event_id"]), class: "nav-link" %>
-      <% end %>
-      <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "event", do: " active")}" do %>
-        <%= link "Settings", to: classroom_event_path(@conn, :edit, @conn.params["event_id"]), class: "nav-link" %>
+      <%= if has_permission?(current_memberships(@conn), [1]) do %>
+        <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "event_email_templates", do: " active")}" do %>
+          <%= link "Email Templates", to: classroom_event_email_template_path(@conn, :edit, @conn.params["event_id"]), class: "nav-link" %>
+        <% end %>
+        <%= content_tag :li, class: "nav-item #{if(Enum.at(@conn.path_info, 2) == "event", do: " active")}" do %>
+          <%= link "Settings", to: classroom_event_path(@conn, :edit, @conn.params["event_id"]), class: "nav-link" %>
+        <% end %>
       <% end %>
     <% else %>
       <%= if Calendar.DateTime.before?(current_event(@conn).ends_at, Calendar.DateTime.now_utc()) do %>

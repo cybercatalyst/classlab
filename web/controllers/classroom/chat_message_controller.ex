@@ -16,6 +16,12 @@ defmodule Classlab.Classroom.ChatMessageController do
       |> Repo.all()
       |> Repo.preload(:user)
 
+    trainer_memberships =
+      event
+      |> assoc(:memberships)
+      |> Membership.as_role(2)
+      |> Repo.all()
+
     changeset =
       event
       |> build_assoc(:chat_messages, %{user: current_user})
@@ -33,7 +39,8 @@ defmodule Classlab.Classroom.ChatMessageController do
       changeset: changeset,
       chat_messages: chat_messages,
       current_memberships: current_memberships,
-      event: event
+      event: event,
+      trainer_memberships: trainer_memberships
     )
   end
 

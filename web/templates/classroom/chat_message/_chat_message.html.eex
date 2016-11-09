@@ -4,24 +4,29 @@
       <img class="pull-left" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(@chat_message.user.email)), case: :lower) %>?s=32&d=identicon">
     </div>
     <div class="media-body">
-      <p>
-        <strong>
-          <%= if @chat_message.user.id == current_user(@conn).id do %>
-            You
-          <% else %>
-            <%= @chat_message.user.email %>
+      <div class="row">
+        <div class="col-xs-8">
+            <strong>
+              <%= if @chat_message.user.id == current_user(@conn).id do %>
+                You
+              <% else %>
+                <%= @chat_message.user.email %>
+              <% end %>
+              <%= if is_trainer?(@chat_message.user, @trainer_memberships) do %>
+                <span class="tag tag-primary">Trainer</span>
+              <% end %>
+            </strong>
+            wrote
+            <small class="text-muted">at <%= l(@chat_message.inserted_at) %></small>
+        </div>
+        <div class="col-xs-4 text-xs-right">
+          <%= if @chat_message.user.id == current_user(@conn).id && has_permission?(current_memberships(@conn), [1, 2]) do %>
+            <%= link "Edit", to: classroom_chat_message_path(@conn, :edit, @event, @chat_message), class: "btn btn-outline-primary btn-sm" %>
+            <%= link "Delete", to: classroom_chat_message_path(@conn, :delete, @event, @chat_message), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
           <% end %>
-        </strong>
-        wrote
-        <span class="text-muted text-xs-right">at <%= l(@chat_message.inserted_at) %></span>
-      </p>
+        </div>
+      </div>
       <p><%= @chat_message.body %></p>
     </div>
-    <%= if @chat_message.user.id == current_user(@conn).id && has_permission?(current_memberships(@conn), [1, 2]) do %>
-      <div class="media-right media-middle hidden-xs-up visible">
-        <%= link "Edit", to: classroom_chat_message_path(@conn, :edit, @event, @chat_message), class: "btn btn-outline-primary btn-sm" %>
-        <%= link "Delete", to: classroom_chat_message_path(@conn, :delete, @event, @chat_message), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-danger btn-sm" %>
-      </div>
-    <% end %>
   </div>
 </li>

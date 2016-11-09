@@ -1,6 +1,7 @@
 defmodule Classlab.Classroom.InvitationController do
   @moduledoc false
-  alias Classlab.{Invitation, InvitationMailer}
+  alias Classlab.{Invitation, InvitationMailer, Role}
+  alias Ecto.Query
   use Classlab.Web, :controller
   use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
@@ -14,15 +15,27 @@ defmodule Classlab.Classroom.InvitationController do
       |> build_assoc(:invitations)
       |> Invitation.changeset()
 
-    render(conn, "new.html", changeset: changeset, event: event)
+    roles =
+      Role
+      |> Query.where([r], r.id > 1)
+      |> Query.order_by(desc: :id)
+      |> Repo.all()
+
+    render(conn, "new.html", changeset: changeset, event: event, roles: roles)
   end
 
   def create(conn, %{"invitation" => invitation_params}) do
     event = current_event(conn)
     changeset =
       event
-      |> build_assoc(:invitations, %{role_id: 3})
+      |> build_assoc(:invitations, %{})
       |> Invitation.changeset(invitation_params)
+
+    roles =
+      Role
+      |> Query.where([r], r.id > 1)
+      |> Query.order_by(desc: :id)
+      |> Repo.all()
 
     case Repo.insert(changeset) do
       {:ok, invitation} ->
@@ -35,7 +48,7 @@ defmodule Classlab.Classroom.InvitationController do
         |> put_flash(:info, "Invitation created successfully.")
         |> redirect(to: classroom_membership_path(conn, :index, event))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset, event: event)
+        render(conn, "new.html", changeset: changeset, event: event, roles: roles)
     end
   end
 

@@ -5,7 +5,7 @@
 <div class="pb-2">
   <ul class="list-group list-group-flush">
   <%= for chat_message <- @chat_messages do %>
-    <%= render "_chat_message.html", conn: @conn, chat_message: chat_message, current_memberships: @current_memberships, event: @event %>
+    <%= render "_chat_message.html", conn: @conn, chat_message: chat_message, current_memberships: @current_memberships, event: @event, trainer_memberships: @trainer_memberships %>
   <% end %>
   </ul>
   <div id=last_message></div>

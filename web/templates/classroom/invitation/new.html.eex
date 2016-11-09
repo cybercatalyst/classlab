@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-header">New invitation</div>
       <div class="card-block">
-        <%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
+        <%= render "_form.html", conn: @conn, changeset: @changeset, event: @event, roles: @roles,
                             action: classroom_invitation_path(@conn, :create, @event) %>
       </div>
     </div>

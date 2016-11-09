@@ -29,4 +29,7 @@ defmodule Classlab.Classroom.ChatMessageView do
   }
 
   # View functions
+  def is_trainer?(user, trainers) do
+    Enum.any?(trainers, fn(trainer) -> trainer.user_id == user.id end)
+  end
 end

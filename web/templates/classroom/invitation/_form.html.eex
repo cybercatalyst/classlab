@@ -9,8 +9,9 @@
     <div class="col-md-3"><%= input f, :email, placeholder: "email@domain.com" %></div>
     <div class="col-md-2"><%= input f, :first_name, placeholder: "(optional)" %></div>
     <div class="col-md-2"><%= input f, :last_name, placeholder: "(optional)" %></div>
+    <div class="col-md-2"><%= input f, :role_id, collection: role_collection(@roles), using: :select %></div>
     <div class="col-md-2">
-    <label>&nbsp;</label><br>
-    <%= submit "Send invitation", class: "btn btn-primary" %></div>
+      <%= submit "Send invitation", class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>

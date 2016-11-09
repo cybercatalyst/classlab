@@ -165,6 +165,9 @@
                     </div>
                     <div class="media-body media-middle">
                       <%= membership.user.email %>
+                      <%= if membership.role_id == 2 do %>
+                        <span class="tag tag-primary"><%= membership.role.name %></span>
+                      <% end %>
                     </div>
                   </div>
                 </li>
