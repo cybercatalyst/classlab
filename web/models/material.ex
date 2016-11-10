@@ -35,7 +35,7 @@ defmodule Classlab.Material do
     struct
     |> cast(params, @fields)
     |> validate_required(@fields)
-    |> unique_constraint(:position)
+    |> unique_constraint(:materials_position_event_id_index)
   end
 
   # Methods

@@ -59,11 +59,11 @@ defmodule Classlab.Task do
   end
 
   # Changesets & Validations
-  @fields [:body_markdown, :bonus_markdown, :external_app_url, :hint_markdown, :position, :title]
+  @fields [:body_markdown, :bonus_markdown, :event_id, :external_app_url, :hint_markdown, :position, :title]
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
     |> validate_required([:body_markdown, :position, :title])
-    |> unique_constraint(:position)
+    |> unique_constraint(:tasks_position_event_id_index)
   end
 end
