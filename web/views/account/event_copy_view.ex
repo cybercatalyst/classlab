@@ -3,7 +3,7 @@ defmodule Classlab.Account.EventCopyView do
   use Classlab.Web, :view
 
   # Page Configuration
-  def page("show.html", conn), do: %{
+  def page("new.html", conn), do: %{
     title: "New event copy",
     breadcrumb: [%{
       name: "Events",

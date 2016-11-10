@@ -49,7 +49,7 @@ defmodule Classlab.Router do
     pipe_through [:browser, :account]
     resources "/", DashboardController, only: [:show], singleton: true
     resources "/events", EventController, only: [:index, :new, :create] do
-      resources "/copy", EventCopyController, only: [:show, :create], singleton: true
+      resources "/copy", EventCopyController, only: [:new, :create], singleton: true
     end
     resources "/feedbacks", FeedbackController, only: [:index]
     resources "/invitations", InvitationController, only: [:index, :update, :delete]

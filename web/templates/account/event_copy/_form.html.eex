@@ -6,9 +6,6 @@
   <% end %>
 
   <%= input f, :name %>
-  <%= input f, :copy_tasks %>
-  <%= input f, :copy_materials %>
-  <%= input f, :copy_attendees %>
 
   <%= submit "Copy", class: "btn btn-primary" %>
 <% end %>

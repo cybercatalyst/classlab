@@ -33,9 +33,9 @@
             <%= if membership.role.id != 1 do %>
               <%= link "Delete", to: account_membership_path(@conn, :delete, membership), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-outline-danger btn-sm" %>
             <% end %>
-            <%#= if membership.role.id == 1 do %>
-              <%#= link "copy", to: account_event_event_copy_path(@conn, :show, membership.event), class: "btn btn-sm btn-outline-success" %>
-            <%# end %>
+            <%= if membership.role.id == 1 do %>
+              <%= link "copy", to: account_event_event_copy_path(@conn, :new, membership.event), class: "btn btn-sm btn-outline-success" %>
+            <% end %>
           </td>
         </tr>
       <% end %>
