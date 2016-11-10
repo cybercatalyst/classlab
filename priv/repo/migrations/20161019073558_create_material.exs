@@ -13,6 +13,6 @@ defmodule Classlab.Repo.Migrations.CreateMaterial do
       timestamps()
     end
     create index(:materials, [:event_id])
-    create unique_index(:materials, [:position, :event_id], name: :materials_position_event_id_index)
+    create unique_index(:materials, [:position, :event_id], name: :position_event_id)
   end
 end

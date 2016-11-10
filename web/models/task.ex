@@ -64,6 +64,6 @@ defmodule Classlab.Task do
     struct
     |> cast(params, @fields)
     |> validate_required([:body_markdown, :position, :title])
-    |> unique_constraint(:tasks_position_event_id_index)
+    |> unique_constraint(:position_event_id)
   end
 end
