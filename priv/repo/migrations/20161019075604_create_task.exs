@@ -14,6 +14,6 @@ defmodule Classlab.Repo.Migrations.CreateTask do
       timestamps()
     end
     create index(:tasks, [:event_id])
-    create unique_index(:tasks, [:position])
+    create unique_index(:tasks, [:position, :event_id], name: :tasks_position_event_id_index)
   end
 end
