@@ -1,7 +1,6 @@
 <%= page_reload_listener([:event, @event.id, :material, :unlock]) %>
 <%= page_reload_listener([:event, @event.id, :material, :lock]) %>
 
-
 <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
   <%= if length(@unlocked_materials) == 0 && length(@locked_materials) == 0 do %>
     <div class="card">
