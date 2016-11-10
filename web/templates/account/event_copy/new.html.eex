@@ -1,7 +1,13 @@
 <div class="row">
   <div class="col-md-10 col-lg-6">
     <div class="card">
+      <div class="card-header">
+        Copy event
+      </div>
       <div class="card-block">
+        <h5 class="card-title"><%= @event.name %></h5>
+
+        <p>The new event includes tasks, materials and the location of the original event. It is set to private per default.</p>
         <%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
                             action: account_event_event_copy_path(@conn, :create, @event) %>
       </div>
