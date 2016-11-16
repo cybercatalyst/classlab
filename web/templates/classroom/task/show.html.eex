@@ -7,6 +7,21 @@
 
 <div class="row">
   <div class="col-md-10">
+    <div class="btn-toolbar mb-1 clearfix" role="toolbar" aria-label="Toolbar with button groups">
+      <%= if @previous_task do %>
+        <div class="btn-group" role="group" aria-label="Previous">
+            <%= link "« #{@previous_task.title}", to: classroom_task_path(@conn, :show, @event, @previous_task), class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+      <div class="btn-group float-xs-right" role="group" aria-label="Next">
+        <%= if has_permission?(current_memberships(@conn), [1, 2]) && @next_unlockable_task do %>
+          <%= link "Unlock next »", to: classroom_task_path(@conn, :unlock_next, @event), method: :post, class: "btn btn-success" %>
+        <% end %>
+        <%= if @next_task do %>
+          <%= link "#{@next_task.title} »", to: classroom_task_path(@conn, :show, @event, @next_task), class: "btn btn-secondary" %>
+        <% end %>
+      </div>
+    </div>
     <div class="card">
       <div class="card-header text-xs-center">
         <%= @task.title %>
@@ -38,7 +53,7 @@
         </div>
       <% end %>
     </div>
-    <div class="btn-toolbar clearfix" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-toolbar mb-2 clearfix" role="toolbar" aria-label="Toolbar with button groups">
       <%= if @previous_task do %>
         <div class="btn-group" role="group" aria-label="Previous">
             <%= link "« #{@previous_task.title}", to: classroom_task_path(@conn, :show, @event, @previous_task), class: "btn btn-secondary" %>
@@ -46,7 +61,7 @@
       <% end %>
       <div class="btn-group float-xs-right" role="group" aria-label="Next">
         <%= if has_permission?(current_memberships(@conn), [1, 2]) && @next_unlockable_task do %>
-          <%= link "Unlock next", to: classroom_task_path(@conn, :unlock_next, @event), method: :post, class: "btn btn-outline-success" %>
+          <%= link "Unlock next »", to: classroom_task_path(@conn, :unlock_next, @event), method: :post, class: "btn btn-success" %>
         <% end %>
         <%= if @next_task do %>
           <%= link "#{@next_task.title} »", to: classroom_task_path(@conn, :show, @event, @next_task), class: "btn btn-secondary" %>
