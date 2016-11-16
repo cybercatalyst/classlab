@@ -15,7 +15,7 @@ defmodule Classlab.SessionController do
       %User{} = user ->
         conn
         |> put_session(:user_id_jwt, UserToken.encode(%UserToken{user_id: user.id}))
-        |> put_flash(:info, "Logged in successfully.")
+        |> put_flash(:info, "You are successfully logged in.")
         |> redirect(to: account_dashboard_path(conn, :show))
       nil ->
         conn
