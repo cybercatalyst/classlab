@@ -3,11 +3,21 @@
 <%= page_reload_listener([:event, @event.id, :chat_message, :update]) %>
 
 <div class="pb-2">
-  <ul class="list-group list-group-flush">
-  <%= for chat_message <- @chat_messages do %>
-    <%= render "_chat_message.html", conn: @conn, chat_message: chat_message, current_memberships: @current_memberships, event: @event, trainer_memberships: @trainer_memberships %>
+  <%= if length(@chat_messages) == 0 do %>
+    <div class="card">
+      <div class="card-block text-xs-center">
+        <h4 class="card-title">There are no chat messages, yet.</h4>
+        <p class="card-text">Be the first and send a message to all attendees.</p>
+      </div>
+    </div>
+  <% else %>
+    <ul class="list-group list-group-flush">
+      <%= for chat_message <- @chat_messages do %>
+        <%= render "_chat_message.html", conn: @conn, chat_message: chat_message, current_memberships: @current_memberships, event: @event, trainer_memberships: @trainer_memberships %>
+      <% end %>
+    </ul>
   <% end %>
-  </ul>
+
   <div id=last_message></div>
 </div>
 <div class="chat-reply">
