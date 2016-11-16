@@ -6,7 +6,7 @@ defmodule Classlab.Account.MembershipView do
   def page("index.html", _conn), do: %{
     title: "Events",
     breadcrumb: [%{
-      name: "Event"
+      name: "Events"
     }]
   }
 

@@ -6,6 +6,11 @@ defmodule Classlab.Classroom.InvitationView do
   def page("new.html", conn), do: %{
     title: "New invitation",
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Attendees",
       path: classroom_membership_path(conn, :index, conn.assigns.event)
     }, %{

@@ -3,9 +3,14 @@ defmodule Classlab.Classroom.MembershipView do
   use Classlab.Web, :view
 
   # Page Configuration
-  def page("index.html", _conn), do: %{
+  def page("index.html", conn), do: %{
     title: "Attendees",
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Attendees"
     }]
   }

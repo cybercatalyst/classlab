@@ -3,9 +3,14 @@ defmodule Classlab.Classroom.DashboardView do
   use Classlab.Web, :view
 
   # Page Configuration
-  def page("show.html", _conn), do: %{
+  def page("show.html", conn), do: %{
     title: "Dashboard",
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Dashboard"
     }]
   }

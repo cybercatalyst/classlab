@@ -4,15 +4,25 @@ defmodule Classlab.Classroom.MaterialView do
   use Classlab.Web, :view
 
   # Page Configuration
-  def page("index.html", _conn), do: %{
+  def page("index.html", conn), do: %{
     title: "Materials",
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Materials"
     }]
   }
   def page("new.html", conn), do: %{
     title: "New Material",
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Materials",
       path: classroom_material_path(conn, :index, conn.assigns.event)
     }, %{
@@ -22,6 +32,11 @@ defmodule Classlab.Classroom.MaterialView do
   def page("show.html", conn), do: %{
     title: conn.assigns.material.title,
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Materials",
       path: classroom_material_path(conn, :index, conn.assigns.event)
     }, %{
@@ -31,6 +46,11 @@ defmodule Classlab.Classroom.MaterialView do
   def page("edit.html", conn), do: %{
     title: "Edit #{conn.assigns.material.title}",
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Materials",
       path: classroom_material_path(conn, :index, conn.assigns.event)
     }, %{

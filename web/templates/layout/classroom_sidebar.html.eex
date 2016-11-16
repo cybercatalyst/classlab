@@ -1,30 +1,35 @@
 <div class="container-sidebar-left">
 
   <nav class="navbar navbar-dark">
-    <%= link "Classroom", to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "navbar-brand" %>
+    <span class="navbar-brand">Classroom</span>
   </nav>
 
-  <ul class="sidebar-nav">
-    <li class="nav-item media px-1 text-muted mb-1">
-      <div class="media-left">
-        <img class="rounded" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(current_user(@conn).email)), case: :lower) %>?s=32&d=identicon">
-      </div>
-      <div class="media-body small">
-        <%= current_user(@conn).email %>
-        <br>
-        <%= for membership <- current_memberships(@conn) do %>
-          <%= if membership.role.id == 1 do %>
-            <span class="tag tag-danger"><%= membership.role.name %></span>
+  <ul class="sidebar-nav mb-1">
+    <li class="nav-item media text-muted">
+      <%= link to: account_dashboard_path(@conn, :show), style: "border-bottom: 0px solid transparent;", class: "navbar-link" do %>
+        <div class="media-left">
+          <img class="rounded" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(current_user(@conn).email)), case: :lower) %>?s=32&d=identicon">
+        </div>
+        <div class="media-body small">
+          <%= current_user(@conn).email %>
+          <br>
+          <%= for membership <- current_memberships(@conn) do %>
+            <%= if membership.role.id == 1 do %>
+              <span class="tag tag-danger"><%= membership.role.name %></span>
+            <% end %>
+            <%= if membership.role.id == 2 do %>
+              <span class="tag tag-warning"><%= membership.role.name %></span>
+            <% end %>
+            <%= if membership.role.id == 3 do %>
+              <span class="tag tag-primary"><%= membership.role.name %></span>
+            <% end %>
           <% end %>
-          <%= if membership.role.id == 2 do %>
-            <span class="tag tag-warning"><%= membership.role.name %></span>
-          <% end %>
-          <%= if membership.role.id == 3 do %>
-            <span class="tag tag-primary"><%= membership.role.name %></span>
-          <% end %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </li>
+  </ul>
+
+  <ul class="sidebar-nav">
     <%= content_tag :li, class: "nav-item #{if(!Enum.at(@conn.path_info, 2), do: " active")}" do %>
       <%= link "Dashboard", to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "nav-link" %>
     <% end %>

@@ -3,9 +3,14 @@ defmodule Classlab.Classroom.TaskView do
   use Classlab.Web, :view
 
   # Page Configuration
-  def page("index.html", _conn), do: %{
+  def page("index.html", conn), do: %{
     title: "Tasks",
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Tasks"
     }]
   }
@@ -13,6 +18,11 @@ defmodule Classlab.Classroom.TaskView do
   def page("new.html", conn), do: %{
     title: "New Task",
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Tasks",
       path: classroom_task_path(conn, :index, conn.assigns.event)
     }, %{
@@ -23,6 +33,11 @@ defmodule Classlab.Classroom.TaskView do
   def page("show.html", conn), do: %{
     title: conn.assigns.task.title,
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Tasks",
       path: classroom_task_path(conn, :index, conn.assigns.event)
     }, %{
@@ -33,6 +48,11 @@ defmodule Classlab.Classroom.TaskView do
   def page("edit.html", conn), do: %{
     title: "Edit #{conn.assigns.task.title}",
     breadcrumb: [%{
+      name: "My Events",
+      path: account_membership_path(conn, :index)
+    }, %{
+      name: "Current event"
+    }, %{
       name: "Tasks",
       path: classroom_task_path(conn, :index, conn.assigns.event)
     }, %{

@@ -6,7 +6,7 @@ defmodule Classlab.Account.EventView do
   def page("new.html", conn), do: %{
     title: "New event",
     breadcrumb: [%{
-      name: "Event",
+      name: "Events",
       path: account_membership_path(conn, :index)
     }, %{
       name: "New event"
