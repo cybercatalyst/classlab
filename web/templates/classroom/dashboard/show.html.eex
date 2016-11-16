@@ -8,10 +8,16 @@
 <%= page_reload_listener([:event, @event.id, :chat_message, :delete]) %>
 <%= page_reload_listener([:event, @event.id, :chat_message, :update]) %>
 
-<div class="jumbotron">
-  <h1 class="display-3"><%= @event.name %></h1>
-  <div class="lead">
-    <%= render_markdown @event.description_markdown %>
+<div class="card card-inverse" style="background-color: #333; border-color: #333;">
+  <div class="card-block">
+    <h3 class="card-title"><%= @event.name %></h3>
+    <p class="card-text"><%= l(@event.starts_at) %> - <%= l(@event.ends_at) %></p>
+    <a data-toggle="collapse" href="#description2" aria-expanded="false" aria-controls="description2" class="btn btn-primary">more information</a>
+    <div class="card-text collapse" id="description2">
+      <div class="lead mt-2">
+        <%= render_markdown @event.description_markdown %>
+      </div>
+    </div>
   </div>
 </div>
 
