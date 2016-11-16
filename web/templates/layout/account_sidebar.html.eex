@@ -1,10 +1,18 @@
 <div class="container-sidebar-left">
 
-  <nav class="navbar navbar-dark bg-inverse" >
+  <nav class="navbar navbar-dark">
     <%= link "Account", to: account_dashboard_path(@conn, :show), class: "navbar-brand" %>
   </nav>
 
   <ul class="sidebar-nav">
+    <li class="nav-item media px-1 text-muted mb-1">
+      <div class="media-left">
+        <img class="rounded" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(current_user(@conn).email)), case: :lower) %>?s=32&d=identicon">
+      </div>
+      <div class="media-body small">
+        <%= current_user(@conn).email %>
+      </div>
+    </li>
     <%= content_tag :li, class: "nav-item #{if(@conn.path_info == ["account"], do: " active")}" do %>
       <%= link "Dashboard", to: account_dashboard_path(@conn, :show), class: "nav-link" %>
     <% end %>

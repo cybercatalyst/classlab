@@ -20,6 +20,7 @@ defmodule Classlab.AssignMembershipsPlug do
         |> Ecto.assoc(:memberships)
         |> Membership.for_event(current_event)
         |> Repo.all()
+        |> Repo.preload(:role)
 
         assign(conn, :current_memberships, memberships)
     else

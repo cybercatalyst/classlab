@@ -32,6 +32,7 @@ defmodule Classlab.Classroom.ChatMessageController do
       |> assoc(:memberships)
       |> Membership.for_event(event)
       |> Repo.all()
+      |> Repo.preload(:role)
 
     render(
       conn,

@@ -1,11 +1,30 @@
 <div class="container-sidebar-left">
 
-  <nav class="navbar navbar-dark bg-inverse" >
+  <nav class="navbar navbar-dark">
     <%= link "Classroom", to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "navbar-brand" %>
   </nav>
 
-
   <ul class="sidebar-nav">
+    <li class="nav-item media px-1 text-muted mb-1">
+      <div class="media-left">
+        <img class="rounded" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(current_user(@conn).email)), case: :lower) %>?s=32&d=identicon">
+      </div>
+      <div class="media-body small">
+        <%= current_user(@conn).email %>
+        <br>
+        <%= for membership <- current_memberships(@conn) do %>
+          <%= if membership.role.id == 1 do %>
+            <span class="tag tag-danger"><%= membership.role.name %></span>
+          <% end %>
+          <%= if membership.role.id == 2 do %>
+            <span class="tag tag-warning"><%= membership.role.name %></span>
+          <% end %>
+          <%= if membership.role.id == 3 do %>
+            <span class="tag tag-primary"><%= membership.role.name %></span>
+          <% end %>
+        <% end %>
+      </div>
+    </li>
     <%= content_tag :li, class: "nav-item #{if(!Enum.at(@conn.path_info, 2), do: " active")}" do %>
       <%= link "Dashboard", to: classroom_dashboard_path(@conn, :show, @conn.params["event_id"]), class: "nav-link" %>
     <% end %>
