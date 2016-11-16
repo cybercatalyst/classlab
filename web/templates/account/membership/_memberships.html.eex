@@ -30,7 +30,7 @@
             <%= l(Calendar.DateTime.to_date(membership.event.ends_at)) %>
           </td>
           <td class="col-xs-1">
-            <%= if membership.role.id != 1 do %>
+            <%= if membership.role.id == 1 do %>
               <%= link "Delete", to: account_membership_path(@conn, :delete, membership), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-outline-danger btn-sm" %>
             <% end %>
             <%= if membership.role.id == 1 || membership.role.id == 2 do %>
