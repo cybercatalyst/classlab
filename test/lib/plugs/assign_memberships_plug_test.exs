@@ -43,6 +43,7 @@ defmodule Classlab.AssignMembershipsPlugTest do
         |> assoc(:memberships)
         |> Membership.for_event(membership.event)
         |> Repo.all()
+        |> Repo.preload(:role)
 
       assert length(conn.assigns[:current_memberships]) == 1
       assert conn.assigns[:current_memberships] == memberships

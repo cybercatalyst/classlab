@@ -18,7 +18,7 @@ defmodule Classlab.Classroom.MembershipControllerTest do
 
     test "shows nothing if user is owner of an event", %{conn: conn, event: event} do
       conn = get conn, classroom_membership_path(conn, :index, event)
-      refute html_response(conn, 200) =~ current_user(conn).email
+      refute html_response(conn, 200) =~ "Delete"
     end
   end
 
