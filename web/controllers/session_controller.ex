@@ -46,7 +46,7 @@ defmodule Classlab.SessionController do
         check_and_set_superadmin(user)
 
         conn
-        |> put_flash(:info, "We sent you a link to create an account. Please check your inbox.")
+        |> put_flash(:info, "We sent you a new authoriztion link to #{user.email}.")
         |> redirect(to: page_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
