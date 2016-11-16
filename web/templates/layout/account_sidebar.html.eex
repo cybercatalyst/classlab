@@ -8,7 +8,7 @@
     <li class="nav-item media text-muted">
       <%= link to: account_dashboard_path(@conn, :show), style: "border-bottom: 0px solid transparent;", class: "navbar-link" do %>
         <div class="media-left">
-          <img class="rounded" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(current_user(@conn).email)), case: :lower) %>?s=32&d=identicon">
+          <img class="rounded" width="36" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(current_user(@conn).email)), case: :lower) %>?s=64&d=identicon">
         </div>
         <div class="media-body small">
           <%= current_user(@conn).email %>

@@ -107,7 +107,7 @@
               <li class="list-group-item">
                 <div class="media">
                   <div class="media-left">
-                    <img class="pull-left" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(chat_message.user.email)), case: :lower) %>?s=32&d=identicon">
+                    <img class="pull-left rounded" width="36" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(chat_message.user.email)), case: :lower) %>?s=64&d=identicon">
                   </div>
                   <div class="media-body media-middle">
                     <p>
@@ -167,7 +167,7 @@
                 <li class="list-group-item">
                   <div class="media">
                     <div class="media-left">
-                      <img class="pull-left" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(membership.user.email)), case: :lower) %>?s=32&d=identicon">
+                      <img class="pull-left rounded" width="36" src="https://www.gravatar.com/avatar/<%= Base.encode16(:crypto.hash(:md5, String.downcase(membership.user.email)), case: :lower) %>?s=64&d=identicon">
                     </div>
                     <div class="media-body media-middle">
                       <%= membership.user.email %>
