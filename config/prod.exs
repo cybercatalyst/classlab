@@ -56,11 +56,3 @@ config :classlab, Classlab.Repo,
   database: get_env("DATABASE_POSTGRESQL_DATABASE") || "classlab_prod",
   hostname: get_env("DATABASE_POSTGRESQL_HOSTNAME") || "localhost",
   pool_size: get_env("DATABASE_POSTGRESQL_POOLSIZE") || 20
-
-config :libcluster,
-  topologies: [
-    k8s_example: [
-      strategy: Cluster.Strategy.Kubernetes,
-      config: [
-        kubernetes_selector: get_env("KUBERNETES_SELECTOR") || Logger.info("Please set env variable KUBERNETES_SELECTOR"),
-        kubernetes_node_basename: get_env("KUBERNETES_NODE_BASENAME") || Logger.info("Please set env variable KUBERNETES_NODE_BASENAME")]]]
