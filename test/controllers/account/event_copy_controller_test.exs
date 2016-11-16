@@ -8,7 +8,7 @@ defmodule Classlab.Account.EventCopyControllerTest do
   setup %{conn: conn} do
     user = Factory.insert(:user)
     event = Factory.insert(:event)
-    Factory.insert(:membership, event: event, user: user)
+    Factory.insert(:membership, event: event, user: user, role_id: 2)
     Factory.insert(:task, event: event)
     Factory.insert(:material, event: event)
     {:ok, conn: Session.login(conn, user), event: event}
@@ -41,6 +41,7 @@ defmodule Classlab.Account.EventCopyControllerTest do
 
     test "creates new event by copying chosen resource with location", %{conn: conn} do
       event = Factory.insert(:event, location: Factory.build(:location))
+      Factory.insert(:membership, event: event, user: current_user(conn), role_id: 2)
       conn = post conn, account_event_event_copy_path(conn, :create, event), event: @valid_attrs
 
       new_event =

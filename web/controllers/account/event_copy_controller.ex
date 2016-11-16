@@ -4,6 +4,8 @@ defmodule Classlab.Account.EventCopyController do
   use Classlab.Web, :controller
   use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
+  plug :restrict_roles, [1, 2]
+
   def new(conn, _params) do
     event = load_event(conn)
     changeset = Event.changeset(%Event{name: event.name})
@@ -87,9 +89,9 @@ defmodule Classlab.Account.EventCopyController do
   end
 
   # Private methods
-  defp load_event(%{params: %{"event_id" => event_id}}) do
-    Event
-    |> Repo.get_by!(slug: event_id)
+  defp load_event(conn) do
+    conn
+    |> current_event()
     |> Repo.preload(:location)
   end
 end

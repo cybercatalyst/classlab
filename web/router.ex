@@ -45,10 +45,15 @@ defmodule Classlab.Router do
     plug :as_user
   end
 
+  pipeline :event_copy do
+    plug Classlab.AssignEventPlug, "event_id"
+  end
+
   scope "/account", Classlab.Account, as: :account do
     pipe_through [:browser, :account]
     resources "/", DashboardController, only: [:show], singleton: true
     resources "/events", EventController, only: [:index, :new, :create] do
+      pipe_through [:event_copy]
       resources "/copy", EventCopyController, only: [:new, :create], singleton: true
     end
     resources "/feedbacks", FeedbackController, only: [:index]
