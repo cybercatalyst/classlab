@@ -15,7 +15,8 @@ require Logger
 # which you typically run after static files are built.
 config :classlab, Classlab.Endpoint,
   http: [port: get_env("PORT") || 80],
-  url: [host: get_env("CLASSLAB_URL_HOST") || "example.com",
+  url: [scheme: get_env("CLASSLAB_URL_SCHEME") || "http",
+        host: get_env("CLASSLAB_URL_HOST") || "example.com",
         port: get_env("CLASSLAB_URL_PORT") || get_env("PORT") || 80],
   cache_static_manifest: "priv/static/manifest.json",
   secret_key_base: get_env("SECRET_KEY_BASE") || Logger.info("Please set env variable SECRET_KEY_BASE"),
