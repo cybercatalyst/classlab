@@ -40,5 +40,18 @@ defmodule Classlab.Classroom.EventControllerTest do
       assert redirected_to(conn) == account_event_path(conn, :index)
       refute Repo.get(Event, event.id)
     end
+
+    test "not deletes chosen resource if not owner", %{conn: conn, event: event} do
+      user = Factory.insert(:user)
+      Factory.insert(:membership, event: event, user: user, role_id: 2)
+
+      conn =
+        conn
+        |> Session.login(user)
+        |> delete(classroom_event_path(conn, :delete, event))
+
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert Repo.get(Event, event.id)
+    end
   end
 end
