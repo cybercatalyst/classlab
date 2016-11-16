@@ -20,7 +20,7 @@
 
   <div id=last_message></div>
 </div>
-<div class="chat-reply">
+<div id="chat-reply" class="chat-reply" data-turbolinks-permanent>
   <%= render "_form.html", conn: @conn, changeset: @changeset, event: @event,
       action: classroom_chat_message_path(@conn, :create, @event) %>
 </div>
