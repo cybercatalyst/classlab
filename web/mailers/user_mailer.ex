@@ -12,7 +12,11 @@ defmodule Classlab.UserMailer do
     |> to(email)
     |> from(Application.get_env(:classlab, Mailer)[:from])
     |> subject("Your access token")
-    |> html_body("Open the link to finish the authentication: <a href=\"#{login_url}\" target=\"_blank\">#{login_url}</a>")
-    |> text_body("Open the link to finish the authentication: #{login_url}")
+    |> html_body(
+        "Open the link to finish the authentication: <a href=\"#{login_url}\" target=\"_blank\">#{login_url}</a>"
+      )
+    |> text_body(
+        "Open the link to finish the authentication: #{login_url}"
+      )
   end
 end
