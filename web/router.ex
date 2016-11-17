@@ -91,7 +91,7 @@ defmodule Classlab.Router do
     resources "/tasks", TaskController
     post "/tasks/unlock_all", TaskController, :unlock_all
     post "/tasks/lock_all", TaskController, :lock_all
-    post "/tasks/unlock_next", TaskController, :unlock_next
+    post "/tasks/:id/unlock_next", TaskController, :unlock_next
     post "/tasks/:id/toggle", TaskController, :toggle_lock
   end
 

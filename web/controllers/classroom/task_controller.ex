@@ -160,17 +160,14 @@ defmodule Classlab.Classroom.TaskController do
     |> redirect(to: classroom_task_path(conn, :index, event))
   end
 
-  def unlock_next(conn, _params) do
+  def unlock_next(conn, %{"id" => task_id}) do
     event = current_event(conn)
+    task =
+      event
+      |> assoc(:tasks)
+      |> Repo.get!(task_id)
 
-    task_res = event
-    |> assoc(:tasks)
-    |> Task.locked()
-    |> Query.order_by(asc: :position)
-    |> Query.first
-    |> Repo.one()
-
-    case task_res do
+    case get_next_unlockable_task(event, task) do
       %Task{} = task ->
         task
         |> Changeset.change(%{unlocked_at: DateTime.now_utc()})

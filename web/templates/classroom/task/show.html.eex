@@ -15,7 +15,7 @@
       <% end %>
       <div class="btn-group float-xs-right" role="group" aria-label="Next">
         <%= if has_permission?(current_memberships(@conn), [1, 2]) && @next_unlockable_task do %>
-          <%= link "Unlock next »", to: classroom_task_path(@conn, :unlock_next, @event), method: :post, class: "btn btn-success" %>
+          <%= link "Unlock next »", to: classroom_task_path(@conn, :unlock_next, @event, @task), method: :post, class: "btn btn-success" %>
         <% end %>
         <%= if @next_task do %>
           <%= link "#{@next_task.title} »", to: classroom_task_path(@conn, :show, @event, @next_task), class: "btn btn-secondary" %>
@@ -61,7 +61,7 @@
       <% end %>
       <div class="btn-group float-xs-right" role="group" aria-label="Next">
         <%= if has_permission?(current_memberships(@conn), [1, 2]) && @next_unlockable_task do %>
-          <%= link "Unlock next »", to: classroom_task_path(@conn, :unlock_next, @event), method: :post, class: "btn btn-success" %>
+          <%= link "Unlock next »", to: classroom_task_path(@conn, :unlock_next, @event, @task), method: :post, class: "btn btn-success" %>
         <% end %>
         <%= if @next_task do %>
           <%= link "#{@next_task.title} »", to: classroom_task_path(@conn, :show, @event, @next_task), class: "btn btn-secondary" %>

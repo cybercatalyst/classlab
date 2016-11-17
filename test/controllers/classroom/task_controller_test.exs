@@ -79,7 +79,7 @@ defmodule Classlab.Classroom.TaskControllerTest do
 
       conn = get conn, classroom_task_path(conn, :show, event, task)
       assert html_response(conn, 200) =~ task.title
-      assert html_response(conn, 200) =~ classroom_task_path(conn, :unlock_next, event)
+      assert html_response(conn, 200) =~ classroom_task_path(conn, :unlock_next, event, task)
     end
 
     test "redirects with permission denied if chosen resource locked and membership attendee", %{conn: conn, event: event} do
@@ -153,7 +153,7 @@ defmodule Classlab.Classroom.TaskControllerTest do
       second_task = Factory.insert(:task, event: event, position: 2)
       third_task = Factory.insert(:task, event: event, position: 3)
 
-      conn = post conn, classroom_task_path(conn, :unlock_next, event)
+      conn = post conn, classroom_task_path(conn, :unlock_next, event, first_task)
 
       first_task = Repo.get(Task, first_task.id)
       second_task = Repo.get(Task, second_task.id)
@@ -166,8 +166,8 @@ defmodule Classlab.Classroom.TaskControllerTest do
     end
 
     test "nothing to unlock redirects to #index", %{conn: conn, event: event} do
-      Factory.insert(:task, event: event, unlocked_at: Calendar.DateTime.now_utc())
-      conn = post conn, classroom_task_path(conn, :unlock_next, event)
+      task = Factory.insert(:task, event: event, unlocked_at: Calendar.DateTime.now_utc())
+      conn = post conn, classroom_task_path(conn, :unlock_next, event, task)
 
       assert redirected_to(conn) == classroom_task_path(conn, :index, event)
     end
