@@ -1,24 +1,9 @@
 defmodule Classlab.MembershipController do
   @moduledoc false
-  alias Classlab.{Repo, Event, Invitation, User, Membership, MembershipMailer}
+  alias Classlab.{Repo, Session, Event, Invitation, User, Membership, MembershipMailer}
   alias Ecto.Query
   use Classlab.Web, :controller
   use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
-
-  def show(conn, %{"invitation_token" => invitation_token}) when is_binary(invitation_token) do
-    event = load_event(conn)
-    res =
-      Invitation
-      |> Invitation.for_event(event)
-      |> Invitation.completed()
-      |> Query.preload(:event)
-      |> Repo.get_by(invitation_token: invitation_token)
-
-    case res do
-      %Invitation{} = invitation -> render(conn, "show.html", invitation: invitation)
-      nil -> handle_error(conn, "Invalid invitation.")
-    end
-  end
 
   def new(conn, %{"invitation_token" => invitation_token}) do
     event = load_event(conn)
@@ -59,7 +44,12 @@ defmodule Classlab.MembershipController do
           })
           Repo.update!(invitation_changeset)
 
-          redirect(conn, to: membership_path(conn, :show, event, invitation.invitation_token))
+          conn =
+            conn
+            |> Session.logout()
+            |> Session.login(user)
+
+          redirect(conn, to: classroom_dashboard_path(conn, :show, event))
         end
       nil -> handle_error(conn, "Invalid invitation.")
     end
