@@ -46,7 +46,8 @@ defmodule Classlab.Classroom.FeedbackControllerTest do
     end
 
     test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-      event = Factory.insert(:event, ends_at: DateTime.now_utc(), memberships: [%Membership{user: current_user(conn), role_id: 3}])
+      ten_seconds_ago = DateTime.subtract!(DateTime.now_utc(), 10)
+      event = Factory.insert(:event, ends_at: ten_seconds_ago, memberships: [%Membership{user: current_user(conn), role_id: 3}])
       conn = post conn, classroom_feedback_path(conn, :create, event), feedback: @invalid_attrs |> Map.put(:event_id, event.id)
       assert html_response(conn, 200) =~ @form_field
     end

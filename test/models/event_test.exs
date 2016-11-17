@@ -18,7 +18,6 @@ defmodule Classlab.EventTest do
       assert changeset.errors == []
     end
 
-# |> Map.put(:location, Factory.params_for(:location))
     test "with invalid attributes" do
       changeset = Event.changeset(%Event{}, @invalid_attrs)
       refute changeset.errors == []
@@ -28,7 +27,7 @@ defmodule Classlab.EventTest do
   describe "#within_feedback_period" do
     test "with correct events" do
       current_time = DateTime.now_utc()
-      event_within = Factory.insert(:event, ends_at: current_time) # positive
+      event_within = Factory.insert(:event, ends_at: DateTime.subtract!(current_time, 10)) # positive
       event_before = Factory.insert(:event, ends_at: DateTime.subtract!(current_time, 60 * 60 * 24 * 15)) # negative
       event_after = Factory.insert(:event, ends_at: DateTime.add!(current_time, 60 * 60)) # negative
 
@@ -47,7 +46,7 @@ defmodule Classlab.EventTest do
   describe "#within_after_email_period" do
     test "only returns the correct memberships" do
       current_time = DateTime.now_utc()
-      event_within = Factory.insert(:event, ends_at: current_time) # positive
+      event_within = Factory.insert(:event, ends_at: DateTime.subtract!(current_time, 10)) # positive
       event_before = Factory.insert(:event, ends_at: DateTime.subtract!(current_time, 60 * 60 * 24 * 15)) # negative
       event_after = Factory.insert(:event, ends_at: DateTime.add!(current_time, 60 * 60)) # negative
 
