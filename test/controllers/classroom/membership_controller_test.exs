@@ -1,5 +1,5 @@
 defmodule Classlab.Classroom.MembershipControllerTest do
-  alias Classlab.Membership
+  alias Classlab.{Invitation, Membership}
   use Classlab.ConnCase
 
   setup %{conn: conn} do
@@ -37,6 +37,15 @@ defmodule Classlab.Classroom.MembershipControllerTest do
       conn = delete conn, classroom_membership_path(conn, :delete, membership.event, membership)
       assert redirected_to(conn) == classroom_membership_path(conn, :index, membership.event)
       refute Repo.get(Membership, membership.id)
+    end
+
+    test "deletes invitation if existing", %{conn: conn, event: event} do
+      membership = Factory.insert(:membership, event: event, user: current_user(conn), role_id: 3)
+      invitation = Factory.insert(:invitation, event: event, email: current_user(conn).email, role_id: 3)
+      conn = delete conn, classroom_membership_path(conn, :delete, membership.event, membership)
+      assert redirected_to(conn) == classroom_membership_path(conn, :index, membership.event)
+      refute Repo.get(Membership, membership.id)
+      refute Repo.get(Invitation, invitation.id)
     end
   end
 end

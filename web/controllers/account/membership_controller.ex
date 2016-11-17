@@ -1,6 +1,7 @@
 defmodule Classlab.Account.MembershipController do
   @moduledoc false
-  alias Classlab.Membership
+  alias Classlab.{Invitation, Membership}
+  alias Ecto.Query
   use Classlab.Web, :controller
   use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
@@ -25,8 +26,19 @@ defmodule Classlab.Account.MembershipController do
       |> assoc(:memberships)
       |> Membership.not_as_role(1)
       |> Repo.get!(id)
+      |> Repo.preload(:user)
 
     Repo.delete!(membership)
+
+    invitation =
+      Invitation
+      |> Query.where(email: ^membership.user.email)
+      |> Query.where(event_id: ^membership.event_id)
+      |> Repo.one()
+
+    if invitation do
+      Repo.delete!(invitation)
+    end
 
     conn
     |> put_flash(:info, "Membership deleted successfully.")

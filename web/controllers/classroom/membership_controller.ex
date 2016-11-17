@@ -79,8 +79,19 @@ defmodule Classlab.Classroom.MembershipController do
       event
       |> assoc(:memberships)
       |> Repo.get!(id)
+      |> Repo.preload(:user)
 
     Repo.delete!(membership)
+
+    invitation =
+      Invitation
+      |> Query.where(email: ^membership.user.email)
+      |> Query.where(event_id: ^membership.event_id)
+      |> Repo.one()
+
+    if invitation do
+      Repo.delete!(invitation)
+    end
 
     conn
     |> put_flash(:info, "Membership deleted successfully.")

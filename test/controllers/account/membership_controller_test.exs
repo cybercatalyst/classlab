@@ -1,5 +1,5 @@
 defmodule Classlab.Account.MembershipControllerTest do
-  alias Classlab.Membership
+  alias Classlab.{Invitation, Membership}
   use Classlab.ConnCase
 
   setup %{conn: conn} do
@@ -27,6 +27,14 @@ defmodule Classlab.Account.MembershipControllerTest do
       conn = delete conn, account_membership_path(conn, :delete, membership)
       assert redirected_to(conn) == account_membership_path(conn, :index)
       refute Repo.get(Membership, membership.id)
+    end
+
+    test "deletes invitation if existing", %{conn: conn} do
+      membership = Factory.insert(:membership, user: current_user(conn), role_id: 3)
+      invitation = Factory.insert(:invitation, email: current_user(conn).email, role_id: 3, event: membership.event)
+      conn = delete conn, account_membership_path(conn, :delete, membership)
+      assert redirected_to(conn) == account_membership_path(conn, :index)
+      refute Repo.get(Invitation, invitation.id)
     end
 
     test "fails if current user is owner of the chosen resource", %{conn: conn} do
