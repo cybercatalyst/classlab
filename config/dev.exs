@@ -47,4 +47,5 @@ config :classlab, Classlab.Repo,
 config :classlab, Classlab.Mailer,
   adapter: Bamboo.LocalPopupAdapter,
   at: "http://localhost:4000/sent_emails",
-  from: "mailer@example.com"
+  from_email: "mailer@example.com",
+  from_name: "Classlab dev"
