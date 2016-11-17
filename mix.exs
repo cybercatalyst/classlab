@@ -35,14 +35,14 @@ defmodule Classlab.Mixfile do
     [
       {:bamboo, "~> 0.7"},
       {:bamboo_smtp, "~> 1.2.1"},
-      {:calecto, "~> 0.16.0"},
+      {:calecto, "~> 0.16.1"},
       {:calendar_translations, "~> 0.0.3"},
       {:calendar, "~> 0.16.0"},
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.5.1", only: [:dev, :test]},
       {:earmark, "~> 1.0.2"},
       {:excoveralls, "~> 0.5", only: :test},
-      {:mariaex, ">= 0.0.0"},
+      {:mariaex, ">= 0.7.0"},
       {:ex_doc, "~> 0.13", only: :dev},
       {:ex_machina, "~> 1.0", only: :test},
       {:gettext, "~> 0.12.1"},
@@ -51,9 +51,9 @@ defmodule Classlab.Mixfile do
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:phoenix_ecto, "~> 3.0"},
       {:phoenix_html, "~> 2.6"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_live_reload, "~> 1.0.5", only: :dev},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix, "~> 1.2.0"},
+      {:phoenix, "~> 1.2.1"},
       {:quantum, ">= 1.8.0"}
     ]
   end
