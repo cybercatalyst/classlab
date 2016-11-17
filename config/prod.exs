@@ -47,7 +47,8 @@ config :classlab, Classlab.Mailer,
 
 # Email configuration
 config :classlab, Classlab.Mailer,
-  from: get_env("CLASSLAB_EMAIL_FROM") || Logger.info("Please set env variable CLASSLAB_EMAIL_FROM")
+  from_email: get_env("CLASSLAB_EMAIL_FROM_EMAIL") || Logger.info("Please set env variable CLASSLAB_EMAIL_FROM_EMAIL"),
+  from_name: get_env("CLASSLAB_EMAIL_FROM_NAME") || Logger.info("Please set env variable CLASSLAB_EMAIL_FROM_NAME")
 
 # Configure your database
 config :classlab, Classlab.Repo,

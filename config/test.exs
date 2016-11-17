@@ -20,7 +20,8 @@ config :classlab, Classlab.Repo,
 
 config :classlab, Classlab.Mailer,
   adapter: Bamboo.TestAdapter,
-  from: "mailer@example.com"
+  from_email: "mailer@example.com",
+  from_name:  "Classlab test"
 
   # JWT secret for signing session token
 config :classlab, :jwt_secret, "a401993e-91f4-11e6-a7af-030741a2ba6a"
