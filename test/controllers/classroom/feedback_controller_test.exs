@@ -24,7 +24,8 @@ defmodule Classlab.Classroom.FeedbackControllerTest do
 
   describe "#new" do
     test "renders form for new resources", %{conn: conn} do
-      event = Factory.insert(:event, ends_at: DateTime.now_utc(), memberships: [%Membership{user: current_user(conn), role_id: 3}]);
+      ten_seconds_ago = DateTime.subtract!(DateTime.now_utc(), 10)
+      event = Factory.insert(:event, ends_at: ten_seconds_ago, memberships: [%Membership{user: current_user(conn), role_id: 3}]);
       conn = get conn, classroom_feedback_path(conn, :new, event)
       assert html_response(conn, 200) =~ @form_field
     end
@@ -39,7 +40,8 @@ defmodule Classlab.Classroom.FeedbackControllerTest do
 
   describe "#create" do
     test "creates resource and redirects when data is valid", %{conn: conn} do
-      event = Factory.insert(:event, ends_at: DateTime.now_utc(), memberships: [%Membership{user: current_user(conn), role_id: 3}])
+      ten_seconds_ago = DateTime.subtract!(DateTime.now_utc(), 10)
+      event = Factory.insert(:event, ends_at: ten_seconds_ago, memberships: [%Membership{user: current_user(conn), role_id: 3}])
       conn = post conn, classroom_feedback_path(conn, :create, event), feedback: @valid_attrs |> Map.put(:event_id, event.id)
       assert redirected_to(conn) == classroom_feedback_path(conn, :show, event)
       assert Repo.get_by(Feedback, @valid_attrs)
@@ -53,7 +55,8 @@ defmodule Classlab.Classroom.FeedbackControllerTest do
     end
 
     test "does not create resource when there is already a feedback", %{conn: conn} do
-      event = Factory.insert(:event, ends_at: DateTime.now_utc(), memberships: [%Membership{user: current_user(conn), role_id: 3}])
+      ten_seconds_ago = DateTime.subtract!(DateTime.now_utc(), 10)
+      event = Factory.insert(:event, ends_at: ten_seconds_ago, memberships: [%Membership{user: current_user(conn), role_id: 3}])
       Factory.insert(:feedback, user: current_user(conn), event: event)
       assert_error_sent 301, fn ->
         post conn, classroom_feedback_path(conn, :create, event), feedback: @invalid_attrs
