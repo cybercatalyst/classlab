@@ -8,9 +8,11 @@
       <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#memberships" role="tab">Attendee (<%= length(@memberships) %>)</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#open_invitations" role="tab">Open invitations (<%= length(@open_invitations) %>)</a>
-      </li>
+      <%= if has_permission?(@current_memberships, [1, 2]) do %>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#open_invitations" role="tab">Open invitations (<%= length(@open_invitations) %>)</a>
+        </li>
+      <% end %>
     </ul>
   </div>
   <div class="tab-content">
@@ -53,39 +55,41 @@
         </table>
       <% end %>
     </div>
-    <div class="tab-pane table-responsive" id="open_invitations" role="tabpanel">
-      <%= if length(@open_invitations) == 0 do %>
-        <div class="card-block text-xs-center">
-          <h4 class="card-title">No open invitations available</h4>
-          <p class="card-text">Invite others to share your knowledge.</p>
-          <%= link "Invite people", to: classroom_invitation_path(@conn, :new, @event), class: "btn btn-outline-primary" %>
-        </div>
-      <% else %>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>Name</th>
-              <th>Role</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <%= for invitation <- @open_invitations do %>
+    <%= if has_permission?(@current_memberships, [1, 2]) do %>
+      <div class="tab-pane table-responsive" id="open_invitations" role="tabpanel">
+        <%= if length(@open_invitations) == 0 do %>
+          <div class="card-block text-xs-center">
+            <h4 class="card-title">No open invitations available</h4>
+            <p class="card-text">Invite others to share your knowledge.</p>
+            <%= link "Invite people", to: classroom_invitation_path(@conn, :new, @event), class: "btn btn-outline-primary" %>
+          </div>
+        <% else %>
+          <table class="table table-hover">
+            <thead>
               <tr>
-                <td><%= invitation.email %></td>
-                <td><%= invitation.first_name %> <%= invitation.last_name %></td>
-                <td><%= invitation.role.name %></td>
-                <td>
-                  <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
-                    <%= link "Cancel invitation", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-outline-danger btn-sm" %>
-                  <% end %>
-                </td>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th></th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% end %>
-    </div>
+            </thead>
+            <tbody>
+              <%= for invitation <- @open_invitations do %>
+                <tr>
+                  <td><%= invitation.email %></td>
+                  <td><%= invitation.first_name %> <%= invitation.last_name %></td>
+                  <td><%= invitation.role.name %></td>
+                  <td>
+                    <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
+                      <%= link "Cancel invitation", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-outline-danger btn-sm" %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
