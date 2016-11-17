@@ -1,17 +1,19 @@
 version: '2'
 services:
   db:
-    image: 'postgres:latest'
+    image: 'mariadb:latest'
+    environment:
+      MYSQL_ROOT_PASSWORD: "supersecret"
   web:
     build: .
     environment:
       CLASSLAB_URL_HOST: localhost
       CLASSLAB_URL_PORT: 4000
       SECRET_KEY_BASE: 756B8DE4-20EE-4912-B22A-EAA5AE4ABC8C-EAA5AE4ABC8C-20EE-4912-756B8DE4-20EE
-      DATABASE_POSTGRESQL_USERNAME: "postgres"
-      DATABASE_POSTGRESQL_PASSWORD: ""
-      DATABASE_POSTGRESQL_DATABASE: "classlab_prod"
-      DATABASE_POSTGRESQL_HOSTNAME: "db"
+      DATABASE_MYSQL_USERNAME: "root"
+      DATABASE_MYSQL_PASSWORD: "supersecret"
+      DATABASE_MYSQL_DATABASE: "classlab_prod"
+      DATABASE_MYSQL_HOSTNAME: "db"
     ports:
       - "4000:4000"
     depends_on:

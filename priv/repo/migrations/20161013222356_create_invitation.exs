@@ -9,7 +9,7 @@ defmodule Classlab.Repo.Migrations.CreateInvitation do
       add :invitation_token, :string, null: false
       add :completed_at, :datetime
       add :event_id, references(:events, on_delete: :delete_all), null: false
-      add :role_id, references(:roles, on_delete: :nilify_all), null: false
+      add :role_id, references(:roles, on_delete: :nothing), null: false
       timestamps()
     end
     create index(:invitations, [:event_id])

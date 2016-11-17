@@ -8,7 +8,7 @@ ENV PORT=4000 MIX_ENV=prod
 ADD mix.exs mix.lock ./
 RUN mix local.hex --force && mix do deps.get, deps.compile
 
-RUN apk --update --no-cache add python
+RUN apk --update --no-cache add python mysql-client
 
 # Same with npm deps
 ADD package.json package.json

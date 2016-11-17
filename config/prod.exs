@@ -52,9 +52,9 @@ config :classlab, Classlab.Mailer,
 
 # Configure your database
 config :classlab, Classlab.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: get_env("DATABASE_POSTGRESQL_USERNAME") || "postgres",
-  password: get_env("DATABASE_POSTGRESQL_PASSWORD") || "",
-  database: get_env("DATABASE_POSTGRESQL_DATABASE") || "classlab_prod",
-  hostname: get_env("DATABASE_POSTGRESQL_HOSTNAME") || "localhost",
-  pool_size: get_env("DATABASE_POSTGRESQL_POOLSIZE") || 20
+  adapter: Ecto.Adapters.MySQL,
+  username: get_env("DATABASE_MYSQL_USERNAME") || "root",
+  password: get_env("DATABASE_MYSQL_PASSWORD") || "",
+  database: get_env("DATABASE_MYSQL_DATABASE") || "classlab_prod",
+  hostname: get_env("DATABASE_MYSQL_HOSTNAME") || "localhost",
+  pool_size: get_env("DATABASE_MYSQL_POOLSIZE") || 20
