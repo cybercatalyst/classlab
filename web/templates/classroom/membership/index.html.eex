@@ -42,7 +42,14 @@
               <tr>
                 <td><%= membership.user.email %></td>
                 <td>
-                  <%= membership.role.name %>
+                  <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
+                    <div class="btn-group" role="group">
+                      <%= link "Attendee", to: classroom_membership_path(@conn, :update, @event, membership, role_id: 3), method: :put, class: "btn btn-outline-primary #{if(membership.role.id == 3) do "active" end}" %>
+                      <%= link "Trainer", to: classroom_membership_path(@conn, :update, @event, membership, role_id: 2), method: :put, class: "btn btn-outline-primary #{if(membership.role.id == 2) do "active" end}" %>
+                    </div>
+                  <% else %>
+                    <%= membership.role.name %>
+                  <% end %>
                 </td>
                 <td>
                   <%= if has_permission?(current_memberships(@conn), [1, 2]) ||membership.user_id == current_user(@conn).id do %>
@@ -78,7 +85,16 @@
                 <tr>
                   <td><%= invitation.email %></td>
                   <td><%= invitation.first_name %> <%= invitation.last_name %></td>
-                  <td><%= invitation.role.name %></td>
+                  <td>
+                  <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
+                    <div class="btn-group" role="group">
+                      <%= link "Attendee", to: classroom_invitation_path(@conn, :update, @event, invitation, role_id: 3), method: :put, class: "btn btn-outline-primary #{if(invitation.role.id == 3) do "active" end}" %>
+                      <%= link "Trainer", to: classroom_invitation_path(@conn, :update, @event, invitation, role_id: 2), method: :put, class: "btn btn-outline-primary #{if(invitation.role.id == 2) do "active" end}" %>
+                    </div>
+                  <% else %>
+                    <%= invitation.role.name %>
+                  <% end %>
+                  </td>
                   <td>
                     <%= if has_permission?(current_memberships(@conn), [1, 2]) do %>
                       <%= link "Cancel invitation", to: classroom_invitation_path(@conn, :delete, @event, invitation), method: :delete, data: [toggle: "modal", target: "baseModal"], class: "btn btn-outline-danger btn-sm" %>

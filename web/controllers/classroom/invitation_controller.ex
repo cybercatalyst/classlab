@@ -6,7 +6,7 @@ defmodule Classlab.Classroom.InvitationController do
   use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
   plug :restrict_roles, [1, 2]
-  plug :scrub_params, "invitation" when action in [:create, :update]
+  plug :scrub_params, "invitation" when action in [:create]
 
   def new(conn, _params) do
     event = current_event(conn)
@@ -50,6 +50,25 @@ defmodule Classlab.Classroom.InvitationController do
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset, event: event, roles: roles)
     end
+  end
+
+  def update(conn, %{"id" => id, "role_id" => role_id}) do
+    event = current_event(conn)
+    {role_id, _} = Integer.parse(role_id)
+
+    invitation =
+      event
+      |> assoc(:invitations)
+      |> Repo.get!(id)
+
+    if role_id == 2 || role_id == 3 do
+      changeset = Invitation.changeset(invitation, %{role_id: role_id})
+      Repo.update!(changeset)
+    end
+
+    conn
+    |> put_flash(:info, "Invitation updated successfully.")
+    |> redirect(to: classroom_membership_path(conn, :index, event))
   end
 
   def delete(conn, %{"id" => id}) do

@@ -5,7 +5,7 @@ defmodule Classlab.Classroom.MembershipController do
   use Classlab.Web, :controller
   use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
-   plug :restrict_roles, [1, 2] when action in [:delete]
+   plug :restrict_roles, [1, 2] when action in [:delete, :update]
 
   def index(conn, _params) do
     event = current_event(conn)
@@ -13,6 +13,7 @@ defmodule Classlab.Classroom.MembershipController do
       event
       |> assoc(:memberships)
       |> Membership.not_as_role(1)
+      |> Query.order_by(:id)
       |> Repo.all()
       |> Repo.preload([:user, :role, :event])
 
@@ -51,6 +52,25 @@ defmodule Classlab.Classroom.MembershipController do
       open_invitations: open_invitations,
       roles: roles
     )
+  end
+
+  def update(conn, %{"id" => id, "role_id" => role_id}) do
+    event = current_event(conn)
+    {role_id, _} = Integer.parse(role_id)
+
+    membership =
+      event
+      |> assoc(:memberships)
+      |> Repo.get!(id)
+
+    if role_id == 2 || role_id == 3 do
+      changeset = Membership.changeset(membership, %{role_id: role_id})
+      Repo.update!(changeset)
+    end
+
+    conn
+    |> put_flash(:info, "Membership updated successfully.")
+    |> redirect(to: classroom_membership_path(conn, :index, event))
   end
 
   def delete(conn, %{"id" => id}) do

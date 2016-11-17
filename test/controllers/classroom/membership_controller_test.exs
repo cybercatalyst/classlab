@@ -22,6 +22,15 @@ defmodule Classlab.Classroom.MembershipControllerTest do
     end
   end
 
+  describe "#update" do
+    test "changes role", %{conn: conn, event: event} do
+      membership = Factory.insert(:membership, event: event, user: current_user(conn), role_id: 3)
+      conn = put conn, classroom_membership_path(conn, :update, event, membership, role_id: 2)
+      assert redirected_to(conn) == classroom_membership_path(conn, :index, event)
+      assert Repo.get(Membership, membership.id).role_id == 2
+    end
+  end
+
   describe "#delete" do
     test "deletes chosen resource", %{conn: conn, event: event} do
       membership = Factory.insert(:membership, event: event, user: current_user(conn), role_id: 3)

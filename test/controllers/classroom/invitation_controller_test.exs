@@ -38,6 +38,15 @@ defmodule Classlab.Classroom.InvitationControllerTest do
     end
   end
 
+  describe "#update" do
+    test "changes role", %{conn: conn, event: event} do
+      invitation = Factory.insert(:invitation, event: event)
+      conn = put conn, classroom_invitation_path(conn, :update, invitation.event, invitation, role_id: 2)
+      assert redirected_to(conn) == classroom_membership_path(conn, :index, invitation.event)
+      assert Repo.get(Invitation, invitation.id).role_id == 2
+    end
+  end
+
   describe "#delete" do
     test "deletes chosen resource", %{conn: conn, event: event} do
       invitation = Factory.insert(:invitation, event: event)
