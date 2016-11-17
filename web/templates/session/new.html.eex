@@ -7,6 +7,13 @@
       <div class="card">
         <div class="card-block">
           <h4 class="text-xs-center mb-2">Login</h4>
+          <div class="card-text">
+            <ol>
+              <li>Enter your email address</li>
+              <li>Recieve an authentication link</li>
+              <li>Open the link and be logged in</li>
+            </ol>
+          </div>
           <%= input f, :email %>
           <%= submit "Login", class: "btn btn-primary btn-block" %>
         </div>
