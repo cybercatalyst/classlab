@@ -3,12 +3,25 @@
     <div class="card-header">
       Open feedbacks
     </div>
+    <ul class="list-group list-group-flush">
     <%= for event <- @open_feedback_events do %>
-      <div class="card-block">
-        <p><%= event.id %> <%= event.name %></p>
-        <%= link "New feedback", to: classroom_feedback_path(@conn, :new, event), class: "btn btn-success" %>
-      </div>
+      <li class="list-group-item">
+        <div class="media">
+          <div class="media-body">
+            <strong><%= event.name %></strong>
+            <br>
+            <small>
+              (<%= l(Calendar.DateTime.to_date(event.starts_at)) %> -
+              <%= l(Calendar.DateTime.to_date(event.ends_at)) %>)
+            </small>
+          </div>
+          <div class="media-right">
+            <%= link "New feedback", to: classroom_feedback_path(@conn, :new, event), class: "btn btn-sm btn-outline-success" %>
+          </div>
+        </div>
+      </li>
     <% end %>
+    </ul>
   </div>
 <% end %>
 
