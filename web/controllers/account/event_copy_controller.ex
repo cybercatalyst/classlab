@@ -85,7 +85,7 @@ defmodule Classlab.Account.EventCopyController do
 
     new_event = Repo.insert!(changeset)
 
-    redirect(conn, to: classroom_dashboard_path(conn, :show, new_event))
+    redirect(conn, to: classroom_event_path(conn, :edit, new_event))
   end
 
   # Private methods

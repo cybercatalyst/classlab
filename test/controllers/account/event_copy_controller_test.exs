@@ -32,7 +32,7 @@ defmodule Classlab.Account.EventCopyControllerTest do
         |> Repo.one!()
         |> Repo.preload([:tasks, :location, :materials])
 
-      assert redirected_to(conn) == classroom_dashboard_path(conn, :show, new_event)
+      assert redirected_to(conn) == classroom_event_path(conn, :edit, new_event)
       assert length(Repo.all(Event)) == 2
       assert length(new_event.tasks) == 1
       assert length(new_event.materials) == 1
@@ -51,7 +51,7 @@ defmodule Classlab.Account.EventCopyControllerTest do
         |> Repo.one!()
         |> Repo.preload([:tasks, :location, :materials])
 
-      assert redirected_to(conn) == classroom_dashboard_path(conn, :show, new_event)
+      assert redirected_to(conn) == classroom_event_path(conn, :edit, new_event)
       assert length(Repo.all(Event)) == 3
       assert new_event.location
     end
