@@ -5,13 +5,54 @@
     </div>
   <% end %>
 
-  <%= input f, :content_rating, using: :select, collection: (1..5) %>
-  <%= input f, :content_comment %>
-  <%= input f, :trainer_rating, using: :select, collection: (1..5) %>
-  <%= input f, :trainer_comment %>
-  <%= input f, :location_rating, using: :select, collection: (1..5) %>
-  <%= input f, :location_comment %>
-  <%= input f, :testimonial, using: :textarea, rows: 5 %>
-
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>How did you like the workshop and its content?</h4>
+    </div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-xs-12 col-md-3">
+      <%= input f, :content_rating, using: :select, collection: (1..5) %>
+    </div>
+    <div class="col-xs-12 col-md-9">
+      <%= input f, :content_comment %>
+    </div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-xs-12">
+      <h4>How satisfied are you with the trainer?</h4>
+    </div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-xs-12 col-md-3">
+      <%= input f, :trainer_rating, using: :select, collection: (1..5) %>
+    </div>
+    <div class="col-xs-12 col-md-9">
+      <%= input f, :trainer_comment %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>How satisfied are you with the location?</h4>
+    </div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-xs-12 col-md-3">
+      <%= input f, :location_rating, using: :select, collection: (1..5) %>
+    </div>
+    <div class="col-xs-12 col-md-9">
+      <%= input f, :location_comment %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Summarize what you have learned and your experiences in one sentence!</h4>
+    </div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-xs-12">
+      <%= input f, :testimonial, using: :textarea, rows: 5 %>
+    </div>
+  </div>
   <%= submit "Save", class: "btn btn-primary" %>
 <% end %>

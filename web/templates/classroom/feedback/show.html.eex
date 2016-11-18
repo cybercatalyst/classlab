@@ -7,49 +7,56 @@
 <%= if @feedback do %>
   <div class="card">
     <div class="card-block">
-      <ul>
-
-        <li>
-          <strong>Event:</strong>
-          <%= @feedback.event_id %>
-        </li>
-
-        <li>
-          <strong>Content rating:</strong>
-          <%= @feedback.content_rating %>
-        </li>
-
-        <li>
-          <strong>Content comment:</strong>
-          <%= @feedback.content_comment %>
-        </li>
-
-        <li>
-          <strong>Trainer rating:</strong>
-          <%= @feedback.trainer_rating %>
-        </li>
-
-        <li>
-          <strong>Trainer comment:</strong>
-          <%= @feedback.trainer_comment %>
-        </li>
-
-        <li>
-          <strong>Location rating:</strong>
-          <%= @feedback.location_rating %>
-        </li>
-
-        <li>
-          <strong>Location comment:</strong>
-          <%= @feedback.location_comment %>
-        </li>
-
-        <li>
-          <strong>Testimonial:</strong>
-          <%= @feedback.testimonial %>
-        </li>
-
-      </ul>
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>How did you like the workshop and its content?</h4>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-xs-12 col-md-3">
+            <%= stars(@feedback.content_rating) %>
+          </div>
+          <div class="col-xs-12 col-md-9">
+            <%= @feedback.content_comment %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>How satisfied are you with the trainer?</h4>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-xs-12 col-md-3">
+            <%= stars(@feedback.trainer_rating) %>
+          </div>
+          <div class="col-xs-12 col-md-9">
+            <%= @feedback.trainer_comment %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>How satisfied are you with the location?</h4>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-xs-12 col-md-3">
+            <%= stars(@feedback.location_rating) %>
+          </div>
+          <div class="col-xs-12 col-md-9">
+            <%= @feedback.location_comment %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>Summarize what you have learned and your experiences in one sentence!</h4>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-xs-12">
+            <%= @feedback.testimonial %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="btn-toolbar">
