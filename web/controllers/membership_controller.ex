@@ -15,7 +15,7 @@ defmodule Classlab.MembershipController do
 
     case res do
       %Invitation{} = invitation ->
-        invitation = Repo.preload(invitation, :event)
+        invitation = Repo.preload(invitation, [:event, :role])
 
         render(conn, "new.html", invitation: invitation)
       nil -> handle_error(conn, "Invalid invitation.")

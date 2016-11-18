@@ -47,5 +47,21 @@ defmodule Classlab.Classroom.MembershipControllerTest do
       refute Repo.get(Membership, membership.id)
       refute Repo.get(Invitation, invitation.id)
     end
+
+    test "deletes invitation if only attendee and own membership", %{conn: conn} do
+      event = Factory.insert(:event)
+      membership = Factory.insert(:membership, event: event, user: current_user(conn), role_id: 3)
+      conn = delete conn, classroom_membership_path(conn, :delete, event, membership)
+      assert redirected_to(conn) == account_membership_path(conn, :index)
+    end
+
+    test "not deletes invitation if only attendee and not own membership", %{conn: conn} do
+      event = Factory.insert(:event)
+      other_membership = Factory.insert(:membership, event: event, role_id: 3)
+      membership = Factory.insert(:membership, event: event, user: current_user(conn), role_id: 3)
+      conn = delete conn, classroom_membership_path(conn, :delete, event, other_membership)
+      assert redirected_to(conn) == classroom_membership_path(conn, :index, membership.event)
+      assert get_flash(conn, :error) =~ "Permission denied"
+    end
   end
 end

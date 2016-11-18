@@ -5,7 +5,7 @@ defmodule Classlab.Classroom.MembershipController do
   use Classlab.Web, :controller
   use Classlab.ErrorRescue, from: Ecto.NoResultsError, redirect_to: &page_path(&1, :index)
 
-   plug :restrict_roles, [1, 2] when action in [:delete, :update]
+   plug :restrict_roles, [1, 2] when action in [:update]
 
   def index(conn, _params) do
     event = current_event(conn)
@@ -75,27 +75,42 @@ defmodule Classlab.Classroom.MembershipController do
 
   def delete(conn, %{"id" => id}) do
     event = current_event(conn)
+
     membership =
       event
       |> assoc(:memberships)
       |> Repo.get!(id)
       |> Repo.preload(:user)
 
-    Repo.delete!(membership)
+    redirect_path =
+      if has_permission?(current_memberships(conn), [1, 2]) do
+        classroom_membership_path(conn, :index, event)
+      else
+        account_membership_path(conn, :index)
+      end
 
-    invitation =
-      Invitation
-      |> Query.where(email: ^membership.user.email)
-      |> Query.where(event_id: ^membership.event_id)
-      |> Repo.one()
+    if has_permission?(current_memberships(conn), [1, 2]) || membership.user.id == current_user(conn).id do
+      Repo.delete!(membership)
 
-    if invitation do
-      Repo.delete!(invitation)
+      invitation =
+        Invitation
+        |> Query.where(email: ^membership.user.email)
+        |> Query.where(event_id: ^membership.event_id)
+        |> Repo.one()
+
+      if invitation do
+        Repo.delete!(invitation)
+      end
+
+      conn
+      |> put_flash(:info, "Membership deleted successfully.")
+      |> redirect(to: redirect_path)
+    else
+      conn
+      |> put_flash(:error, "Permission denied.")
+      |> redirect(to: classroom_membership_path(conn, :index, event))
     end
 
-    conn
-    |> put_flash(:info, "Membership deleted successfully.")
-    |> redirect(to: classroom_membership_path(conn, :index, event))
   end
 
   # Private methods
