@@ -38,7 +38,7 @@ defmodule Classlab.User do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> validate_required([:first_name, :last_name, :email, :access_token, :access_token_expired_at])
+    |> validate_required([:email, :access_token, :access_token_expired_at])
     |> unique_constraint(:email)
     |> unique_constraint(:access_token)
   end
@@ -55,7 +55,7 @@ defmodule Classlab.User do
   def superadmin_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> validate_required([:first_name, :last_name, :email])
+    |> validate_required([:email])
     |> unique_constraint(:email)
   end
 
