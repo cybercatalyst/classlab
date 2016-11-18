@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-header">Attended events</div>
+  <%= if length(@events_as_attendee) > 0 do %>
+    <ul class="list-group list-group-flush">
+      <%= for event <- @events_as_attendee do %>
+        <li class="list-group-item">
+          <%= link event.name, to: classroom_dashboard_path(@conn, :show, event) %>
+          <%= if Calendar.DateTime.before?(event.ends_at, Calendar.DateTime.now_utc()) do %>
+            <span class="float-xs-right tag tag-pill tag-default">Finished</span>
+          <% end %>
+          <%= if Calendar.DateTime.after?(event.ends_at, Calendar.DateTime.now_utc()) && Calendar.DateTime.before?(event.starts_at, Calendar.DateTime.now_utc()) do %>
+            <span class="float-xs-right tag tag-pill tag-success">Running</span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="card-block text-xs-center">There are no attendences, yet</div>
+  <% end %>
+</div>
