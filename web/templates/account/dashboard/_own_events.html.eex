@@ -15,6 +15,6 @@
       <% end %>
     </ul>
   <% else %>
-    <div class="card-block text-xs-center">There are own events, yet</div>
+    <div class="card-block text-xs-center">There are no own events, yet</div>
   <% end %>
 </div>
