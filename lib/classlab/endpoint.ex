@@ -36,7 +36,8 @@ defmodule Classlab.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_classlab_key",
-    signing_salt: "8Okh2oAS"
+    signing_salt: "8Okh2oAS",
+    max_age: 7_776_000
 
   plug Classlab.Router
 end
