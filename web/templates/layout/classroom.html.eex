@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%= render "_head.html", conn: @conn %>
+<%= render "_ga.html", conn: @conn %>
 <body>
   <%= render "classroom_navigation.html", conn: @conn %>
   <%= render "classroom_sidebar.html", conn: @conn %>

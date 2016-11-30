@@ -58,3 +58,7 @@ config :classlab, Classlab.Repo,
   database: get_env("DATABASE_MYSQL_DATABASE") || "classlab_prod",
   hostname: get_env("DATABASE_MYSQL_HOSTNAME") || "localhost",
   pool_size: get_env("DATABASE_MYSQL_POOLSIZE") || 20
+
+# Google Analytics
+config :classlab, :google_analytics,
+  property: get_env("GOOGLE_ANALYTICS_PROPERTY_ID")
