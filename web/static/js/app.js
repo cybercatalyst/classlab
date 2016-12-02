@@ -30,4 +30,5 @@ import './components/delete-modal';
 import './components/markdown-editor';
 import './components/page-reload-socket';
 import './components/form-submit-disabler';
+import './components/highlightjs-initializer';
 
